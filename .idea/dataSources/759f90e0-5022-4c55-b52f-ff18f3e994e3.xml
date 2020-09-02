@@ -860,43 +860,79 @@ SELECT|sys.sys_config:null
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="256" parent="238" name="email">
+    <column id="256" parent="238" name="username">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="257" parent="238" name="email_verified_at">
+    <column id="257" parent="238" name="email">
       <Position>4</Position>
-      <DataType>timestamp|0s</DataType>
-    </column>
-    <column id="258" parent="238" name="password">
-      <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="259" parent="238" name="remember_token">
+    <column id="258" parent="238" name="email_verified_at">
+      <Position>5</Position>
+      <DataType>timestamp|0s</DataType>
+    </column>
+    <column id="259" parent="238" name="password">
       <Position>6</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="260" parent="238" name="tagline">
+      <Position>7</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="261" parent="238" name="location">
+      <Position>8</Position>
+      <DataType>point|0s</DataType>
+    </column>
+    <column id="262" parent="238" name="formatted_address">
+      <Position>9</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="263" parent="238" name="available_to_hire">
+      <Position>10</Position>
+      <DataType>tinyint(1)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="264" parent="238" name="about">
+      <Position>11</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="265" parent="238" name="remember_token">
+      <Position>12</Position>
       <DataType>varchar(100)|0s</DataType>
     </column>
-    <column id="260" parent="238" name="created_at">
-      <Position>7</Position>
+    <column id="266" parent="238" name="created_at">
+      <Position>13</Position>
       <DataType>timestamp|0s</DataType>
     </column>
-    <column id="261" parent="238" name="updated_at">
-      <Position>8</Position>
+    <column id="267" parent="238" name="updated_at">
+      <Position>14</Position>
       <DataType>timestamp|0s</DataType>
     </column>
-    <index id="262" parent="238" name="users_email_unique">
+    <index id="268" parent="238" name="users_username_unique">
+      <ColNames>username</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <index id="269" parent="238" name="users_email_unique">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="263" parent="238" name="PRIMARY">
+    <key id="270" parent="238" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="264" parent="238" name="users_email_unique">
+    <key id="271" parent="238" name="users_username_unique">
+      <ColNames>username</ColNames>
+      <UnderlyingIndexName>users_username_unique</UnderlyingIndexName>
+    </key>
+    <key id="272" parent="238" name="users_email_unique">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>users_email_unique</UnderlyingIndexName>
     </key>

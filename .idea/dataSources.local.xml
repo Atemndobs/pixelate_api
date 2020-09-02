@@ -11,10 +11,7 @@
       <user-name>atem</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema">
-            <name qname="laravel" />
-            <name qname="pixelate" />
-          </node>
+          <node kind="schema" qname="pixelate" />
         </introspection-scope>
       </schema-mapping>
     </data-source>

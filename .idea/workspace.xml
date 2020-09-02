@@ -119,6 +119,11 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
       <path value="$PROJECT_DIR$/vendor/namshi/jose" />
+      <path value="$PROJECT_DIR$/vendor/grimzy/laravel-mysql-spatial" />
+      <path value="$PROJECT_DIR$/vendor/geo-io/wkb-parser" />
+      <path value="$PROJECT_DIR$/vendor/geo-io/interface" />
+      <path value="$PROJECT_DIR$/vendor/jmikola/geojson" />
+      <path value="$PROJECT_DIR$/vendor/laravel/ui" />
     </include_path>
   </component>
   <component name="ProjectId" id="1gxFPbXlKAiakAfaGs6Yt479wv0" />
@@ -159,7 +164,7 @@
       <option name="presentableId" value="Default" />
       <updated>1599048320991</updated>
       <workItem from="1599048323589" duration="6079000" />
-      <workItem from="1599062901792" duration="3253000" />
+      <workItem from="1599062901792" duration="9183000" />
     </task>
     <servers />
   </component>
@@ -175,10 +180,10 @@
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
     <state x="459" y="346" key="#Plugins/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599062948763" />
-    <state x="452" y="367" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599062123350">
+    <state x="452" y="367" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599072122337">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
-    <state x="452" y="367" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599062123350" />
+    <state x="452" y="367" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599072122337" />
     <state x="671" y="373" key="#com.intellij.ide.util.MemberChooser" timestamp="1599066430158">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
@@ -187,9 +192,13 @@
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
     <state x="540" y="444" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599062466077" />
-    <state width="273" height="539" key="HiddenNamespacesPopup" timestamp="1599062300904">
+    <state x="597" y="460" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599074619144">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
-    <state width="273" height="539" key="HiddenNamespacesPopup/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599062300904" />
+    <state x="597" y="460" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599074619144" />
+    <state width="273" height="539" key="HiddenNamespacesPopup" timestamp="1599072128135">
+      <screen x="0" y="0" width="3440" height="1410" />
+    </state>
+    <state width="273" height="539" key="HiddenNamespacesPopup/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599072128135" />
   </component>
 </project>
