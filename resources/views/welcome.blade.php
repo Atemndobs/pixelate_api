@@ -86,7 +86,7 @@
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://localhost:8000/api">API</a>
+                    <a href="https://localhost:8000/api/settings/profile">Profile</a>
                 </div>
             </div>
         </div>

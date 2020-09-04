@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPassword;
+use App\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
-    use Notifiable;
+    use Notifiable, SpatialTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +20,19 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'tagline',
+        'about',
+        'username',
+        'location',
+        'available_to_hire',
+        'formatted_address'
+    ];
+
+    protected $spatialFields = [
+        'location'
     ];
 
     /**
@@ -53,8 +68,22 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return array
      */
+
+    /**
+     *
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail());
+    }
+
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function setPasswordNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
     }
 }

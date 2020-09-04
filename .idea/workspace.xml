@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2decc3dc-ed45-428f-bfe1-93f9ee504671" name="Default Changelist" comment="" />
+    <list default="true" id="2decc3dc-ed45-428f-bfe1-93f9ee504671" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ResetPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ResetPasswordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/VerificationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/VerificationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/mail.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/mail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,6 +22,9 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -119,9 +134,15 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
       <path value="$PROJECT_DIR$/vendor/namshi/jose" />
+      <path value="$PROJECT_DIR$/vendor/grimzy/laravel-mysql-spatial" />
+      <path value="$PROJECT_DIR$/vendor/geo-io/wkb-parser" />
+      <path value="$PROJECT_DIR$/vendor/geo-io/interface" />
+      <path value="$PROJECT_DIR$/vendor/jmikola/geojson" />
+      <path value="$PROJECT_DIR$/vendor/laravel/ui" />
     </include_path>
   </component>
   <component name="ProjectId" id="1gxFPbXlKAiakAfaGs6Yt479wv0" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -136,6 +157,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -159,7 +181,9 @@
       <option name="presentableId" value="Default" />
       <updated>1599048320991</updated>
       <workItem from="1599048323589" duration="6079000" />
-      <workItem from="1599062901792" duration="3253000" />
+      <workItem from="1599062901792" duration="9341000" />
+      <workItem from="1599126832223" duration="26121000" />
+      <workItem from="1599210113799" duration="18564000" />
     </task>
     <servers />
   </component>
@@ -175,21 +199,46 @@
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
     <state x="459" y="346" key="#Plugins/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599062948763" />
-    <state x="452" y="367" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599062123350">
+    <state x="452" y="367" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599127100522">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
-    <state x="452" y="367" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599062123350" />
-    <state x="671" y="373" key="#com.intellij.ide.util.MemberChooser" timestamp="1599066430158">
+    <state x="452" y="367" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599127100522" />
+    <state x="671" y="373" key="#com.intellij.ide.util.MemberChooser" timestamp="1599216490564">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
-    <state x="671" y="373" key="#com.intellij.ide.util.MemberChooser/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599066430158" />
+    <state x="671" y="373" key="#com.intellij.ide.util.MemberChooser/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599216490564" />
+    <state x="375" y="278" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1599166146180" />
     <state x="540" y="444" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1599062466077">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
     <state x="540" y="444" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599062466077" />
-    <state width="273" height="539" key="HiddenNamespacesPopup" timestamp="1599062300904">
+    <state x="597" y="460" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599235043642">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
-    <state width="273" height="539" key="HiddenNamespacesPopup/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599062300904" />
+    <state x="597" y="460" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599235043642" />
+    <state x="640" y="636" key="#com.jetbrains.php.lang.intentions.PhpImportClassDialog#" timestamp="1599216751179">
+      <screen x="0" y="0" width="3440" height="1410" />
+    </state>
+    <state x="640" y="636" key="#com.jetbrains.php.lang.intentions.PhpImportClassDialog#/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599216751179" />
+    <state width="273" height="539" key="HiddenNamespacesPopup" timestamp="1599126970112">
+      <screen x="0" y="0" width="3440" height="1410" />
+    </state>
+    <state width="273" height="539" key="HiddenNamespacesPopup/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599126970112" />
+    <state x="677" y="605" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599215647192">
+      <screen x="0" y="0" width="3440" height="1410" />
+    </state>
+    <state x="677" y="605" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599215647192" />
+    <state x="568" y="425" width="692" height="714" key="find.popup" timestamp="1599225715590">
+      <screen x="0" y="0" width="3440" height="1410" />
+    </state>
+    <state x="568" y="425" width="692" height="714" key="find.popup/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599225715590" />
+    <state x="516" y="337" width="672" height="677" key="run.anything.popup" timestamp="1599149189493">
+      <screen x="0" y="0" width="3440" height="1410" />
+    </state>
+    <state x="516" y="337" width="672" height="677" key="run.anything.popup/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599149189493" />
+    <state x="523" y="323" width="672" height="678" key="search.everywhere.popup" timestamp="1599138069022">
+      <screen x="0" y="0" width="3440" height="1410" />
+    </state>
+    <state x="523" y="323" width="672" height="678" key="search.everywhere.popup/-1920.-296.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1599138069022" />
   </component>
 </project>
