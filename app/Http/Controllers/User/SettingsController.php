@@ -8,12 +8,15 @@ use App\Rules\CheckSamePassword;
 use App\Rules\MatchOldPassword;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SettingsController extends Controller
 {
     public function updateProfile(Request $request)
     {
         $user = auth()->user();
+
+
 
 
             $this->validate($request, [
@@ -28,6 +31,23 @@ class SettingsController extends Controller
 
 
         $location = new Point($request->location['latitude'], $request->location['longitude']);
+
+        $lat = $location->getLat();
+        $long = $location->getLng();
+
+        // CREATE SPATIAL REFERENCE SYSTEM 104326 NAME 'WGS 84 N-E' DEFINITION 'GEOGCS["WGS 84",DATUM["World Geodetic System 1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.017453292519943278,AUTHORITY["EPSG","9122"
+
+       # $query = "update `users` set `location` = ST_GeomFromText('POINT($lat $long)') where `id` = $user->id";
+        $query = "update `users` set `location` = ST_GeomFromText('POINT($lat $long)') where `id` = $user->id";
+
+
+
+        DB::statement(
+            $query
+        );
+
+        $data = DB::select('select * from users');
+
 
 
         $user->update([

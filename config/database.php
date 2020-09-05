@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Str;
 
+
+//dd(env('DB_PASSWORD'));
 return [
 
     /*
