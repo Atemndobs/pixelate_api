@@ -27,7 +27,7 @@ class VerifyEmail extends Notification
             ['user' => $notifiable->id]
         );
 
-       # return $url;
-        return str_replace(url('/api'), $appUrl, $url);
+        return $url;
+       # return str_replace(url('/api'), $appUrl, $url);
     }
 }
