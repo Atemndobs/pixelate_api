@@ -16,7 +16,9 @@
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.2",
-        "tymon/jwt-auth": "^1.0.0-rc.5"
+        "phayes/geophp": "^1.2",
+        "tymon/jwt-auth": "^1.0.0-rc.5",
+        "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
