@@ -9,7 +9,7 @@ class MeController extends Controller
 {
     public function getMe()
     {
-        dd(auth());
+
         if (auth()->check()) {
             return response()->json(["user" => auth()->user()], 200);
         }
