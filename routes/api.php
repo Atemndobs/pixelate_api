@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 // Public route
 # Route::get('me','User\MeController@getMe');
-
+Route::get('comments','Designs\CommentController@index');
 // get designs
 Route::get('designs',  'Designs\DesignController@index');
 Route::get('designs/{id}',  'Designs\DesignController@findDesign');
@@ -13,6 +13,10 @@ Route::get('designs/{id}',  'Designs\DesignController@findDesign');
 // get users
 Route::get('users',  'User\UserController@index');
 Route::get('users/{id}',  'User\UserController@findUser');
+
+// get Teams by Slug
+//Route::get('teams/{slug}','Teams\TeamController@findBySlug');
+
 
 // Route group for Authenticated users only
 Route::group(['middleware' => ['auth:api']], function (){
@@ -26,6 +30,39 @@ Route::group(['middleware' => ['auth:api']], function (){
     Route::put('designs/{id}', 'Designs\DesignController@update');
     Route::delete('designs/{id}', 'Designs\DesignController@destroy');
 
+    //comments
+    Route::post('designs/{id}/comments','Designs\CommentController@store');
+    Route::put('comments/{id}','Designs\CommentController@update');
+    Route::delete('comments/{id}','Designs\CommentController@destroy');
+
+    // likes and Unlikes
+    Route::post('designs/{id}/like','Designs\DesignController@like');
+    Route::get('designs/{id}/liked','Designs\DesignController@checkIfUserHasLiked');
+
+    // Teams
+    Route::get('teams','Teams\TeamController@index');
+    Route::post('teams','Teams\TeamController@store');
+    Route::get('teams/{id}','Teams\TeamController@findById');
+    Route::get('user/teams','Teams\TeamController@fetchUserTeams');
+    Route::put('teams/{id}','Teams\TeamController@update');
+    Route::delete('teams/{id}','Teams\TeamController@destroy');
+    Route::delete('teams/{team_id}/user/{user_id}','Teams\TeamController@removeFromTeam');
+
+    //invitations
+    Route::get('invitations','Teams\InvitationController@index');
+    Route::post('invitation/{teamId}','Teams\InvitationController@invite');
+    Route::post('invitation/{id}/resend','Teams\InvitationController@resend');
+    Route::post('invitation/{id}/respond','Teams\InvitationController@respond');
+    Route::delete('invitations/{id}','Teams\InvitationController@destroy');
+
+    //chats
+
+    Route::post('chats','Chats\ChatController@sendMessage');
+    Route::get('chats','Chats\ChatController@getUserChats');
+    Route::get('chats/{id}/messages','Chats\ChatController@getChatMessages');
+    Route::put('chats/{id}/markAsRead','Chats\ChatController@markAsRead');
+    Route::delete('message/{id}','Chats\ChatController@destroyMessage');
+
 });
 
 // Route group for guests only
@@ -38,3 +75,4 @@ Route::group(['middleware' => ['guest:api']], function (){
     Route::post('password/reset','Auth\ResetPasswordController@reset');
 
 });
+

@@ -5,8 +5,11 @@ namespace App\Repositories\Eloquent;
 
 
 use App\Exceptions\ModelNotDefined;
+use App\Repositories\Contracts\BaseRepositoryInterface;
+use App\Repositories\Criteria\CriteriaInterface;
+use Illuminate\Support\Arr;
 
-abstract class BaseRepository implements BaseRepositoryInterface
+abstract class BaseRepository implements BaseRepositoryInterface, CriteriaInterface
 {
     protected $model;
 
@@ -22,7 +25,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function all()
     {
-        return $this->model->all();
+        return $this->model->get();
     }
 
     public function find($id)
@@ -35,10 +38,13 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this->model->where($column, $value)->get();
     }
 
+    // You could do FindWhereFirstOrFail and FindWhereFirst
     public function findWhereFirst($column, $value)
     {
         return $this->model->where($column, $value)->firstOrFail();
     }
+
+
 
     public function paginate($perPage = 10)
     {
@@ -53,7 +59,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
     public function update($id, array $data)
     {
         $record = $this->find($id);
-        return $record->update($data);
+        $record->update($data);
+        return $record;
     }
 
     public function delete($id)
@@ -62,13 +69,21 @@ abstract class BaseRepository implements BaseRepositoryInterface
        return $record->delete();
     }
 
-
-    protected function getModelClass()
+    public function getModelClass()
     {
         if (!method_exists($this, 'model')){
             throw new ModelNotDefined();
         }
 
         return app()->make($this->model());
+    }
+
+    public function withCriteria(...$criteria){
+
+        $criteria = Arr::flatten($criteria);
+        foreach ($criteria as $criterion){
+            $this->model = $criterion->apply($this->model);
+        }
+        return $this;
     }
 }

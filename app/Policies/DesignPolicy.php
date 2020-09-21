@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class DesignPolicy
 {
-    use HandlesAuthorization;
 
     /**
      * Determine whether the user can view any models.
