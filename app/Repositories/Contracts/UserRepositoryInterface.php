@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Contracts;
 
+use Illuminate\Http\Request;
+
 interface UserRepositoryInterface
 {
     /**
@@ -33,4 +35,6 @@ interface UserRepositoryInterface
     public function model();
 
     public function findByEmail($email);
+
+    public function search(Request $request);
 }

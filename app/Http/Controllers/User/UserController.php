@@ -40,4 +40,22 @@ class UserController extends Controller
         $user= $this->userRepository->find($id);
         return new UserResource($user);
     }
+
+    public function search(Request $request)
+    {
+        $designers = $this->userRepository->search($request);
+
+        $all_results = [];
+        foreach ($designers as $designer){
+            $all_results[] = $designer[0];
+        }
+      return response()->json(['data' => $all_results], 200);
+    }
+
+    public function findByUserName($username)
+    {
+        $user = $this->userRepository->findWhereFirst('username', $username);
+
+        return new UserResource($user);
+    }
 }

@@ -9,13 +9,21 @@ Route::get('comments','Designs\CommentController@index');
 // get designs
 Route::get('designs',  'Designs\DesignController@index');
 Route::get('designs/{id}',  'Designs\DesignController@findDesign');
+Route::get('designs/slug/{slug}',  'Designs\DesignController@findBySlug');
+
+//Search designs
+Route::get('search/designs',  'Designs\DesignController@search');
+Route::get('search/designers',  'User\UserController@search');
 
 // get users
 Route::get('users',  'User\UserController@index');
+Route::get('user/{username}',  'User\UserController@findByUserName');
 Route::get('users/{id}',  'User\UserController@findUser');
+Route::get('users/{id}/designs',  'Designs\DesignController@getForUser');
 
-// get Teams by Slug
-//Route::get('teams/{slug}','Teams\TeamController@findBySlug');
+// Teams
+Route::get('teams/slug/{slug}','Teams\TeamController@findBySlug');
+Route::get('teams/{id}/designs','Designs\DesignController@getForTeam');
 
 
 // Route group for Authenticated users only

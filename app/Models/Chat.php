@@ -30,6 +30,13 @@ class Chat extends Model
             ->where('user_id', '<>', $user_id)
             ->count();
     }
+    public function unreadMessages($user_id)
+    {
+        return $this->messages()
+            ->whereNull('last_read')
+            ->where('user_id', '<>', $user_id)
+            ->count();
+    }
 
     public function markAsReadForUser($user_id)
     {

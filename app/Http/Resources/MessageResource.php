@@ -18,14 +18,19 @@ class MessageResource extends JsonResource
             'id' => $this->id,
             'body' => $this->body,
             'last_read' => $this->last_read,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'deleted' => $this->trashed(),
+            "dates" => [
+                "created_at_human" => $this->created_at->diffForHumans(),
+                "created_at" => $this->created_at,
+            ],
+            "deleted_at" => $this->trashed()? $this->deleted_at->diffForHumans():null,
+
 
             'user_id' => $this->user_id,
             'chat_id' => $this->chat_id,
 
             'chat' => new ChatResource($this->whenLoaded('chat')),
-            'sender' => new UserResource($this->whenLoaded('sender')),
+            'sender' => new UserResource($this->sender),
         ];
     }
 }

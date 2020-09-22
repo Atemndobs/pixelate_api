@@ -296,6 +296,7 @@ namespace App\Models{
  * @property-read int|null $teams_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Chat[] $chats
  * @property-read int|null $chats_count
+ * @property-read mixed $photo_url
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invitation[] $invitations
  * @property-read int|null $invitations_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
