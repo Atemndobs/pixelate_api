@@ -9,7 +9,6 @@ use App\Rules\MatchOldPassword;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use PhpParser\Node\Expr\Cast;
 
 class SettingsController extends Controller
 {
@@ -44,7 +43,8 @@ class SettingsController extends Controller
             'location' => DB::raw($location)
         ]);
 
-        $query = "SELECT ST_AsGeoJSON(location) as location FROM `users`";
+        $query = "SELECT ST_AsGeoJSON(location) as location FROM `users` where `users`.id = $user->id ";
+
         $updated_location = DB::select($query);
 
         $updated_user = new UserResource($user);

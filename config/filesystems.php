@@ -13,6 +13,7 @@ return [
     |
     */
 
+
     'default' => env('FILESYSTEM_DRIVER', 'local'),
 
     /*
@@ -57,13 +58,25 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-            'endpoint' => env('AWS_ENDPOINT'),
+            'key' => 'AKIA2RSXVEBAEUFEDIEY',
+            'secret' => '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',
+            'region' => "eu-central-1",
+            'bucket' => 'pixelat',
+            'visibility' => 'public',
+
+//            'driver' => 's3',
+//            'key' => env('AWS_ACCESS_KEY_ID'),
+//            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+//            'region' => env('AWS_DEFAULT_REGION'),
+//            'bucket' => env('AWS_BUCKET'),
         ],
+
+        'tmp' => [
+            'driver' => 'local',
+            'root' => storage_path(),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ]
 
     ],
 
