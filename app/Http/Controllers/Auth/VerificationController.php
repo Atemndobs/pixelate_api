@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Auth\Events\Verified;
 // use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
@@ -24,23 +25,17 @@ class VerificationController extends Controller
 
    // use VerifiesEmails;
 
-    /**
-     * Where to redirect users after verification.
-     *
-     * @var string
-     */
-    //protected $redirectTo = RouteServiceProvider::HOME;
+    protected UserRepositoryInterface $userRepository;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * VerificationController constructor.
+     * @param UserRepositoryInterface $userRepository
      */
-    public function __construct()
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-      //  $this->middleware('signed')->only('verify');
-      //  $this->middleware('throttle:6,1')->only('verify', 'resend');
+        $this->userRepository = $userRepository;
     }
+
 
     public function verify(Request $request, User $user)
     {
@@ -71,7 +66,8 @@ class VerificationController extends Controller
             'email' => ['email', 'required']
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = $this->userRepository->findWhereFirst('email',$request->email);
+        // $user = User::where('email', $request->email)->first();
         if (!$user){
             return response()->json(["errors" => [
                 "email" => "No user has be found with this email address"

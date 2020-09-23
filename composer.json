@@ -8,23 +8,27 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.4",
+        "ext-json": "*",
+        "cviebrock/eloquent-taggable": "^7.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
-        "grimzy/laravel-mysql-spatial": "^3.0",
-        "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "^7.24",
+        "grimzy/laravel-mysql-spatial": "3.0.x-dev",
+        "guzzlehttp/guzzle": "^7.0",
+        "intervention/image": "^2.5",
+        "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.2",
-        "phayes/geophp": "^1.2",
-        "tymon/jwt-auth": "^1.0.0-rc.5",
-        "ext-json": "*"
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "tymon/jwt-auth": "^1.0.0-rc.5"
     },
     "require-dev": {
-        "facade/ignition": "^2.0",
+        "barryvdh/laravel-debugbar": "^3.5",
+        "barryvdh/laravel-ide-helper": "^2.8",
+        "facade/ignition": "^2.3",
         "fzaninotto/faker": "^1.9.1",
         "mockery/mockery": "^1.3.1",
-        "nunomaduro/collision": "^4.1",
+        "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^8.5"
     },
     "config": {
@@ -63,6 +67,12 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "ide-helper": [
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:eloquent",
+            "@php artisan ide-helper:models"
         ]
     }
 }

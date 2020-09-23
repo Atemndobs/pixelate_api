@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -32,7 +36,7 @@ class Handler extends ExceptionHandler
      * @param  \Throwable  $exception
      * @return void
      *
-     * @throws \Exception
+     * @throws \Exception|Throwable
      */
     public function report(Throwable $exception)
     {
@@ -42,14 +46,31 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \Throwable  $exception
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @throws \Throwable
      */
     public function render($request, Throwable $exception)
     {
+
+        if ($exception instanceof AuthorizationException && $request->expectsJson()){
+                return response()->json(["errors" => [
+                        "message" => "Your are not authorized to access this resource"
+                    ]], 403);
+        }
+
+        if ($exception instanceof ModelNotFoundException ){
+                     return response()->json(["errors" => [
+                    "message" => "Results was not found in Database"
+                ]], 404);
+        }
+        if ($exception instanceof ModelNotDefined ){
+                     return response()->json(["errors" => [
+                    "message" => "No Model Defined"
+                ]], 500);
+        }
         return parent::render($request, $exception);
     }
 }
