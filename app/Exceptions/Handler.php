@@ -71,6 +71,15 @@ class Handler extends ExceptionHandler
                     "message" => "No Model Defined"
                 ]], 500);
         }
+        if ($exception instanceof QueryException) {
+            $errorCode = $exception->errorInfo[1];
+            if ($errorCode === 1451) {
+                return $this->errorResponse(
+                    'Cannot remove this resource permanently. It is related with another resource',
+                    409
+                );
+            }
+        }
         return parent::render($request, $exception);
     }
 }

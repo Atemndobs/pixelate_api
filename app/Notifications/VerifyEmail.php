@@ -20,6 +20,7 @@ class VerifyEmail extends Notification
     protected function verificationUrl($notifiable)
     {
         $appUrl = config('app.client_url', config('app.url'));
+        $quasar_app_Url = config('quasar_app_url', config('app.url'));
 
         $url = URL::temporarySignedRoute(
             'verification.verify',
@@ -27,7 +28,10 @@ class VerifyEmail extends Notification
             ['user' => $notifiable->id]
         );
 
-        return $url;
-       # return str_replace(url('/api'), $appUrl, $url);
+        $url_nuxt = str_replace(url('/api'), $appUrl, $url);
+        $url_qsar= str_replace(url('/api'), "http://localhost:8080", $url);
+
+      //  return $url;
+        return $url_qsar;
     }
 }

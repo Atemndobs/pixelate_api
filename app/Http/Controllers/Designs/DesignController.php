@@ -42,6 +42,7 @@ class DesignController extends Controller
            new EagerLoad(['user', 'comments'])
            # new ForUser($this->findDesign(1)->user_id)
         ])->all();
+
         return DesignResource::collection($designs);
     }
 

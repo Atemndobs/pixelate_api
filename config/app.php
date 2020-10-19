@@ -54,6 +54,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost:8000/api'),
     'client_url' => env('CLIENT_URL', 'http://localhost:3000'),
+    'quasar_app_url' => env('QUASAR_URL', 'http://localhost:8080'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -174,9 +175,12 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
 
 
     ],

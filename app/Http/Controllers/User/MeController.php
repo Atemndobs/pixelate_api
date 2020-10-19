@@ -11,7 +11,7 @@ class MeController extends Controller
     {
 
         if (auth()->check()) {
-            return response()->json(["user" => auth()->user()], 200);
+            return response()->json(["data" => auth()->user()], 200);
         }
         return response()->json(null, 401);
     }

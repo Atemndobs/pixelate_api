@@ -64,11 +64,12 @@
         </style>
     </head>
     <body>
+
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/dashboard') }}">Dashboard</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -84,9 +85,26 @@
                     pixelate
                 </div>
 
+{{--                <form action="{{route('look')}}" method="post" autocomplete="off">
+                    {!! csrf_field() !!}
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="term">
+
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" >
+                                    Search
+                                    <i class="fa fa-fw fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>--}}
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://localhost:8000/api/settings/profile">Profile</a>
+                    <a href="http://localhost:8080/login">Quasar</a>
+                    <a href="http://localhost:3000">Nuxt</a>
+                    <a href="http://localhost:8000/horizon/dashboard">Horizon</a>
                 </div>
             </div>
         </div>

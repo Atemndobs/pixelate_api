@@ -61,6 +61,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return $this->userRepository->create([
             'name' => $data['name'],
             'username' => $data['username'],

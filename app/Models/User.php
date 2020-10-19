@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Scout\Searchable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 
@@ -76,7 +77,7 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
  */
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
-    use Notifiable, SpatialTrait;
+    use Notifiable, SpatialTrait, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -237,5 +238,19 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         })->first();
 
         return $chat;
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // Customize array...
+
+        return $array;
     }
 }

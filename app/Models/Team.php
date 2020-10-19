@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 /**
  * App\Models\Team
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Team extends Model
 {
+    use Searchable;
     protected $fillable = [
         'name',
         'owner_id',
