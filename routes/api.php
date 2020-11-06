@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('comments','Designs\CommentController@index');
 // get designs
 Route::get('designs',  'Designs\DesignController@index');
+Route::get('designs/all',  'Designs\DesignController@allDesigns');
 Route::get('designs/{id}',  'Designs\DesignController@findDesign');
 Route::get('designs/slug/{slug}',  'Designs\DesignController@findBySlug');
 
@@ -84,4 +85,5 @@ Route::group(['middleware' => ['guest:api']], function (){
     Route::post('password/reset','Auth\ResetPasswordController@reset');
 
 });
+
 

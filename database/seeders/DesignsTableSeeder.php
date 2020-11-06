@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TeamsTableSeeder extends Seeder
+class DesignsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,7 @@ class TeamsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Team::class, 10)->create();
+
+     //   \App\Models\Design::factory()->count(10)->create();
     }
 }

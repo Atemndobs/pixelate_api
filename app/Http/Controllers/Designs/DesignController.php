@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use function Symfony\Component\String\s;
 
+/**
+ * @OA\Info(title="Pixelate", version="0.1")
+ */
 class DesignController extends Controller
 {
-
     /**
      * @var DesignRepositoryInterface
      */
@@ -33,6 +35,15 @@ class DesignController extends Controller
     }
 
 
+    /**
+     * @OA\Get(
+     *     path="/api/designs",
+     *     summary="Get designs that are Live",
+     *     description="Get all designs available online (set to live )",
+     *     tags={"Design"},
+     *     @OA\Response(response="200", description="An example resource")
+     * )
+     */
     public function index()
     {
 
@@ -42,6 +53,30 @@ class DesignController extends Controller
            new EagerLoad(['user', 'comments'])
            # new ForUser($this->findDesign(1)->user_id)
         ])->all();
+
+
+        return DesignResource::collection($designs);
+    }
+
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/designs/all",
+     *     summary="Get all designs",
+     *     description="Get all designs available",
+     *     tags={"Design"},
+     *     @OA\Response(response="200", description="An example resource")
+     * )
+     */
+    public function allDesigns()
+    {
+
+        $designs = $this->designRepository->withCriteria([
+            new LatestFirst(),
+           new EagerLoad(['user', 'comments'])
+        ])->all();
+
 
         return DesignResource::collection($designs);
     }

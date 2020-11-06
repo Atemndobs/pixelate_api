@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Notifications\ResetPassword;
 use App\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -77,7 +78,7 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
  */
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
-    use Notifiable, SpatialTrait, Searchable;
+    use Notifiable, SpatialTrait, HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -93,7 +94,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'username',
         'location',
         'available_to_hire',
-        'formatted_address'
+        'formatted_address',
+        'trade_id'
     ];
 
     /**
@@ -125,6 +127,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'photo_url'
     ];
 
+    public function trade()
+    {
+        return $this->hasMany(Trade::class);
+    }
     public function getPhotoUrlAttribute()
     {
         return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'jpg?s=200&d=mm';

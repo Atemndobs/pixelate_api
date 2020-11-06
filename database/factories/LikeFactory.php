@@ -1,18 +1,32 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Models\Like;
-use Faker\Generator as Faker;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Like::class, function (Faker $faker) {
-    for ($i= 1; $i <= 20; $i++) {
+class LikeFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Like::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
         return [
-         //   'id' => $faker->numberBetween(1,20),
-            'user_id' => factory(\App\Models\User::class)->create(),
+            //   'id' => $faker->numberBetween(1,20),
+            'user_id' => User::factory(),
             'likeable_id' => 1,
             'likeable_type' => 'App\\Models\\Design',
         ];
     }
-
-});
+}

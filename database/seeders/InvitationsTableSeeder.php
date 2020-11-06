@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class JohnDoesTableSeeder extends Seeder
+class InvitationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class JohnDoesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\User::class)->create();
+        \App\Models\Invitation::factory()->count(10)->create();
     }
 }

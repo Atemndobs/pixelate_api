@@ -21,6 +21,7 @@ class CreateDesignsTable extends Migration
             $table->string('description')->nullable();
             $table->string('slug')->nullable();
             $table->boolean('is_live')->default(false);
+            $table->foreignId('trade_id')->nullable()->index();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });

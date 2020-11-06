@@ -1,8 +1,12 @@
 <?php
 
+namespace Database\Seeders;
+
+
+use App\Models\Trade;
 use Illuminate\Database\Seeder;
 
-class CommentsTableSeeder extends Seeder
+class TradeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +15,7 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Comment::class, 20)->create();
+        //
+        Trade::factory()->count(5)->create();
     }
 }

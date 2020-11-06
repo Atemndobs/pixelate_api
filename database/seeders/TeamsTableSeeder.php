@@ -1,8 +1,10 @@
 <?php
+namespace Database\Seeders;
 
+use App\Models\Team;
 use Illuminate\Database\Seeder;
 
-class DesignsTableSeeder extends Seeder
+class TeamsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +13,6 @@ class DesignsTableSeeder extends Seeder
      */
     public function run()
     {
-
-        factory(\App\Models\Design::class, 20)->create();
+        Team::factory()->count(10)->create();
     }
 }

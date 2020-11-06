@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\Likeable;
 use Cviebrock\EloquentTaggable\Taggable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
@@ -59,7 +60,7 @@ use Laravel\Scout\Searchable;
  */
 class Design extends Model
 {
-    use Taggable, Likeable, Searchable;
+    use Taggable, Likeable, HasFactory;
 
 
     protected $fillable=[
@@ -72,7 +73,8 @@ class Design extends Model
         'close_to_comment',
         'is_live',
         'upload_successful',
-        'disk'
+        'disk',
+        'trade_id'
     ];
 
     public function user()
@@ -85,6 +87,10 @@ class Design extends Model
         return $this->belongsTo(Team::class);
     }
 
+    public function trade()
+    {
+        return $this->belongsTo(Trade::class);
+    }
 
     public function getImagesAttribute()
     {

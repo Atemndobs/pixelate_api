@@ -2,17 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\Team;
+use App\Models\Chat;
+use App\Models\Participant;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TeamFactory extends Factory
+class ParticipantFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Team::class;
+    protected $model = Participant::class;
 
     /**
      * Define the model's default state.
@@ -22,10 +24,9 @@ class TeamFactory extends Factory
     public function definition()
     {
         return [
-            //   'id' => $faker->unique()->numberBetween(1, 10),
-            'name' =>$this->faker->unique()->firstName,
-            'slug' => $this->faker->slug,
-            'owner_id' => $this->faker->unique()->numberBetween(1, 10)
+            'id'=> $this->faker->uuid,
+           // 'user_id'=>User::factory(),
+            'chat_id' => Chat::factory(),
         ];
     }
 }

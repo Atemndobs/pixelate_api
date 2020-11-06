@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ChatsTableSeeder extends Seeder
+class MessagesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class ChatsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Message::factory()->count(3)->create();
     }
 }

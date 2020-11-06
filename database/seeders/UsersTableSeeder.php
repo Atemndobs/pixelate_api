@@ -30,10 +30,6 @@ class UsersTableSeeder extends Seeder
 
         $this->command->info('Users and Films Created!');*/
 
-
-
-
-        factory(\App\Models\User::class)->create();
-       // factory(\App\Models\User::class, 10)->create();
+      //  \App\Models\User::factory()->count(10)->create();
     }
 }
