@@ -39,9 +39,23 @@ class DesignController extends Controller
      *     summary="Get designs that are Live",
      *     description="Get all designs available online (set to live )",
      *     tags={"Design"},
-     *     @OA\Response(response="200", description="An example resource")
+     *      @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *            @OA\Property(property="data", type="object", ref="#/components/schemas/Design")
+     *             )
+     *          ),
+     *      @OA\Response(
+     *         response=404,
+     *         description="UDesign Not found",
+     *         @OA\JsonContent(
+     *            @OA\Property(property="message", type="string", example="Not Found"),
+     *         )
+     *      )
      * )
      */
+
     public function index()
     {
 
@@ -63,7 +77,20 @@ class DesignController extends Controller
      *     summary="Get all designs",
      *     description="Get all designs available",
      *     tags={"Design"},
-     *     @OA\Response(response="200", description="An example resource")
+     *      @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *            @OA\Property(property="data", type="object", ref="#/components/schemas/Design")
+     *             )
+     *          ),
+     *      @OA\Response(
+     *         response=404,
+     *         description="UDesign Not found",
+     *         @OA\JsonContent(
+     *            @OA\Property(property="message", type="string", example="Not Found"),
+     *         )
+     *      )
      * )
      */
     public function allDesigns()

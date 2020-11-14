@@ -17,6 +17,30 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 /**
  * App\Models\User
  *
+ * @OA\Schema(
+ *      required={"password"},
+ *      @OA\Xml(name="User"),
+ *      @OA\Property(property="id", type="integer", readOnly="true", example="1"),
+ *      @OA\Property(property="email", type="string", readOnly="true", format="email", description="User unique email address", example="fanny256@email.com"),
+ *      @OA\Property(property="email_verified_at", type="string", readOnly="true", format="date-time", description="Datetime marker of verification status", example="2019-02-25 12:59:20"),
+ *      @OA\Property(property="name", type="string", maxLength=32, example="Mittie Morissette"),
+ *      @OA\Property(property="username", type="string", maxLength=32, example="pierce"),
+ *      @OA\Property(property="tagline:", type="string", maxLength=32, example="Producer:"),
+ *      @OA\Property(property="location", type="object",
+ *          @OA\Property(property="type",type="string",example="point"),
+ *          @OA\Property(property="coordinates",
+ *              example={8.503972,51.017243}
+ *          ),
+ *      ),
+ *      @OA\Property(property="available_to_hire", type="boolean", example=1 ),
+ *      @OA\Property(property="about", type="string", example="VERY deeply with a soldier on each." ),
+ *      @OA\Property(property="formatted_address", example="811 Sibyl Bypass Suite 783\n New Rita, AL 48220-0930" ),
+ *      @OA\Property(property="created_dates", type="object",
+ *          @OA\Property(property="created_at", ref="#/components/schemas/BaseModel/properties/created_at"),
+ *          @OA\Property(property="updated_at", ref="#/components/schemas/BaseModel/properties/updated_at"),
+ *      ),
+ * )
+ *
  * @property int $id
  * @property string $name
  * @property string $username

@@ -15,7 +15,35 @@
                 "operationId": "App\\Http\\Controllers\\Designs\\DesignController::index",
                 "responses": {
                     "200": {
-                        "description": "An example resource"
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Design"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "UDesign Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -30,8 +58,317 @@
                 "operationId": "App\\Http\\Controllers\\Designs\\DesignController::allDesigns",
                 "responses": {
                     "200": {
-                        "description": "An example resource"
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Design"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "UDesign Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BaseModel": {
+                "properties": {
+                    "created_at": {
+                        "description": "Initial creation timestamp",
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "2 days ago"
+                    },
+                    "updated_at": {
+                        "description": "Last update timestamp",
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "2 days ago"
+                    },
+                    "deleted_at": {
+                        "description": "Soft delete timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    }
+                },
+                "type": "object"
+            },
+            "Comment": {
+                "properties": {
+                    "id": {
+                        "description": "App\\Models\\Comment",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "created_dates": {
+                        "description": "App\\Models\\Comment",
+                        "properties": {
+                            "created_at_human": {
+                                "description": "Date Created formatted",
+                                "example": "52 minutes ago"
+                            },
+                            "created_at": {
+                                "description": "Raw unfarmatted Date ",
+                                "example": "2020-11-09T20:04:11.000000Z"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "updated_dates": {
+                        "description": "App\\Models\\Comment",
+                        "properties": {
+                            "updated_at_human": {
+                                "description": "Date Updated formatted",
+                                "example": "52 minutes ago"
+                            },
+                            "updated_at": {
+                                "description": "Raw unfarmatted update date ",
+                                "example": "2020-11-09T20:04:11.000000Z"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Comment"
+                }
+            },
+            "Design": {
+                "properties": {
+                    "id": {
+                        "description": "App\\Models\\Design",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "title": {
+                        "description": "App\\Models\\Design",
+                        "type": "string",
+                        "example": "the sea life"
+                    },
+                    "slug": {
+                        "description": "App\\Models\\Design",
+                        "type": "string",
+                        "example": "the-sea-life"
+                    },
+                    "disk": {
+                        "description": "App\\Models\\Design",
+                        "type": "string",
+                        "example": "public"
+                    },
+                    "is_live": {
+                        "description": "App\\Models\\Design",
+                        "type": "boolean",
+                        "example": 0
+                    },
+                    "images": {
+                        "description": "App\\Models\\Design",
+                        "properties": {
+                            "thumbnail": {
+                                "description": "App\\Models\\Design",
+                                "type": "string",
+                                "example": "http://localhost:8000/storage/uploads/designs/thumbnail/"
+                            },
+                            "large": {
+                                "description": "App\\Models\\Design",
+                                "type": "string",
+                                "example": "http://localhost:8000/storage/uploads/designs/large/"
+                            },
+                            "original": {
+                                "description": "App\\Models\\Design",
+                                "type": "string",
+                                "example": "http://localhost:8000/storage/uploads/designs/original/"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "likes_count": {
+                        "description": "App\\Models\\Design",
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "uploaded_successful": {
+                        "description": "App\\Models\\Design",
+                        "type": "interger",
+                        "example": null
+                    },
+                    "tag_list": {
+                        "description": "App\\Models\\Design",
+                        "properties": {
+                            "tag": {
+                                "description": "List of Tags added to design, array of many tags",
+                                "example": [
+                                    "Cool",
+                                    "Bright Day"
+                                ]
+                            },
+                            "normalized": {
+                                "description": "List of Tags normalized, lowercase and slugged",
+                                "example": [
+                                    "cool",
+                                    "bright-day"
+                                ]
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "created_dates": {
+                        "description": "App\\Models\\Design",
+                        "properties": {
+                            "created_at_human": {
+                                "description": "Date Created formatted",
+                                "example": "52 minutes ago"
+                            },
+                            "created_at": {
+                                "description": "Raw unfarmatted Date ",
+                                "example": "2020-11-09T20:04:11.000000Z"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "updated_dates": {
+                        "description": "App\\Models\\Design",
+                        "properties": {
+                            "updated_at_human": {
+                                "description": "Date Updated formatted",
+                                "example": "52 minutes ago"
+                            },
+                            "updated_at": {
+                                "description": "Raw unfarmatted update date ",
+                                "example": "2020-11-09T20:04:11.000000Z"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "comment": {
+                        "$ref": "#/components/schemas/Comment"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Design"
+                }
+            },
+            "User": {
+                "required": [
+                    "password"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "App\\Models\\User",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "true",
+                        "example": "fanny256@email.com"
+                    },
+                    "email_verified_at": {
+                        "description": "Datetime marker of verification status",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true",
+                        "example": "2019-02-25 12:59:20"
+                    },
+                    "name": {
+                        "description": "App\\Models\\User",
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Mittie Morissette"
+                    },
+                    "username": {
+                        "description": "App\\Models\\User",
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "pierce"
+                    },
+                    "tagline:": {
+                        "description": "App\\Models\\User",
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Producer:"
+                    },
+                    "location": {
+                        "description": "App\\Models\\User",
+                        "properties": {
+                            "type": {
+                                "description": "App\\Models\\User",
+                                "type": "string",
+                                "example": "point"
+                            },
+                            "coordinates": {
+                                "description": "App\\Models\\User",
+                                "example": [
+                                    8.503972,
+                                    51.017243
+                                ]
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "available_to_hire": {
+                        "description": "App\\Models\\User",
+                        "type": "boolean",
+                        "example": 1
+                    },
+                    "about": {
+                        "description": "App\\Models\\User",
+                        "type": "string",
+                        "example": "VERY deeply with a soldier on each."
+                    },
+                    "formatted_address": {
+                        "description": "App\\Models\\User",
+                        "example": "811 Sibyl Bypass Suite 783\\n New Rita, AL 48220-0930"
+                    },
+                    "created_dates": {
+                        "description": "App\\Models\\User",
+                        "properties": {
+                            "created_at": {
+                                "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                            },
+                            "updated_at": {
+                                "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
                 }
             }
         }
