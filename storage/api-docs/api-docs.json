@@ -1,0 +1,42 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Pixelate",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/designs": {
+            "get": {
+                "tags": [
+                    "Design"
+                ],
+                "summary": "Get designs that are Live",
+                "description": "Get all designs available online (set to live )",
+                "operationId": "App\\Http\\Controllers\\Designs\\DesignController::index",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/api/designs/all": {
+            "get": {
+                "tags": [
+                    "Design"
+                ],
+                "summary": "Get all designs",
+                "description": "Get all designs available",
+                "operationId": "App\\Http\\Controllers\\Designs\\DesignController::allDesigns",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
