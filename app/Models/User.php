@@ -20,11 +20,13 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
  * @OA\Schema(
  *      required={"password"},
  *      @OA\Xml(name="User"),
- *      @OA\Property(property="id", type="integer", readOnly="true", example="1"),
- *      @OA\Property(property="email", type="string", readOnly="true", format="email", description="User unique email address", example="fanny256@email.com"),
- *      @OA\Property(property="email_verified_at", type="string", readOnly="true", format="date-time", description="Datetime marker of verification status", example="2019-02-25 12:59:20"),
+ *      @OA\Property(property="id", type="integer", readOnly="true", example=1),
  *      @OA\Property(property="name", type="string", maxLength=32, example="Mittie Morissette"),
  *      @OA\Property(property="username", type="string", maxLength=32, example="pierce"),
+ *      @OA\Property(property="email", type="string", readOnly="true", format="email", description="User unique email address", example="fanny256@email.com"),
+ *      @OA\Property(property="email_verified_at", type="string", readOnly="true", format="date-time", description="Datetime marker of verification status", example="2019-02-25 12:59:20"),
+ *      @OA\Property(property="two_factor_secret", type="number", example=null ),
+ *      @OA\Property(property="two_factor_recovery_codes", type="number", example=null ),
  *      @OA\Property(property="tagline:", type="string", maxLength=32, example="Producer:"),
  *      @OA\Property(property="location", type="object",
  *          @OA\Property(property="type",type="string",example="point"),
@@ -32,13 +34,16 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
  *              example={8.503972,51.017243}
  *          ),
  *      ),
+ *      @OA\Property(property="formatted_address", example="811 Sibyl Bypass Suite 783\n New Rita, AL 48220-0930" ),
  *      @OA\Property(property="available_to_hire", type="boolean", example=1 ),
  *      @OA\Property(property="about", type="string", example="VERY deeply with a soldier on each." ),
- *      @OA\Property(property="formatted_address", example="811 Sibyl Bypass Suite 783\n New Rita, AL 48220-0930" ),
- *      @OA\Property(property="created_dates", type="object",
- *          @OA\Property(property="created_at", ref="#/components/schemas/BaseModel/properties/created_at"),
- *          @OA\Property(property="updated_at", ref="#/components/schemas/BaseModel/properties/updated_at"),
- *      ),
+
+ *      @OA\Property(property="trade_id", type="number", example=null ),
+ *      @OA\Property(property="current_team_id", type="number", example=null ),
+ *      @OA\Property(property="profile_photo_path", type="number", example=null ),
+ *      @OA\Property(property="created_at", ref="#/components/schemas/BaseModel/properties/created_at"),
+ *      @OA\Property(property="updated_at", ref="#/components/schemas/BaseModel/properties/updated_at"),
+ *      @OA\Property(property="photo_url:", type="string", maxLength=32, example="https://www.gravatar.com/avatar/97bd1823e00f02eb71a0b709425152a7jpg?s=200&d=mm:"),
  * )
  *
  * @property int $id

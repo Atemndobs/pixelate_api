@@ -96,6 +96,39 @@
                 ]
             }
         },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "description": "Logout user and invalidate token",
+                "operationId": "App\\Http\\Controllers\\Auth\\LoginController::logout",
+                "responses": {
+                    "200": {
+                        "description": "Logs out logged in user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
         "/api/designs": {
             "get": {
                 "tags": [
@@ -181,14 +214,81 @@
                     }
                 }
             }
+        },
+        "/api/me": {
+            "get": {
+                "tags": [
+                    "User Profile"
+                ],
+                "summary": "Retrieve profile information",
+                "description": "Get profile short information.  ** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserProfile"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User should be authorized to get profile information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Class MeController",
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
         }
     },
     "components": {
         "schemas": {
+            "UserProfile": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/User"
+                    }
+                ]
+            },
             "BaseModel": {
                 "properties": {
+                    "created_at_human": {
+                        "description": "Initial creation, Human readable",
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "2 days ago"
+                    },
                     "created_at": {
                         "description": "Initial creation timestamp",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true"
+                    },
+                    "updated_at_human": {
+                        "description": "Human readable update time",
                         "type": "string",
                         "readOnly": "true",
                         "example": "2 days ago"
@@ -196,8 +296,8 @@
                     "updated_at": {
                         "description": "Last update timestamp",
                         "type": "string",
-                        "readOnly": "true",
-                        "example": "2 days ago"
+                        "format": "date-time",
+                        "readOnly": "true"
                     },
                     "deleted_at": {
                         "description": "Soft delete timestamp",
@@ -378,7 +478,19 @@
                         "description": "App\\Models\\User",
                         "type": "integer",
                         "readOnly": "true",
-                        "example": "1"
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "App\\Models\\User",
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Mittie Morissette"
+                    },
+                    "username": {
+                        "description": "App\\Models\\User",
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "pierce"
                     },
                     "email": {
                         "description": "User unique email address",
@@ -394,17 +506,15 @@
                         "readOnly": "true",
                         "example": "2019-02-25 12:59:20"
                     },
-                    "name": {
+                    "two_factor_secret": {
                         "description": "App\\Models\\User",
-                        "type": "string",
-                        "maxLength": 32,
-                        "example": "Mittie Morissette"
+                        "type": "number",
+                        "example": null
                     },
-                    "username": {
+                    "two_factor_recovery_codes": {
                         "description": "App\\Models\\User",
-                        "type": "string",
-                        "maxLength": 32,
-                        "example": "pierce"
+                        "type": "number",
+                        "example": null
                     },
                     "tagline:": {
                         "description": "App\\Models\\User",
@@ -430,6 +540,10 @@
                         },
                         "type": "object"
                     },
+                    "formatted_address": {
+                        "description": "App\\Models\\User",
+                        "example": "811 Sibyl Bypass Suite 783\\n New Rita, AL 48220-0930"
+                    },
                     "available_to_hire": {
                         "description": "App\\Models\\User",
                         "type": "boolean",
@@ -440,21 +554,32 @@
                         "type": "string",
                         "example": "VERY deeply with a soldier on each."
                     },
-                    "formatted_address": {
+                    "trade_id": {
                         "description": "App\\Models\\User",
-                        "example": "811 Sibyl Bypass Suite 783\\n New Rita, AL 48220-0930"
+                        "type": "number",
+                        "example": null
                     },
-                    "created_dates": {
+                    "current_team_id": {
                         "description": "App\\Models\\User",
-                        "properties": {
-                            "created_at": {
-                                "$ref": "#/components/schemas/BaseModel/properties/created_at"
-                            },
-                            "updated_at": {
-                                "$ref": "#/components/schemas/BaseModel/properties/updated_at"
-                            }
-                        },
-                        "type": "object"
+                        "type": "number",
+                        "example": null
+                    },
+                    "profile_photo_path": {
+                        "description": "App\\Models\\User",
+                        "type": "number",
+                        "example": null
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "updated_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    },
+                    "photo_url:": {
+                        "description": "App\\Models\\User",
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "https://www.gravatar.com/avatar/97bd1823e00f02eb71a0b709425152a7jpg?s=200&d=mm:"
                     }
                 },
                 "type": "object",
@@ -466,6 +591,7 @@
         "securitySchemes": {
             "token": {
                 "type": "apiKey",
+                "description": "Example of Auth Header Token (Copy and paste below to authorize)=>\nBearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYwNTM0ODU1OSwiZXhwIjoxNjA1MzUyMTU5LCJuYmYiOjE2MDUzNDg1NTksImp0aSI6IjlqMDN0MVVISThoNjlhRUsiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.dn45EdZMatpW2zAQcZklDS2902mwVNx44TbkDiiGLXY",
                 "name": "Authorization",
                 "in": "header"
             }

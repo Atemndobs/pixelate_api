@@ -118,6 +118,24 @@ class LoginController extends Controller
         ]);
     }
 
+
+    /**
+     * @OA\Post(
+     * path="/api/logout",
+     * summary="Logout",
+     * description="Logout user and invalidate token",
+     * tags={"Auth"},
+     * security={ {"token": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="Logs out logged in user",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Logged out successfully"),
+     *    )
+     * )
+     * )
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout()
     {
         $this->guard()->logout();
