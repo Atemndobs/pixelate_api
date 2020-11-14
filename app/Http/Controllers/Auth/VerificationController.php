@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Auth\Events\Verified;
 // use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
@@ -23,7 +24,7 @@ class VerificationController extends Controller
     |
     */
 
-   // use VerifiesEmails;
+    use VerifiesEmails;
 
     protected UserRepositoryInterface $userRepository;
 

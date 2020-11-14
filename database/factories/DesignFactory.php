@@ -25,7 +25,7 @@ class DesignFactory extends Factory
     {
         $faker = \Faker\Factory::create();
         return [
-            "id" => $faker->unique()->numberBetween(1,10),
+            //"id" => $faker->unique()->numberBetween(1,10),
             // 'user_id' => factory(\App\Models\User::class)->create(),
             'user_id' => User::factory(),
             "title" => $faker->name,

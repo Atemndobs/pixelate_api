@@ -23,9 +23,9 @@ class TeamFactory extends Factory
     {
         return [
             //   'id' => $faker->unique()->numberBetween(1, 10),
-            'name' =>$this->faker->unique()->firstName,
+            'name' =>$this->faker->jobTitle,
             'slug' => $this->faker->slug,
-            'owner_id' => $this->faker->unique()->numberBetween(1, 10)
+            'owner_id' => $this->faker->numberBetween(1, 10)
         ];
     }
 }

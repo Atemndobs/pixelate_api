@@ -25,7 +25,7 @@ class ParticipantFactory extends Factory
     {
         return [
             'id'=> $this->faker->uuid,
-           // 'user_id'=>User::factory(),
+            'user_id'=>$this->faker->numberBetween(1,2),
             'chat_id' => Chat::factory(),
         ];
     }

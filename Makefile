@@ -79,3 +79,6 @@ horizon:
 	php artisan horizon
 restart-php-pfm:
 	sudo service phpX.Y-fpm-sp restart
+
+mfs:
+	php artisan migrate:fresh --seed

@@ -23,8 +23,8 @@ class LikeFactory extends Factory
     public function definition()
     {
         return [
-            //   'id' => $faker->numberBetween(1,20),
-            'user_id' => User::factory(),
+               //'id' => $this->faker->numberBetween(10,50),
+            'user_id' => $this->faker->unique()->numberBetween(1,10),
             'likeable_id' => 1,
             'likeable_type' => 'App\\Models\\Design',
         ];

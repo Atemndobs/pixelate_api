@@ -14,17 +14,24 @@ use Illuminate\Validation\ValidationException;
  * path="/api/login",
  * summary="Sign in",
  * description="Login by email, password",
- * operationId="authLogin",
- * tags={"auth"},
+ * tags={"Auth"},
+ * security={ {"bearer": {} }},
  * @OA\RequestBody(
  *    required=true,
  *    description="Pass user credentials",
  *    @OA\JsonContent(
  *       required={"email","password"},
- *       @OA\Property(property="email", type="string", format="email", example="aluna@email.com"),
+ *       @OA\Property(property="email", type="string", format="email", example="fanny256@email.com"),
  *       @OA\Property(property="password", type="string", format="password", example="pass1234"),
  *    ),
  * ),
+ *      @OA\Response(
+ *         response=200,
+ *         description="Success",
+ *         @OA\JsonContent(
+ *            @OA\Property(property="data", type="object", ref="#/components/schemas/UserProfile")
+ *             )
+ *          ),
  * @OA\Response(
  *    response=422,
  *    description="Wrong credentials response",
@@ -109,9 +116,30 @@ class LoginController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     * path="/api/logout",
+     * summary="Logout",
+     * description="Logout user and invalidate token",
+     * tags={"Auth"},
+     * @OA\Response(
+     *    response=200,
+     *    description="Logs out logged in user",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Logged out successfully"),
+     *    )
+     * )
+     * )
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout()
     {
-        $this->guard()->logout();
+        try {
+            $this->guard()->logout();
+        }catch (\Exception $exception){
+            die(json_encode($exception));
+        }
+
         return response()->json(['message' => 'Logged out successfully']);
     }
 

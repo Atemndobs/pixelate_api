@@ -28,8 +28,9 @@ class UserFactory extends Factory
         $long = $faker->randomFloat(6, 6, 15);
         $location = "ST_GeomFromText('POINT($lat $long)')";
         return [
-            'name' => $faker->unique()->firstName. " ". $faker->unique()->lastName,
-            'username' => strtolower($faker->unique()->firstName.$faker->randomNumber(3)),
+           // "id"=> $this->faker->unique()->numberBetween(1,10),
+            'name' => $faker->firstName. " ". $faker->lastName,
+            'username' => strtolower($faker->firstName),
             'tagline' => $faker->jobTitle,
             'email' => strtolower($faker->unique()->firstName.$faker->randomNumber(3).'@email.com'),
             'email_verified_at' => now(),

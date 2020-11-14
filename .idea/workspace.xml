@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -26,55 +29,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.htaccess-laravel-prod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.htaccess-template" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/git.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env.prod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/BaseModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/759f90e0-5022-4c55-b52f-ff18f3e994e3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/759f90e0-5022-4c55-b52f-ff18f3e994e3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/laravel-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel-idea.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pixelate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pixelate.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/VerificationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/VerificationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Designs/DesignController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Designs/DesignController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Chat.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Chat.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/User/MeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/User/MeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Comment.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Design.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Design.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Invitation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Invitation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Like.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Like.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Message.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Message.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Team.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Team.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/BaseRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/BaseRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/cors.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/cors.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/ChatFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/CommentFactory.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/l5-swagger.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/l5-swagger.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/ChatFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ChatFactory.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/factories/DesignFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/DesignFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/InvitationFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/JohnDoeFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/LikeFactory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/TeamFactory.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/InvitationFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/InvitationFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/LikeFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/LikeFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/MessageFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/MessageFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/ParticipantFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ParticipantFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/TeamFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TeamFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/TradeFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TradeFactory.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_07_183658_create_designs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_07_183658_create_designs_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/ChatsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/ChatsTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/CommentsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/CommentsTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DesignsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DesignsTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/InvitationsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/InvitationsTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/JohnDoesTableSeeder.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/LikesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/LikesTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/MessagesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/MessagesTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/TeamsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/TeamsTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/UsersTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/ChatsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/ChatsTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/CommentsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/CommentsTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DesignsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DesignsTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/InvitationsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/InvitationsTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/LikesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/LikesTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/MessagesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/MessagesTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/ParticipantTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/ParticipantTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/TradeSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/TradeSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/UsersTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/UsersTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,7 +312,12 @@
       <workItem from="1603320501548" duration="790000" />
       <workItem from="1604519659852" duration="10254000" />
       <workItem from="1604605303623" duration="16250000" />
-      <workItem from="1604659823859" duration="4270000" />
+      <workItem from="1604659823859" duration="27416000" />
+      <workItem from="1604785092064" duration="26204000" />
+      <workItem from="1605052605945" duration="1593000" />
+      <workItem from="1605191576856" duration="185000" />
+      <workItem from="1605279425150" duration="3857000" />
+      <workItem from="1605308621842" duration="3077000" />
     </task>
     <servers />
   </component>
@@ -334,6 +337,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="0" y="98" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604701039032">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state x="0" y="98" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.826@0.23.1440.826" timestamp="1604701039032" />
     <state x="2202" y="-77" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604679914078">
       <screen x="1440" y="-576" width="3440" height="1417" />
     </state>
@@ -343,6 +350,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="516" y="130" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1604526654324" />
+    <state x="2155" y="-96" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1604951354694">
+      <screen x="1440" y="-576" width="3440" height="1359" />
+    </state>
+    <state x="2155" y="-96" key="#com.intellij.ide.util.TreeClassChooserDialog/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1604951354694" />
     <state x="799" y="387" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1601374623060">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
@@ -372,14 +383,16 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="599" height="240" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1603178383113" />
-    <state width="312" height="539" key="HiddenNamespacesPopup" timestamp="1604647590366">
-      <screen x="0" y="23" width="1440" height="827" />
+    <state width="312" height="541" key="HiddenNamespacesPopup" timestamp="1604706337834">
+      <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state width="312" height="539" key="HiddenNamespacesPopup/0.23.1440.827@0.23.1440.827" timestamp="1604647590366" />
-    <state x="311" y="265" key="NewPhpClassDialog" timestamp="1604526571793">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="312" height="541" key="HiddenNamespacesPopup/0.23.1440.829@0.23.1440.829" timestamp="1604706337834" />
+    <state x="2183" y="-176" key="NewPhpClassDialog" timestamp="1604951364081">
+      <screen x="1440" y="-576" width="3440" height="1359" />
     </state>
     <state x="311" y="265" key="NewPhpClassDialog/0.0.1440.900@0.0.1440.900" timestamp="1604526571793" />
+    <state x="2183" y="-176" key="NewPhpClassDialog/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1604951364081" />
     <state x="743" y="415" key="NewPhpClassDialog/3440.352.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1601374395919" />
     <state x="356" y="401" key="NewPhpFileDialog" timestamp="1604522400923">
       <screen x="0" y="0" width="1440" height="900" />
@@ -411,14 +424,20 @@
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
     <state x="1163" y="150" width="1534" height="1186" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/3440.352.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1601478246327" />
-    <state x="568" y="410" width="583" height="566" key="find.popup" timestamp="1601478989704">
-      <screen x="0" y="0" width="3440" height="1410" />
+    <state x="100" y="123" width="760" height="626" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1604867902193">
+      <screen x="0" y="23" width="1440" height="826" />
     </state>
+    <state x="100" y="123" width="760" height="626" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1440.826@0.23.1440.826" timestamp="1604867902193" />
+    <state x="2008" y="-181" width="583" height="546" key="find.popup" timestamp="1604959621386">
+      <screen x="1440" y="-576" width="3440" height="1359" />
+    </state>
+    <state x="2008" y="-181" width="583" height="546" key="find.popup/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1604959621386" />
     <state x="568" y="410" width="583" height="566" key="find.popup/3440.352.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1601478989704" />
-    <state x="534" y="382" width="672" height="678" key="search.everywhere.popup" timestamp="1601480339034">
-      <screen x="0" y="0" width="3440" height="1410" />
+    <state x="1974" y="-208" width="672" height="654" key="search.everywhere.popup" timestamp="1604952653960">
+      <screen x="1440" y="-576" width="3440" height="1359" />
     </state>
     <state x="298" y="284" width="672" height="505" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1601463452859" />
+    <state x="1974" y="-208" width="672" height="654" key="search.everywhere.popup/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1604952653960" />
     <state x="534" y="382" width="672" height="678" key="search.everywhere.popup/3440.352.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1601480339034" />
   </component>
 </project>

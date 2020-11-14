@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-
 use App\Models\Trade;
 use Illuminate\Database\Seeder;
 
@@ -16,6 +15,6 @@ class TradeSeeder extends Seeder
     public function run()
     {
         //
-        Trade::factory()->count(5)->create();
+        Trade::factory()->count(10)->create();
     }
 }

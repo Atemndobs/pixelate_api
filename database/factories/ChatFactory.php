@@ -23,10 +23,7 @@ class ChatFactory extends Factory
     public function definition()
     {
         return [
-            'body' => $this->faker->realText(50, 2),
-            'last_read' => $this->faker->dayOfWeek('yesterday'),
-            'user_id' => User::factory(),
-            'chat_id' => Chat::factory()
+            //
         ];
     }
 }

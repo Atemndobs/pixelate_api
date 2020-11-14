@@ -15,6 +15,6 @@ class ParticipantTableSeeder extends Seeder
      */
     public function run()
     {
-   //     Chat::factory()
+
     }
 }

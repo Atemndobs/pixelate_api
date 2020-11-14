@@ -25,10 +25,10 @@ class InvitationFactory extends Factory
     public function definition()
     {
         return [
-            'id'=>  $this->faker->randomNumber(3),
+           // 'id'=>  $this->faker->randomNumber(3),
             'recipient_email' => $this->faker->email,
-            'sender_id' => User::factory(),
-            'team_id' => Team::factory(),
+            'sender_id' => $this->faker->numberBetween(1,10),
+            'team_id' => $this->faker->numberBetween(1,10),
             'token' => $this->faker->unique()->uuid,
         ];
     }

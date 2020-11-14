@@ -24,9 +24,9 @@ class TradeFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
+            'user_id' => $this->faker->numberBetween(1,10),
             'market' => $this->faker->company,
-            'design_id' => Design::factory()
+            'design_id' => $this->faker->numberBetween(1,10),
         ];
     }
 }
