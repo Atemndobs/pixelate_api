@@ -26,14 +26,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.env.prod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/install.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/User/MeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/User/MeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/BaseModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/BaseModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,17 +225,17 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/database/factories" />
+      <recent name="\\wsl$\Ubuntu-18.04\home\atem\projects\pixelate" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/app/doc" />
       <recent name="$PROJECT_DIR$/database/factories/old" />
       <recent name="\\wsl$\Ubuntu-18.04\home\atem\projects\pixelate\database\migrations" />
       <recent name="\\wsl$\Ubuntu-18.04\home\atem\projects\pixelate\database\seeds" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/database/factories" />
-      <recent name="\\wsl$\Ubuntu-18.04\home\atem\projects\pixelate" />
     </key>
   </component>
   <component name="RunManager">
@@ -347,10 +345,11 @@
     </state>
     <state x="356" y="401" key="NewPhpFileDialog/0.0.1440.900@0.0.1440.900" timestamp="1604522400923" />
     <state x="851" y="628" key="NewPhpFileDialog/3440.352.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1601373986558" />
-    <state x="52" y="87" width="900" height="722" key="SettingsEditor" timestamp="1604526751310">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="1564" y="-445" width="900" height="722" key="SettingsEditor" timestamp="1605356222525">
+      <screen x="1440" y="-576" width="3440" height="1359" />
     </state>
     <state x="52" y="87" width="900" height="722" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1604526751310" />
+    <state x="1564" y="-445" key="SettingsEditor/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1605356222525" />
     <state x="372" y="411" key="SettingsEditor/3440.352.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1601454876809" />
     <state x="333" y="344" width="341" height="249" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1603178289815">
       <screen x="0" y="0" width="1440" height="900" />
