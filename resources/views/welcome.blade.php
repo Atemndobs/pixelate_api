@@ -105,7 +105,7 @@
                     <a href="http://localhost:8080/login">Quasar</a>
                     <a href="http://localhost:3000">Nuxt</a>
                     <a href="http://localhost:8000/horizon/dashboard">Horizon</a>
-                    <a href="http://localhost:8000/api/doc">API</a>
+                    <a href="http://localhost:8000/api/docs">API DOCS</a>
                 </div>
             </div>
         </div>

@@ -12,7 +12,6 @@
         "ext-json": "*",
         "algolia/algoliasearch-client-php": "^2.2",
         "cviebrock/eloquent-taggable": "^8.0",
-        "darkaonline/l5-swagger": "^8.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "grimzy/laravel-mysql-spatial": "^4.0",
