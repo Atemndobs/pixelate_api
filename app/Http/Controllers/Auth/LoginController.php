@@ -9,7 +9,40 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-
+/**
+ * @OA\Post(
+ * path="/api/login",
+ * summary="Sign in",
+ * description="Login by email, password",
+ * tags={"Auth"},
+ * security={ {"token": {} }},
+ * @OA\RequestBody(
+ *    required=true,
+ *    description="Pass user credentials",
+ *    @OA\JsonContent(
+ *       required={"email","password"},
+ *       @OA\Property(property="email", type="string", format="email", example="fanny256@email.com"),
+ *       @OA\Property(property="password", type="string", format="password", example="pass1234"),
+ *    ),
+ * ),
+ * @OA\Response(
+ *    response=200,
+ *    description="Success",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="token", type="string", format="email", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYwNTM0Nzc0OSwiZXhwIjoxNjA1MzUxMzQ5LCJuYmYiOjE2MDUzNDc3NDksImp0aSI6IlJGUmJtRVdiN244WnlTaWsiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.VZq7nu9rkkHRXHcZB68v1vMpnRoMBJGmABElufaVrtk"),
+ *       @OA\Property(property="token_type", type="string", example="bearer"),
+ *       @OA\Property(property="expires_in", type="number", example=1605351349),
+ *    ),
+ * ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
+ *        )
+ *     )
+ * )
+ */
 class LoginController extends Controller
 {
     /*

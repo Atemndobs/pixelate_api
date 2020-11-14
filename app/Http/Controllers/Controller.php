@@ -8,7 +8,23 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 /**
- * @OA\Info(title="Pixelate", version="0.1")
+ * @OA\Info(
+ *   version="1.0.2",
+ *   title="Pixelate",
+ *   description="Documentation for Pixelate app",
+ * )
+ *
+ * @OA\Server(
+ *   url=L5_SWAGGER_CONST_HOST,
+ *   description="Server"
+ * )
+ *
+ * @OA\SecurityScheme(
+ *   securityScheme="token",
+ *   type="apiKey",
+ *   name="Authorization",
+ *   in="header"
+ * )
  */
 class Controller extends BaseController
 {
