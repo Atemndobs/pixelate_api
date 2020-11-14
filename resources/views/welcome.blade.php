@@ -106,7 +106,7 @@
                     <a href="{{env('CLIENT_URL')}}">Nuxt</a>
                     <a href="{{env('APP_URL')}}/horizon/dashboard">Horizon</a>
                     <a href="{{env('APP_URL')}}/api">API</a>
-                    <a href="{{env('APP_URL')}}/api/doc">DOC</a>
+                    <a href="{{env('APP_URL')}}/api/docs">DOCS</a>
                 </div>
             </div>
         </div>
