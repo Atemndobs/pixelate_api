@@ -81,3 +81,5 @@ restart-php-pfm:
 	sudo service phpX.Y-fpm-sp restart
 install:
 	 /bin/bash /Users/b.atemkeng/sites/pixelate/install.sh
+composer:
+	 /bin/sh /Users/b.atemkeng/sites/pixelate/composer.sh
