@@ -11,7 +11,10 @@
       <user-name>root</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema" qname="atemkeng_compixelate" />
+          <node kind="schema">
+            <name qname="atemkeng_compixelate" />
+            <name qname="pixelate" />
+          </node>
         </introspection-scope>
       </schema-mapping>
     </data-source>

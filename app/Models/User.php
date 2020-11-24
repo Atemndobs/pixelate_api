@@ -5,11 +5,16 @@ namespace App\Models;
 use App\Notifications\ResetPassword;
 use App\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
@@ -50,7 +55,7 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
  * @property string $name
  * @property string $username
  * @property string $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $tagline
  * @property mixed|null $location
@@ -58,51 +63,51 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
  * @property int $available_to_hire
  * @property string|null $about
  * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Design[] $designs
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|\App\Models\Design[] $designs
  * @property-read int|null $designs_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @method static \Illuminate\Database\Eloquent\Builder|User comparison($geometryColumn, $geometry, $relationship)
- * @method static \Illuminate\Database\Eloquent\Builder|User contains($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User crosses($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User disjoint($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User distance($geometryColumn, $geometry, $distance)
- * @method static \Illuminate\Database\Eloquent\Builder|User distanceExcludingSelf($geometryColumn, $geometry, $distance)
- * @method static \Illuminate\Database\Eloquent\Builder|User distanceSphere($geometryColumn, $geometry, $distance)
- * @method static \Illuminate\Database\Eloquent\Builder|User distanceSphereExcludingSelf($geometryColumn, $geometry, $distance)
- * @method static \Illuminate\Database\Eloquent\Builder|User distanceSphereValue($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User distanceValue($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User doesTouch($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User equals($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User intersects($geometryColumn, $geometry)
+ * @method static Builder|User comparison($geometryColumn, $geometry, $relationship)
+ * @method static Builder|User contains($geometryColumn, $geometry)
+ * @method static Builder|User crosses($geometryColumn, $geometry)
+ * @method static Builder|User disjoint($geometryColumn, $geometry)
+ * @method static Builder|User distance($geometryColumn, $geometry, $distance)
+ * @method static Builder|User distanceExcludingSelf($geometryColumn, $geometry, $distance)
+ * @method static Builder|User distanceSphere($geometryColumn, $geometry, $distance)
+ * @method static Builder|User distanceSphereExcludingSelf($geometryColumn, $geometry, $distance)
+ * @method static Builder|User distanceSphereValue($geometryColumn, $geometry)
+ * @method static Builder|User distanceValue($geometryColumn, $geometry)
+ * @method static Builder|User doesTouch($geometryColumn, $geometry)
+ * @method static Builder|User equals($geometryColumn, $geometry)
+ * @method static Builder|User intersects($geometryColumn, $geometry)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User newModelQuery()
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|User orderByDistance($geometryColumn, $geometry, $direction = 'asc')
- * @method static \Illuminate\Database\Eloquent\Builder|User orderByDistanceSphere($geometryColumn, $geometry, $direction = 'asc')
- * @method static \Illuminate\Database\Eloquent\Builder|User orderBySpatial($geometryColumn, $geometry, $orderFunction, $direction = 'asc')
- * @method static \Illuminate\Database\Eloquent\Builder|User overlaps($geometryColumn, $geometry)
+ * @method static Builder|User orderByDistance($geometryColumn, $geometry, $direction = 'asc')
+ * @method static Builder|User orderByDistanceSphere($geometryColumn, $geometry, $direction = 'asc')
+ * @method static Builder|User orderBySpatial($geometryColumn, $geometry, $orderFunction, $direction = 'asc')
+ * @method static Builder|User overlaps($geometryColumn, $geometry)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User query()
- * @method static \Illuminate\Database\Eloquent\Builder|User whereAbout($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereAvailableToHire($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereFormattedAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereTagline($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User within($geometryColumn, $polygon)
+ * @method static Builder|User whereAbout($value)
+ * @method static Builder|User whereAvailableToHire($value)
+ * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereEmail($value)
+ * @method static Builder|User whereEmailVerifiedAt($value)
+ * @method static Builder|User whereFormattedAddress($value)
+ * @method static Builder|User whereId($value)
+ * @method static Builder|User whereLocation($value)
+ * @method static Builder|User whereName($value)
+ * @method static Builder|User wherePassword($value)
+ * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereTagline($value)
+ * @method static Builder|User whereUpdatedAt($value)
+ * @method static Builder|User whereUsername($value)
+ * @method static Builder|User within($geometryColumn, $polygon)
  * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read Collection|\App\Models\Comment[] $comments
  * @property-read int|null $comments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Team[] $teams
+ * @property-read Collection|\App\Models\Team[] $teams
  * @property-read int|null $teams_count
  */
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
@@ -152,14 +157,24 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $appends = [
         'photo_url'
     ];
 
+    /**
+     * @return HasMany
+     */
     public function trade()
     {
         return $this->hasMany(Trade::class);
     }
+
+    /**
+     * @return string
+     */
     public function getPhotoUrlAttribute()
     {
         return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'jpg?s=200&d=mm';
@@ -181,9 +196,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
 
 
-    /**
-     *
-     */
+
+
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail());
@@ -251,21 +265,34 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
             ->count();
     }
 
+    /**
+     * @return HasMany
+     */
     public function invitations()
     {
         return $this->hasMany(Invitation::class, 'recipient_email', 'email');
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function chats()
     {
         return $this->belongsToMany(Chat::class, 'participants');
     }
 
+    /**
+     * @return HasMany
+     */
     public function messages()
     {
         return $this->hasMany(Message::class);
     }
 
+    /**
+     * @param $user_id
+     * @return Builder|\Illuminate\Database\Eloquent\Model|BelongsToMany|mixed|object|null
+     */
     public function getChatWithUser($user_id)
     {
         $chat = $this->chats()->whereHas('participants', function ($query) use ($user_id){

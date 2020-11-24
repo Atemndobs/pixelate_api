@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use mysql_xdevapi\Exception;
 
 /**
  * @OA\Post(
@@ -138,7 +139,11 @@ class LoginController extends Controller
      */
     public function logout()
     {
-        $this->guard()->logout();
+        try {
+            $this->guard()->logout();
+        }catch (Exception $exception){
+            return response()->json(['message' => $exception->getMessage()]);
+        }
         return response()->json(['message' => 'Logged out successfully']);
     }
 

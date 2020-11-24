@@ -25,7 +25,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="" />
+    <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/759f90e0-5022-4c55-b52f-ff18f3e994e3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/759f90e0-5022-4c55-b52f-ff18f3e994e3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pixelate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pixelate.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -214,7 +223,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -232,6 +241,12 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration name="install" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="install" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="SwaggerCodegen">
       <option name="activeConfigurationType" value="FILE" />
       <option name="configurationPath" value="" />
@@ -248,6 +263,11 @@
       <option name="specificationPath" value="$PROJECT_DIR$/openapi.yaml" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile.install" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -266,6 +286,9 @@
       <workItem from="1604519659852" duration="10254000" />
       <workItem from="1604605303623" duration="16250000" />
       <workItem from="1604659823859" duration="4270000" />
+      <workItem from="1605435540215" duration="2895000" />
+      <workItem from="1605519109445" duration="1677000" />
+      <workItem from="1606253260964" duration="935000" />
     </task>
     <servers />
   </component>
@@ -290,10 +313,11 @@
     </state>
     <state x="2202" y="-97" key="#com.intellij.fileTypes.FileTypeChooser/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1604611029573" />
     <state x="2202" y="-77" key="#com.intellij.fileTypes.FileTypeChooser/1440.-576.3440.1417/0.23.1440.826@1440.-576.3440.1417" timestamp="1604679914078" />
-    <state x="516" y="130" key="#com.intellij.ide.util.MemberChooser" timestamp="1604526654324">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="2673" y="-371" key="#com.intellij.ide.util.MemberChooser" timestamp="1605517214665">
+      <screen x="1440" y="-576" width="3440" height="1417" />
     </state>
     <state x="516" y="130" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1604526654324" />
+    <state x="2673" y="-371" key="#com.intellij.ide.util.MemberChooser/1440.-576.3440.1417/0.23.1440.823@1440.-576.3440.1417" timestamp="1605517214665" />
     <state x="799" y="387" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1601374623060">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
@@ -307,26 +331,31 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="152" y="212" key="DUMP_DIALOG_DIMENSION_KEY/0.0.1440.900@0.0.1440.900" timestamp="1603178383086" />
-    <state width="599" height="240" key="GridCell.Tab.0.bottom" timestamp="1603178383114">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1104" height="385" key="GridCell.Tab.0.bottom" timestamp="1605357384164">
+      <screen x="1440" y="-576" width="3440" height="1359" />
     </state>
     <state width="599" height="240" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1603178383114" />
-    <state width="599" height="240" key="GridCell.Tab.0.center" timestamp="1603178383113">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1104" height="385" key="GridCell.Tab.0.bottom/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1605357384164" />
+    <state width="1104" height="385" key="GridCell.Tab.0.center" timestamp="1605357384162">
+      <screen x="1440" y="-576" width="3440" height="1359" />
     </state>
     <state width="599" height="240" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1603178383113" />
-    <state width="599" height="240" key="GridCell.Tab.0.left" timestamp="1603178383112">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1104" height="385" key="GridCell.Tab.0.center/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1605357384162" />
+    <state width="1104" height="385" key="GridCell.Tab.0.left" timestamp="1605357384161">
+      <screen x="1440" y="-576" width="3440" height="1359" />
     </state>
     <state width="599" height="240" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1603178383112" />
-    <state width="599" height="240" key="GridCell.Tab.0.right" timestamp="1603178383113">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1104" height="385" key="GridCell.Tab.0.left/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1605357384161" />
+    <state width="1104" height="385" key="GridCell.Tab.0.right" timestamp="1605357384163">
+      <screen x="1440" y="-576" width="3440" height="1359" />
     </state>
     <state width="599" height="240" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1603178383113" />
-    <state width="312" height="539" key="HiddenNamespacesPopup" timestamp="1604647590366">
-      <screen x="0" y="23" width="1440" height="827" />
+    <state width="1104" height="385" key="GridCell.Tab.0.right/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1605357384163" />
+    <state width="746" height="886" key="HiddenNamespacesPopup" timestamp="1606254142606">
+      <screen x="1440" y="-576" width="3440" height="1359" />
     </state>
     <state width="312" height="539" key="HiddenNamespacesPopup/0.23.1440.827@0.23.1440.827" timestamp="1604647590366" />
+    <state width="746" height="886" key="HiddenNamespacesPopup/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1606254142606" />
     <state x="2183" y="-176" key="NewPhpClassDialog" timestamp="1605345830633">
       <screen x="1440" y="-576" width="3440" height="1359" />
     </state>
@@ -338,11 +367,12 @@
     </state>
     <state x="356" y="401" key="NewPhpFileDialog/0.0.1440.900@0.0.1440.900" timestamp="1604522400923" />
     <state x="851" y="628" key="NewPhpFileDialog/3440.352.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1601373986558" />
-    <state x="1564" y="-445" width="900" height="722" key="SettingsEditor" timestamp="1605356222525">
-      <screen x="1440" y="-576" width="3440" height="1359" />
+    <state x="1564" y="-439" width="1286" height="722" key="SettingsEditor" timestamp="1605517465260">
+      <screen x="1440" y="-576" width="3440" height="1417" />
     </state>
     <state x="52" y="87" width="900" height="722" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1604526751310" />
     <state x="1564" y="-445" key="SettingsEditor/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1605356222525" />
+    <state x="1564" y="-439" width="1286" height="722" key="SettingsEditor/1440.-576.3440.1417/0.23.1440.823@1440.-576.3440.1417" timestamp="1605517465260" />
     <state x="372" y="411" key="SettingsEditor/3440.352.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1601454876809" />
     <state x="333" y="344" width="341" height="249" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1603178289815">
       <screen x="0" y="0" width="1440" height="900" />
