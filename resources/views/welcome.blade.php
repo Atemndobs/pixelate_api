@@ -102,10 +102,10 @@
                     </div>
                 </form>--}}
                 <div class="links">
-                    <a href="http://localhost:8080/login">Quasar</a>
-                    <a href="http://localhost:3000">Nuxt</a>
-                    <a href="http://localhost:8000/horizon/dashboard">Horizon</a>
-                    <a href="http://localhost:8000/api/docs">API DOCS</a>
+                    <a href="{{env('QUASAR_URL')}}/login">Quasar</a>
+                    <a href="{{env('CLIENT_URL')}}">Nuxt</a>
+                    <a href="{{env('APP_URL')}}/horizon/dashboard">Horizon</a>
+                    <a href="{{env('APP_URL')}}/api/docs">API DOCS</a>
                 </div>
             </div>
         </div>
