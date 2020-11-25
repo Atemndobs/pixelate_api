@@ -28,8 +28,8 @@ class VerifyEmail extends Notification
             ['user' => $notifiable->id]
         );
 
-        $url_nuxt = str_replace(url('/api'), $appUrl, $url);
-        $url_qsar= str_replace(url('/api'), "http://localhost:8080", $url);
+       // $url_nuxt = str_replace(url('/api'), $appUrl, $url);
+        $url_qsar= str_replace(url('/api'), env('QUASAR_URL'), $url);
 
       //  return $url;
         return $url_qsar;
