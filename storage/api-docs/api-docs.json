@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000",
+            "url": "https://atemkeng.com",
             "description": "Server"
         }
     ],
@@ -533,8 +533,8 @@
                             "coordinates": {
                                 "description": "App\\Models\\User",
                                 "example": [
-                                    8.503972,
-                                    51.017243
+                                    8.5039719999999991983941072248853743076324462890625,
+                                    51.01724300000000056343196774832904338836669921875
                                 ]
                             }
                         },

@@ -102,8 +102,8 @@
                     </div>
                 </form>--}}
                 <div class="links">
-                    <a href="{{env('QUASAR_URL')}}/login">Quasar</a>
-                    <a href="{{env('CLIENT_URL')}}">Nuxt</a>
+                    <a href="{{env('QUASAR_URL')}}/index.html">Pixelate</a>
+                    <a href="{{env('CLIENT_URL')}}">Deja-vu</a>
                     <a href="{{env('APP_URL')}}/horizon/dashboard">Horizon</a>
                     <a href="{{env('APP_URL')}}/api/docs">API DOCS</a>
                 </div>
