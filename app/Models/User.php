@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +16,6 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
-use Laravel\Scout\Searchable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 
@@ -189,13 +189,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->getKey();
     }
 
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
-
-
 
 
     public function sendEmailVerificationNotification()
@@ -291,7 +284,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     /**
      * @param $user_id
-     * @return Builder|\Illuminate\Database\Eloquent\Model|BelongsToMany|mixed|object|null
+     * @return Builder|Model|BelongsToMany|mixed|object|null
      */
     public function getChatWithUser($user_id)
     {
@@ -302,17 +295,4 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $chat;
     }
 
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array
-     */
-    public function toSearchableArray()
-    {
-        $array = $this->toArray();
-
-        // Customize array...
-
-        return $array;
-    }
 }

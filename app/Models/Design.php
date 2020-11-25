@@ -7,7 +7,6 @@ use Cviebrock\EloquentTaggable\Taggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Laravel\Scout\Searchable;
 
 /**
  * App\Models\Design

@@ -27,9 +27,13 @@
   <component name="ChangeListManager">
     <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.prod" beforeDir="false" afterPath="$PROJECT_DIR$/.env.prod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Notifications/VerifyEmail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Notifications/VerifyEmail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Design.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Design.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Team.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Team.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/BaseRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/BaseRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,7 +290,7 @@
       <workItem from="1605435540215" duration="2895000" />
       <workItem from="1605519109445" duration="1677000" />
       <workItem from="1606253260964" duration="1412000" />
-      <workItem from="1606316576728" duration="734000" />
+      <workItem from="1606316576728" duration="1807000" />
     </task>
     <servers />
   </component>
@@ -398,10 +402,10 @@
       <screen x="1440" y="-576" width="3440" height="1359" />
     </state>
     <state x="1824" y="20" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1605349744176" />
-    <state x="2008" y="-164" width="583" height="569" key="find.popup" timestamp="1606316971320">
+    <state x="2008" y="-164" width="583" height="569" key="find.popup" timestamp="1606318314100">
       <screen x="1440" y="-576" width="3440" height="1417" />
     </state>
-    <state x="2008" y="-164" width="583" height="569" key="find.popup/1440.-576.3440.1417/0.23.1440.823@1440.-576.3440.1417" timestamp="1606316971320" />
+    <state x="2008" y="-164" width="583" height="569" key="find.popup/1440.-576.3440.1417/0.23.1440.823@1440.-576.3440.1417" timestamp="1606318314100" />
     <state x="568" y="410" width="583" height="566" key="find.popup/3440.352.1920.1050/0.0.3440.1410@0.0.3440.1410" timestamp="1601478989704" />
     <state x="534" y="382" width="672" height="678" key="search.everywhere.popup" timestamp="1601480339034">
       <screen x="0" y="0" width="3440" height="1410" />

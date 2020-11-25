@@ -53,7 +53,7 @@ abstract class BaseRepository implements BaseRepositoryInterface, CriteriaInterf
 
     public function create(array $data)
     {
-        $user = $this->model->create($data)->searchable();
+        $user = $this->model->create($data);
         return $user;
     }
 
