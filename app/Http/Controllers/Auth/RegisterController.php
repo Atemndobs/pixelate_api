@@ -70,6 +70,53 @@ class RegisterController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     * path="/api/register",
+     * summary="Register",
+     * description="Register new user",
+     * tags={"Auth"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass user credentials",
+     *    @OA\JsonContent(
+     *       required={"email","password", "username", "name", "password_confirmation"},
+     *       @OA\Property(property="username", type="string", format="password", example="bezos"),
+     *       @OA\Property(property="name", type="string", format="password", example="Amin Besoz"),
+     *       @OA\Property(property="email", type="string", format="email", example="besoz256@email.com"),
+     *       @OA\Property(property="password", type="string", format="password", example="pass1234"),
+     *       @OA\Property(property="password_confirmation", type="string", format="password", example="pass1234"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="name", type="string", example="Amin Besoz"),
+     *       @OA\Property(property="username", type="string", example="bezos"),
+     *       @OA\Property(property="email", type="string", example="besoz256@email.com"),
+     *       @OA\Property(property="id", type="number", example=25),
+     *       @OA\Property(property="updated_at", type="string", example="2020-11-27T08:16:31.000000Z"),
+     *       @OA\Property(property="created_at", type="string", example="2020-11-27T08:16:31.000000Z"),
+     *       @OA\Property(property="photo_url", type="string", example="https://www.gravatar.com/avatar/a9d770a5af9a113e77c887c0b772d98fjpg?s=200&d=mm"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="This email is already taken")
+     *        )
+     *     ),
+     * @OA\Response(
+     *    response=409,
+     *    description="Already Registered",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Please confirm your email")
+     *        )
+     *     )
+     * ),
+     */
     protected function registered(Request $request, $user)
     {
        return response()->json($user, 200);

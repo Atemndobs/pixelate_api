@@ -85,6 +85,96 @@ paths:
       security:
         -
           token: []
+  /api/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      description: 'Register new user'
+      operationId: 'App\Http\Controllers\Auth\RegisterController::registered'
+      requestBody:
+        description: 'Pass user credentials'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+                - username
+                - name
+                - password_confirmation
+              properties:
+                username:
+                  type: string
+                  format: password
+                  example: bezos
+                name:
+                  type: string
+                  format: password
+                  example: 'Amin Besoz'
+                email:
+                  type: string
+                  format: email
+                  example: besoz256@email.com
+                password:
+                  type: string
+                  format: password
+                  example: pass1234
+                password_confirmation:
+                  type: string
+                  format: password
+                  example: pass1234
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                    example: 'Amin Besoz'
+                  username:
+                    type: string
+                    example: bezos
+                  email:
+                    type: string
+                    example: besoz256@email.com
+                  id:
+                    type: number
+                    example: 25
+                  updated_at:
+                    type: string
+                    example: '2020-11-27T08:16:31.000000Z'
+                  created_at:
+                    type: string
+                    example: '2020-11-27T08:16:31.000000Z'
+                  photo_url:
+                    type: string
+                    example: 'https://www.gravatar.com/avatar/a9d770a5af9a113e77c887c0b772d98fjpg?s=200&d=mm'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'This email is already taken'
+                type: object
+        409:
+          description: 'Already Registered'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Please confirm your email'
+                type: object
   /api/designs:
     get:
       tags:
