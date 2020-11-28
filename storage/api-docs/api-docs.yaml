@@ -163,7 +163,16 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: 'This email is already taken'
+                    example: 'The given data was invalid.'
+                  errors:
+                    properties:
+                      username:
+                        example:
+                          - 'The username has already been taken.'
+                      email:
+                        example:
+                          - 'The email has already been taken.'
+                    type: object
                 type: object
         409:
           description: 'Already Registered'

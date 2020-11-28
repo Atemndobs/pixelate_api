@@ -52,8 +52,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost:8000/api'),
-    'client_url' => env('CLIENT_URL', 'http://localhost:3000'),
+    'url' => env('APP_URL'."/api", 'http://atemkeng.com/api'),
+    'pixelate_url' => env('QUASAR_URL', 'http://atmkng.de/pixelate'),
     'quasar_app_url' => env('QUASAR_URL', 'http://localhost:8080'),
 
     'asset_url' => env('ASSET_URL', null),

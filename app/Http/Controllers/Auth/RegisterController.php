@@ -105,7 +105,16 @@ class RegisterController extends Controller
      *    response=422,
      *    description="Wrong credentials response",
      *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="This email is already taken")
+     *      @OA\Property(property="message", type="string", example="The given data was invalid."),
+     *      @OA\Property(property="errors", type="object",
+     *          @OA\Property(property="username",
+     *              example={"The username has already been taken."}
+     *          ),
+     *          @OA\Property(property="email",
+     *              example={"The email has already been taken."}
+     *          ),
+     *      ),
+     *
      *        )
      *     ),
      * @OA\Response(
