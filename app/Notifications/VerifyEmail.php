@@ -19,7 +19,7 @@ class VerifyEmail extends Notification
      */
     protected function verificationUrl($notifiable)
     {
-        $appUrl = config('app.pixelate_url', config('app.url'));
+        $appUrl = config('app.url');
 
         $url = URL::temporarySignedRoute(
             'verification.verify',
@@ -27,8 +27,7 @@ class VerifyEmail extends Notification
             ['user' => $notifiable->id]
         );
 
-        return $url;
-       #  return str_replace(url('/api'), $appUrl, $url);
+         return str_replace(url('/api'), $appUrl, $url);
     }
 
 }
