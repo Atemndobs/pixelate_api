@@ -130,8 +130,10 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        if (response()->status() === 503){
-            return json_encode(response()->getContent(), JSON_THROW_ON_ERROR);
+        try {
+            $this->register($request);
+        }catch (\Exception $e){
+            return json_encode($e->getMessage());
         }
        return response()->json($user, 200);
     }
