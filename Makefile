@@ -81,4 +81,4 @@ install:
 composer:
 	 /bin/sh /Users/b.atemkeng/sites/pixelate/composer.sh
 sql:
-	mysql -uatemkeng_compixelate@atemkeng.com.mysql -ppixelate
+	mysql -uatemkeng_compixelate -ppixelate
