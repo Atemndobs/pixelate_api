@@ -31,9 +31,6 @@ serve:
 new-tab:
 	gnome-terminal --tab
 
-install:
-	composer install
-
 update:
 	composer update
 
@@ -83,3 +80,5 @@ install:
 	 /bin/bash /Users/b.atemkeng/sites/pixelate/install.sh
 composer:
 	 /bin/sh /Users/b.atemkeng/sites/pixelate/composer.sh
+sql:
+	msyql -uatemkeng_compixelate@atemkeng.com.mysql -ppixelate

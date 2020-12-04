@@ -26,37 +26,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/Criteria/ForDesign.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/759f90e0-5022-4c55-b52f-ff18f3e994e3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/759f90e0-5022-4c55-b52f-ff18f3e994e3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pixelate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pixelate.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Designs/DesignController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Designs/DesignController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Designs/UploadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Designs/UploadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/User/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/UploadImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/UploadImage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Contracts/DesignRepositoryInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Contracts/DesignRepositoryInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Eloquent/DesignRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Eloquent/DesignRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/site.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/site.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/app/public/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/uploads/original/1607038884_d2ae7672-2c17-4943-a6c3-db63432aef12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/uploads/original/1607039789_f354143f-bcdb-4552-85eb-d9601d17268d.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -288,7 +260,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Makefile.qu">
+  <component name="RunManager" selected="Makefile.sql">
     <configuration name="generated-requests#2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="2" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -300,6 +272,12 @@
     </configuration>
     <configuration name="qu" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/Makefile" target="qu" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="sql" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="sql" workingDirectory="" arguments="">
         <envs />
       </makefile>
       <method v="2" />
@@ -322,6 +300,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Makefile.sql" />
         <item itemvalue="Makefile.qu" />
         <item itemvalue="HTTP Request.generated-requests#2" />
         <item itemvalue="Makefile.install" />
@@ -355,7 +334,8 @@
       <workItem from="1606864058493" duration="297000" />
       <workItem from="1606864753280" duration="165000" />
       <workItem from="1606901033788" duration="34910000" />
-      <workItem from="1607021504939" duration="17111000" />
+      <workItem from="1607021504939" duration="18259000" />
+      <workItem from="1607063822123" duration="2057000" />
     </task>
     <servers />
   </component>
@@ -430,11 +410,11 @@
     <state width="1398" height="207" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1606807912493" />
     <state width="1104" height="385" key="GridCell.Tab.0.right/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1605357384163" />
     <state width="699" height="240" key="GridCell.Tab.0.right/1440.-599.3440.1440/0.0.1440.900@0.0.1440.900" timestamp="1606834913260" />
-    <state width="746" height="886" key="HiddenNamespacesPopup" timestamp="1606935916498">
+    <state width="746" height="886" key="HiddenNamespacesPopup" timestamp="1607063847032">
       <screen x="1440" y="-576" width="3440" height="1359" />
     </state>
     <state width="312" height="539" key="HiddenNamespacesPopup/0.23.1440.827@0.23.1440.827" timestamp="1604647590366" />
-    <state width="746" height="886" key="HiddenNamespacesPopup/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1606935916498" />
+    <state width="746" height="886" key="HiddenNamespacesPopup/1440.-576.3440.1359/0.23.1440.877@1440.-576.3440.1359" timestamp="1607063847032" />
     <state x="311" y="265" key="NewPhpClassDialog" timestamp="1606830589283">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
