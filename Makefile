@@ -72,7 +72,7 @@ sql:
 env:
 	cp .env.prod .env
 pull:
-	git pull && make env
+	git reset --hard && git pull && make env
 comp:
 	php vendor/bin/composer install
 up:
