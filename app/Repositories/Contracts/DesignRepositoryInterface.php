@@ -41,4 +41,6 @@ interface DesignRepositoryInterface
     public function isLikedByUser($id);
 
     public function search(Request $request);
+
+    public function image();
 }

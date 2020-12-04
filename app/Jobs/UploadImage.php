@@ -72,7 +72,7 @@ class UploadImage implements ShouldQueue
 
         }catch (\Exception $exception){
             Log::error($exception->getMessage());
-        };
+        }
     }
 
     protected function createImage(string $size, int $with, int $height = null)
@@ -98,7 +98,6 @@ class UploadImage implements ShouldQueue
         $source = fopen($temp_file, 'r+');
         $storage = Storage::disk($disk);
 
-        // Storage::disk($disk)->put($path, fopen($original_file, 'r+'))
         if ($storage->put($path, $source)){
             File::delete($temp_file);
         }

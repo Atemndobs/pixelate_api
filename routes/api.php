@@ -27,6 +27,8 @@ Route::get('users/{id}/designs',  'Designs\DesignController@getForUser');
 Route::get('teams/slug/{slug}','Teams\TeamController@findBySlug');
 Route::get('teams/{id}/designs','Designs\DesignController@getForTeam');
 
+Route::post('designs', 'Designs\UploadController@upload');
+Route::get('image/{id}', 'Designs\UploadController@getImage');
 
 // Route group for Authenticated users only
 Route::group(['middleware' => ['auth:api']], function (){
@@ -36,7 +38,7 @@ Route::group(['middleware' => ['auth:api']], function (){
     Route::get('me','User\MeController@getMe');
 
     //upload Designs
-    Route::post('designs', 'Designs\UploadController@upload');
+
     Route::put('designs/{id}', 'Designs\DesignController@update');
     Route::delete('designs/{id}', 'Designs\DesignController@destroy');
 
@@ -87,3 +89,10 @@ Route::group(['middleware' => ['guest:api']], function (){
 });
 
 
+
+
+Route::get('posts', "\App\Http\Controllers\API\PostAPIController@index");
+Route::get('posts/{id}', "\App\Http\Controllers\API\PostAPIController@show");
+Route::put('posts/{id}', "\App\Http\Controllers\API\PostAPIController@update");
+Route::post('posts/{user_id}', "\App\Http\Controllers\API\PostAPIController@store");
+Route::delete('posts/{id}', "\App\Http\Controllers\API\PostAPIController@index");

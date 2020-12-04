@@ -55,7 +55,6 @@ class DesignController extends Controller
      *      )
      * )
      */
-
     public function index()
     {
 

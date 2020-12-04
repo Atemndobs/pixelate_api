@@ -86,4 +86,9 @@ class DesignRepository extends BaseRepository implements DesignRepositoryInterfa
         return $query->get();
 
     }
+
+    public function image()
+    {
+        //
+    }
 }

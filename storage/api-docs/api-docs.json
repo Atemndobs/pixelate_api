@@ -7,11 +7,359 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000",
+            "url": "http://localhost",
             "description": "Server"
         }
     ],
     "paths": {
+        "/api/posts": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get all Posts",
+                "description": "Get all Posts available online (set to live )",
+                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::index",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Post"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Display a listing of the Post.\nGET|HEAD /posts",
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/{user_id}": {
+            "post": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Create Post",
+                "description": "Create A Post",
+                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::store",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass Post data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "caption": {
+                                        "description": "Store a newly created Post in storage.\nPOST /posts",
+                                        "type": "string",
+                                        "example": "Here"
+                                    },
+                                    "imageUrl": {
+                                        "description": "Store a newly created Post in storage.\nPOST /posts",
+                                        "type": "string",
+                                        "example": "some image url"
+                                    },
+                                    "location": {
+                                        "description": "Store a newly created Post in storage.\nPOST /posts",
+                                        "type": "string",
+                                        "example": "Dusseldorf"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Store a newly created Post in storage.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "description": "Store a newly created Post in storage.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/{id}": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get Post by Id",
+                "description": "Get Single Post",
+                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Post"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Display the specified Post.\nGET|HEAD /posts/{id}",
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "description": "Display the specified Post.\nGET|HEAD /posts/{id}",
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Update Post",
+                "description": "Update A Post by Id",
+                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass Post data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "caption": {
+                                        "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                        "type": "string",
+                                        "example": "Here"
+                                    },
+                                    "location": {
+                                        "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                        "type": "string",
+                                        "example": "Dusseldorf"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                            "type": "string",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                            "type": "string",
+                                            "example": "Post deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Delete Post",
+                "description": "Delete A Post by Id",
+                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
+                                            "type": "string",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
+                                            "type": "string",
+                                            "example": "Post deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [
@@ -154,17 +502,17 @@
                                     "username": {
                                         "type": "string",
                                         "format": "password",
-                                        "example": "bezos"
+                                        "example": "Fanny"
                                     },
                                     "name": {
                                         "type": "string",
                                         "format": "password",
-                                        "example": "Amin Besoz"
+                                        "example": "Fanny Besoz"
                                     },
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "besoz256@email.com"
+                                        "example": "fanny256@email.com"
                                     },
                                     "password": {
                                         "type": "string",
@@ -191,15 +539,15 @@
                                     "properties": {
                                         "name": {
                                             "type": "string",
-                                            "example": "Amin Besoz"
+                                            "example": "Fanny Anna"
                                         },
                                         "username": {
                                             "type": "string",
-                                            "example": "bezos"
+                                            "example": "Fanny"
                                         },
                                         "email": {
                                             "type": "string",
-                                            "example": "besoz256@email.com"
+                                            "example": "fanny256@email.com"
                                         },
                                         "id": {
                                             "type": "number",
@@ -314,6 +662,74 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Design"
+                ],
+                "summary": "Upload Image",
+                "description": "Uploads Image Local or to S3 bucket",
+                "operationId": "App\\Http\\Controllers\\Designs\\UploadController::upload",
+                "requestBody": {
+                    "description": "Upload images request body",
+                    "required": true,
+                    "content": {
+                        "application/octet-stream": {
+                            "schema": {
+                                "type": "string",
+                                "format": "binary"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Design"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "image": {
+                                                    "example": [
+                                                        "The image field is required."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
             }
         },
         "/api/designs/all": {
@@ -333,6 +749,60 @@
                                     "properties": {
                                         "data": {
                                             "$ref": "#/components/schemas/Design"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "UDesign Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/image/{id}": {
+            "get": {
+                "tags": [
+                    "Image"
+                ],
+                "summary": "Get Image",
+                "description": "Get image after upload",
+                "operationId": "App\\Http\\Controllers\\Designs\\UploadController::getImage",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "image": {
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
@@ -390,6 +860,172 @@
                                     "properties": {
                                         "message": {
                                             "description": "Class MeController",
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "User Profile"
+                ],
+                "summary": "Retrieve All Users information",
+                "description": "Gets alkl users from DB  ** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above",
+                "operationId": "App\\Http\\Controllers\\User\\UserController::index",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserProfile"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User should be authorized to get profile information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "User Profile"
+                ],
+                "summary": "Retrieve All Users information",
+                "description": "Gets alkl users from DB  ** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above",
+                "operationId": "App\\Http\\Controllers\\User\\UserController::findUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserProfile"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User should be authorized to get profile information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/{username}": {
+            "get": {
+                "tags": [
+                    "User Profile"
+                ],
+                "summary": "Retrieve All Users information",
+                "description": "Gets alkl users from DB  ** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above",
+                "operationId": "App\\Http\\Controllers\\User\\UserController::findByUserName",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "pierce"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserProfile"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User should be authorized to get profile information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
                                             "type": "string",
                                             "example": "Not authorized"
                                         }
@@ -611,6 +1247,69 @@
                 "type": "object",
                 "xml": {
                     "name": "Design"
+                }
+            },
+            "Post": {
+                "properties": {
+                    "id": {
+                        "description": "Class Post",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "caption": {
+                        "description": "Class Post",
+                        "type": "string",
+                        "example": "the sea life"
+                    },
+                    "location": {
+                        "description": "Class Post",
+                        "type": "string",
+                        "example": "Dusseldorf"
+                    },
+                    "imageUrl": {
+                        "description": "Class Post",
+                        "type": "string",
+                        "example": "http://localhost:8000/storage/3B5wcGnEbnFaAYsjMxk5P1V1fAGKaVhviC3EO0Gd.png"
+                    },
+                    "created_dates": {
+                        "description": "Class Post",
+                        "properties": {
+                            "created_at_human": {
+                                "description": "Date Created formatted",
+                                "example": "52 minutes ago"
+                            },
+                            "created_at": {
+                                "description": "Raw unfarmatted Date ",
+                                "example": "2020-11-09T20:04:11.000000Z"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "updated_dates": {
+                        "description": "Class Post",
+                        "properties": {
+                            "updated_at_human": {
+                                "description": "Date Updated formatted",
+                                "example": "52 minutes ago"
+                            },
+                            "updated_at": {
+                                "description": "Raw unfarmatted update date ",
+                                "example": "2020-11-09T20:04:11.000000Z"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "comment": {
+                        "$ref": "#/components/schemas/Comment"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Post"
                 }
             },
             "User": {
