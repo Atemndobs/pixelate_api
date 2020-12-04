@@ -26,13 +26,9 @@ all:
 
 serve:
 	php artisan serve
-	#symfony serve
-
-new-tab:
-	gnome-terminal --tab
 
 update:
-	composer update
+	php vendor/bin/composer update
 
 push:
 	git add .
@@ -55,18 +51,9 @@ lunch:
 
 test:
 	php vendor/bin/phpunit --exclude-group skip-test -v --testdox
-send:
-	bin/console send:tickets
-
-ssh:
-	ssh ticket-assistant.web-factory.de
-	cd /server/data/www/apache2.2/ticket-assistant
-
 cron:
 	crontab * * * * * /bin/zsh /home/ba/workdir/data/ticket-assistant/run.sh
 
-path:
-	/home/ba/workdir/data/ticket-assistant/run.sh
 analyse:
 	php vendor/bin/phpstan.phar analyse --level=6 src
 
@@ -77,12 +64,16 @@ horizon:
 restart-php-pfm:
 	sudo service phpX.Y-fpm-sp restart
 install:
-	 /bin/bash /Users/b.atemkeng/sites/pixelate/install.sh
+	 /bin/bash /var/www/pixelate/install.sh
 composer:
-	 /bin/sh /Users/b.atemkeng/sites/pixelate/composer.sh
+	 /bin/bash /var/www/pixelate/composer.sh
 sql:
 	mysql -uatemkeng_compixelate -ppixelate
 env:
 	cp .env.prod .env
 pull:
 	git pull && make env
+comp:
+	php vendor/bin/composer install
+up:
+	make pull && make install && make qu
