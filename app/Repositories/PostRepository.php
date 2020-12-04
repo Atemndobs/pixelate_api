@@ -19,7 +19,8 @@ class PostRepository extends BaseRepository
     protected $fieldSearchable = [
         'caption',
         'imageUrl',
-        'location'
+        'location',
+        'user_id'
     ];
 
     /**

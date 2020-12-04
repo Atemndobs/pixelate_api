@@ -68,7 +68,7 @@ class UploadController extends Controller
     {
 
         $this->validate($request, [
-            'image' => ['required', 'mimes:jpeg,gif,bmp,png', 'max:2048']
+            'image' => ['required', 'mimes:jpeg,jpg,gif,bmp,png']
         ]);
 
 /*        if ($request->has('image')){
@@ -152,24 +152,28 @@ class UploadController extends Controller
      */
     public function getImage($id)
     {
-        $user = User::first();
-        $images = DB::table('post')->select('imageUrl')
-            ->where('id',  $id)
-            ->where('user_id', $user->id);
+        $user = User::findOrFail($id);
+
+        $images = DB::table('posts')->select('imageUrl')
+            ->where(['user_id' => $id])
+            ->get();
+
+        if ($images->count() === 0) {
+            return response(
+                ["message" => "No images found for ".$user->name ],
+                404
+            );
+        }
 
 
-      return $images;
-
-        //return Storage::disk()->allDirectories();
-
-        echo asset('storage/eVn9NU9RrT1u8d1fS4UguGpqL4t10MsVnYLKvcoR.png');
+       // echo asset('storage/eVn9NU9RrT1u8d1fS4UguGpqL4t10MsVnYLKvcoR.png');
 
 
         // return response()->file(Storage::get('my_image.jpg'), ['Content-Type' => 'image/jpeg']);
        // return response()->file(\Storage::get($image->image), ['Content-Type' => 'image/jpeg']);
-/*        return response(
-            ["image" => $image_link],
+        return response(
+            ["images for ".$user->name => $images],
             200
-        );*/
+        );
     }
 }

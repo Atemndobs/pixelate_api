@@ -11,7 +11,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
-use Storage;
 
 /**
  * Class PostController
@@ -54,7 +53,7 @@ class PostAPIController extends AppBaseController
      * )
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function index(Request $request)
     {
@@ -182,14 +181,14 @@ class PostAPIController extends AppBaseController
      *
      * @param int $id
      *
-     * @return Response
+     * @return JsonResponse
      */
     public function show($id)
     {
         /** @var Post $post */
         $post = $this->postRepository->find($id);
 
-        if (empty($post)) {
+        if ($post === null) {
             return $this->sendError('Post not found');
         }
 
