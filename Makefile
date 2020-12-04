@@ -82,3 +82,5 @@ composer:
 	 /bin/sh /Users/b.atemkeng/sites/pixelate/composer.sh
 sql:
 	mysql -uatemkeng_compixelate -ppixelate
+env:
+	cp .env.prod .env
