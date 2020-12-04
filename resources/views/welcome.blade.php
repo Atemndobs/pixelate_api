@@ -104,7 +104,7 @@
                 <div class="links">
                     <a href="{{env('QUASAR_URL')}}">Pixelate</a>
                     <a href="{{env('CLIENT_URL')}}">Deja-vu</a>
-                    <a href="{{env('APP_URL')}}/horizon/dashboard">Horizon</a>
+                    <a href="{{env('HOME_URL')}}">Home</a>
                     <a href="{{env('APP_URL')}}/api/docs">API DOCS</a>
                 </div>
             </div>
