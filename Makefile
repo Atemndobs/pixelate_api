@@ -84,3 +84,5 @@ sql:
 	mysql -uatemkeng_compixelate -ppixelate
 env:
 	cp .env.prod .env
+pull:
+	git pull && make env
