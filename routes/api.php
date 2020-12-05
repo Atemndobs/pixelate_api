@@ -95,4 +95,4 @@ Route::get('posts', "\App\Http\Controllers\API\PostAPIController@index");
 Route::get('posts/{id}', "\App\Http\Controllers\API\PostAPIController@show");
 Route::put('posts/{id}', "\App\Http\Controllers\API\PostAPIController@update");
 Route::post('posts/{user_id}', "\App\Http\Controllers\API\PostAPIController@store");
-Route::delete('posts/{id}', "\App\Http\Controllers\API\PostAPIController@index");
+Route::delete('posts/{id}', "\App\Http\Controllers\API\PostAPIController@destroy");
