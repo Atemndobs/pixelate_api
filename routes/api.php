@@ -96,3 +96,4 @@ Route::get('posts/{id}', "\App\Http\Controllers\API\PostAPIController@show");
 Route::put('posts/{id}', "\App\Http\Controllers\API\PostAPIController@update");
 Route::post('posts/{user_id}', "\App\Http\Controllers\API\PostAPIController@store");
 Route::delete('posts/{id}', "\App\Http\Controllers\API\PostAPIController@destroy");
+Route::delete('image/{post_id}', "Designs\UploadController@deleteImage");

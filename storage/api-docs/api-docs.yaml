@@ -5,7 +5,7 @@ info:
   version: 1.0.2
 servers:
   -
-    url: 'http://localhost:8000'
+    url: 'http://localhost'
     description: Server
 paths:
   /api/posts:
@@ -552,6 +552,51 @@ paths:
                     type: string
                     example: 'Not Found'
                 type: object
+  ':8000/api/image/{post_id}':
+    delete:
+      tags:
+        - Image
+      summary: 'Delete Image'
+      description: 'Delete A Post by Id'
+      operationId: 'App\Http\Controllers\Designs\UploadController::deleteImage'
+      parameters:
+        -
+          name: post_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: string
+                    example: 'true'
+                  message:
+                    type: string
+                    example: 'Post deleted successfully'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: string
+                    example: 'false'
+                  message:
+                    type: string
+                    example: 'Post not found'
+                type: object
+      security:
+        -
+          token: []
   /api/me:
     get:
       tags:

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\DesignResource;
 use App\Jobs\UploadImage;
 use App\Models\Design;
+use App\Models\Post;
 use App\Models\User;
 use App\Repositories\Contracts\DesignRepositoryInterface;
 use App\Repositories\Eloquent\Criteria\EagerLoad;
@@ -175,5 +176,54 @@ class UploadController extends Controller
             ["images for ".$user->name => $images],
             200
         );
+    }
+
+
+    /**
+     * @param $post_id
+     * @return false|string
+     *
+     *     path="/api/image/{id}",
+     *     summary="Get Image",
+     *     description="Get image after upload",
+     *     tags={"Image"},
+     *
+     * @OA\Delete (
+     * path=":8000/api/image/{post_id}",
+     * summary="Delete Image",
+     * description="Delete A Post by Id",
+     * tags={"Image"},
+     * security={ {"token": {} }},
+     *     @OA\Parameter(
+     *         name="post_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="number", example=1
+     *         )
+     *     ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="success", type="string", example="true"),
+     *       @OA\Property(property="message", type="string", example="Post deleted successfully"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="success", type="string", example="false"),
+     *       @OA\Property(property="message", type="string", example="Post not found"),
+     *     )
+     *     )
+     * )
+     */
+    public function deleteImage($post_id)
+    {
+       $post =  Post::first($post_id)->update(['imageUrl' => '']);
+
+       return json_encode($post);
     }
 }
