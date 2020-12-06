@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="laravelTinkerProject">
+    <option name="lastCode" value="&lt;?php&#10;&#10;$user = \App\Models\User::all();&#10;&#10;$posts = [];&#10;foreach ($user as $man){&#10;    $emails[] = $man-&gt;email;&#10;     $locations[] = json_encode($man-&gt;location);&#10;    if ($man-&gt;posts()-&gt;count() !== 0){&#10;        $posts[] = $man-&gt;posts()-&gt;get();&#10;    }&#10;}&#10;return [$posts, $locations, $user];&#10;" />
+  </component>
+</project>

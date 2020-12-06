@@ -77,3 +77,11 @@ comp:
 	php vendor/bin/composer install
 up:
 	make pull && make install && make qu
+help:
+	make help-doc && make help-model && make help-meta
+help-doc:
+	php artisan ide-helper:generate
+help-model:
+	php artisan ide-helper:models
+help-meta:
+	php artisan ide-helper:meta

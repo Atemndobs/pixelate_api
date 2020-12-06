@@ -140,7 +140,7 @@ class TeamController extends Controller
 
         // check the request sender is either owner of team or someone leaving the team
 
-        dd($team->owner_id, auth()->id(), $user_id, $user->id);
+      //  dd($team->owner_id, auth()->id(), $user_id, $user->id);
         if (auth()->user()->isOwnerOfTeam($team) && auth()->id() !== $user->id) {
             return response()->json(["message" => "You are not allowed to do this"], 401);
         }

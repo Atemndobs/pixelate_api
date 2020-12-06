@@ -91,9 +91,9 @@ Route::group(['middleware' => ['guest:api']], function (){
 
 
 
-Route::get('posts', "\App\Http\Controllers\API\PostAPIController@index");
-Route::get('posts/{id}', "\App\Http\Controllers\API\PostAPIController@show");
-Route::put('posts/{id}', "\App\Http\Controllers\API\PostAPIController@update");
-Route::post('posts/{user_id}', "\App\Http\Controllers\API\PostAPIController@store");
-Route::delete('posts/{id}', "\App\Http\Controllers\API\PostAPIController@destroy");
-Route::delete('image/{post_id}', "Designs\UploadController@deleteImage");
+Route::get('posts', "API\PostAPIController@index");
+Route::get('posts/{id}', "API\PostAPIController@show");
+Route::put('posts/{id}', "API\PostAPIController@update");
+Route::post('posts/{user_id}', "API\PostAPIController@store");
+Route::delete('posts/{id}', "API\PostAPIController@destroy");
+Route::delete('image/{user_id}/{post_id}', "Designs\UploadController@deleteImage");

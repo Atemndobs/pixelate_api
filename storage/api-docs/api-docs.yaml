@@ -5,7 +5,7 @@ info:
   version: 1.0.2
 servers:
   -
-    url: 'http://localhost'
+    url: 'http://localhost:8000'
     description: Server
 paths:
   /api/posts:
@@ -420,6 +420,46 @@ paths:
                     type: string
                     example: 'Please confirm your email'
                 type: object
+  '/api/verification/verify/{user}':
+    get:
+      tags:
+        - Auth
+      summary: 'Verify user '
+      description: 'Verify user after Registration  using email'
+      operationId: 'App\Http\Controllers\Auth\VerificationController::verify'
+      parameters:
+        -
+          name: user
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Design'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'The given data was invalid.'
+                  errors:
+                    properties:
+                      image:
+                        example:
+                          - 'The image field is required.'
+                    type: object
+                type: object
   /api/designs:
     get:
       tags:
@@ -552,7 +592,7 @@ paths:
                     type: string
                     example: 'Not Found'
                 type: object
-  ':8000/api/image/{post_id}':
+  '/api/image/{user_id}/{post_id}':
     delete:
       tags:
         - Image
@@ -560,6 +600,13 @@ paths:
       description: 'Delete A Post by Id'
       operationId: 'App\Http\Controllers\Designs\UploadController::deleteImage'
       parameters:
+        -
+          name: user_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
         -
           name: post_id
           in: path

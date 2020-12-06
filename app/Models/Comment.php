@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\Comment
- * @OA\Schema(
+ *
+ * @OA\Schema (
  *      @OA\Xml(name="Comment"),
  *      @OA\Property(property="id", type="integer", readOnly="true", example="1"),
-
+ * 
  *      @OA\Property(property="created_dates", type="object",
  *          @OA\Property(property="created_at_human", description="Date Created formatted", example="52 minutes ago"),
  *          @OA\Property(property="created_at", description="Raw unfarmatted Date ", example="2020-11-09T20:04:11.000000Z"),
@@ -20,7 +21,6 @@ use Illuminate\Database\Eloquent\Model;
  *          @OA\Property(property="updated_at", description="Raw unfarmatted update date ", example="2020-11-09T20:04:11.000000Z"),
  *      ),
  * )
- *
  * @property int $id
  * @property int $user_id
  * @property string $body

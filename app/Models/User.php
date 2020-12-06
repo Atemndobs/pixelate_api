@@ -22,7 +22,7 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 /**
  * App\Models\User
  *
- * @OA\Schema(
+ * @OA\Schema (
  *      required={"password"},
  *      @OA\Xml(name="User"),
  *      @OA\Property(property="id", type="integer", readOnly="true", example=1),
@@ -42,7 +42,7 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
  *      @OA\Property(property="formatted_address", example="811 Sibyl Bypass Suite 783\n New Rita, AL 48220-0930" ),
  *      @OA\Property(property="available_to_hire", type="boolean", example=1 ),
  *      @OA\Property(property="about", type="string", example="VERY deeply with a soldier on each." ),
-
+ * 
  *      @OA\Property(property="trade_id", type="number", example=null ),
  *      @OA\Property(property="current_team_id", type="number", example=null ),
  *      @OA\Property(property="profile_photo_path", type="number", example=null ),
@@ -50,7 +50,6 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
  *      @OA\Property(property="updated_at", ref="#/components/schemas/BaseModel/properties/updated_at"),
  *      @OA\Property(property="photo_url:", type="string", maxLength=32, example="https://www.gravatar.com/avatar/97bd1823e00f02eb71a0b709425152a7jpg?s=200&d=mm:"),
  * )
- *
  * @property int $id
  * @property string $name
  * @property string $username
@@ -109,6 +108,29 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
  * @property-read int|null $comments_count
  * @property-read Collection|\App\Models\Team[] $teams
  * @property-read int|null $teams_count
+ * @property string|null $two_factor_secret
+ * @property string|null $two_factor_recovery_codes
+ * @property int|null $trade_id
+ * @property int|null $current_team_id
+ * @property string|null $profile_photo_path
+ * @property-read Collection|\App\Models\Chat[] $chats
+ * @property-read int|null $chats_count
+ * @property-read string $photo_url
+ * @property-read Collection|\App\Models\Invitation[] $invitations
+ * @property-read int|null $invitations_count
+ * @property-read Collection|\App\Models\Message[] $messages
+ * @property-read int|null $messages_count
+ * @property-read Collection|\App\Models\Team[] $ownedTeams
+ * @property-read int|null $owned_teams_count
+ * @property-read Collection|\App\Models\Post[] $posts
+ * @property-read int|null $posts_count
+ * @property-read Collection|\App\Models\Trade[] $trade
+ * @property-read int|null $trade_count
+ * @method static Builder|User whereCurrentTeamId($value)
+ * @method static Builder|User whereProfilePhotoPath($value)
+ * @method static Builder|User whereTradeId($value)
+ * @method static Builder|User whereTwoFactorRecoveryCodes($value)
+ * @method static Builder|User whereTwoFactorSecret($value)
  */
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {

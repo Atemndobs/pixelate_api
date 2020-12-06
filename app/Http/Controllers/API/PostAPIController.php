@@ -299,11 +299,10 @@ class PostAPIController extends AppBaseController
      *
      * @param int $id
      *
-     * @throws \Exception
-     *
      * @return Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(int $id): Response
     {
         /** @var Post $post */
         $post = $this->postRepository->find($id);
@@ -311,6 +310,8 @@ class PostAPIController extends AppBaseController
         if (empty($post)) {
             return $this->sendError('Post not found');
         }
+
+
 
         $post->delete();
 

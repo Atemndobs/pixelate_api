@@ -18,6 +18,7 @@ use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Yaml\Yaml;
 
 class UploadController extends Controller
 {
@@ -91,13 +92,6 @@ class UploadController extends Controller
 
         #$tmp = $image->storeAs('uploads/original', $filename, 'tmp');
         $image->storeAs('uploads/original', $filename, 'tmp');
-
-
-
-
-    //\Storage::disk('public')->put( $filename, '');
-
-
         // insert / create database record for the design
 /*        $design = auth()->user()->designs()->create([
             'image' => $filename,
@@ -154,7 +148,6 @@ class UploadController extends Controller
     public function getImage($id)
     {
         $user = User::findOrFail($id);
-
         $images = DB::table('posts')->select('imageUrl')
             ->where(['user_id' => $id])
             ->get();
@@ -168,10 +161,6 @@ class UploadController extends Controller
 
 
        // echo asset('storage/eVn9NU9RrT1u8d1fS4UguGpqL4t10MsVnYLKvcoR.png');
-
-
-        // return response()->file(Storage::get('my_image.jpg'), ['Content-Type' => 'image/jpeg']);
-       // return response()->file(\Storage::get($image->image), ['Content-Type' => 'image/jpeg']);
         return response(
             ["images for ".$user->name => $images],
             200
@@ -189,11 +178,19 @@ class UploadController extends Controller
      *     tags={"Image"},
      *
      * @OA\Delete (
-     * path=":8000/api/image/{post_id}",
+     * path="/api/image/{user_id}/{post_id}",
      * summary="Delete Image",
      * description="Delete A Post by Id",
      * tags={"Image"},
      * security={ {"token": {} }},
+     *     @OA\Parameter(
+     *         name="user_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="number", example=1
+     *         )
+     *     ),
      *     @OA\Parameter(
      *         name="post_id",
      *         in="path",
@@ -220,10 +217,23 @@ class UploadController extends Controller
      *     )
      * )
      */
-    public function deleteImage($post_id)
+    public function deleteImage($user_id, $post_id)
     {
-       $post =  Post::first($post_id)->update(['imageUrl' => '']);
 
-       return json_encode($post);
+       // $posts = User::findOrFail($user_id)->posts()->get();
+
+
+       $post =  Post::findOrFail($post_id);
+
+           if ((int)$user_id === $post->user_id)
+           {
+               $post->update(['imageUrl' => '']);
+           }
+
+        return response(
+            ['message' => $post],
+            200
+        );
+
     }
 }

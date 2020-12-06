@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 /**
  * App\Models\Design
  *
- * @OA\Schema(
+ * @OA\Schema (
  *      @OA\Xml(name="Design"),
  *      @OA\Property(property="id", type="integer", readOnly="true", example="1"),
  *      @OA\Property(property="title", type="string", example="the sea life"),
@@ -40,7 +40,6 @@ use Illuminate\Support\Facades\Storage;
  *      @OA\Property(property="user", ref="#/components/schemas/User"),
  *      @OA\Property(property="comment", ref="#/components/schemas/Comment"),
  * )
- *
  * @method static findOrFail($id)
  * @property int $id
  * @property int $user_id
@@ -86,6 +85,12 @@ use Illuminate\Support\Facades\Storage;
  * @property-read int|null $comments_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
  * @property-read int|null $likes_count
+ * @property int|null $trade_id
+ * @property int|null $team_id
+ * @property-read \App\Models\Team|null $team
+ * @property-read \App\Models\Trade|null $trade
+ * @method static \Illuminate\Database\Eloquent\Builder|Design whereTeamId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Design whereTradeId($value)
  */
 class Design extends Model
 {

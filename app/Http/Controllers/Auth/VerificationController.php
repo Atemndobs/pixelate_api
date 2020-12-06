@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Auth\Events\Verified;
 // use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
@@ -37,9 +38,47 @@ class VerificationController extends Controller
     }
 
 
-    public function verify(Request $request, User $user)
+    /**
+     *
+     * @OA\Get (
+     * path="/api/verification/verify/{user}",
+     * summary="Verify user ",
+     * description="Verify user after Registration  using email",
+     * tags={"Auth"},
+     *     @OA\Parameter(
+     *         name="user",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="object", ref="#/components/schemas/User"
+     *         )
+     *     ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *            @OA\Property(property="data", type="object", ref="#/components/schemas/Design")
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *      @OA\Property(property="message", type="string", example="The given data was invalid."),
+     *          @OA\Property(property="errors", type="object",
+     *              @OA\Property(property="image",
+     *                  example={"The image field is required."}
+     *              ),
+     *          ),
+     *      ),
+     *    ),
+     * )
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function verify(Request $request, User $user): JsonResponse
     {
-
         //check if URL is a valid signed url
         if (!URL::hasValidSignature($request)){
             return response()->json(["errors" => [

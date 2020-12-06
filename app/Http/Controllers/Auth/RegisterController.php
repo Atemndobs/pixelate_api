@@ -146,11 +146,9 @@ class RegisterController extends Controller
             event(new Registered($user = $this->create($request->all())));
         }catch (\Exception $exception){
             return json_encode($exception->getMessage(), JSON_THROW_ON_ERROR);
-        } catch (\JsonException $e) {
-            return $e->getMessage();
         }
 
-        $this->guard()->login($user);
+       // $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {
             return $response;
