@@ -39,40 +39,6 @@ class VerificationController extends Controller
 
 
     /**
-     *
-     * @OA\Get (
-     * path="/api/verification/verify/{user}",
-     * summary="Verify user ",
-     * description="Verify user after Registration  using email",
-     * tags={"Auth"},
-     *     @OA\Parameter(
-     *         name="user",
-     *         in="path",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="object", ref="#/components/schemas/User"
-     *         )
-     *     ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Success",
-     *    @OA\JsonContent(
-     *            @OA\Property(property="data", type="object", ref="#/components/schemas/Design")
-     *    ),
-     * ),
-     * @OA\Response(
-     *    response=422,
-     *    description="Wrong credentials response",
-     *    @OA\JsonContent(
-     *      @OA\Property(property="message", type="string", example="The given data was invalid."),
-     *          @OA\Property(property="errors", type="object",
-     *              @OA\Property(property="image",
-     *                  example={"The image field is required."}
-     *              ),
-     *          ),
-     *      ),
-     *    ),
-     * )
      * @param Request $request
      * @param User $user
      * @return JsonResponse
@@ -99,6 +65,47 @@ class VerificationController extends Controller
         return response()->json(["message" => "email successfully verified"], 200);
     }
 
+    /**
+     * @OA\Post(
+     * path="/api/verification/resend",
+     * summary="Resend Verification link",
+     * description="Resend verification link for given email",
+     * tags={"Auth"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Resend verification link for given email",
+     *    @OA\JsonContent(
+     *       required={"email","password"},
+     *       @OA\Property(property="email", type="string", format="email", example="bamarktfact@gmail.com"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="expires_in", type="string", example="verification link resent"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=404,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Results was not found in Database")
+     *        )
+     *     ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Email address is not registered.")
+     *        )
+     *     ),
+     * )
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function resend(Request $request)
     {
         $this->validate($request, [

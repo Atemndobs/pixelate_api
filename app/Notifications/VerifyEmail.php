@@ -28,7 +28,7 @@ class VerifyEmail extends Notification
         );
 
          #return str_replace(url('/api'), $appUrl, $url);
-         return str_replace(url('/api'), 'http://atemkeng.com/api', $url);
+         return str_replace(url('/api'), $appUrl, $url);
     }
 
 }

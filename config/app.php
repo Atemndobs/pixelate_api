@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL'."/api", 'http://atemkeng.com/api'),
+    'url' => env('API_URL', 'http://atemkeng.com/api'),
     'pixelate_url' => env('QUASAR_URL', 'http://atmkng.de/pixelate'),
     'quasar_app_url' => env('QUASAR_URL', 'http://localhost:8080'),
 

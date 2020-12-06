@@ -420,20 +420,28 @@ paths:
                     type: string
                     example: 'Please confirm your email'
                 type: object
-  '/api/verification/verify/{user}':
-    get:
+  /api/verification/resend:
+    post:
       tags:
         - Auth
-      summary: 'Verify user '
-      description: 'Verify user after Registration  using email'
-      operationId: 'App\Http\Controllers\Auth\VerificationController::verify'
-      parameters:
-        -
-          name: user
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/User'
+      summary: 'Resend Verification link'
+      description: 'Resend verification link for given email'
+      operationId: 'App\Http\Controllers\Auth\VerificationController::resend'
+      requestBody:
+        description: 'Resend verification link for given email'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: bamarktfact@gmail.com
+              type: object
       responses:
         200:
           description: Success
@@ -441,8 +449,19 @@ paths:
             application/json:
               schema:
                 properties:
-                  data:
-                    $ref: '#/components/schemas/Design'
+                  expires_in:
+                    type: string
+                    example: 'verification link resent'
+                type: object
+        404:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Results was not found in Database'
                 type: object
         422:
           description: 'Wrong credentials response'
@@ -452,13 +471,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: 'The given data was invalid.'
-                  errors:
-                    properties:
-                      image:
-                        example:
-                          - 'The image field is required.'
-                    type: object
+                    example: 'Email address is not registered.'
                 type: object
   /api/designs:
     get:
