@@ -20,7 +20,9 @@ class VerifyEmail extends Notification
     protected function verificationUrl($notifiable)
     {
         $appUrl = config('app.url');
-
+        if (env('APP_ENV') === 'prod') {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
         $url = URL::temporarySignedRoute(
             'verification.verify',
             Carbon::now()->addMinute(60),

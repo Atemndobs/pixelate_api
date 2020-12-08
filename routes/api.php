@@ -3,6 +3,11 @@
 use App\Http\Controllers\Designs\DesignController;
 use Illuminate\Support\Facades\Route;
 
+
+if (env('APP_ENV') === 'prod') {
+    \Illuminate\Support\Facades\URL::forceScheme('https');
+}
+
 // Public route
 # Route::get('me','User\MeController@getMe');
 Route::get('comments','Designs\CommentController@index');
@@ -98,4 +103,3 @@ Route::post('posts/{user_id}', "API\PostAPIController@store");
 Route::delete('posts/{id}', "API\PostAPIController@destroy");
 Route::delete('image/{user_id}/{post_id}', "Designs\UploadController@deleteImage");
 
-URL::forceScheme('https');
