@@ -28,6 +28,7 @@ class VerifyEmail extends Notification
         );
         $url = str_replace("http://","https://", $url);
 
+
         #return str_replace(url('/api'), $appUrl, $url);
          return str_replace(url('/api'), $appUrl, $url);
     }
