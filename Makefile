@@ -76,7 +76,7 @@ pull:
 comp:
 	php vendor/bin/composer install
 up:
-	make pull && make install && make cl && make key && make qu
+	make pull && make cl && make key && make qu
 help:
 	make help-doc && make help-model && make help-meta
 help-doc:
