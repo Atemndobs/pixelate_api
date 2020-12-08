@@ -10,6 +10,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\ValidationException;
 
 class VerificationController extends Controller
 {
@@ -107,7 +108,7 @@ class VerificationController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function resend(Request $request)
     {
@@ -116,6 +117,8 @@ class VerificationController extends Controller
         ]);
 
         $user = $this->userRepository->findWhereFirst('email',$request->email);
+
+        return json_encode($user);
         // $user = User::where('email', $request->email)->first();
         if (!$user){
             return response()->json(["errors" => [
