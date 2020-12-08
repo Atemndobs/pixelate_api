@@ -12,10 +12,10 @@ RewriteRule ^(.*)$ /subdir/$1
 RewriteCond %{HTTP_HOST} ^(www.)?atemkeng.com$
 RewriteRule ^(/)?$ pixelate/public/index.php [L]
 
-</IfModule>
-
 <VirtualHost *:80>
    ServerName atemkeng.com
    ServerAlias www.atemkeng.com
    Redirect permanent / https://atemkeng.com/
 </VirtualHost>
+
+</IfModule>
