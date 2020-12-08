@@ -97,3 +97,5 @@ Route::put('posts/{id}', "API\PostAPIController@update");
 Route::post('posts/{user_id}', "API\PostAPIController@store");
 Route::delete('posts/{id}', "API\PostAPIController@destroy");
 Route::delete('image/{user_id}/{post_id}', "Designs\UploadController@deleteImage");
+
+URL::forceScheme('https');
