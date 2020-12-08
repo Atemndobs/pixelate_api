@@ -118,7 +118,6 @@ class VerificationController extends Controller
 
         $user = $this->userRepository->findWhereFirst('email',$request->email);
 
-        return json_encode($user);
         // $user = User::where('email', $request->email)->first();
         if (!$user){
             return response()->json(["errors" => [

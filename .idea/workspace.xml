@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/VerificationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/VerificationController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +247,7 @@
       <workItem from="1607202923229" duration="1811000" />
       <workItem from="1607240979046" duration="9571000" />
       <workItem from="1607376262725" duration="1321000" />
-      <workItem from="1607423813250" duration="1353000" />
+      <workItem from="1607423813250" duration="7620000" />
     </task>
     <servers />
   </component>
@@ -254,6 +255,15 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
