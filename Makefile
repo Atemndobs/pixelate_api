@@ -76,7 +76,7 @@ pull:
 comp:
 	php vendor/bin/composer install
 up:
-	make pull && make install && make qu
+	make pull && make install && make cl && make key && make qu
 help:
 	make help-doc && make help-model && make help-meta
 help-doc:
@@ -85,3 +85,7 @@ help-model:
 	php artisan ide-helper:models
 help-meta:
 	php artisan ide-helper:meta
+key:
+	php artisan key:generate
+cl:
+	php artisan config:clear && php artisan config:cache && php artisan cache:clear && php artisan optimize:clear && composer dump-autoload && php artisan view:clear
