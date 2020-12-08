@@ -46,9 +46,12 @@ class VerificationController extends Controller
     public function verify(Request $request, User $user): JsonResponse
     {
         //check if URL is a valid signed url
+       // URL::forceScheme('https');
         if (!URL::hasValidSignature($request)){
+
             return response()->json(["errors" => [
-                "message" => "Invalid verification link or signature"
+                "message" => "Invalid verification link or signature",
+                "url" => URL::full(),
             ]], 422);
         }
 
@@ -83,7 +86,7 @@ class VerificationController extends Controller
      *    response=200,
      *    description="Success",
      *    @OA\JsonContent(
-     *       @OA\Property(property="expires_in", type="string", example="verification link resent"),
+     *       @OA\Property(property="status", type="string", example="verification link resent"),
      *    ),
      * ),
      * @OA\Response(
