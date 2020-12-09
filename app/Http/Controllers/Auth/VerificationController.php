@@ -67,10 +67,10 @@ class VerificationController extends Controller
         $user->markEmailAsVerified();
         event(new Verified($user));
 
-        $clientUrl = env('CLIENT_URL');
+        // $clientUrl = env('CLIENT_URL');
 
         if (env('APP_ENV') === 'production') {
-            return \Redirect::to('https://dejavu.atmkng.de/');
+            return redirect()->action([LoginController::class, 'login']);
         }
         return response()->json(["message" => "email successfully verified"], 200);
     }
