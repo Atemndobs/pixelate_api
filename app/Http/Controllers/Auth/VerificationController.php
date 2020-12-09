@@ -70,7 +70,7 @@ class VerificationController extends Controller
         $clientUrl = env('CLIENT_URL');
         return response()->json([
             "message" => "email successfully verified",
-            "return to app" => $clientUrl
+            "return to app" => 'https://dejavu.atmkng.de/#/login'
         ], 200);
     }
 
