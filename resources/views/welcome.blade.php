@@ -102,10 +102,10 @@
                     </div>
                 </form>--}}
                 <div class="links">
-                    <a href="{{env('QUASAR_URL')}}">Pixelate</a>
-                    <a href="{{env('CLIENT_URL')}}/#/login">Deja-vu</a>
-                    <a href="{{env('HOME_URL')}}">Home</a>
-                    <a href="{{env('APP_URL')}}/api/docs">API DOCS</a>
+                    <a href="{{env('QUASAR_URL')}}" target="_blank">Pixelate</a>
+                    <a href="{{env('CLIENT_URL')}}/#/login" target="_blank">Deja-vu</a>
+                    <a href="{{env('HOME_URL')}}" target="_blank">Home</a>
+                    <a href="{{env('APP_URL')}}/api/docs" target="_blank">API DOCS</a>
                 </div>
             </div>
         </div>
