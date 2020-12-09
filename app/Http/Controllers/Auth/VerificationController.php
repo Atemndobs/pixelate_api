@@ -63,9 +63,6 @@ class VerificationController extends Controller
             ]], 422);
         }
 
-        if (env('APP_ENV') === 'prod') {
-            \Illuminate\Support\Facades\URL::forceScheme('https');
-        }
         $user->markEmailAsVerified();
         event(new Verified($user));
 
