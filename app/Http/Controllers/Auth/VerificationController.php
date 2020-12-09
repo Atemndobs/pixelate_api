@@ -67,12 +67,11 @@ class VerificationController extends Controller
         $user->markEmailAsVerified();
         event(new Verified($user));
 
-        // $clientUrl = env('CLIENT_URL');
-
-        if (env('APP_ENV') === 'production') {
-            return redirect()->action([LoginController::class, 'login']);
-        }
-        return response()->json(["message" => "email successfully verified"], 200);
+        $clientUrl = env('CLIENT_URL');
+        return response()->json([
+            "message" => "email successfully verified",
+            "return to app" => $clientUrl
+        ], 200);
     }
 
     /**
