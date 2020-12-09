@@ -8,6 +8,7 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Auth\Events\Verified;
 // use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\ValidationException;
@@ -42,7 +43,7 @@ class VerificationController extends Controller
     /**
      * @param Request $request
      * @param User $user
-     * @return JsonResponse
+     * @return JsonResponse | RedirectResponse
      */
     public function verify(Request $request, User $user): JsonResponse
     {
@@ -66,6 +67,11 @@ class VerificationController extends Controller
         $user->markEmailAsVerified();
         event(new Verified($user));
 
+        $clientUrl = env('CLIENT_URL');
+
+        if (env('APP_ENV') === 'production') {
+            return \Redirect::to($clientUrl);
+        }
         return response()->json(["message" => "email successfully verified"], 200);
     }
 
