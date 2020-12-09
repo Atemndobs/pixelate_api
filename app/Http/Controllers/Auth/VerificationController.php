@@ -70,7 +70,7 @@ class VerificationController extends Controller
         $clientUrl = env('CLIENT_URL');
 
         if (env('APP_ENV') === 'production') {
-            return \Redirect::to($clientUrl);
+            return \Redirect::to('https://dejavu.atmkng.de/');
         }
         return response()->json(["message" => "email successfully verified"], 200);
     }
