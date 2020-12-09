@@ -88,4 +88,4 @@ help-meta:
 key:
 	php artisan key:generate
 cl:
-	php artisan config:clear && php artisan config:cache && php artisan cache:clear && php artisan optimize:clear && composer dump-autoload && php artisan view:clear
+	php artisan config:clear && php artisan config:cache && php artisan cache:clear && php artisan optimize:clear && php artisan view:clear
