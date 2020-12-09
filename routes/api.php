@@ -4,7 +4,7 @@ use App\Http\Controllers\Designs\DesignController;
 use Illuminate\Support\Facades\Route;
 
 
-if (env('APP_ENV') === 'prod') {
+if (env('APP_ENV') === 'production') {
     \Illuminate\Support\Facades\URL::forceScheme('https');
 }
 
@@ -101,5 +101,7 @@ Route::get('posts/{id}', "API\PostAPIController@show");
 Route::put('posts/{id}', "API\PostAPIController@update");
 Route::post('posts/{user_id}', "API\PostAPIController@store");
 Route::delete('posts/{id}', "API\PostAPIController@destroy");
-Route::delete('image/{user_id}/{post_id}', "Designs\UploadController@deleteImage");
+
+
+Route::delete('settings/user/{email}','User\SettingsController@deleteUser');
 

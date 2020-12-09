@@ -658,7 +658,7 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "expires_in": {
+                                        "status": {
                                             "type": "string",
                                             "example": "verification link resent"
                                         }
@@ -1021,6 +1021,196 @@
                                             "description": "Class MeController",
                                             "type": "string",
                                             "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/settings/profile": {
+            "put": {
+                "tags": [
+                    "User Profile"
+                ],
+                "summary": "Update Uder Profile",
+                "description": "Update User Detailed info",
+                "operationId": "App\\Http\\Controllers\\User\\SettingsController::updateProfile",
+                "requestBody": {
+                    "description": "Pass User data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Update User Profile\nPUT/PATCH /settings/profile",
+                                        "type": "string",
+                                        "example": "Atem Ndobs"
+                                    },
+                                    "tagline:": {
+                                        "description": "Update User Profile\nPUT/PATCH /settings/profile",
+                                        "type": "string",
+                                        "maxLength": 32,
+                                        "example": "Producer:"
+                                    },
+                                    "location": {
+                                        "description": "Update User Profile\nPUT/PATCH /settings/profile",
+                                        "properties": {
+                                            "type": {
+                                                "description": "Update User Profile\nPUT/PATCH /settings/profile",
+                                                "type": "string",
+                                                "example": "point"
+                                            },
+                                            "coordinates": {
+                                                "description": "Update User Profile\nPUT/PATCH /settings/profile",
+                                                "example": [
+                                                    8.503972,
+                                                    51.017243
+                                                ]
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "formatted_address": {
+                                        "description": "Update User Profile\nPUT/PATCH /settings/profile",
+                                        "example": "811 Sibyl Bypass Suite 783\\n New Rita, AL 48220-0930"
+                                    },
+                                    "available_to_hire": {
+                                        "description": "Update User Profile\nPUT/PATCH /settings/profile",
+                                        "type": "boolean",
+                                        "example": 1
+                                    },
+                                    "about": {
+                                        "description": "Update User Profile\nPUT/PATCH /settings/profile",
+                                        "type": "string",
+                                        "example": "VERY deeply with a soldier on each."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserProfile"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Update User Profile\nPUT/PATCH /settings/profile",
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "description": "Update User Profile\nPUT/PATCH /settings/profile",
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/settings/user/{email}": {
+            "delete": {
+                "tags": [
+                    "User Profile"
+                ],
+                "summary": "Delete User",
+                "description": "Delete A User by email",
+                "operationId": "App\\Http\\Controllers\\User\\SettingsController::deleteUser",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "schema": {
+                            "type": "string",
+                            "example": "bamarktfact@gmail.com"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass User data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "bamarktfact@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User successfully deleted"
+                                        },
+                                        "user": {
+                                            "type": "string",
+                                            "example": "bamarktfact@gmail.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User Already Deleted"
                                         }
                                     },
                                     "type": "object"

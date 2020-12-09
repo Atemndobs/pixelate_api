@@ -172,11 +172,6 @@ class UploadController extends Controller
      * @param $post_id
      * @return false|string
      *
-     *     path="/api/image/{id}",
-     *     summary="Get Image",
-     *     description="Get image after upload",
-     *     tags={"Image"},
-     *
      * @OA\Delete (
      * path="/api/image/{user_id}/{post_id}",
      * summary="Delete Image",

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\Rules\CheckSamePassword;
 use App\Rules\MatchOldPassword;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
@@ -12,6 +13,55 @@ use Illuminate\Support\Facades\DB;
 
 class SettingsController extends Controller
 {
+    /**
+     * Update User Profile
+     * PUT/PATCH /settings/profile
+     *
+     *
+     * @OA\Put(
+     * path="/api/settings/profile",
+     * summary="Update Uder Profile",
+     * description="Update User Detailed info",
+     * tags={"User Profile"},
+     * security={ {"token": {} }},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass User data",
+     *    @OA\JsonContent(
+     *      @OA\Property(property="name", type="string", example="Atem Ndobs"),
+     *      @OA\Property(property="tagline:", type="string", maxLength=32, example="Producer:"),
+     *      @OA\Property(property="location", type="object",
+     *          @OA\Property(property="type",type="string",example="point"),
+     *          @OA\Property(property="coordinates",
+     *              example={8.503972,51.017243}
+     *          ),
+     *      ),
+     *      @OA\Property(property="formatted_address", example="811 Sibyl Bypass Suite 783\n New Rita, AL 48220-0930" ),
+     *      @OA\Property(property="available_to_hire", type="boolean", example=1 ),
+     *      @OA\Property(property="about", type="string", example="VERY deeply with a soldier on each." ),
+     *    ),
+     * ),
+     *      @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *            @OA\Property(property="data", type="object", ref="#/components/schemas/UserProfile")
+     *             )
+     *          ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="success", type="string", example="false"),
+     *       @OA\Property(property="message", type="string", example="Post not found"),
+     *     )
+     *     )
+     * )
+     *
+     * @param Request $request
+     * @return UserResource
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function updateProfile(Request $request)
     {
         $user = auth()->user();
@@ -67,5 +117,69 @@ class SettingsController extends Controller
         ]);
 
         return response()->json(['message' => 'Password Updated'], 200);
+    }
+
+    /**
+     * @OA\Delete (
+     * path="/api/settings/user/{email}",
+     * summary="Delete User",
+     * description="Delete A User by email",
+     * tags={"User Profile"},
+     * security={ {"token": {} }},
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="path",
+     *         @OA\Schema(
+     *             type="string", example="bamarktfact@gmail.com"
+     *         )
+     *     ),
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass User data",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="email", type="string", example="bamarktfact@gmail.com"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="User successfully deleted"),
+     *       @OA\Property(property="user", type="string", example="bamarktfact@gmail.com"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=404,
+     *    description="Not Found",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="User Already Deleted"),
+     *     )
+     *   )
+     * )
+     *
+     */
+    public function deleteUser($email)
+    {
+        $user = User::where('email', $email)->delete();
+
+   //     return $user;
+
+        if ($user === 0){
+            return response(
+                [
+                    'message' => 'User Already Deleted',
+                ],
+                404
+            );
+        }
+
+        return response(
+            [
+                'message' => 'User successfully deleted',
+                'user' => $email
+            ],
+            200
+        );
+
     }
 }
