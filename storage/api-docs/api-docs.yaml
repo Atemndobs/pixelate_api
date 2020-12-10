@@ -92,6 +92,9 @@ paths:
                     type: string
                     example: 'Post not found'
                 type: object
+      security:
+        -
+          token: []
   '/api/posts/{id}':
     get:
       tags:
@@ -240,6 +243,84 @@ paths:
                     description: "Remove the specified Post from storage.\nDELETE /posts/{id}"
                     type: string
                     example: 'Post not found'
+                type: object
+      security:
+        -
+          token: []
+  '/api/posts/like/{post_id}':
+    post:
+      tags:
+        - Post
+      summary: 'Like Post'
+      description: 'Like a Post'
+      operationId: 'App\Http\Controllers\API\PostAPIController::toggleLike'
+      parameters:
+        -
+          name: post_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 11
+      requestBody:
+        description: 'Pass user credentials'
+        content:
+          application/json:
+            schema:
+              properties:
+                user_id:
+                  description: 'POST /posts'
+                  type: number
+                  example: 21
+                type:
+                  description: 'POST /posts'
+                  type: string
+                  example: Like
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: 'POST /posts'
+                    type: string
+                    example: liked
+                type: object
+        404:
+          description: 'No Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Post not found'
+                type: object
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Not Logged In'
+                type: object
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                properties:
+                  eror:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Reaction of type `Like` already exists.'
                 type: object
       security:
         -
@@ -570,6 +651,51 @@ paths:
                     type: string
                     example: 'Not Found'
                 type: object
+  '/api/designs/{design_id}/like':
+    post:
+      tags:
+        - Design
+      summary: 'Create Post'
+      description: 'Like a Deign'
+      operationId: 'App\Http\Controllers\Designs\DesignController::like'
+      parameters:
+        -
+          name: design_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  'Like / Unlike':
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Action successful'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'false'
+                  message:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Post not found'
+                type: object
+      security:
+        -
+          token: []
   '/api/image/{id}':
     get:
       tags:

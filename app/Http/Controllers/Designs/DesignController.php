@@ -157,9 +157,46 @@ class DesignController extends Controller
         return response()->json(["message" => "Record Deleted"], 200);
     }
 
+    /**
+     *
+     * POST /posts
+     *
+     * @OA\Post(
+     * path="/api/designs/{design_id}/like",
+     * summary="Create Post",
+     * description="Like a Deign",
+     * security={ {"token": {} }},
+     * tags={"Design"},
+     *     @OA\Parameter(
+     *         name="design_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="number", example=1
+     *         )
+     *     ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="Like / Unlike", type="string", example="Action successful"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="success", type="string", example="false"),
+     *       @OA\Property(property="message", type="string", example="Post not found"),
+     *     )
+     *     )
+     * )
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function like(int $id)
     {
-        $this->designRepository->like($id);
+      $this->designRepository->like($id);
 
         return response()->json(['Like / Unlike' => 'Action successful'], 200);
     }
@@ -168,7 +205,7 @@ class DesignController extends Controller
     {
 
         $isLiked = $this->designRepository->isLikedByUser($design_id);
-      //  dd($isLiked);
+
         return response()->json(["Liked" => $isLiked], 200);
     }
 

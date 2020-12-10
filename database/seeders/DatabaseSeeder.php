@@ -20,8 +20,9 @@ class DatabaseSeeder extends Seeder
      //   $this->call(\ChatsTableSeeder::class);
       //  $this->call(\MessagesTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
-        $this->call(\InvitationsTableSeeder::class);
-        $this->call(TradeSeeder::class);
+        //$this->call(\InvitationsTableSeeder::class);
+       // $this->call(TradeSeeder::class);
+        $this->call(PostsTableSeeder::class);
 
     }
 }

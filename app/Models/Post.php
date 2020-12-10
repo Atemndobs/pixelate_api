@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
+use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 
 /**
  * Class Post
@@ -52,12 +55,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Query\Builder|Post withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Post withoutTrashed()
  * @mixin Model
+ * @property int $love_reactant_id
+ * @property-read \Cog\Laravel\Love\Reactant\Models\Reactant $loveReactant
+ * @method static \Illuminate\Database\Eloquent\Builder|Post joinReactionCounterOfType($reactionTypeName, $alias = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post joinReactionTotal($alias = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereLoveReactantId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereNotReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
  */
-class Post extends Model
+class Post extends Model implements ReactableInterface
 {
-    use SoftDeletes;
+    use SoftDeletes, Reactable, HasFactory;
 
-    use HasFactory;
 
     public $table = 'posts';
 
@@ -97,5 +106,4 @@ class Post extends Model
     {
         return  $this->belongsTo(User::class);
     }
-
 }

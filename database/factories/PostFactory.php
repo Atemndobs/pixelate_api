@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostFactory extends Factory
@@ -23,7 +24,8 @@ class PostFactory extends Factory
     {
         return [
             'caption' => $this->faker->word,
-        'imageUrl' => $this->faker->word,
+            'user_id' =>User::factory(),
+        'imageUrl' => $this->faker->imageUrl(),
         'location' => $this->faker->word,
         'created_at' => $this->faker->date('Y-m-d H:i:s'),
         'updated_at' => $this->faker->date('Y-m-d H:i:s')

@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\NewLikeHasBeenAddedEvent;
 use App\Http\Requests\API\CreatePostAPIRequest;
 use App\Http\Requests\API\UpdatePostAPIRequest;
 use App\Models\Post;
 use App\Models\User;
 use App\Repositories\PostRepository;
+use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
+use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
+use Cog\Laravel\Love\Reaction\Models\Reaction;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -78,6 +83,7 @@ class PostAPIController extends AppBaseController
      * path="/api/posts/{user_id}",
      * summary="Create Post",
      * description="Create A Post",
+     * security={ {"token": {} }},
      * tags={"Post"},
      *     @OA\Parameter(
      *         name="user_id",
@@ -310,11 +316,188 @@ class PostAPIController extends AppBaseController
         if (empty($post)) {
             return $this->sendError('Post not found');
         }
-
-
-
         $post->delete();
 
         return $this->sendSuccess('Post deleted successfully');
+    }
+
+    /**
+     * POST /posts
+     *
+     * @OA\Post(
+     * path="/api/posts/like/{post_id}",
+     * summary="Like Post",
+     * description="Like a Post",
+     * tags={"Post"},
+     * security={ {"token": {} }},
+     *     @OA\Parameter(
+     *         name="post_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="number", example=11
+     *         )
+     *     ),
+     * @OA\RequestBody(
+     *    description="Pass user credentials",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="user_id", type="number", example=21),
+     *       @OA\Property(property="type", type="string", example="Like"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="success", type="string", example="liked"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=404,
+     *    description="No Found",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Post not found"),
+     *     )
+     *     ),
+     * @OA\Response(
+     *    response=401,
+     *    description="Unauthorized",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="error", type="string", example="Not Logged In"),
+     *     )
+     *     ),
+     * @OA\Response(
+     *    response=409,
+     *    description="Conflict",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="eror", type="string", example="Reaction of type `Like` already exists."),
+     *     )
+     *     )
+     * )
+     * @param $post_id
+     * @param UpdatePostAPIRequest $request
+     * @return false|string
+     * @throws \JsonException
+     */
+    public function toggleLike($post_id, Request $request)
+    {
+
+
+
+
+        if (!auth()->check()){
+            return Response([
+                'error' => 'Not logged in',
+            ],401);
+        }
+
+        $user_id = $request->user_id;
+
+        $type = $request->type;
+
+
+        try {
+            $reactionType = ReactionType::fromName($type);
+        }catch (\Exception $exception){
+            return Response([
+                'error' => $exception->getMessage(),
+            ],404);
+        }
+
+
+
+        try {
+            $post = Post::findOrFail($post_id);
+
+        }catch (\Exception $exception) {
+            return Response([
+                'message' => $exception->getMessage(),
+                'error' => 'Post does not Exist ',
+            ],404);
+        }
+
+
+        $reacter = User::findOrFail($user_id)->getLoveReacter();
+        $reactant = $post->getLoveReactant();
+
+        $likes = ReactionType::fromName('Like');
+       $reactions = Reaction::all();
+
+
+
+        if ($reactions->count() !== 0) {
+            try {
+                $reacter->unreactTo($reactant, $reactionType);
+                try {
+                    $newReaction = Reaction::all();
+                    event(new NewLikeHasBeenAddedEvent($reactions));
+
+                }catch (\Exception $exception){
+                    return Response([
+                        'message' => $exception->getMessage(),
+                    ],404);
+                }
+                return Response([
+                    'message' => 'Created new Unlike',
+
+                    'Event likes'=> $reactant->getReactionCounterOfType($likes)->getCount(),
+                    'totalLikes' => $newReaction->where('reaction_type_id', 1)->count(),
+                    'reactionType' => 'Un'.$reactionType->getName(),
+                    $reactionType->getName() => $reactant->getReactionCounterOfType($reactionType)->getCount(),
+                    'rate' => $reactant->getReactions(),
+                    'reactant' => $reactant,
+                    'all reactions' => $reactions
+
+                ],200);
+            }catch (\Exception $exception){
+                if ($exception->getCode() === 400){
+                    return Response([
+                        'error' => $exception->getMessage(),
+                        'reactionType'=>$reactionType->getName(),
+                    ],404);
+                }else {
+
+                    $reacter->reactTo($reactant, $reactionType);
+                     event(new NewLikeHasBeenAddedEvent($reactant));
+
+                    $newReaction = Reaction::all();
+                    return Response([
+                        'message' => $exception->getMessage()." Creating new Like",
+
+                        'Event likes'=> $reactant->getReactionCounterOfType($likes)->getCount(),
+                        'totalLikes' => $newReaction->where('reaction_type_id', 1)->count(),
+                        'reactionType'=>$reactionType->getName(),
+                        $reactionType->getName() => $reactant->getReactionCounterOfType($reactionType)->getCount(),
+                        'rate' => $reactant->getReactions(),
+                        'reacter' => $reacter,
+                        'reactant' => $reactant,
+                        'all reactions' => $reacter->getReactions(),
+                    ],200);
+                }
+            }
+        }
+
+        try {
+            $reacter->reactTo($reactant, $reactionType);
+            event(new NewLikeHasBeenAddedEvent($reactant));
+
+           // $newReaction = Reaction::all();
+            return Response([
+                "message"=> "Created new LIKE  _______",
+                'Event likes'=> $reactant->getReactionCounterOfType($likes)->getCount(),
+                'totalLikes' => $reactant->getReactions(),
+                'reactionType'=>$reactionType->getName(),
+                $reactionType->getName() => $reactant->getReactionCounterOfType($reactionType)->getCount(),
+                'reacter' => $reacter,
+                'reactant' => $reactant,
+                'all reactions' => $reacter->getReactions(),
+                'rate' => $reactant->getReactions(),
+            ],200);
+        }catch (\Exception $exception){
+                return Response([
+                    'error' => $exception->getMessage(),
+                    'reactionType'=>$reactionType->getName(),
+                ],404);
+            }
     }
 }

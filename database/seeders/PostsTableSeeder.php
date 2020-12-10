@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\Post;
 use Illuminate\Database\Seeder;
 
-class DesignsTableSeeder extends Seeder
+class PostsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +14,6 @@ class DesignsTableSeeder extends Seeder
      */
     public function run()
     {
-
-        \App\Models\Design::factory()->count(10)->create();
+        Post::factory()->count(10)->create();
     }
 }

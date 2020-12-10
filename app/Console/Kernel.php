@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Http\Middleware\ProfileJsonResponse;
+use Cog\Laravel\Love\Console\Commands\Recount;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +15,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Recount::class
     ];
 
     /**

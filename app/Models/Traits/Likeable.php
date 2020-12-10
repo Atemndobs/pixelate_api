@@ -42,7 +42,7 @@ trait Likeable
         }
 
         $this->likes()->create(['user_id' => auth()->id()]);
-      //  return response()->json(['Success' => 'Like ']);
+        return response()->json(['Success' => 'Like ']);
     }
 
 
@@ -52,7 +52,7 @@ trait Likeable
         if (!$this->isLikedByUser(auth()->id())) return;
 
         $this->likes()->where('user_id', auth()->id())->delete();
-      //  return response()->json(['message' => 'Unliked']);
+        return response()->json(['message' => 'Unliked']);
     }
 
 

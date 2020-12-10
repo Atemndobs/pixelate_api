@@ -18,6 +18,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
+use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 
 /**
  * App\Models\User
@@ -131,10 +133,13 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
  * @method static Builder|User whereTradeId($value)
  * @method static Builder|User whereTwoFactorRecoveryCodes($value)
  * @method static Builder|User whereTwoFactorSecret($value)
+ * @property int|null $love_reacter_id
+ * @property-read \Cog\Laravel\Love\Reacter\Models\Reacter|null $loveReacter
+ * @method static Builder|User whereLoveReacterId($value)
  */
-class User extends Authenticatable implements JWTSubject, MustVerifyEmail
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail, ReacterableInterface
 {
-    use Notifiable, SpatialTrait, HasFactory;
+    use Notifiable, SpatialTrait, HasFactory, Reacterable;
 
     /**
      * The attributes that are mass assignable.

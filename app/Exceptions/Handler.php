@@ -63,12 +63,12 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof ModelNotFoundException ){
                      return response()->json(["errors" => [
-                    "message" => "Results was not found in Database"
+                    "message" => "Results was not found in Database",
                 ]], 404);
         }
         if ($exception instanceof ModelNotDefined ){
                      return response()->json(["errors" => [
-                    "message" => "No Model Defined"
+                    "message" => "No Model Defined" ,
                 ]], 500);
         }
         if ($exception instanceof QueryException) {
@@ -82,4 +82,5 @@ class Handler extends ExceptionHandler
         }
         return parent::render($request, $exception);
     }
+
 }

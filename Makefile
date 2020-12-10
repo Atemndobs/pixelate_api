@@ -89,3 +89,9 @@ key:
 	php artisan key:generate
 cl:
 	php artisan config:clear && php artisan config:cache && php artisan cache:clear && php artisan optimize:clear && php artisan view:clear
+seed:
+	php artisan db:seed --class=DesignsTableSeeder
+comp:
+	php -d memory_limit=-1 composer.phar require cybercog/laravel-love
+
+
