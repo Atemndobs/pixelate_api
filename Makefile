@@ -93,5 +93,9 @@ seed:
 	php artisan db:seed --class=DesignsTableSeeder
 comp:
 	php -d memory_limit=-1 composer.phar require cybercog/laravel-love
-
-
+type:
+	php artisan love:reaction-type-add --default
+reacter:
+	php artisan love:setup-reacterable --model="App\Models\User" --nullable
+reactant:
+	php artisan love:setup-reactable --model="App\Models\Post" --nullable
