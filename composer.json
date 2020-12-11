@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
+        "beyondcode/laravel-websockets": "^1.9",
         "cviebrock/eloquent-taggable": "^8.0",
         "cybercog/laravel-love": "^8.7",
         "darkaonline/l5-swagger": "^8.0",
@@ -24,8 +25,10 @@
         "laravel/scout": "^8.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
+        "laravelista/comments": "^4.4",
         "league/flysystem-aws-s3-v3": "^1.0",
         "predis/predis": "^1.1",
+        "pusher/pusher-php-server": "^4.1",
         "tymon/jwt-auth": "^1.0.0-rc.5",
         "zircote/swagger-php": "^3.1"
     },

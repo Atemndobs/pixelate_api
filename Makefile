@@ -91,11 +91,27 @@ cl:
 	php artisan config:clear && php artisan config:cache && php artisan cache:clear && php artisan optimize:clear && php artisan view:clear
 seed:
 	php artisan db:seed --class=DesignsTableSeeder
-comp:
-	php -d memory_limit=-1 composer.phar require cybercog/laravel-love
 type:
 	php artisan love:reaction-type-add --default
 reacter:
 	php artisan love:setup-reacterable --model="App\Models\User" --nullable
 reactant:
 	php artisan love:setup-reactable --model="App\Models\Post" --nullable
+
+register-reacter:
+	php artisan love:register-reacters --model="App\Models\User"
+register-reactants:
+	php artisan love:register-reactants --model="App\Models\Post"
+
+echo-socket:
+	php -d memory_limit=-1 composer.phar require beyondcode/laravel-websockets
+echo-pub:
+	php artisan vendor:publish --provider="BeyondCode\LaravelWebSockets\WebSocketsServiceProvider" --tag="migrations"
+echo-config:
+	php artisan vendor:publish --provider="BeyondCode\LaravelWebSockets\WebSocketsServiceProvider" --tag="config"
+ss:
+	php artisan websocket:serve
+
+compose:
+	@read -p "Enter package name:  " MESSAGE; \
+	php -d memory_limit=-1 composer.phar require $$MESSAGE

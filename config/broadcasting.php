@@ -38,9 +38,11 @@ return [
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'useTLS' => true,
+                'host'=> env('API_URL'),
+                'port' => 6000,
+                'schema' =>'http'
             ],
         ],
-
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',

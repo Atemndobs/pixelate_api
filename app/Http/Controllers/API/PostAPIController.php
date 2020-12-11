@@ -424,12 +424,23 @@ class PostAPIController extends AppBaseController
        $reactions = Reaction::all();
 
 
+       $lrId= $post->love_reactant_id;
+
+
+
+      // return json_encode($rrr);
+
 
         if ($reactions->count() !== 0) {
             try {
                 $reacter->unreactTo($reactant, $reactionType);
+                \Artisan::call('love:recount');
+              //  die('cach cleared');
                 try {
                     $newReaction = Reaction::all();
+                    $recount = $newReaction->where('reactant_id', $post->id)
+                        ->where('reaction_type_id',$reactionType->getId())
+                        ->count();
                     event(new NewLikeHasBeenAddedEvent($reactions));
 
                 }catch (\Exception $exception){
@@ -438,10 +449,11 @@ class PostAPIController extends AppBaseController
                     ],404);
                 }
                 return Response([
+                    'totalLikes' => $recount,
                     'message' => 'Created new Unlike',
+                    'post' => $post,
 
                     'Event likes'=> $reactant->getReactionCounterOfType($likes)->getCount(),
-                    'totalLikes' => $newReaction->where('reaction_type_id', 1)->count(),
                     'reactionType' => 'Un'.$reactionType->getName(),
                     $reactionType->getName() => $reactant->getReactionCounterOfType($reactionType)->getCount(),
                     'rate' => $reactant->getReactions(),
@@ -458,14 +470,21 @@ class PostAPIController extends AppBaseController
                 }else {
 
                     $reacter->reactTo($reactant, $reactionType);
+
+                    \Artisan::call('love:recount');
                      event(new NewLikeHasBeenAddedEvent($reactant));
+                     $reactant->getReactionCounterOfType($reactionType);
 
                     $newReaction = Reaction::all();
+                    $recount = $newReaction->where('reactant_id', $post->id)
+                        ->where('reaction_type_id',$reactionType->getId())
+                        ->count();
+                    event(new NewLikeHasBeenAddedEvent($reactions));
                     return Response([
+                        'totalLikes' => $recount,
                         'message' => $exception->getMessage()." Creating new Like",
-
+                        'count' => $reactant->getReactionCounterOfType($reactionType),
                         'Event likes'=> $reactant->getReactionCounterOfType($likes)->getCount(),
-                        'totalLikes' => $newReaction->where('reaction_type_id', 1)->count(),
                         'reactionType'=>$reactionType->getName(),
                         $reactionType->getName() => $reactant->getReactionCounterOfType($reactionType)->getCount(),
                         'rate' => $reactant->getReactions(),
@@ -480,12 +499,17 @@ class PostAPIController extends AppBaseController
         try {
             $reacter->reactTo($reactant, $reactionType);
             event(new NewLikeHasBeenAddedEvent($reactant));
-
+            \Artisan::call('love:recount');
+            $newReaction = Reaction::all();
+            $recount = $newReaction->where('reactant_id', $post->id)
+                ->where('reaction_type_id',$reactionType->getId())
+                ->count();
+            event(new NewLikeHasBeenAddedEvent($reactions));
            // $newReaction = Reaction::all();
             return Response([
+                'totalLikes' => $recount,
                 "message"=> "Created new LIKE  _______",
                 'Event likes'=> $reactant->getReactionCounterOfType($likes)->getCount(),
-                'totalLikes' => $reactant->getReactions(),
                 'reactionType'=>$reactionType->getName(),
                 $reactionType->getName() => $reactant->getReactionCounterOfType($reactionType)->getCount(),
                 'reacter' => $reacter,
