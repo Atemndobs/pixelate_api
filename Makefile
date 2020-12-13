@@ -24,8 +24,8 @@ all:
 	gnome-terminal -- sh -c "make serve"
 	make send
 
-serve:
-	php artisan serve
+socket:
+	php artisan websockets:serve
 
 update:
 	php vendor/bin/composer update
@@ -76,7 +76,7 @@ pull:
 comp:
 	php vendor/bin/composer install
 up:
-	make pull && make cl && make key && make qu
+	make pull && make cl && make key && make socket && make qu
 help:
 	make help-doc && make help-model && make help-meta
 help-doc:
