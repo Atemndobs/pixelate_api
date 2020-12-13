@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\NewCommentAddedEvent;
 use App\Http\Requests\API\CreatePostAPIRequest;
 use App\Http\Requests\API\UpdatePostAPIRequest;
 use App\Http\Resources\CommentResource;
@@ -10,6 +11,7 @@ use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\User;
 use App\Repositories\PostRepository;
+use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -18,6 +20,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Laravelista\Comments\Comment;
 use Laravelista\Comments\Commenter;
+use Laravelista\Comments\Events\CommentCreated;
 use Response;
 
 /**
@@ -81,6 +84,8 @@ class PostAPIController extends AppBaseController
         }
 
        // return $this->sendResponse($posts->toArray(), 'Posts retrieved successfully');
+
+
         return PostResource::collection($posts);
     }
 
@@ -471,10 +476,12 @@ class PostAPIController extends AppBaseController
                     $reacter->unreactTo($reactant, $like);
                     $reacter->reactTo($reactant, $reactionType);
                     $reaction_type = 'Dislike';
+
                 } else{
                    // echo 'LIKE EXISTS so Unlike';
                     $reacter->unreactTo($reactant, $reactionType);
                     $reaction_type = 'unLike';
+
                 }
             }
 
@@ -498,6 +505,10 @@ class PostAPIController extends AppBaseController
                 $reacter->reactTo($reactant, $reactionType);
             $reaction_type = $reactionType->getName();
             }
+
+
+      //  $reaction = Reaction::all()->where('reacter_id' , $user_id)->where('reactant_id', $post_id);
+
 
         $reactedPost = new PostResource($post);
         $reactedPost['reaction_type'] = $reaction_type;
@@ -576,10 +587,9 @@ class PostAPIController extends AppBaseController
         $comment->approved = true;
         $comment->save();
 
-        $commentedPost = new PostResource($post);
-       // $reactedPost['new_comment'] = 'codmdd';
+      //  event(new CommentCreated($comment));
+      //  broadcast(new NewCommentAddedEvent($comment));
 
-
-        return $commentedPost;
+        return new PostResource($post);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,14 +17,15 @@ class PostResource extends JsonResource
     public function toArray($request): array
     {
 
-
-
         return [
             "id" => $this->id,
             "caption" => $this->caption,
             "location" => $this->location,
             'imageUrl'=> $this->imageUrl,
             'likes'=>new LikeResource($this),
+            'reactions' => Reaction::all()
+                ->where('reaction_type_id', 1)
+              ->where('reactant_id', $this->id),
             'new_comment' => $this->comments->last()?:'',
             'comments_count' => $this->comments->count(),
             'comments'=> $this->comments,

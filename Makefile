@@ -1,5 +1,5 @@
 socket:
-	php artisan websockets:serve &
+	php artisan websockets:serve
 
 update:
 	php vendor/bin/composer update
@@ -88,4 +88,4 @@ comment:
 like:
 	php artisan db:seed --class=UsersTableSeeder
 design:
-	php artisan db:seed --class=UsersTableSeeder
+	php artisan db:seed --class=DesignsTableSeeder

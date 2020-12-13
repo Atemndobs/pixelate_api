@@ -90,7 +90,7 @@
                                     "imageUrl": {
                                         "description": "Store a newly created Post in storage.\nPOST /posts",
                                         "type": "string",
-                                        "example": "some image url"
+                                        "example": "https://lorempixel.com/640/480/?86115"
                                     },
                                     "location": {
                                         "description": "Store a newly created Post in storage.\nPOST /posts",
