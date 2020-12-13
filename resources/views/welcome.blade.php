@@ -106,6 +106,7 @@
                     <a href="{{env('CLIENT_URL')}}/#/login" target="_blank">Deja-vu</a>
                     <a href="{{env('HOME_URL')}}" target="_blank">Home</a>
                     <a href="{{env('APP_URL')}}/api/docs" target="_blank">API DOCS</a>
+                    <a href="{{env('APP_URL')}}/laravel-websockets" target="_blank">WEB SOCKETS</a>
                 </div>
             </div>
         </div>

@@ -11,17 +11,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewLikeHasBeenAddedEvent
+class NewLikeHasBeenAddedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $reactant;
+    /**
+     * @var Reactant
+     */
+    public Reactant $reactant;
 
     /**
      * NewLikeHasBeenAddedEvent constructor.
      * @param $reactant
      */
-    public function __construct($reactant)
+    public function __construct(Reactant $reactant)
     {
         $this->reactant = $reactant;
     }
@@ -36,4 +39,8 @@ class NewLikeHasBeenAddedEvent
     {
         return new PrivateChannel('channel-name');
     }*/
+    public function broadcastOn()
+    {
+        // TODO: Implement broadcastOn() method.
+    }
 }
