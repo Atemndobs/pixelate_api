@@ -1,5 +1,31 @@
+os_type := $(shell uname -s)
+
+export USER_ID=$(shell id -u)
+export GROUP_ID=$(shell id -g)
+
+ifeq ($(os_type),Linux)
+	export CURRENT_HOST_ADDRESS=172.17.0.1
+endif
+ifeq ($(os_type),Darwin)
+	export CURRENT_HOST_ADDRESS=docker.for.mac.localhost
+    zcat_expansion = .Z
+endif
+
+
+start:
+	gnome-terminal -- sh -c "make serve"
+	make send
+
+all:
+	make ticket
+	make dev
+	make mantis
+	make lunch
+	gnome-terminal -- sh -c "make serve"
+	make send
+
 socket:
-	php artisan websockets:serve &
+	php artisan websockets:serve
 
 update:
 	php vendor/bin/composer update
@@ -10,6 +36,18 @@ push:
 	git commit -m $$MESSAGE
 	git push
 	git status
+
+ticket:
+	python -m webbrowser "http://localhost:8000/tickets"
+
+dev:
+	python -m webbrowser "http://localhost:8000/dev"
+
+mantis:
+	python -m webbrowser "http://localhost:8000/mantis"
+
+lunch:
+	xdg-open "https://127.0.0.1:8000/"
 
 test:
 	php vendor/bin/phpunit --exclude-group skip-test -v --testdox
