@@ -41,6 +41,22 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUserId($value)
  * @mixin \Eloquent
+ * @property string|null $commenter_id
+ * @property string|null $commenter_type
+ * @property string|null $guest_name
+ * @property string|null $guest_email
+ * @property string $comment
+ * @property int $approved
+ * @property int|null $child_id
+ * @property string|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereApproved($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereChildId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommenterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommenterType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereGuestEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereGuestName($value)
  */
 class Comment extends Model
 {

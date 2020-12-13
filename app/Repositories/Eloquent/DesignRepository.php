@@ -90,4 +90,53 @@ class DesignRepository extends BaseRepository implements DesignRepositoryInterfa
     {
         //
     }
+
+    public function __construct()
+    {
+    }
+
+    public function all()
+    {
+        // TODO: Implement all() method.
+    }
+
+    public function find($id)
+    {
+        // TODO: Implement find() method.
+    }
+
+    public function findWhere($column, $value)
+    {
+        // TODO: Implement findWhere() method.
+    }
+
+    public function paginate($perPage = 10)
+    {
+        // TODO: Implement paginate() method.
+    }
+
+    public function create(array $data)
+    {
+        // TODO: Implement create() method.
+    }
+
+    public function update($id, array $data)
+    {
+        // TODO: Implement update() method.
+    }
+
+    public function delete($id)
+    {
+        // TODO: Implement delete() method.
+    }
+
+    public function getModelClass()
+    {
+        // TODO: Implement getModelClass() method.
+    }
+
+    public function withCriteria(...$criteria)
+    {
+        // TODO: Implement withCriteria() method.
+    }
 }

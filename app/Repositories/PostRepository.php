@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Post;
-use App\Repositories\BaseRepository;
+
 
 /**
  * Class PostRepository
@@ -11,7 +11,7 @@ use App\Repositories\BaseRepository;
  * @version December 2, 2020, 6:32 pm UTC
 */
 
-class PostRepository extends BaseRepository
+class PostRepository extends \App\Repositories\Eloquent\BaseRepository
 {
     /**
      * @var array
@@ -40,4 +40,5 @@ class PostRepository extends BaseRepository
     {
         return Post::class;
     }
+
 }

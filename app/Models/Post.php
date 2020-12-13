@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
+use Illuminate\Notifications\Notifiable;
+use Laravelista\Comments\Commentable;
 
 /**
  * Class Post
@@ -62,10 +64,14 @@ use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereLoveReactantId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereNotReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravelista\Comments\Comment[] $approvedComments
+ * @property-read int|null $approved_comments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravelista\Comments\Comment[] $comments
+ * @property-read int|null $comments_count
  */
 class Post extends Model implements ReactableInterface
 {
-    use SoftDeletes, Reactable, HasFactory;
+    use SoftDeletes, Reactable, HasFactory, Commentable;
 
 
     public $table = 'posts';

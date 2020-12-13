@@ -83,6 +83,7 @@ Route::group(['middleware' => ['auth:api']], function (){
 
     Route::post('posts/like/{post_id}', "API\PostAPIController@toggleLike");
 
+
 });
 
 // Route group for guests only
@@ -110,3 +111,4 @@ Route::delete('posts/{id}', "API\PostAPIController@destroy");
 Route::delete('settings/user/{email}','User\SettingsController@deleteUser');
 
 
+Route::post('posts/comment/{post_id}', "API\PostAPIController@addComment");

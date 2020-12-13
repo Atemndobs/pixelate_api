@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 
 abstract class BaseRepository implements BaseRepositoryInterface, CriteriaInterface
 {
+
     protected $model;
 
     /**

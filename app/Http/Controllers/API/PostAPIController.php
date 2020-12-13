@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Events\NewLikeHasBeenAddedEvent;
 use App\Http\Requests\API\CreatePostAPIRequest;
 use App\Http\Requests\API\UpdatePostAPIRequest;
+use App\Http\Resources\CommentResource;
+use App\Http\Resources\LikeResource;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\User;
 use App\Repositories\PostRepository;
-use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
-use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
-use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Laravelista\Comments\Comment;
+use Laravelista\Comments\Commenter;
 use Response;
 
 /**
@@ -25,7 +28,7 @@ use Response;
 class PostAPIController extends AppBaseController
 {
     /** @var  PostRepository */
-    private $postRepository;
+    private PostRepository $postRepository;
 
     public function __construct(PostRepository $postRepo)
     {
@@ -58,21 +61,27 @@ class PostAPIController extends AppBaseController
      * )
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return Application|ResponseFactory|AnonymousResourceCollection|\Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $posts = $this->postRepository->all(
+/*        $posts = $this->postRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
-        );
+        );*/
+
+        $posts = $this->postRepository->all();
 
         if ($posts->count() === 0) {
-            return $this->sendResponse($posts->toArray(),'No Posts Created Yet. Please create one');
+          //  return $this->sendResponse($posts->toArray(),'No Posts Created Yet. Please create one');
+            return Response([
+                'message' => 'No Posts Created Yet. Please create one',
+            ], 404);
         }
 
-        return $this->sendResponse($posts->toArray(), 'Posts retrieved successfully');
+       // return $this->sendResponse($posts->toArray(), 'Posts retrieved successfully');
+        return PostResource::collection($posts);
     }
 
     /**
@@ -120,12 +129,11 @@ class PostAPIController extends AppBaseController
      *
      * @param CreatePostAPIRequest $request
      *
-     * @return JsonResponse
+     * @return PostResource
      */
     public function store(CreatePostAPIRequest $request, $user_id)
     {
         $input = $request->all();
-
 
         $user = User::findOrFail($user_id);
 
@@ -133,7 +141,7 @@ class PostAPIController extends AppBaseController
 
         if ($request->hasFile('image')){
             // $request->image->store('public');
-         //   $request->image->storeAs('/public', '')
+            // $request->image->storeAs('/public', '')
 
 
             $post->update(
@@ -146,9 +154,12 @@ class PostAPIController extends AppBaseController
             $post->update(
                 ['imageUrl' =>asset('storage/'.$imageUrl)]
             );
+
+
         }
 
-        return $this->sendResponse($post->toArray(), 'Post saved successfully');
+       // return $this->sendResponse($post->toArray(), 'Post saved successfully');
+        return new PostResource($post);
     }
 
     /**
@@ -187,7 +198,7 @@ class PostAPIController extends AppBaseController
      *
      * @param int $id
      *
-     * @return JsonResponse
+     * @return PostResource|Application|ResponseFactory|\Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -195,10 +206,14 @@ class PostAPIController extends AppBaseController
         $post = $this->postRepository->find($id);
 
         if ($post === null) {
-            return $this->sendError('Post not found');
+            return Response([
+                'message' => 'No Posts found',
+            ], 404);
+
         }
 
-        return $this->sendResponse($post->toArray(), 'Post retrieved successfully');
+      //  return $this->sendResponse($post->toArray(), 'Post retrieved successfully');
+        return new PostResource($post);
     }
 
     /**
@@ -248,7 +263,7 @@ class PostAPIController extends AppBaseController
      * @param int $id
      * @param UpdatePostAPIRequest $request
      *
-     * @return Response
+     * @return PostResource|Application|ResponseFactory|\Illuminate\Http\Response
      */
     public function update($id, UpdatePostAPIRequest $request)
     {
@@ -257,13 +272,17 @@ class PostAPIController extends AppBaseController
         /** @var Post $post */
         $post = $this->postRepository->find($id);
 
-        if (empty($post)) {
-            return $this->sendError('Post not found');
+        if ($post === null) {
+            return Response([
+                'message' => 'No Posts found',
+            ], 404);
         }
 
         $post = $this->postRepository->update($input, $id);
 
-        return $this->sendResponse($post->toArray(), 'Post updated successfully');
+      //  return $this->sendResponse($post->toArray(), 'Post updated successfully');
+
+        return new PostResource($post);
     }
 
     /**
@@ -305,16 +324,18 @@ class PostAPIController extends AppBaseController
      *
      * @param int $id
      *
-     * @return Response
+     * @return Application|ResponseFactory|\Illuminate\Http\Response|Response
      * @throws \Exception
      */
-    public function destroy(int $id): Response
+    public function destroy(int $id)
     {
         /** @var Post $post */
         $post = $this->postRepository->find($id);
 
-        if (empty($post)) {
-            return $this->sendError('Post not found');
+        if ($post === null) {
+            return Response([
+                'message' => 'No Posts found',
+            ], 404);
         }
         $post->delete();
 
@@ -375,15 +396,11 @@ class PostAPIController extends AppBaseController
      *     )
      * )
      * @param $post_id
-     * @param UpdatePostAPIRequest $request
+     * @param Request $request
      * @return false|string
-     * @throws \JsonException
      */
     public function toggleLike($post_id, Request $request)
     {
-
-
-
 
         if (!auth()->check()){
             return Response([
@@ -392,136 +409,177 @@ class PostAPIController extends AppBaseController
         }
 
         $user_id = $request->user_id;
-
         $type = $request->type;
 
+        return $this->processReaction($user_id, $post_id, $type);
+    }
 
+    /**
+     * @param $user_id
+     * @param $post_id
+     * @param $type
+     * @return PostResource|Application|ResponseFactory|\Illuminate\Http\Response
+     */
+    public function processReaction($user_id, $post_id, $type)
+    {
         try {
             $reactionType = ReactionType::fromName($type);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return Response([
                 'error' => $exception->getMessage(),
-            ],404);
+            ], 404);
         }
 
+/*        try {
+           // $post = Post::findOrFail($post_id);
+            $post = $this->postRepository->find($post_id);
 
-
-        try {
-            $post = Post::findOrFail($post_id);
-
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return Response([
                 'message' => $exception->getMessage(),
                 'error' => 'Post does not Exist ',
-            ],404);
-        }
+            ], 404);
+        }*/
 
-
+        $post = $this->postRepository->find($post_id);
         $reacter = User::findOrFail($user_id)->getLoveReacter();
         $reactant = $post->getLoveReactant();
+        $reactantId = $post->getLoveReactant()->getId();
 
-        $likes = ReactionType::fromName('Like');
-       $reactions = Reaction::all();
+        $reactionTypeId = $reactionType->getId();
+        $existing_reaction = $reacter->getReactions()
+            ->where('reactant_id',$reactantId)->all();
 
+        $existing_like = $reacter->getReactions()
+            ->where('reactant_id',$reactantId )
+            ->where('reaction_type_id',1)
+            ->first();
 
-       $lrId= $post->love_reactant_id;
+        $existing_disLike = $reacter->getReactions()
+            ->where('reactant_id',$reactantId )
+            ->where('reaction_type_id',2)
+            ->first();
 
-
-
-      // return json_encode($rrr);
-
-
-        if ($reactions->count() !== 0) {
-            try {
-                $reacter->unreactTo($reactant, $reactionType);
-                \Artisan::call('love:recount');
-              //  die('cach cleared');
-                try {
-                    $newReaction = Reaction::all();
-                    $recount = $newReaction->where('reactant_id', $post->id)
-                        ->where('reaction_type_id',$reactionType->getId())
-                        ->count();
-                    event(new NewLikeHasBeenAddedEvent($reactions));
-
-                }catch (\Exception $exception){
-                    return Response([
-                        'message' => $exception->getMessage(),
-                    ],404);
-                }
-                return Response([
-                    'totalLikes' => $recount,
-                    'message' => 'Created new Unlike',
-                    'post' => $post,
-
-                    'Event likes'=> $reactant->getReactionCounterOfType($likes)->getCount(),
-                    'reactionType' => 'Un'.$reactionType->getName(),
-                    $reactionType->getName() => $reactant->getReactionCounterOfType($reactionType)->getCount(),
-                    'rate' => $reactant->getReactions(),
-                    'reactant' => $reactant,
-                    'all reactions' => $reactions
-
-                ],200);
-            }catch (\Exception $exception){
-                if ($exception->getCode() === 400){
-                    return Response([
-                        'error' => $exception->getMessage(),
-                        'reactionType'=>$reactionType->getName(),
-                    ],404);
-                }else {
-
+        $like = ReactionType::fromName('Like');
+        $dislike = ReactionType::fromName('Dislike');
+        $reaction_type = '';
+        if (!empty($existing_reaction) ){
+            if (!empty($existing_like))
+            {
+                if ((int)$reactionTypeId ===2) {
+                   // echo 'LIKE EXISTS but want to Dislike';
+                    $reacter->unreactTo($reactant, $like);
                     $reacter->reactTo($reactant, $reactionType);
-
-                    \Artisan::call('love:recount');
-                     event(new NewLikeHasBeenAddedEvent($reactant));
-                     $reactant->getReactionCounterOfType($reactionType);
-
-                    $newReaction = Reaction::all();
-                    $recount = $newReaction->where('reactant_id', $post->id)
-                        ->where('reaction_type_id',$reactionType->getId())
-                        ->count();
-                    event(new NewLikeHasBeenAddedEvent($reactions));
-                    return Response([
-                        'totalLikes' => $recount,
-                        'message' => $exception->getMessage()." Creating new Like",
-                        'count' => $reactant->getReactionCounterOfType($reactionType),
-                        'Event likes'=> $reactant->getReactionCounterOfType($likes)->getCount(),
-                        'reactionType'=>$reactionType->getName(),
-                        $reactionType->getName() => $reactant->getReactionCounterOfType($reactionType)->getCount(),
-                        'rate' => $reactant->getReactions(),
-                        'reacter' => $reacter,
-                        'reactant' => $reactant,
-                        'all reactions' => $reacter->getReactions(),
-                    ],200);
+                    $reaction_type = 'Dislike';
+                } else{
+                   // echo 'LIKE EXISTS so Unlike';
+                    $reacter->unreactTo($reactant, $reactionType);
+                    $reaction_type = 'unLike';
                 }
             }
-        }
 
-        try {
-            $reacter->reactTo($reactant, $reactionType);
-            event(new NewLikeHasBeenAddedEvent($reactant));
-            \Artisan::call('love:recount');
-            $newReaction = Reaction::all();
-            $recount = $newReaction->where('reactant_id', $post->id)
-                ->where('reaction_type_id',$reactionType->getId())
-                ->count();
-            event(new NewLikeHasBeenAddedEvent($reactions));
-           // $newReaction = Reaction::all();
-            return Response([
-                'totalLikes' => $recount,
-                "message"=> "Created new LIKE  _______",
-                'Event likes'=> $reactant->getReactionCounterOfType($likes)->getCount(),
-                'reactionType'=>$reactionType->getName(),
-                $reactionType->getName() => $reactant->getReactionCounterOfType($reactionType)->getCount(),
-                'reacter' => $reacter,
-                'reactant' => $reactant,
-                'all reactions' => $reacter->getReactions(),
-                'rate' => $reactant->getReactions(),
-            ],200);
-        }catch (\Exception $exception){
-                return Response([
-                    'error' => $exception->getMessage(),
-                    'reactionType'=>$reactionType->getName(),
-                ],404);
+            if (!empty($existing_disLike))
+            {
+                if ((int)$reactionTypeId ===1) {
+                  //  echo 'DISLIKE EXISTS But want to Like';
+                    $reacter->unreactTo($reactant, $dislike);
+                    $reacter->reactTo($reactant, $reactionType);
+                    $reaction_type = 'Like';
+                } else{
+                  //  echo 'DISLIKE EXISTS so unDislike';
+                    $reacter->unreactTo($reactant, $dislike);
+                    $reaction_type = 'unDislike';
+                }
             }
+
+
+            }else{
+              // echo('never liked or disliked before so REACT');
+                $reacter->reactTo($reactant, $reactionType);
+            $reaction_type = $reactionType->getName();
+            }
+
+        $reactedPost = new PostResource($post);
+        $reactedPost['reaction_type'] = $reaction_type;
+        $reactedPost['likes'] =  new LikeResource($post);
+
+        return $reactedPost;
+    }
+
+    /**
+    /**
+     * POST /posts
+     *
+     * @OA\Post(
+     * path="/api/posts/comment/{post_id}",
+     * summary="Comment Post",
+     * description="Comment a Post",
+     * tags={"Post"},
+
+     *     @OA\Parameter(
+     *         name="post_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="number", example=11
+     *         )
+     *     ),
+     * @OA\RequestBody(
+     *    description="Pass user credentials",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="user_id", type="number", example=21),
+     *       @OA\Property(property="comment", type="string", example="Here is the mommemt of comment"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Comment Added"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=404,
+     *    description="No Found",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Post not found"),
+     *     )
+     *     ),
+     * @OA\Response(
+     *    response=401,
+     *    description="Unauthorized",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="error", type="string", example="Not Logged In"),
+     *     )
+     *     ),
+     * @OA\Response(
+     *    response=409,
+     *    description="Conflict",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="eror", type="string", example="Comment error"),
+     *     )
+     *     )
+     * )
+     * @param Request $request
+     * @param $post_id
+     */
+    public function addComment(Request $request, $post_id)
+    {
+        $post = $this->postRepository->find($post_id);
+
+        $user = User::find($request->user_id);
+
+        $comment = new Comment();
+        $comment->commenter()->associate($user);
+        $comment->commentable()->associate($post);
+        $comment->comment = $request->comment;
+        $comment->approved = true;
+        $comment->save();
+
+        $commentedPost = new PostResource($post);
+       // $reactedPost['new_comment'] = 'codmdd';
+
+
+        return $commentedPost;
     }
 }

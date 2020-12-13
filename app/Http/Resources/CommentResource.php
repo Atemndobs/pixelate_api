@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Models\Comment */
+
 class CommentResource extends JsonResource
 {
     /**
@@ -14,19 +14,28 @@ class CommentResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'body' => $this->body,
-            'commentable_id' => $this->commentable_id,
-             'commentable_type' => $this->commentable_type,
-            'created_at_dates' => [
-                "created_at_human" => $this->created_at->diffForHumans(),
-                "created_at" => $this->created_at,
-            ],
-            'updated_at_dates' => [
-                "updated_at_human" => $this->updated_at->diffForHumans(),
-                "updated_at" => $this->updated_at,
-            ],
-            'user' => new UserResource($this->user),
+            'comments' => ''
         ];
     }
 }
+
+
+//         return [
+//            'id' => $this->id,
+//            'comment' => $this->body,
+//            'commentable_id' => $this->commentable_id,
+//            'commentable' => $this->commentable,
+//            'commentable_type' => $this->commentable_type,
+//            'commenter' => $this->commenter,
+//            'commenter_id' => $this->commenter_id,
+//            'commenter_type' => $this->commenter_type,
+//            'created_at_dates' => [
+//                "created_at_human" => $this->created_at->diffForHumans(),
+//                "created_at" => $this->created_at,
+//            ],
+//            'updated_at_dates' => [
+//                "updated_at_human" => $this->updated_at->diffForHumans(),
+//                "updated_at" => $this->updated_at,
+//            ],
+//          //  'user' => new UserResource($this->user),
+//        ];

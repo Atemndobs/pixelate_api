@@ -16,6 +16,7 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Laravelista\Comments\Commentable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
@@ -136,10 +137,12 @@ use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
  * @property int|null $love_reacter_id
  * @property-read \Cog\Laravel\Love\Reacter\Models\Reacter|null $loveReacter
  * @method static Builder|User whereLoveReacterId($value)
+ * @property-read Collection|\Laravelista\Comments\Comment[] $approvedComments
+ * @property-read int|null $approved_comments_count
  */
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail, ReacterableInterface
 {
-    use Notifiable, SpatialTrait, HasFactory, Reacterable;
+    use Notifiable, SpatialTrait, HasFactory, Reacterable, Commentable;
 
     /**
      * The attributes that are mass assignable.

@@ -325,6 +325,81 @@ paths:
       security:
         -
           token: []
+  '/api/posts/comment/{post_id}':
+    post:
+      tags:
+        - Post
+      summary: 'Comment Post'
+      description: 'Comment a Post'
+      operationId: 'App\Http\Controllers\API\PostAPIController::addComment'
+      parameters:
+        -
+          name: post_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 11
+      requestBody:
+        description: 'Pass user credentials'
+        content:
+          application/json:
+            schema:
+              properties:
+                user_id:
+                  description: "/**\nPOST /posts"
+                  type: number
+                  example: 21
+                comment:
+                  description: "/**\nPOST /posts"
+                  type: string
+                  example: 'Here is the mommemt of comment'
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "/**\nPOST /posts"
+                    type: string
+                    example: 'Comment Added'
+                type: object
+        404:
+          description: 'No Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "/**\nPOST /posts"
+                    type: string
+                    example: 'Post not found'
+                type: object
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "/**\nPOST /posts"
+                    type: string
+                    example: 'Not Logged In'
+                type: object
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                properties:
+                  eror:
+                    description: "/**\nPOST /posts"
+                    type: string
+                    example: 'Comment error'
+                type: object
   /api/login:
     post:
       tags:
