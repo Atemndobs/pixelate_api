@@ -51,8 +51,6 @@ key:
 	php artisan key:generate
 cl:
 	php artisan config:clear && php artisan config:cache && php artisan cache:clear && php artisan optimize:clear && php artisan view:clear
-seed:
-	php artisan db:seed --class=DesignsTableSeeder
 type:
 	php artisan love:reaction-type-add --default
 reacter:
@@ -77,3 +75,17 @@ ss:
 compose:
 	@read -p "Enter package name:  " MESSAGE; \
 	php -d memory_limit=-1 composer.phar require $$MESSAGE
+
+
+seed:
+	make post && make user && make comment && make like && make design
+post:
+	php artisan db:seed --class=PostsTableSeeder
+user:
+	php artisan db:seed --class=UsersTableSeeder
+comment:
+	php artisan db:seed --class=UsersTableSeeder
+like:
+	php artisan db:seed --class=UsersTableSeeder
+design:
+	php artisan db:seed --class=UsersTableSeeder

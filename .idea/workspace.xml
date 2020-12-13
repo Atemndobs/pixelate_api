@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/make_file_copy_sample" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -237,6 +236,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="\\wsl$\Ubuntu-18.04\home\atem\projects\pixelate" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -289,7 +289,7 @@
       <workItem from="1607622699243" duration="17266000" />
       <workItem from="1607705171434" duration="18793000" />
       <workItem from="1607725884853" duration="5785000" />
-      <workItem from="1607798364363" duration="19354000" />
+      <workItem from="1607798364363" duration="19986000" />
     </task>
     <servers />
   </component>
