@@ -107,7 +107,7 @@ class PostAPIController extends AppBaseController
      *    description="Pass Post data",
      *    @OA\JsonContent(
      *       @OA\Property(property="caption", type="string", example="Here"),
-     *       @OA\Property(property="imageUrl", type="string", example="some image url"),
+     *       @OA\Property(property="imageUrl", type="string", example="https://lorempixel.com/640/480/?86115"),
      *       @OA\Property(property="location", type="string", example="Dusseldorf"),
      *    ),
      * ),

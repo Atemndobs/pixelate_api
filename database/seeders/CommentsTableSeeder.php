@@ -6,7 +6,7 @@ class CommentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
+     *make
      * @return void
      */
     public function run()
