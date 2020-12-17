@@ -112,3 +112,12 @@
         </div>
     </body>
 </html>
+
+<script>
+
+/*    var channel = Echo.channel('comment-channel');
+    channel.listen('.CommentCreatedEvent', function(data) {
+        alert(JSON.stringify(data));
+    });*/
+
+</script>

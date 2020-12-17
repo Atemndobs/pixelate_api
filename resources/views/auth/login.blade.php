@@ -68,7 +68,7 @@
                     </form>
 
                     <div class="form-group row mb-0 py-3    ">
-                    <img src="storage/{{\App\Models\Post::firstOrFail()->imageUrl}}" style="width:100%">
+                    <img src="https://picsum.photos/id/80/250/100" style="width:100%">
                       </div>
                 </div>
             </div>

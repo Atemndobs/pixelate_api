@@ -31,6 +31,7 @@ class EventServiceProvider extends ServiceProvider
             UpdateLikesCountListener::class
         ],
 
+
     ];
 
     /**

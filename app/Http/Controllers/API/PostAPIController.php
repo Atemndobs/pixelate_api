@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\CommentCreatedEvent;
+use App\Events\Hallo;
+use App\Events\LikeCreatedEvent;
 use App\Events\NewCommentAddedEvent;
 use App\Http\Requests\API\CreatePostAPIRequest;
 use App\Http\Requests\API\UpdatePostAPIRequest;
-use App\Http\Resources\CommentResource;
 use App\Http\Resources\LikeResource;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\User;
 use App\Repositories\PostRepository;
-use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -68,24 +69,14 @@ class PostAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-/*        $posts = $this->postRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );*/
 
         $posts = $this->postRepository->all();
 
         if ($posts->count() === 0) {
-          //  return $this->sendResponse($posts->toArray(),'No Posts Created Yet. Please create one');
             return Response([
                 'message' => 'No Posts Created Yet. Please create one',
             ], 404);
         }
-
-       // return $this->sendResponse($posts->toArray(), 'Posts retrieved successfully');
-
-
         return PostResource::collection($posts);
     }
 
@@ -145,9 +136,6 @@ class PostAPIController extends AppBaseController
         $post = $user->posts()->create($input);
 
         if ($request->hasFile('image')){
-            // $request->image->store('public');
-            // $request->image->storeAs('/public', '')
-
 
             $post->update(
                 ['imageUrl' =>$request->image->store('','public')]
@@ -163,7 +151,6 @@ class PostAPIController extends AppBaseController
 
         }
 
-       // return $this->sendResponse($post->toArray(), 'Post saved successfully');
         return new PostResource($post);
     }
 
@@ -217,7 +204,6 @@ class PostAPIController extends AppBaseController
 
         }
 
-      //  return $this->sendResponse($post->toArray(), 'Post retrieved successfully');
         return new PostResource($post);
     }
 
@@ -285,8 +271,6 @@ class PostAPIController extends AppBaseController
 
         $post = $this->postRepository->update($input, $id);
 
-      //  return $this->sendResponse($post->toArray(), 'Post updated successfully');
-
         return new PostResource($post);
     }
 
@@ -344,7 +328,9 @@ class PostAPIController extends AppBaseController
         }
         $post->delete();
 
-        return $this->sendSuccess('Post deleted successfully');
+        return Response([
+            'message' => 'Post deleted successfully',
+        ], 200);
     }
 
     /**
@@ -435,17 +421,6 @@ class PostAPIController extends AppBaseController
             ], 404);
         }
 
-/*        try {
-           // $post = Post::findOrFail($post_id);
-            $post = $this->postRepository->find($post_id);
-
-        } catch (\Exception $exception) {
-            return Response([
-                'message' => $exception->getMessage(),
-                'error' => 'Post does not Exist ',
-            ], 404);
-        }*/
-
         $post = $this->postRepository->find($post_id);
         $reacter = User::findOrFail($user_id)->getLoveReacter();
         $reactant = $post->getLoveReactant();
@@ -512,7 +487,9 @@ class PostAPIController extends AppBaseController
 
         $reactedPost = new PostResource($post);
         $reactedPost['reaction_type'] = $reaction_type;
-        $reactedPost['likes'] =  new LikeResource($post);
+        $reactedPost->reacter = $reacter;
+
+        broadcast(new LikeCreatedEvent($reactedPost))->toOthers();
 
         return $reactedPost;
     }
@@ -587,9 +564,11 @@ class PostAPIController extends AppBaseController
         $comment->approved = true;
         $comment->save();
 
-      //  event(new CommentCreated($comment));
-      //  broadcast(new NewCommentAddedEvent($comment));
+        $postResource = new PostResource($post);
 
-        return new PostResource($post);
+        broadcast(new CommentCreatedEvent($postResource, $comment))->toOthers();
+     //   event(new CommentCreatedEvent($postResource, $comment));
+
+        return $postResource;
     }
 }

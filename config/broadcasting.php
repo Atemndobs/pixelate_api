@@ -36,13 +36,20 @@ return [
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-                'cluster' => env('PUSHER_APP_CLUSTER'),
-                'encrypted' => true,
-              //  'useTLS' => true,
-                // 'host'=> env('API_URL'),
-                'host'=> env('API_URL'),
-                'port' => 6000,
-                'schema' =>'http'
+                // coin-ticker
+               // 'cluster' => env('PUSHER_APP_CLUSTER'),
+               // 'encrypted' => true,
+
+                // Pixelate
+               // 'cluster' => 'eu',
+                // 'useTLS' => true
+
+                // Laravel-echo
+
+                'host' => '127.0.0.1',
+                'debug'=> true,
+                'port' => 6001,
+                'scheme' => 'http'
             ],
         ],
         'redis' => [

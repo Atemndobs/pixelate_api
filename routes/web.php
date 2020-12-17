@@ -23,8 +23,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::resource('posts', App\Http\Controllers\PostController::class);
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/test', [\App\Http\Controllers\TestController::class, 'index']);

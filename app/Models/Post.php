@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Cog\Contracts\Love\ReactionType\Models\ReactionType;
+use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -79,6 +80,8 @@ class Post extends Model implements ReactableInterface
 
     protected $dates = ['deleted_at'];
 
+    protected $appends = ['reacter_id'];
+
 
 
     public $fillable = [
@@ -111,5 +114,10 @@ class Post extends Model implements ReactableInterface
     public function user()
     {
         return  $this->belongsTo(User::class);
+    }
+
+    public function getReacterIdAttribute()
+    {
+        return  \Auth::id();
     }
 }

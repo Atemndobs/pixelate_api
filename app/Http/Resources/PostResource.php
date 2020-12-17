@@ -23,6 +23,8 @@ class PostResource extends JsonResource
             "location" => $this->location,
             'imageUrl'=> $this->imageUrl,
             'likes'=>new LikeResource($this),
+            'reacter' => $this->reacter,
+            'reacter_id' => $this->reacter_id?:'',
             'reactions' => Reaction::all()
                 ->where('reaction_type_id', 1)
               ->where('reactant_id', $this->id),
