@@ -7,23 +7,7 @@
     <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Events/NewCommentAddedEvent.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/EventsNewLikeHasBeenAddedEvent.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/LikeResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/LikeResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/broadcasting.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/broadcasting.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -312,7 +296,7 @@
       <workItem from="1607725884853" duration="5785000" />
       <workItem from="1607798364363" duration="46984000" />
       <workItem from="1608073526368" duration="478000" />
-      <workItem from="1608152367315" duration="29172000" />
+      <workItem from="1608152367315" duration="32465000" />
     </task>
     <servers />
   </component>

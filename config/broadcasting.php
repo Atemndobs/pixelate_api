@@ -37,11 +37,27 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 // coin-ticker
-               // 'cluster' => env('PUSHER_APP_CLUSTER'),
-               // 'encrypted' => true,
+                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'encrypted' => true,
 
                 // Pixelate
                // 'cluster' => 'eu',
+                // 'useTLS' => true
+
+            ],
+        ],
+        'websocket' => [
+            'driver' => 'pusher',
+            'key' => env('ECHO_APP_KEY'),
+            'secret' => env('ECHO_APP_SECRET'),
+            'app_id' => env('ECHO_APP_ID'),
+            'options' => [
+                // coin-ticker
+                // 'cluster' => env('PUSHER_APP_CLUSTER'),
+                // 'encrypted' => true,
+
+                // Pixelate
+                // 'cluster' => 'eu',
                 // 'useTLS' => true
 
                 // Laravel-echo
