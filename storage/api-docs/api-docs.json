@@ -593,7 +593,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
             }
         },
         "/api/login": {
@@ -937,6 +942,162 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/comments": {
+            "get": {
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Get all Comments",
+                "description": "Get all Posts available online (set to live )",
+                "operationId": "App\\Http\\Controllers\\CommentController::index",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Comment"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Display a listing of the Post.\nGET|HEAD /comments",
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/comments/comment/{comment_id}": {
+            "post": {
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Comment a comment / reply a comment",
+                "description": "Comment a comment / reply a comment",
+                "operationId": "App\\Http\\Controllers\\CommentController::create",
+                "parameters": [
+                    {
+                        "name": "comment_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 11
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "type": "number",
+                                        "example": 21
+                                    },
+                                    "comment": {
+                                        "type": "string",
+                                        "example": "Here is the mommemt of comment"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Comment Added"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Not Logged In"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "eror": {
+                                            "type": "string",
+                                            "example": "Comment error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
             }
         },
         "/api/designs": {
@@ -1746,7 +1907,25 @@
                         "description": "App\\Models\\Comment",
                         "type": "integer",
                         "readOnly": "true",
-                        "example": "1"
+                        "example": 1
+                    },
+                    "comment": {
+                        "description": "App\\Models\\Comment",
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "this is a great app"
+                    },
+                    "commenter_id": {
+                        "description": "App\\Models\\Comment",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": 1
+                    },
+                    "commentable_id": {
+                        "description": "App\\Models\\Comment",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": 2
                     },
                     "created_dates": {
                         "description": "App\\Models\\Comment",

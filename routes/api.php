@@ -10,7 +10,7 @@ if (env('APP_ENV') === 'production') {
 
 // Public route
 # Route::get('me','User\MeController@getMe');
-Route::get('comments','Designs\CommentController@index');
+Route::get('all_comments','Designs\CommentController@index');
 // get designs
 Route::get('designs',  'Designs\DesignController@index');
 Route::get('designs/all',  'Designs\DesignController@allDesigns');
@@ -81,7 +81,13 @@ Route::group(['middleware' => ['auth:api']], function (){
     Route::delete('message/{id}','Chats\ChatController@destroyMessage');
 
 
+
+    // Likes using Love Reacter Package
     Route::post('posts/like/{post_id}', "API\PostAPIController@toggleLike");
+
+    // Comments using the Commentable Package
+    Route::post('posts/comment/{post_id}', "API\PostAPIController@addComment");
+    Route::post('comments/comment/{comment_id}','CommentController@create');
 
 
 });
@@ -111,4 +117,3 @@ Route::delete('posts/{id}', "API\PostAPIController@destroy");
 Route::delete('settings/user/{email}','User\SettingsController@deleteUser');
 
 
-Route::post('posts/comment/{post_id}', "API\PostAPIController@addComment");

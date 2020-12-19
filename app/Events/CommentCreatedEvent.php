@@ -46,7 +46,7 @@ class CommentCreatedEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        //return new Channel('post.'.$this->post->id);
+        //return new Channel('comment.'.$this->postResource->id.$this->comment->id);
         return new Channel('comment-channel');
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Http\Resources\LikeResource;
 use App\Http\Resources\PostResource;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -45,7 +46,11 @@ class LikeCreatedEvent implements ShouldBroadcastNow
     public function broadcastWith()
     {
         return [
-            'post' => $this->postResource
+            'post' =>[
+                'id' => $this->postResource->id,
+                'likes' => (new LikeResource($this->postResource)),
+                'reacter' => $this->postResource->reacter->id,
+            ]
         ];
     }
 }

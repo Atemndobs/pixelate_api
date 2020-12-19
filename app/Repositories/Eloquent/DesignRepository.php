@@ -91,10 +91,6 @@ class DesignRepository extends BaseRepository implements DesignRepositoryInterfa
         //
     }
 
-    public function __construct()
-    {
-    }
-
     public function all()
     {
         // TODO: Implement all() method.

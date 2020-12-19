@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,8 +11,11 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @OA\Schema (
  *      @OA\Xml(name="Comment"),
- *      @OA\Property(property="id", type="integer", readOnly="true", example="1"),
- * 
+ *      @OA\Property(property="id", type="integer", readOnly="true", example=1),
+ *      @OA\Property(property="comment", type="string", readOnly="true", example="this is a great app"),
+ *      @OA\Property(property="commenter_id", type="integer", readOnly="true", example=1),
+ *      @OA\Property(property="commentable_id", type="integer", readOnly="true", example=2),
+ *
  *      @OA\Property(property="created_dates", type="object",
  *          @OA\Property(property="created_at_human", description="Date Created formatted", example="52 minutes ago"),
  *          @OA\Property(property="created_at", description="Raw unfarmatted Date ", example="2020-11-09T20:04:11.000000Z"),
@@ -58,24 +62,17 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereGuestEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereGuestName($value)
  */
-class Comment extends Model
+class Comment extends \Laravelista\Comments\Comment
 {
-    use HasFactory;
-    /**
-     * @var array
-     */
-    protected $fillable = [
-        'body',
-        'user_id'
-    ];
+    use HasFactory, Reactable;
 
-    public function user()
+    protected $appends = ['reacter_id'];
+
+
+
+    public function getReacterIdAttribute()
     {
-       return $this->belongsTo(User::class);
+        return  \Auth::id();
     }
 
-    public function commentable()
-    {
-        return $this->morphTo();
-    }
 }

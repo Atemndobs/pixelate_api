@@ -17,6 +17,10 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravelista\Comments\Commentable;
+use Rennokki\Befriended\Contracts\Blocking;
+use Rennokki\Befriended\Contracts\Following;
+use Rennokki\Befriended\Traits\Block;
+use Rennokki\Befriended\Traits\Follow;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
@@ -45,7 +49,7 @@ use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
  *      @OA\Property(property="formatted_address", example="811 Sibyl Bypass Suite 783\n New Rita, AL 48220-0930" ),
  *      @OA\Property(property="available_to_hire", type="boolean", example=1 ),
  *      @OA\Property(property="about", type="string", example="VERY deeply with a soldier on each." ),
- * 
+ *
  *      @OA\Property(property="trade_id", type="number", example=null ),
  *      @OA\Property(property="current_team_id", type="number", example=null ),
  *      @OA\Property(property="profile_photo_path", type="number", example=null ),
@@ -140,9 +144,9 @@ use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
  * @property-read Collection|\Laravelista\Comments\Comment[] $approvedComments
  * @property-read int|null $approved_comments_count
  */
-class User extends Authenticatable implements JWTSubject, MustVerifyEmail, ReacterableInterface
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail, ReacterableInterface, Following, Blocking
 {
-    use Notifiable, SpatialTrait, HasFactory, Reacterable, Commentable;
+    use Notifiable, SpatialTrait, HasFactory, Reacterable, Commentable, Follow, Block;
 
     /**
      * The attributes that are mass assignable.

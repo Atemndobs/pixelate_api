@@ -13,6 +13,8 @@ use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\User;
 use App\Repositories\PostRepository;
+use App\Services\CommentService;
+use App\Services\ReactionService;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -34,10 +36,19 @@ class PostAPIController extends AppBaseController
     /** @var  PostRepository */
     private PostRepository $postRepository;
 
-    public function __construct(PostRepository $postRepo)
+    private Request $request;
+
+    /**
+     * PostAPIController constructor.
+     * @param PostRepository $postRepository
+     * @param Request $request
+     */
+    public function __construct(PostRepository $postRepository, Request $request)
     {
-        $this->postRepository = $postRepo;
+        $this->postRepository = $postRepository;
+        $this->request = $request;
     }
+
 
     /**
      * Display a listing of the Post.
@@ -67,7 +78,7 @@ class PostAPIController extends AppBaseController
      * @param Request $request
      * @return Application|ResponseFactory|AnonymousResourceCollection|\Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
 
         $posts = $this->postRepository->all();
@@ -192,10 +203,10 @@ class PostAPIController extends AppBaseController
      *
      * @return PostResource|Application|ResponseFactory|\Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         /** @var Post $post */
-        $post = $this->postRepository->find($id);
+        $post = $this->postRepository->find($this->request->id);
 
         if ($post === null) {
             return Response([
@@ -256,12 +267,14 @@ class PostAPIController extends AppBaseController
      *
      * @return PostResource|Application|ResponseFactory|\Illuminate\Http\Response
      */
-    public function update($id, UpdatePostAPIRequest $request)
+    public function update(UpdatePostAPIRequest $request)
     {
         $input = $request->all();
 
+        //die($input);
+
         /** @var Post $post */
-        $post = $this->postRepository->find($id);
+        $post = $this->postRepository->find($request->id);
 
         if ($post === null) {
             return Response([
@@ -269,7 +282,7 @@ class PostAPIController extends AppBaseController
             ], 404);
         }
 
-        $post = $this->postRepository->update($input, $id);
+        $post = $this->postRepository->update($request->id, $input);
 
         return new PostResource($post);
     }
@@ -316,10 +329,10 @@ class PostAPIController extends AppBaseController
      * @return Application|ResponseFactory|\Illuminate\Http\Response|Response
      * @throws \Exception
      */
-    public function destroy(int $id)
+    public function destroy()
     {
         /** @var Post $post */
-        $post = $this->postRepository->find($id);
+        $post = $this->postRepository->find($this->request->id);
 
         if ($post === null) {
             return Response([
@@ -386,11 +399,10 @@ class PostAPIController extends AppBaseController
      *     )
      *     )
      * )
-     * @param $post_id
-     * @param Request $request
+     * @param ReactionService $reactionService
      * @return false|string
      */
-    public function toggleLike($post_id, Request $request)
+    public function toggleLike(ReactionService $reactionService)
     {
 
         if (!auth()->check()){
@@ -399,103 +411,20 @@ class PostAPIController extends AppBaseController
             ],401);
         }
 
-        $user_id = $request->user_id;
-        $type = $request->type;
+        $type = $this->request->type;
+        $post = $this->postRepository->find($this->request->post_id);
 
-        return $this->processReaction($user_id, $post_id, $type);
-    }
+        $reaction = $reactionService->processReaction($type, $post);
 
-    /**
-     * @param $user_id
-     * @param $post_id
-     * @param $type
-     * @return PostResource|Application|ResponseFactory|\Illuminate\Http\Response
-     */
-    public function processReaction($user_id, $post_id, $type)
-    {
-        try {
-            $reactionType = ReactionType::fromName($type);
-        } catch (\Exception $exception) {
-            return Response([
-                'error' => $exception->getMessage(),
-            ], 404);
-        }
-
-        $post = $this->postRepository->find($post_id);
-        $reacter = User::findOrFail($user_id)->getLoveReacter();
-        $reactant = $post->getLoveReactant();
-        $reactantId = $post->getLoveReactant()->getId();
-
-        $reactionTypeId = $reactionType->getId();
-        $existing_reaction = $reacter->getReactions()
-            ->where('reactant_id',$reactantId)->all();
-
-        $existing_like = $reacter->getReactions()
-            ->where('reactant_id',$reactantId )
-            ->where('reaction_type_id',1)
-            ->first();
-
-        $existing_disLike = $reacter->getReactions()
-            ->where('reactant_id',$reactantId )
-            ->where('reaction_type_id',2)
-            ->first();
-
-        $like = ReactionType::fromName('Like');
-        $dislike = ReactionType::fromName('Dislike');
-        $reaction_type = '';
-        if (!empty($existing_reaction) ){
-            if (!empty($existing_like))
-            {
-                if ((int)$reactionTypeId ===2) {
-                   // echo 'LIKE EXISTS but want to Dislike';
-                    $reacter->unreactTo($reactant, $like);
-                    $reacter->reactTo($reactant, $reactionType);
-                    $reaction_type = 'Dislike';
-
-                } else{
-                   // echo 'LIKE EXISTS so Unlike';
-                    $reacter->unreactTo($reactant, $reactionType);
-                    $reaction_type = 'unLike';
-
-                }
-            }
-
-            if (!empty($existing_disLike))
-            {
-                if ((int)$reactionTypeId ===1) {
-                  //  echo 'DISLIKE EXISTS But want to Like';
-                    $reacter->unreactTo($reactant, $dislike);
-                    $reacter->reactTo($reactant, $reactionType);
-                    $reaction_type = 'Like';
-                } else{
-                  //  echo 'DISLIKE EXISTS so unDislike';
-                    $reacter->unreactTo($reactant, $dislike);
-                    $reaction_type = 'unDislike';
-                }
-            }
-
-
-            }else{
-              // echo('never liked or disliked before so REACT');
-                $reacter->reactTo($reactant, $reactionType);
-            $reaction_type = $reactionType->getName();
-            }
-
-
-      //  $reaction = Reaction::all()->where('reacter_id' , $user_id)->where('reactant_id', $post_id);
-
-
-        $reactedPost = new PostResource($post);
-        $reactedPost['reaction_type'] = $reaction_type;
-        $reactedPost->reacter = $reacter;
+        $reactedPost = new PostResource($reaction);
 
         broadcast(new LikeCreatedEvent($reactedPost))->toOthers();
 
-        return $reactedPost;
+        return Response($reactedPost, 200);
     }
 
     /**
-    /**
+     * /**
      * POST /posts
      *
      * @OA\Post(
@@ -503,7 +432,7 @@ class PostAPIController extends AppBaseController
      * summary="Comment Post",
      * description="Comment a Post",
      * tags={"Post"},
-
+     * security={ {"token": {} }},
      *     @OA\Parameter(
      *         name="post_id",
      *         in="path",
@@ -550,20 +479,14 @@ class PostAPIController extends AppBaseController
      * )
      * @param Request $request
      * @param $post_id
+     * @param CommentService $commentService
+     * @return PostResource
      */
-    public function addComment(Request $request, $post_id)
+    public function addComment(CommentService $commentService)
     {
-        $post = $this->postRepository->find($post_id);
+        $post = $this->postRepository->find($this->request->post_id);
 
-        $user = User::find($request->user_id);
-
-        $comment = new Comment();
-        $comment->commenter()->associate($user);
-        $comment->commentable()->associate($post);
-        $comment->comment = $request->comment;
-        $comment->approved = true;
-        $comment->save();
-
+        $comment = $commentService->createComment($post, $this->request->comment);
         $postResource = new PostResource($post);
 
         broadcast(new CommentCreatedEvent($postResource, $comment))->toOthers();

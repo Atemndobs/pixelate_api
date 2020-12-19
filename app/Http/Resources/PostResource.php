@@ -39,7 +39,7 @@ class PostResource extends JsonResource
                 "updated_at_human" => $this->updated_at->diffForHumans(),
                 "updated_at" => $this->updated_at,
             ],
-            'user'=> new UserResource($this->whenLoaded('user')),
+           // 'user'=> new UserResource($this->whenLoaded('user')),
           //  'comments'=> CommentResource::collection($this->whenLoaded('comments')),
         ];
     }
