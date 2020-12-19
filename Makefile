@@ -38,7 +38,7 @@ pull:
 comp:
 	php vendor/bin/composer install
 up:
-	make pull && make cl && make key && make socket && make qu
+	make pull && make cl && make key && make qu
 help:
 	make help-doc && make help-model && make help-meta
 help-doc:
