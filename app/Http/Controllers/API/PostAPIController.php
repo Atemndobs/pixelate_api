@@ -6,6 +6,7 @@ use App\Events\CommentCreatedEvent;
 use App\Events\Hallo;
 use App\Events\LikeCreatedEvent;
 use App\Events\NewCommentAddedEvent;
+use App\Events\PostCreatedEvent;
 use App\Http\Requests\API\CreatePostAPIRequest;
 use App\Http\Requests\API\UpdatePostAPIRequest;
 use App\Http\Resources\LikeResource;
@@ -162,7 +163,10 @@ class PostAPIController extends AppBaseController
 
         }
 
-        return new PostResource($post);
+        $createdPost = new PostResource($post);
+        broadcast(new PostCreatedEvent($createdPost));
+
+        return $createdPost;
     }
 
     /**
