@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChildCommentCreatedEvent;
 use App\Events\CommentCreatedEvent;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
@@ -149,14 +150,15 @@ class CommentController extends Controller
         }
         $comment = $commentService->createComment($commentable, $request->comment);
         $createdComment = new CommentResource($comment);
+        $parentComment = new CommentResource($commentable);
         // send notification to owner
         $notification = new \App\Notifications\CommentCreatedNotification();
         \Notification::send(auth()->user(), $notification);
 
-       // broadcast(new CommentCreatedEvent('', ''));
+        broadcast(new ChildCommentCreatedEvent($parentComment));
         return Response([
             'Child Comment' => $createdComment,
-            'Parent Comment' => new CommentResource($commentable)
+            'Parent Comment' => $parentComment
         ], 200);
     }
 
