@@ -3,12 +3,8 @@
 namespace App\Events;
 
 use App\Http\Resources\CommentResource;
-use App\Models\Comment;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -20,12 +16,18 @@ class ChildCommentCreatedEvent implements ShouldBroadcastNow
     public CommentResource $comment;
 
     /**
+     * @var string
+     */
+    public string $comenter_id;
+
+    /**
      * ChildCommentCreatedEvent constructor.
      * @param CommentResource $comment
      */
-    public function __construct(CommentResource $comment)
+    public function __construct(CommentResource $comment, string $comenter_id)
     {
         $this->comment = $comment;
+        $this->comenter_id = $comenter_id;
     }
 
     /**
@@ -42,21 +44,8 @@ class ChildCommentCreatedEvent implements ShouldBroadcastNow
     {
         return [
             'comment' => $this->comment,
-           // 'comments_count' => $this->postResource->comments->count(),
-/*            'new_comment' => [
-                "id" => $this->comment->id,
-                "commenter_id" => $this->comment->commenter_id,
-                "commentable_id" => $this->comment->commentable_id,
-                "comment" => $this->comment->comment,
-                'approved'=>$this->comment->approved,
-                'child_id'=>$this->comment->child_id,
-                'commenter' => [
-                    'name' => $this->comment->commenter->name,
-                    'photo_url' => $this->comment->commenter->photo_url,
-                ],
-                'created_at' => $this->comment->created_at*/
-                // 'new' => $this->comment
-            //]
+            'commenter_id' => $this->comenter_id
+
         ];
     }
 }

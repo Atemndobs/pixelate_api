@@ -4,10 +4,11 @@
 namespace App\Services;
 
 
+
+use App\Models\Comment;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
-use Laravelista\Comments\Comment;
 
 class CommentService
 {
@@ -24,13 +25,12 @@ class CommentService
     /**
      * @param $commentable
      * @param $newComment
-     * @return Application|ResponseFactory|Response|Comment
+     * @return Comment|Application|ResponseFactory|Response
      */
-    public function createComment($commentable, $newComment)
+    public function createComment($commentable,  string $newComment)
     {
         try {
             $comment = new Comment();
-
             $comment->commenter()->associate($this->user);
             $comment->commentable()->associate($commentable);
             $comment->comment = $newComment;

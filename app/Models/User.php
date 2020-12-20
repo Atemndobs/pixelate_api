@@ -49,7 +49,7 @@ use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
  *      @OA\Property(property="formatted_address", example="811 Sibyl Bypass Suite 783\n New Rita, AL 48220-0930" ),
  *      @OA\Property(property="available_to_hire", type="boolean", example=1 ),
  *      @OA\Property(property="about", type="string", example="VERY deeply with a soldier on each." ),
- *
+ * 
  *      @OA\Property(property="trade_id", type="number", example=null ),
  *      @OA\Property(property="current_team_id", type="number", example=null ),
  *      @OA\Property(property="profile_photo_path", type="number", example=null ),

@@ -5,8 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/ChildCommentCreatedEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/ChildCommentCreatedEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/CommentCreatedEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/CommentCreatedEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/LikeCreatedEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/LikeCreatedEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/CommentResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/CommentResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Comment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/CommentService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/CommentService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/ReactionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/ReactionService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/broadcasting.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/broadcasting.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -304,7 +318,8 @@
       <workItem from="1608302239202" duration="5000" />
       <workItem from="1608302266818" duration="7541000" />
       <workItem from="1608334517196" duration="23481000" />
-      <workItem from="1608405180026" duration="15283000" />
+      <workItem from="1608405180026" duration="16257000" />
+      <workItem from="1608454287257" duration="23143000" />
     </task>
     <servers />
   </component>

@@ -9,6 +9,7 @@ use App\Events\NewCommentAddedEvent;
 use App\Events\PostCreatedEvent;
 use App\Http\Requests\API\CreatePostAPIRequest;
 use App\Http\Requests\API\UpdatePostAPIRequest;
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\LikeResource;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
@@ -491,17 +492,19 @@ class PostAPIController extends AppBaseController
         $post = $this->postRepository->find($this->request->post_id);
 
         $comment = $commentService->createComment($post, $this->request->comment);
+
+        $newComment = new CommentResource($comment);
         $postResource = new PostResource($post);
+        $postResource->new_comment = $newComment;
 
+        broadcast(new CommentCreatedEvent($postResource, $newComment))->toOthers();
+     //   $notification = new \App\Notifications\CommentCreatedNotification();
 
-
-        broadcast(new CommentCreatedEvent($postResource, $comment))->toOthers();
-        $notification = new \App\Notifications\CommentCreatedNotification();
-
-        \Notification::send(auth()->user(), $notification);
+      //  \Notification::send(auth()->user(), $notification);
 
      //   event(new CommentCreatedEvent($postResource, $comment));
 
-        return $postResource;
+         return $postResource;
+      //  return Response($postResource, 200);
     }
 }

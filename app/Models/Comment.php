@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -61,10 +60,20 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereGuestEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereGuestName($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravelista\Comments\Comment[] $children
+ * @property-read int|null $children_count
+ * @property-read Model|\Eloquent $commenter
+ * @property-read mixed $reacter_id
+ * @property-read \Cog\Laravel\Love\Reactant\Models\Reactant $loveReactant
+ * @property-read \Laravelista\Comments\Comment|null $parent
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment joinReactionCounterOfType($reactionTypeName, $alias = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment joinReactionTotal($alias = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereNotReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
  */
 class Comment extends \Laravelista\Comments\Comment
 {
-    use HasFactory, Reactable;
+    use HasFactory;
 
     protected $appends = ['reacter_id'];
 

@@ -2,16 +2,14 @@
 
 namespace App\Events;
 
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Laravelista\Comments\Comment;
+
 
 class CommentCreatedEvent implements ShouldBroadcastNow
 {
@@ -24,16 +22,16 @@ class CommentCreatedEvent implements ShouldBroadcastNow
     public PostResource $postResource;
 
     /**
-     * @var Comment
+     * @var CommentResource
      */
-    public Comment $comment;
+    public CommentResource $comment;
 
     /**
      * CommentCreatedEvent constructor.
      * @param PostResource $postResource
-     * @param Comment $comment
+     * @param CommentResource $comment
      */
-    public function __construct(PostResource $postResource, Comment $comment)
+    public function __construct(PostResource $postResource, CommentResource $comment)
     {
         $this->postResource = $postResource;
         $this->comment = $comment;
@@ -56,20 +54,28 @@ class CommentCreatedEvent implements ShouldBroadcastNow
         return [
             'post_id' => $this->postResource->id,
             'comments_count' => $this->postResource->comments->count(),
-            'new_comment' => [
+            'new_comment' => $this->comment
+/*            'new_comment' => [
                 "id" => $this->comment->id,
                 "commenter_id" => $this->comment->commenter_id,
                 "commentable_id" => $this->comment->commentable_id,
                 "comment" => $this->comment->comment,
                 'approved'=>$this->comment->approved,
                 'child_id'=>$this->comment->child_id,
+                'childComments' => $this->comment->childComments,
                 'commenter' => [
                     'name' => $this->comment->commenter->name,
                     'photo_url' => $this->comment->commenter->photo_url,
                 ],
-                'created_at' => $this->comment->created_at
-               // 'new' => $this->comment
-            ]
+                "created_dates" => [
+                    "created_at_human" => $this->comment->created_at->diffForHumans(),
+                    "created_at" => $this->comment->created_at,
+                ],
+                "updated_dates" => [
+                    "updated_at_human" => $this->comment->updated_at->diffForHumans(),
+                    "updated_at" => $this->comment->updated_at,
+                ],
+            ]*/
         ];
     }
 }

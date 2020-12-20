@@ -28,9 +28,9 @@ class PostResource extends JsonResource
             'reactions' => Reaction::all()
                 ->where('reaction_type_id', 1)
               ->where('reactant_id', $this->id),
-            'new_comment' => $this->comments->last()?:'',
+            'new_comment' => CommentResource::collection($this->comments)->last()?:'',
             'comments_count' => $this->comments->count(),
-            'comments'=> CommentResource::collection($this->whenLoaded('comments')),
+            'comments'=> CommentResource::collection($this->comments),
             "created_dates" => [
                 "created_at_human" => $this->created_at->diffForHumans(),
                 "created_at" => $this->created_at,
@@ -39,6 +39,7 @@ class PostResource extends JsonResource
                 "updated_at_human" => $this->updated_at->diffForHumans(),
                 "updated_at" => $this->updated_at,
             ],
+
            // 'user'=> new UserResource($this->whenLoaded('user')),
           //  'comments'=> CommentResource::collection($this->whenLoaded('comments')),
         ];

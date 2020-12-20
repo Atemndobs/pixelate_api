@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\ChildCommentCreatedEvent;
-use App\Events\CommentCreatedEvent;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
-use App\Notifications\CommentCreatedNotification;
 use App\Services\CommentService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -76,12 +74,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-
-        $comments = Comment::where('commentable_id', $this->request->comment_id)->get();
-
-       // die(json_encode($comments));
-
-       // return json_encode($comments->count());
+        $comments = Comment::where('commentable_id', $this->request->comment_id )
+            ->where('commentable_type', 'like', '%Comment')->get();
 
         return CommentResource::collection($comments);
     }
@@ -143,6 +137,7 @@ class CommentController extends Controller
     public function create(Request $request, CommentService $commentService): \Illuminate\Http\Response
     {
         $commentable = Comment::find($request->comment_id);
+
         if ($commentable === null){
             return Response([
                 'message' => 'No Comment found',
@@ -151,14 +146,16 @@ class CommentController extends Controller
         $comment = $commentService->createComment($commentable, $request->comment);
         $createdComment = new CommentResource($comment);
         $parentComment = new CommentResource($commentable);
-        // send notification to owner
-        $notification = new \App\Notifications\CommentCreatedNotification();
-        \Notification::send(auth()->user(), $notification);
+        $commenterId = $comment->commenter->id;
 
-        broadcast(new ChildCommentCreatedEvent($parentComment));
+        // send notification to owner
+        // $notification = new \App\Notifications\CommentCreatedNotification();
+       // \Notification::send(auth()->user(), $notification);
+
+        broadcast(new ChildCommentCreatedEvent($parentComment, $commenterId));
         return Response([
-            'Child Comment' => $createdComment,
-            'Parent Comment' => $parentComment
+            'child' => $createdComment,
+            'parent' => $parentComment
         ], 200);
     }
 

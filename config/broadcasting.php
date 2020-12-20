@@ -52,7 +52,7 @@ return [
         // laravel-websocket
 
 
-      /*      'pusher' => [
+/*           'pusher' => [
             'driver' => 'pusher',
             'key' => env('PUSHER_APP_KEY'),
             'secret' => env('PUSHER_APP_SECRET'),
@@ -74,6 +74,7 @@ return [
                 'scheme' => 'http'
             ],
         ],*/
+
 
         'redis' => [
             'driver' => 'redis',

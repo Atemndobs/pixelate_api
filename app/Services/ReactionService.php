@@ -6,7 +6,6 @@ namespace App\Services;
 
 use App\Http\Resources\PostResource;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
-use function GuzzleHttp\Promise\rejection_for;
 
 class ReactionService
 {

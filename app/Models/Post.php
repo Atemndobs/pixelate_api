@@ -69,6 +69,7 @@ use Laravelista\Comments\Commentable;
  * @property-read int|null $approved_comments_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravelista\Comments\Comment[] $comments
  * @property-read int|null $comments_count
+ * @property-read mixed $reacter_id
  */
 class Post extends Model implements ReactableInterface
 {

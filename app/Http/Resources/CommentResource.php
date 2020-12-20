@@ -24,18 +24,19 @@ class CommentResource extends JsonResource
             'commenter' => $this->commenter,
             'commenter_id' => $this->commenter_id,
             'commenter_type' => $this->commenter_type,
-            'childComments' => Comment::where('commentable_id', $this->id)->get(),
+            'childComments' => Comment::where('commentable_id',$this->id)
+                ->where('commentable_type', 'like', '%Comment')->get(),
 //            'likes'=>new LikeResource($this),
             'reacter' => $this->reacter,
             'reacter_id' => $this->reacter_id?:'',
             'reactions' => Reaction::all()
                 ->where('reaction_type_id', 1)
                 ->where('reactant_id', $this->id),
-            'created_at_dates' => [
+            'created_dates' => [
                 "created_at_human" => $this->created_at->diffForHumans(),
                 "created_at" => $this->created_at,
             ],
-            'updated_at_dates' => [
+            'updated_dates' => [
                 "updated_at_human" => $this->updated_at->diffForHumans(),
                 "updated_at" => $this->updated_at,
             ],
