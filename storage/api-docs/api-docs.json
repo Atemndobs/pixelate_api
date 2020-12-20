@@ -944,14 +944,25 @@
                 }
             }
         },
-        "/api/comments": {
+        "/api/comments/{comment_id}": {
             "get": {
                 "tags": [
                     "Comment"
                 ],
-                "summary": "Get all Comments",
-                "description": "Get all Posts available online (set to live )",
+                "summary": "Get all Replies for a comments",
+                "description": "Get all Replies for a comments",
                 "operationId": "App\\Http\\Controllers\\CommentController::index",
+                "parameters": [
+                    {
+                        "name": "comment_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 10
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -975,7 +986,7 @@
                                 "schema": {
                                     "properties": {
                                         "message": {
-                                            "description": "Display a listing of the Post.\nGET|HEAD /comments",
+                                            "description": "Display a listing of the Comments belonging to given comment.\nGET|HEAD comments/{comment_id}'",
                                             "type": "string",
                                             "example": "Not Found"
                                         }
@@ -1013,10 +1024,6 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "user_id": {
-                                        "type": "number",
-                                        "example": 21
-                                    },
                                     "comment": {
                                         "type": "string",
                                         "example": "Here is the mommemt of comment"

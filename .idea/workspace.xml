@@ -5,8 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/759f90e0-5022-4c55-b52f-ff18f3e994e3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/759f90e0-5022-4c55-b52f-ff18f3e994e3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/laravel-tinker-plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel-tinker-plugin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pixelate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pixelate.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/CommentResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/CommentResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/broadcasting.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/broadcasting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_16_170807_create_comments_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/storage/api-docs/api-docs.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,6 +225,7 @@
       <path value="$PROJECT_DIR$/vendor/erusev/parsedown" />
       <path value="$PROJECT_DIR$/vendor/laravelista/comments" />
       <path value="$PROJECT_DIR$/vendor/rennokki/befriended" />
+      <path value="$PROJECT_DIR$/vendor/laravel/slack-notification-channel" />
     </include_path>
   </component>
   <component name="ProblemsViewState">
@@ -302,7 +318,7 @@
       <workItem from="1608302239202" duration="5000" />
       <workItem from="1608302266818" duration="7541000" />
       <workItem from="1608334517196" duration="23481000" />
-      <workItem from="1608405180026" duration="59000" />
+      <workItem from="1608405180026" duration="12518000" />
     </task>
     <servers />
   </component>

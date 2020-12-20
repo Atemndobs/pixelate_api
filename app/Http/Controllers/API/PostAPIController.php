@@ -493,7 +493,13 @@ class PostAPIController extends AppBaseController
         $comment = $commentService->createComment($post, $this->request->comment);
         $postResource = new PostResource($post);
 
+
+
         broadcast(new CommentCreatedEvent($postResource, $comment))->toOthers();
+        $notification = new \App\Notifications\CommentCreatedNotification();
+
+        \Notification::send(auth()->user(), $notification);
+
      //   event(new CommentCreatedEvent($postResource, $comment));
 
         return $postResource;

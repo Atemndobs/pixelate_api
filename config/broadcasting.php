@@ -51,8 +51,8 @@ return [
 
         // laravel-websocket
 
-/*
-            'pusher' => [
+
+/*            'pusher' => [
             'driver' => 'pusher',
             'key' => env('PUSHER_APP_KEY'),
             'secret' => env('PUSHER_APP_SECRET'),
@@ -73,8 +73,8 @@ return [
                 'port' => 6001,
                 'scheme' => 'http'
             ],
-        ],
-*/
+        ],*/
+
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',

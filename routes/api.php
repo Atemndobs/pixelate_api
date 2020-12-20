@@ -116,4 +116,5 @@ Route::delete('posts/{id}', "API\PostAPIController@destroy");
 
 Route::delete('settings/user/{email}','User\SettingsController@deleteUser');
 
+Route::get('comments/{comment_id}','CommentController@index');
 

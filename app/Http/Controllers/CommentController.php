@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CommentCreatedEvent;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
+use App\Notifications\CommentCreatedNotification;
 use App\Services\CommentService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -15,14 +17,43 @@ use Illuminate\Support\Facades\Response;
 class CommentController extends Controller
 {
     /**
-     * Display a listing of the Post.
-     * GET|HEAD /comments
+     * @var Request
+     */
+    public Request $request;
+
+    /**
+     * @var Comment
+     */
+    Public Comment $comment;
+
+    /**
+     * CommentController constructor.
+     * @param Request $request
+     * @param Comment $comment
+     */
+    public function __construct(Request $request, Comment $comment)
+    {
+        $this->request = $request;
+        $this->comment = $comment;
+    }
+
+    /**
+     * Display a listing of the Comments belonging to given comment.
+     * GET|HEAD comments/{comment_id}'
      *
      * @OA\Get(
-     *     path="/api/comments",
-     *     summary="Get all Comments",
-     *     description="Get all Posts available online (set to live )",
+     *     path="/api/comments/{comment_id}",
+     *     summary="Get all Replies for a comments",
+     *     description="Get all Replies for a comments",
      *     tags={"Comment"},
+     *     @OA\Parameter(
+     *         name="comment_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="number", example=10
+     *         )
+     *     ),
      *      @OA\Response(
      *         response=200,
      *         description="Success",
@@ -44,7 +75,13 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::all();
+
+        $comments = Comment::where('commentable_id', $this->request->comment_id)->get();
+
+       // die(json_encode($comments));
+
+       // return json_encode($comments->count());
+
         return CommentResource::collection($comments);
     }
 
@@ -66,7 +103,6 @@ class CommentController extends Controller
      * @OA\RequestBody(
      *    description="Pass user credentials",
      *    @OA\JsonContent(
-     *       @OA\Property(property="user_id", type="number", example=21),
      *       @OA\Property(property="comment", type="string", example="Here is the mommemt of comment"),
      *    ),
      * ),
@@ -99,9 +135,11 @@ class CommentController extends Controller
      *     )
      *     )
      * )
+     * @param Request $request
+     * @param CommentService $commentService
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, CommentService $commentService)
+    public function create(Request $request, CommentService $commentService): \Illuminate\Http\Response
     {
         $commentable = Comment::find($request->comment_id);
         if ($commentable === null){
@@ -112,8 +150,14 @@ class CommentController extends Controller
         $comment = $commentService->createComment($commentable, $request->comment);
         $createdComment = new CommentResource($comment);
         // send notification to owner
-        // send event to dom
-        return Response($createdComment, 200);
+        $notification = new \App\Notifications\CommentCreatedNotification();
+        \Notification::send(auth()->user(), $notification);
+
+       // broadcast(new CommentCreatedEvent('', ''));
+        return Response([
+            'Child Comment' => $createdComment,
+            'Parent Comment' => new CommentResource($commentable)
+        ], 200);
     }
 
     /**

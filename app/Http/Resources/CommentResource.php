@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Comment;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,6 +24,7 @@ class CommentResource extends JsonResource
             'commenter' => $this->commenter,
             'commenter_id' => $this->commenter_id,
             'commenter_type' => $this->commenter_type,
+            'childComments' => Comment::where('commentable_id', $this->id)->get(),
 //            'likes'=>new LikeResource($this),
             'reacter' => $this->reacter,
             'reacter_id' => $this->reacter_id?:'',

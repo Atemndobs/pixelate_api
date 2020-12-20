@@ -30,7 +30,7 @@ class PostResource extends JsonResource
               ->where('reactant_id', $this->id),
             'new_comment' => $this->comments->last()?:'',
             'comments_count' => $this->comments->count(),
-            'comments'=> $this->comments,
+            'comments'=> CommentResource::collection($this->whenLoaded('comments')),
             "created_dates" => [
                 "created_at_human" => $this->created_at->diffForHumans(),
                 "created_at" => $this->created_at,

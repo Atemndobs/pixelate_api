@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="laravelTinkerProject">
-    <option name="lastCode" value="&lt;?php&#10;&#10;$comments = \App\Models\Comment::all();&#10;\App\Http\Resources\CommentResource::collection($comments);&#10;" />
+    <option name="lastCode" value="&lt;?php&#10;&#10;&#10;//new \App\Http\Resources\PostResource(\App\Models\Post::latest()-&gt;first());&#10;&#10;&#10;//\App\Models\Comment::where('commentable_id', 10)-&gt;get();&#10;&#10;new \App\Http\Resources\CommentResource(\App\Models\Comment::find(10));" />
   </component>
 </project>
