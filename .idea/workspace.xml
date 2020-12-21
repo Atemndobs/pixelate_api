@@ -5,23 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0c64ade-2549-43cb-b195-cbc0fc975a4d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/759f90e0-5022-4c55-b52f-ff18f3e994e3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/759f90e0-5022-4c55-b52f-ff18f3e994e3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Events/ChildCommentCreatedEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/ChildCommentCreatedEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Events/CommentCreatedEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/CommentCreatedEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Events/LikeCreatedEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/LikeCreatedEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/PostAPIController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/CommentResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/CommentResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Comment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/CommentService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/CommentService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/ReactionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/ReactionService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/broadcasting.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/broadcasting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +22,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GithubPullRequestsUISettings">
     <option name="hiddenUrls">
@@ -266,7 +253,19 @@
       <recent name="\\wsl$\Ubuntu-18.04\home\atem\projects\pixelate\database\seeds" />
     </key>
   </component>
-  <component name="RunManager" selected="Makefile.register-reactants">
+  <component name="RunManager" selected="Makefile.reactant">
+    <configuration name="reactant" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="reactant" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="register-reactant" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="register-reactant" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
     <configuration name="register-reactants" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/Makefile" target="register-reactants" workingDirectory="" arguments="">
         <envs />
@@ -281,6 +280,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Makefile.reactant" />
+        <item itemvalue="Makefile.register-reactant" />
         <item itemvalue="Makefile.register-reactants" />
         <item itemvalue="Makefile.register-reacter" />
       </list>
@@ -319,7 +320,10 @@
       <workItem from="1608302266818" duration="7541000" />
       <workItem from="1608334517196" duration="23481000" />
       <workItem from="1608405180026" duration="16257000" />
-      <workItem from="1608454287257" duration="23143000" />
+      <workItem from="1608454287257" duration="29951000" />
+      <workItem from="1608542080301" duration="678000" />
+      <workItem from="1608552033797" duration="11590000" />
+      <workItem from="1608569935945" duration="306000" />
     </task>
     <servers />
   </component>
