@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
+use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  *      @OA\Property(property="comment", type="string", readOnly="true", example="this is a great app"),
  *      @OA\Property(property="commenter_id", type="integer", readOnly="true", example=1),
  *      @OA\Property(property="commentable_id", type="integer", readOnly="true", example=2),
- *
+ * 
  *      @OA\Property(property="created_dates", type="object",
  *          @OA\Property(property="created_at_human", description="Date Created formatted", example="52 minutes ago"),
  *          @OA\Property(property="created_at", description="Raw unfarmatted Date ", example="2020-11-09T20:04:11.000000Z"),
@@ -70,10 +72,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment joinReactionTotal($alias = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereNotReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
+ * @property int|null $love_reactant_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereLoveReactantId($value)
  */
-class Comment extends \Laravelista\Comments\Comment
+class Comment extends \Laravelista\Comments\Comment implements ReactableInterface
 {
-    use HasFactory;
+    use HasFactory, Reactable;
 
     protected $appends = ['reacter_id'];
 
