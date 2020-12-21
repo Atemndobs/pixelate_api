@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
-use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -73,9 +71,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereNotReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
  */
-class Comment extends \Laravelista\Comments\Comment implements ReactableInterface
+class Comment extends \Laravelista\Comments\Comment
 {
-    use HasFactory, Reactable;
+    use HasFactory;
 
     protected $appends = ['reacter_id'];
 

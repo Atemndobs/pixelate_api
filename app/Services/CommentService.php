@@ -29,17 +29,13 @@ class CommentService
      */
     public function createComment($commentable,  string $newComment)
     {
-
         try {
             $comment = new Comment();
-
             $comment->commenter()->associate($this->user);
             $comment->commentable()->associate($commentable);
             $comment->comment = $newComment;
             $comment->approved = true;
-
             $comment->save();
-            die($comment);
         }catch (\Exception $e){
             return Response([
                 'message' => $e->getMessage(),

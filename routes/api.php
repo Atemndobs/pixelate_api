@@ -3,6 +3,7 @@
 use App\Http\Controllers\Designs\DesignController;
 use Illuminate\Support\Facades\Route;
 
+
 if (env('APP_ENV') === 'production') {
     \Illuminate\Support\Facades\URL::forceScheme('https');
 }

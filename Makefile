@@ -1,4 +1,3 @@
-
 socket:
 	php artisan websockets:serve
 
@@ -57,12 +56,12 @@ type:
 reacter:
 	php artisan love:setup-reacterable --model="App\Models\User" --nullable
 reactant:
-	php artisan love:setup-reactable --model="App\Models\Comment" --nullable
+	php artisan love:setup-reactable --model="App\Models\Post" --nullable
 
 register-reacter:
 	php artisan love:register-reacters --model="App\Models\User"
-register-reactant:
-	php artisan love:register-reactants --model="App\Models\Comment"
+register-reactants:
+	php artisan love:register-reactants --model="App\Models\Post"
 
 echo-socket:
 	php -d memory_limit=-1 composer.phar require beyondcode/laravel-websockets
@@ -77,6 +76,7 @@ compose:
 	@read -p "Enter package name:  " MESSAGE; \
 	php -d memory_limit=-1 composer.phar require $$MESSAGE
 
+
 seed:
 	make post && make user && make comment && make like && make design
 post:
@@ -89,13 +89,3 @@ like:
 	php artisan db:seed --class=UsersTableSeeder
 design:
 	php artisan db:seed --class=DesignsTableSeeder
-migrate:
-	php srtisan migrate
-comment:
-	make reactant && make migrate && make register-reactant
-vu:
-	cd ../deja-vue && quasar dev
-client:
-	cd ../deja-vue && pstorm .
-
-

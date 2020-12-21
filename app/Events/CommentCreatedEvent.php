@@ -15,6 +15,7 @@ class CommentCreatedEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+
     /**
      * @var PostResource
      */
