@@ -134,16 +134,17 @@ class CommentController extends Controller
      * @param CommentService $commentService
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, CommentService $commentService): \Illuminate\Http\Response
+    public function create(CommentService $commentService)
     {
-        $commentable = Comment::find($request->comment_id);
+        $commentable = Comment::find($this->request->comment_id);
 
         if ($commentable === null){
             return Response([
                 'message' => 'No Comment found',
             ], 404);
         }
-        $comment = $commentService->createComment($commentable, $request->comment);
+        $comment = $commentService->createComment($commentable, $this->request->comment);
+
         $createdComment = new CommentResource($comment);
         $parentComment = new CommentResource($commentable);
         $commenterId = $comment->commenter->id;
