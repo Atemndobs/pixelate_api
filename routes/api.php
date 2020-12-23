@@ -88,6 +88,7 @@ Route::group(['middleware' => ['auth:api']], function (){
     // Comments using the Commentable Package
     Route::post('posts/comment/{post_id}', "API\PostAPIController@addComment");
     Route::post('comments/comment/{comment_id}','CommentController@create');
+    Route::post('comments/comment/react/{comment_id}','CommentController@reactComment');
 
 
 });

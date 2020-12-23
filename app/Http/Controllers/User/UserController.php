@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Eloquent\Criteria\EagerLoad;
+use App\Repositories\Eloquent\Criteria\LatestFirst;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -54,10 +55,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->userRepository->withCriteria([
-            new EagerLoad(['designs'])
-        ])
-        ->all();
+/*        $users = $this->userRepository->withCriteria([
+
+        ])->all();*/
+       // $users = User::with('posts')->get();
+       $users = User::all();
         return UserResource::collection($users);
     }
 

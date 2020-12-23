@@ -21,6 +21,7 @@ class LikeResource extends JsonResource
             'color' => $this->color?:'black',
             'likes_count' => $this->getLoveReactant()->getReactions()->where('reaction_type_id', 1)->count(),
             'dislikes_count' => $this->getLoveReactant()->getReactions()->where('reaction_type_id', 2)->count(),
+            'reaction_count' => $this->reaction_count,
         ];
     }
 }

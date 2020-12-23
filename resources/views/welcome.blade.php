@@ -107,6 +107,7 @@
                     <a href="{{env('HOME_URL')}}" target="_blank">Home</a>
                     <a href="{{env('APP_URL')}}/api/docs" target="_blank">API DOCS</a>
                     <a href="{{env('APP_URL')}}/laravel-websockets" target="_blank">WEB SOCKETS</a>
+                    <a href="{{env('APP_URL')}}/telescope" target="_blank">telescope</a>
                 </div>
             </div>
         </div>

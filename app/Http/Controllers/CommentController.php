@@ -6,12 +6,12 @@ use App\Events\ChildCommentCreatedEvent;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Services\CommentService;
+use App\Services\ReactionService;
+use DB;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Response;
 
 class CommentController extends Controller
 {
@@ -74,8 +74,15 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::where('commentable_id', $this->request->comment_id )
-            ->where('commentable_type', 'like', '%Comment')->get();
+        $comments = Comment::where('id', $this->request->comment_id )
+            ->where('commentable_type', 'like', '%Comment')
+            ->with([
+                'loveReactant.reactions.reacter.reacterable',
+                'loveReactant.reactions.type',
+                'loveReactant.reactionCounters',
+                'loveReactant.reactionTotal',
+            ])
+            ->get();
 
         return CommentResource::collection($comments);
     }
@@ -134,7 +141,7 @@ class CommentController extends Controller
      * @param CommentService $commentService
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, CommentService $commentService): \Illuminate\Http\Response
+    public function create(Request $request, CommentService $commentService)
     {
         $commentable = Comment::find($request->comment_id);
 
@@ -148,7 +155,7 @@ class CommentController extends Controller
         $parentComment = new CommentResource($commentable);
         $commenterId = $comment->commenter->id;
 
-        // send notification to owner
+           // send notification to owner
         // $notification = new \App\Notifications\CommentCreatedNotification();
        // \Notification::send(auth()->user(), $notification);
 
@@ -159,59 +166,88 @@ class CommentController extends Controller
         ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+
 
     /**
-     * Display the specified resource.
+     * POST /posts
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     * path="/api/comments/comment/react/{comment_id}",
+     * summary="React to Comment",
+     * description="React to  a Comment",
+     * tags={"Comment"},
+     * security={ {"token": {} }},
+     *     @OA\Parameter(
+     *         name="comment_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="number", example=1
+     *         )
+     *     ),
+     * @OA\RequestBody(
+     *    description="Pass user credentials",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="post_id", type="number", example=2),
+     *       @OA\Property(property="type", type="string", example="Like"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="success", type="string", example="liked"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=404,
+     *    description="No Found",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Post not found"),
+     *     )
+     *     ),
+     * @OA\Response(
+     *    response=401,
+     *    description="Unauthorized",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="error", type="string", example="Not Logged In"),
+     *     )
+     *     ),
+     * @OA\Response(
+     *    response=409,
+     *    description="Conflict",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="eror", type="string", example="Reaction of type `Like` already exists."),
+     *     )
+     *     )
+     * )
+     * @param ReactionService $reactionService
+     * @return false|string
      */
-    public function show($id)
+    public function reactComment(ReactionService $reactionService)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        if (!auth()->check()){
+            return Response([
+                'error' => 'Not logged in',
+            ],401);
+        }
+        $type = $this->request->type;
+        $post_id = $this->request->post_id;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $reactable = Comment::find($this->request->comment_id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+
+        $reaction = $reactionService->processReaction($type, $reactable);
+
+        $reaction->type = $type;
+        $reactedComment = new CommentResource($reaction);
+
+
+        return Response([
+            'post_id' => $post_id,
+            'comment' => $reactedComment
+        ],
+            200);
     }
 }

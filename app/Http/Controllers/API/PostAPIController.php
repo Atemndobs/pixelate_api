@@ -12,8 +12,10 @@ use App\Http\Requests\API\UpdatePostAPIRequest;
 use App\Http\Resources\CommentResource;
 use App\Http\Resources\LikeResource;
 use App\Http\Resources\PostResource;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+use App\Repositories\Eloquent\Criteria\EagerLoad;
 use App\Repositories\PostRepository;
 use App\Services\CommentService;
 use App\Services\ReactionService;
@@ -23,7 +25,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Laravelista\Comments\Comment;
+//use Laravelista\Comments\Comment;
 use Laravelista\Comments\Commenter;
 use Laravelista\Comments\Events\CommentCreated;
 use Response;
@@ -82,15 +84,28 @@ class PostAPIController extends AppBaseController
      */
     public function index()
     {
+/*        $posts = $this->postRepository->withCriteria([
+            new EagerLoad(['user', 'comments'])
+        ])->all();*/
+        $posts = Post::with('comments')->get();
 
-        $posts = $this->postRepository->all();
+/*        $comments = Comment::query()
+            ->with([
+                'loveReactant.reactions.reacter.reacterable',
+                'loveReactant.reactions.type',
+                'loveReactant.reactionCounters',
+                'loveReactant.reactionTotal',
+            ])
+            ->get();*/
 
         if ($posts->count() === 0) {
             return Response([
                 'message' => 'No Posts Created Yet. Please create one',
             ], 404);
         }
-        return PostResource::collection($posts);
+        $postResource = PostResource::collection($posts);
+
+        return $postResource;
     }
 
     /**
@@ -210,8 +225,9 @@ class PostAPIController extends AppBaseController
      */
     public function show()
     {
-        /** @var Post $post */
-        $post = $this->postRepository->find($this->request->id);
+       $post = Post::with('comments')
+            ->find($this->request->id);
+
 
         if ($post === null) {
             return Response([
@@ -275,8 +291,6 @@ class PostAPIController extends AppBaseController
     public function update(UpdatePostAPIRequest $request)
     {
         $input = $request->all();
-
-        //die($input);
 
         /** @var Post $post */
         $post = $this->postRepository->find($request->id);
@@ -416,11 +430,19 @@ class PostAPIController extends AppBaseController
             ],401);
         }
 
+
         $type = $this->request->type;
+
         $post = $this->postRepository->find($this->request->post_id);
 
-        $reaction = $reactionService->processReaction($type, $post);
+        try {
+            $reaction = $reactionService->processReaction($type, $post);
+        }catch (\Exception $exception){
+            return Response('REACTION NOT FOUND' . $type, 404);
+        }
 
+
+        $reaction->type = $type;
         $reactedPost = new PostResource($reaction);
 
         broadcast(new LikeCreatedEvent($reactedPost))->toOthers();
@@ -490,7 +512,6 @@ class PostAPIController extends AppBaseController
     public function addComment(CommentService $commentService)
     {
         $post = $this->postRepository->find($this->request->post_id);
-
         $comment = $commentService->createComment($post, $this->request->comment);
 
         $newComment = new CommentResource($comment);
@@ -499,12 +520,8 @@ class PostAPIController extends AppBaseController
 
         broadcast(new CommentCreatedEvent($postResource, $newComment))->toOthers();
      //   $notification = new \App\Notifications\CommentCreatedNotification();
-
       //  \Notification::send(auth()->user(), $notification);
 
-     //   event(new CommentCreatedEvent($postResource, $comment));
-
          return $postResource;
-      //  return Response($postResource, 200);
     }
 }

@@ -85,6 +85,7 @@ class Post extends Model implements ReactableInterface
 
 
 
+
     public $fillable = [
         'user_id',
         'caption',

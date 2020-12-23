@@ -5,16 +5,15 @@ namespace App\Services;
 
 
 use App\Http\Resources\PostResource;
+use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
+use DB;
 
 class ReactionService
 {
     private $user;
 
-    /**
-     * ReactionService constructor.
-     * @param $user
-     */
+
     public function __construct()
     {
         $this->user = auth()->user();
@@ -22,76 +21,176 @@ class ReactionService
 
     public function processReaction($type, $existingReactant)
     {
-        try {
-            $reactionType = ReactionType::fromName($type);
-        } catch (\Exception $exception) {
-            return Response([
-                'error' => $exception->getMessage(),
-            ], 404);
-        }
-
-        $reacter = $this->user->getLoveReacter();;
-        $reactant = $existingReactant->getLoveReactant();
-        $reactantId = $existingReactant->getLoveReactant()->getId();
-
+        $reactionType = $this->getType($type);
         $reactionTypeId = $reactionType->getId();
-        $existing_reaction = $reacter->getReactions()
-            ->where('reactant_id',$reactantId)->all();
-        $existing_like = $reacter->getReactions()
-            ->where('reactant_id',$reactantId )
-            ->where('reaction_type_id',1)
-            ->first();
+        $reacter = $this->user->getLoveReacter();
+        $reactant = $existingReactant->getLoveReactant();
 
-        $existing_disLike = $reacter->getReactions()
-            ->where('reactant_id',$reactantId )
-            ->where('reaction_type_id',2)
-            ->first();
 
-        $like = ReactionType::fromName('Like');
-        $dislike = ReactionType::fromName('Dislike');
-        $reaction_type = '';
-        if (!empty($existing_reaction) ){
-            if (!empty($existing_like))
-            {
-                if ((int)$reactionTypeId ===2) {
-                    // echo 'LIKE EXISTS but want to Dislike';
-                    $reacter->unreactTo($reactant, $like);
-                    $reacter->reactTo($reactant, $reactionType);
-                    $reaction_type = 'Dislike';
+        $existing_reaction = $this->getAllExistingReactions($existingReactant);
+        $existing_react_type = $this->getExistingReaction($type, $existingReactant);
+        $existing_disReact_type = $this->getExistingDisReaction($type, $existingReactant);
 
-                } else{
-                    // echo 'LIKE EXISTS so Unlike';
-                    $reacter->unreactTo($reactant, $reactionType);
-                    $reaction_type = 'unLike';
 
-                }
-            }
+        // React type, if string has Dis, remove it and make react type else just make react type
 
-            if (!empty($existing_disLike))
-            {
-                if ((int)$reactionTypeId ===1) {
-                    //  echo 'DISLIKE EXISTS But want to Like';
-                    $reacter->unreactTo($reactant, $dislike);
-                    $reacter->reactTo($reactant, $reactionType);
-                    $reaction_type = 'Like';
-                } else{
-                    //  echo 'DISLIKE EXISTS so unDislike';
-                    $reacter->unreactTo($reactant, $dislike);
-                    $reaction_type = 'unDislike';
-                }
-            }
-
+        if (strpos($type, 'Dis') !== false) {
+           // echo "INCOMING :: " . $type ."\n";
+            $reactName = substr($type, 3);
+           // echo "Sanitized => :: " . $reactName ."\n";
+            $reactType = ReactionType::fromName($reactName);
 
         }else{
-            // echo('never liked or disliked before so REACT');
+            $reactType = ReactionType::fromName($type);
+        }
+
+        // To make Disreact Type, If string has no Dis, Add dis to it and make Disreact type
+        if (strpos($type, 'Dis') === false) {
+            //echo "INCOMING :: " . $type ."\n";
+            $disReactName = 'Dis'.$type;
+           // echo "Sanitized => :: " . $disReactName ."\n";
+            $disReactType = ReactionType::fromName($disReactName);
+        }else{
+            $disReactType = ReactionType::fromName($type);
+        }
+
+
+        $reaction_type = '';
+
+        if (!empty($existing_reaction) ){
+
+            if (!empty($existing_react_type))
+            {
+                if ($reactionTypeId === $disReactType->getId()) {
+                    // echo 'LIKE EXISTS but want to Dislike'."\n";
+                    $reacter->unreactTo($reactant, $reactType);
+                    $reacter->reactTo($reactant, $reactionType);
+                    $reaction_type = $type;
+
+                } else{
+                    // echo 'LIKE EXISTS so Unlike'."\n";
+                    $reacter->unreactTo($reactant, $reactionType);
+                    $reaction_type = 'un'.$type;
+
+                }
+            }
+
+            if (!empty($existing_disReact_type))
+            {
+                if ($reactionTypeId === $reactType->getId()) {
+                    //  echo 'DISLIKE EXISTS But want to Like' ."\n";
+                    $reacter->unreactTo($reactant, $disReactType);
+                    $reacter->reactTo($reactant, $reactionType);
+                    $reaction_type = $type;
+                } else{
+                    //  echo 'DISLIKE EXISTS so unDislike' ."\n";
+                    $reaction_type = 'un'.$type;
+                    $reacter->unreactTo($reactant, $reactionType);
+
+                }
+            }
+
+            if (empty($existing_react_type) && empty($existing_disReact_type)){
+              //  echo('BRAND NEU REACTION:  React to ' . $type)."\n";
+
+                $reacter->reactTo($reactant, $reactionType);
+                $reaction_type = $reactionType->getName();
+            }
+
+        }else{
+           //  echo('never liked or disliked before so REACT')."\n";
             $reacter->reactTo($reactant, $reactionType);
             $reaction_type = $reactionType->getName();
         }
 
+      //  $reactions = DB::table('love_reactions')->select('*')->where(['reactant_id' => $reactantId])->get();
+        // $existingReactant['reaction_count'] = $reactions->count();
         $existingReactant['reaction_type'] = $reaction_type;
+        $existingReactant['reaction_type_id'] = $reactionTypeId;
+
         $existingReactant->reacter = $reacter;
 
         return $existingReactant;
 
     }
+
+    public function getType($type)
+    {
+        try {
+            return ReactionType::fromName($type);
+        } catch (\Exception $exception) {
+            die(json_encode(['error' => 'Reaction type does not Exist : ' .$type]));
+/*            return [
+                'error' => $exception->getCode() .$type
+            ];*/
+        }
+    }
+
+    /**
+     * @param $existingReactant
+     * @return mixed
+     */
+    public function getAllExistingReactions($existingReactant):array
+    {
+        $reacter = $this->user->getLoveReacter();
+        $reactantId = $existingReactant->getLoveReactant()->getId();
+
+        return $reacter->getReactions()
+            ->where('reactant_id', $reactantId)->all();
+    }
+
+    /**
+     * @param $type
+     * @param $existingReactant
+     * @return mixed
+     */
+    public function getExistingReaction($type, $existingReactant)
+    {
+
+        $reacter = $this->user->getLoveReacter();
+        $reactantId = $existingReactant->getLoveReactant()->getId();
+
+        if (strpos($type, 'Dis') !== false) {
+           // echo "INCOMING :: " . $type ."\n";
+            $reactName = substr($type, 3);
+            $reactionTypeId = ReactionType::fromName($reactName)->getId();
+        }else {
+            $reactionTypeId = ReactionType::fromName($type)->getId();
+        }
+
+        return $reacter->getReactions()
+            ->where('reactant_id',$reactantId )
+            ->where('reaction_type_id',$reactionTypeId)
+            ->first();
+    }
+
+    public function getExistingDisReaction($type, $existingReactant)
+    {
+        $reacter = $this->user->getLoveReacter();
+        $reactantId = $existingReactant->getLoveReactant()->getId();
+        if (strpos($type, 'Dis') === false) {
+           // echo "USE THIS FOR DIS-CASE :: " . $type ."\n";
+            $reactName = 'Dis'.$type;
+            $reactionTypeId = ReactionType::fromName($reactName)->getId();
+        }else{
+            $reactionTypeId = ReactionType::fromName($type)->getId();
+        }
+
+       // echo "Searching Dis react Type  :: " . $type ."\n";
+
+
+        $reaction =  $reacter->getReactions()
+            ->where('reactant_id',$reactantId )
+            ->where('reaction_type_id',$reactionTypeId)
+            ->first();
+
+     // Better (Documented)  option for querying existing reaction (to be refactored)
+/*        $reaction =  $existingReactant::query()
+            ->whereReactedBy($this->user, $type)
+            ->get();*/
+        return $reaction;
+    }
+
+
+
 }

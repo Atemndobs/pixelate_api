@@ -82,6 +82,8 @@ abstract class BaseRepository implements BaseRepositoryInterface, CriteriaInterf
 
     public function withCriteria(...$criteria){
 
+        die(json_encode($this->model));
+
         $criteria = Arr::flatten($criteria);
         foreach ($criteria as $criterion){
             $this->model = $criterion->apply($this->model);
