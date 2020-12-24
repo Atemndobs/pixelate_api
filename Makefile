@@ -100,3 +100,5 @@ client:
 	cd ../deja-vue && pstorm .
 
 
+# php artisan love:reaction-type-add  --mass=1 --name=Smile
+# php artisan love:reaction-type-add  --mass=-1 --name=DisSmile

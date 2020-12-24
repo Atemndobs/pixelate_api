@@ -19,6 +19,7 @@ use App\Repositories\Eloquent\Criteria\EagerLoad;
 use App\Repositories\PostRepository;
 use App\Services\CommentService;
 use App\Services\ReactionService;
+use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;

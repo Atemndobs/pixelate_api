@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ChildCommentCreatedEvent;
+use App\Events\CommentReactionEvent;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Services\CommentService;
@@ -243,10 +244,24 @@ class CommentController extends Controller
         $reaction->type = $type;
         $reactedComment = new CommentResource($reaction);
 
+       $reactions = $reaction->where('id' , $this->request->comment_id)
+           ->first()->loveReactant->reactionCounters;
 
+       $reaction_count = [];
+       foreach ($reactions as $reaction ){
+           $reaction_type_id = $reaction->reaction_type_id;
+           $count = $reaction->count;
+          // $reaction_count[] = [$reaction_type_id => $count];
+           $reaction_count[] = $count;
+       }
+
+        broadcast(new CommentReactionEvent((int)$this->request->comment_id, $post_id, $reaction_count));
         return Response([
             'post_id' => $post_id,
-            'comment' => $reactedComment
+            'reaction_type' => $reactedComment->reaction_type,
+            'comment_id' => (int)$this->request->comment_id,
+            'user_id' => auth()->id(),
+            'reaction_count' =>$reaction_count
         ],
             200);
     }

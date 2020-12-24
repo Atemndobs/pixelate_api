@@ -17,10 +17,11 @@ class CommentReactionEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+
     /**
-     * @var CommentResource
+     * @var int
      */
-    public CommentResource $comment;
+    public  $comment_id;
 
     /**
      * @var int
@@ -28,15 +29,23 @@ class CommentReactionEvent implements ShouldBroadcastNow
     public int $post_id;
 
     /**
-     * CommentCreatedEvent constructor.
-     * @param int $post_id
-     * @param CommentResource $comment
+     * @var array
      */
-    public function __construct(int $post_id, CommentResource $comment)
+    public $reaction_count;
+
+    /**
+     * CommentReactionEvent constructor.
+     * @param int $comment_id
+     * @param int $post_id
+     * @param array $reaction_count
+     */
+    public function __construct( int $comment_id, int $post_id, array $reaction_count)
     {
+        $this->comment_id = $comment_id;
         $this->post_id = $post_id;
-        $this->comment = $comment;
+        $this->reaction_count = $reaction_count;
     }
+
 
     /**
      * Get the channels the event should broadcast on.
@@ -45,36 +54,16 @@ class CommentReactionEvent implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('react-comment');
+        return new Channel('react-channel');
     }
 
     public function broadcastWith()
     {
         return [
             'post_id' => $this->post_id,
-            'like_count' => $this->comment,
-            'new_comment' => $this->comment
-            /*            'new_comment' => [
-                            "id" => $this->comment->id,
-                            "commenter_id" => $this->comment->commenter_id,
-                            "commentable_id" => $this->comment->commentable_id,
-                            "comment" => $this->comment->comment,
-                            'approved'=>$this->comment->approved,
-                            'child_id'=>$this->comment->child_id,
-                            'childComments' => $this->comment->childComments,
-                            'commenter' => [
-                                'name' => $this->comment->commenter->name,
-                                'photo_url' => $this->comment->commenter->photo_url,
-                            ],
-                            "created_dates" => [
-                                "created_at_human" => $this->comment->created_at->diffForHumans(),
-                                "created_at" => $this->comment->created_at,
-                            ],
-                            "updated_dates" => [
-                                "updated_at_human" => $this->comment->updated_at->diffForHumans(),
-                                "updated_at" => $this->comment->updated_at,
-                            ],
-                        ]*/
+            'comment_id' => $this->comment_id,
+            'reacter_id' => auth()->id(),
+            'reaction_count' => $this->reaction_count
         ];
     }
 }

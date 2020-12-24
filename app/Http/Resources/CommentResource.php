@@ -53,15 +53,28 @@ class CommentResource extends JsonResource
             ])
             ->get();
 
+
+        $reactions = $comments->where('id' , $this->id)
+            ->first()->loveReactant->reactionCounters;
+
+        $reaction_count = [];
+        foreach ($reactions as $reaction ){
+            $reaction_type_id = $reaction->reaction_type_id;
+            $count = $reaction->count;
+            $reaction_count[] = $count;
+        }
+
         return [
           'id' =>  $this->id,
             'comment' => $this->comment,
             'commenter' => $this->commenter->name,
             'childComments' => Comment::where('commentable_id',$this->id)
-                ->where('commentable_type', 'like', '%Comment')->get(),
+               ->where('commentable_type', 'like', '%Comment')->get(),
            // 'reacter' => $this->reacter,
-            'reaction_count' => $comments->where('id' , $this->id)->first()->loveReactant->reactionCounters->countBy('reaction_type_id'),
-            'reaction' => $comments->where('id' , $this->id)->first()->loveReactant->reactionCounters,
+            'reaction_count_ids' => $reactions->countBy('reaction_type_id'),
+            'reaction_count' => $reaction_count,
+            'reaction' => $reactions,
+            'love_reactant' => $comments->where('id' , $this->id)->first()->loveReactant,
             'created_dates' => [
                 "created_at_human" => $this->created_at->diffForHumans(),
                 "created_at" => $this->created_at,
