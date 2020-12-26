@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\API\PostAPIController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Designs\DesignController;
+use App\Http\Controllers\User\SettingsController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,7 +29,7 @@ Route::get('search/designers',  'User\UserController@search');
 // get users
 Route::get('users',  'User\UserController@index');
 Route::get('user/{username}',  'User\UserController@findByUserName');
-Route::get('users/{id}',  'User\UserController@findUser');
+Route::get('users/{id}',  [UserController::class, 'findUser']);
 Route::get('users/{id}/designs',  'Designs\DesignController@getForUser');
 
 // Teams
@@ -83,13 +87,16 @@ Route::group(['middleware' => ['auth:api']], function (){
 
 
     // Likes using Love Reacter Package
-    Route::post('posts/like/{post_id}', "API\PostAPIController@toggleLike");
+    Route::post('posts/like/{post_id}', [PostAPIController::class, 'toggleLike']);
 
     // Comments using the Commentable Package
-    Route::post('posts/comment/{post_id}', "API\PostAPIController@addComment");
-    Route::post('comments/comment/{comment_id}','CommentController@create');
-    Route::post('comments/comment/react/{comment_id}','CommentController@reactComment');
+    Route::post('posts/comment/{post_id}', [PostAPIController::class, 'addComment']);
+    Route::post('comments/comment/{comment_id}',[CommentController::class, 'create']);
+    Route::post('comments/comment/react/{comment_id}',[CommentController::class, 'reactComment']);
 
+    // FOLLOW USING FOLLOW PACKAGE
+   // Route::post('user/follow/{author_id}',  'User\UserController@follow');
+    Route::post('user/follow/{author_id}',  [UserController::class, 'follow']);
 
 });
 
@@ -108,14 +115,13 @@ Route::group(['middleware' => ['guest:api']], function (){
 
 
 
-Route::get('posts', "API\PostAPIController@index");
-Route::get('posts/{id}', "API\PostAPIController@show");
-Route::put('posts/{id}', "API\PostAPIController@update");
-Route::post('posts/{user_id}', "API\PostAPIController@store");
-Route::delete('posts/{id}', "API\PostAPIController@destroy");
+Route::get('posts', [PostAPIController::class, 'index']);
+Route::post('posts/{user_id}', [PostAPIController::class, 'store']);
+Route::put('posts/{id}', [PostAPIController::class, 'update']);
+Route::delete('posts/{id}', [PostAPIController::class, 'destroy']);
 
 
-Route::delete('settings/user/{email}','User\SettingsController@deleteUser');
-
-Route::get('comments/{comment_id}','CommentController@index');
+Route::delete('settings/user/{email}',[SettingsController::class, 'deleteUser']);
+Route::get('posts/{id}', [PostAPIController::class, 'show']);
+Route::get('comments/{comment_id}',[CommentController::class, 'index']);
 

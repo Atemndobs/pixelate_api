@@ -15,6 +15,14 @@ paths:
       summary: 'Get all Posts'
       description: 'Get all Posts available online (set to live )'
       operationId: 'App\Http\Controllers\API\PostAPIController::index'
+      parameters:
+        -
+          name: user_id
+          in: query
+          required: false
+          schema:
+            type: number
+            example: 2
       responses:
         200:
           description: Success
@@ -110,6 +118,13 @@ paths:
           schema:
             type: number
             example: 1
+        -
+          name: user_id
+          in: query
+          required: false
+          schema:
+            type: number
+            example: 2
       responses:
         200:
           description: Success
@@ -135,6 +150,9 @@ paths:
                     type: string
                     example: 'Post not found'
                 type: object
+      security:
+        -
+          token: []
     put:
       tags:
         - Post
@@ -347,11 +365,11 @@ paths:
             schema:
               properties:
                 user_id:
-                  description: "/**\nPOST /posts"
+                  description: 'POST /posts'
                   type: number
                   example: 21
                 comment:
-                  description: "/**\nPOST /posts"
+                  description: 'POST /posts'
                   type: string
                   example: 'Here is the mommemt of comment'
               type: object
@@ -363,7 +381,7 @@ paths:
               schema:
                 properties:
                   message:
-                    description: "/**\nPOST /posts"
+                    description: 'POST /posts'
                     type: string
                     example: 'Comment Added'
                 type: object
@@ -374,7 +392,7 @@ paths:
               schema:
                 properties:
                   message:
-                    description: "/**\nPOST /posts"
+                    description: 'POST /posts'
                     type: string
                     example: 'Post not found'
                 type: object
@@ -385,7 +403,7 @@ paths:
               schema:
                 properties:
                   error:
-                    description: "/**\nPOST /posts"
+                    description: 'POST /posts'
                     type: string
                     example: 'Not Logged In'
                 type: object
@@ -396,7 +414,7 @@ paths:
               schema:
                 properties:
                   eror:
-                    description: "/**\nPOST /posts"
+                    description: 'POST /posts'
                     type: string
                     example: 'Comment error'
                 type: object
@@ -1304,6 +1322,65 @@ paths:
                   message:
                     type: string
                     example: 'Not authorized'
+                type: object
+      security:
+        -
+          token: []
+  '/api/user/follow/{author_id}':
+    post:
+      tags:
+        - User
+      summary: Follow
+      description: 'Follow a User'
+      operationId: 'App\Http\Controllers\User\UserController::follow'
+      parameters:
+        -
+          name: author_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Following
+                type: object
+        404:
+          description: 'No Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'User not found'
+                type: object
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    type: string
+                    example: 'Not Logged In'
+                type: object
+        422:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  eror:
+                    type: string
+                    example: 'You cannot follow yourself'
                 type: object
       security:
         -

@@ -64,6 +64,14 @@ class PostAPIController extends AppBaseController
      *     summary="Get all Posts",
      *     description="Get all Posts available online (set to live )",
      *     tags={"Post"},
+     *     @OA\Parameter(
+     *         name="user_id",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="number", example=2
+     *         )
+     *     ),
      *      @OA\Response(
      *         response=200,
      *         description="Success",
@@ -99,6 +107,9 @@ class PostAPIController extends AppBaseController
             ])
             ->get();*/
 
+        $user_id = (int)$this->request->user_id;
+
+       // return json_encode($this->request->all());
         if ($posts->count() === 0) {
             return Response([
                 'message' => 'No Posts Created Yet. Please create one',
@@ -195,12 +206,21 @@ class PostAPIController extends AppBaseController
      *     summary="Get Post by Id",
      *     description="Get Single Post",
      *     tags={"Post"},
+     *      security={ {"token": {} }},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         @OA\Schema(
      *             type="number", example=1
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="user_id",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="number", example=2
      *         )
      *     ),
      *      @OA\Response(
@@ -452,7 +472,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * /**
      * POST /posts
      *
      * @OA\Post(
