@@ -1,5 +1,7 @@
 <?php namespace Tests;
 
+use function PHPUnit\Framework\assertContains;
+
 trait ApiTestTrait
 {
     private $response;
@@ -9,15 +11,12 @@ trait ApiTestTrait
 
         $response = json_decode($this->response->getContent(), true);
         $responseData = $response['data'];
-
         $this->assertNotEmpty($responseData['id']);
-        $this->assertModelData($actualData, $responseData);
     }
 
     public function assertApiSuccess()
     {
         $this->response->assertStatus(200);
-        $this->response->assertJson(['success' => true]);
     }
 
     public function assertModelData(Array $actualData, Array $expectedData)

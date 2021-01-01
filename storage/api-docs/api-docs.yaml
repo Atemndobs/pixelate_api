@@ -73,14 +73,14 @@ paths:
                 imageUrl:
                   description: "Store a newly created Post in storage.\nPOST /posts"
                   type: string
-                  example: 'https://lorempixel.com/640/480/?86115'
+                  example: 'https://picsum.photos/400/300'
                 location:
                   description: "Store a newly created Post in storage.\nPOST /posts"
                   type: string
                   example: Dusseldorf
               type: object
       responses:
-        200:
+        201:
           description: Success
           content:
             application/json:

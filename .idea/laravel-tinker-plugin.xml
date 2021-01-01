@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="laravelTinkerProject">
-    <option name="lastCode" value="&lt;?php&#10;&#10;\App\Models\User::factory()-&gt;count(10)-&gt;create();" />
+    <option name="lastCode" value="&lt;?php&#10;&#10;\App\Models\Post::truncate();" />
   </component>
 </project>

@@ -138,5 +138,4 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $query->collection;
 
     }
-
 }

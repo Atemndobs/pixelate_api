@@ -1,28 +1,43 @@
 <?php namespace Tests\APIs;
 
+
+use App\Http\Resources\PostResource;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\PostData;
 use Tests\TestCase;
 use Tests\ApiTestTrait;
 use App\Models\Post;
 
 class PostApiTest extends TestCase
 {
-    use ApiTestTrait, WithoutMiddleware, DatabaseTransactions;
+    use ApiTestTrait, WithoutMiddleware, RefreshDatabase, PostData;
 
     /**
      * @test
      */
     public function test_create_post()
     {
-        $post = Post::factory()->make()->toArray();
+        $user = \App\Models\User::factory()->create();
+        $post = Post::factory()->make();
 
-        $this->response = $this->json(
+        $res = $this->json(
             'POST',
-            '/api/posts', $post
+            'http://localhost:8000/api/posts/'.$user->id,
+            $post->toArray()
         );
 
-        $this->assertApiResponse($post);
+        $response = (json_decode($res->getContent()));
+
+        $responseData = $response->data;
+
+        self::assertSame($res->getStatusCode(), 201);
+       self::assertSame($responseData->caption, $post->toArray()['caption']);
+
     }
 
     /**
@@ -30,14 +45,33 @@ class PostApiTest extends TestCase
      */
     public function test_read_post()
     {
-        $post = Post::factory()->create();
+
+        $postData = $this->createPostData();
+        $post = Post::create($postData);
+
+        $post->created_at = Carbon::yesterday();
+        $post->updated_at = Carbon::yesterday();
+
+        $existingPost = json_decode(json_encode(new PostResource($post)));
+
+        $expectedResponse = \File::get('tests/fixtures/postResponseResource.json');
+        $expected= json_decode($expectedResponse);
 
         $this->response = $this->json(
             'GET',
-            '/api/posts/'.$post->id
+            'http://localhost:8000/api/posts/'.$existingPost->id
         );
 
+        $response = (json_decode($this->response->getContent()));
+        $response->data->created_dates->created_at_human = '1 day ago';
+        $response->data->created_dates->created_at = '2020-12-30T00:00:00.000000Z';
+        $response->data->updated_dates->updated_at_human = '1 day ago';
+        $response->data->updated_dates->updated_at = '2020-12-30T00:00:00.000000Z';
+
+
         $this->assertApiResponse($post->toArray());
+        self::assertEquals($expected->data, $response->data);
+
     }
 
     /**
@@ -50,7 +84,7 @@ class PostApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/posts/'.$post->id,
+            'http://localhost:8000/api/posts/'.$post->id,
             $editedPost
         );
 
@@ -62,11 +96,12 @@ class PostApiTest extends TestCase
      */
     public function test_delete_post()
     {
+
         $post = Post::factory()->create();
 
         $this->response = $this->json(
             'DELETE',
-             '/api/posts/'.$post->id
+             'http://localhost:8000/api/posts/'.$post->id
          );
 
         $this->assertApiSuccess();

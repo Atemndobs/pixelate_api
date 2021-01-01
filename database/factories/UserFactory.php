@@ -27,7 +27,8 @@ class UserFactory extends Factory
         $lat = $faker->randomFloat(6, 48, 54);
         $long = $faker->randomFloat(6, 6, 15);
         $location = "ST_GeomFromText('POINT($lat $long)')";
-        return [
+
+        $user = [
             'name' => $faker->unique()->firstName. " ". $faker->unique()->lastName,
             'username' => strtolower($faker->unique()->firstName.$faker->randomNumber(3)),
             'tagline' => $faker->jobTitle,
@@ -38,7 +39,10 @@ class UserFactory extends Factory
             'password' => '$2y$10$UZjGPBj7DIMdXIHhGz63UeMHchNWlIhDV7qqTgIw19GPcMuVDGKhi', // pass1234
             'remember_token' => Str::random(10),
             'available_to_hire' => true,
-            'location' =>  DB::raw($location)
+            'location' =>  DB::raw($location),
+            'uuid' => $faker->uuid
         ];
+
+        return $user;
     }
 }

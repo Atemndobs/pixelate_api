@@ -26,7 +26,7 @@ class VerifyEmail extends Notification
             Carbon::now()->addMinute(60),
             ['user' => $notifiable->id]
         );
-        $url = str_replace("http://","https://", $url);
+      //  $url = str_replace("http://","https://", $url);
 
 
         #return str_replace(url('/api'), $appUrl, $url);

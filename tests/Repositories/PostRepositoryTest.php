@@ -55,14 +55,16 @@ class PostRepositoryTest extends TestCase
      */
     public function test_update_post()
     {
+        $caption = 'THE IS THE UPDATE CAPTION';
+        $location = 'Dusseldorf';
         $post = Post::factory()->create();
-        $fakePost = Post::factory()->make()->toArray();
+        $post->update([
+            'caption' => $caption,
+            'location' => $location
+        ]);
 
-        $updatedPost = $this->postRepo->update($fakePost, $post->id);
 
-        $this->assertModelData($fakePost, $updatedPost->toArray());
-        $dbPost = $this->postRepo->find($post->id);
-        $this->assertModelData($fakePost, $dbPost->toArray());
+      self::assertSame($post->caption , $caption);
     }
 
     /**

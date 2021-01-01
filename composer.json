@@ -29,9 +29,14 @@
         "laravel/ui": "^3.0",
         "laravelista/comments": "^4.4",
         "league/flysystem-aws-s3-v3": "^1.0",
+        "league/omnipay": "^3",
+        "omnipay/omnipay": "^3.1",
+        "omnipay/paypal": "^3.0",
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^4.1",
         "rennokki/befriended": "^3.7",
+        "spatie/image": "^1.10",
+        "squizlabs/php_codesniffer": "*",
         "tymon/jwt-auth": "^1.0.0-rc.5",
         "zircote/swagger-php": "^3.1"
     },
@@ -46,7 +51,8 @@
         "infyomlabs/laravel-generator": "8.0.x-dev",
         "laravelcollective/html": "^6.2",
         "infyomlabs/adminlte-templates": "8.0.x-dev",
-        "doctrine/dbal": "~2.3"
+        "doctrine/dbal": "~2.3",
+        "phpmd/phpmd" : "@stable"
     },
     "config": {
         "optimize-autoloader": true,
@@ -92,6 +98,32 @@
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:eloquent",
             "@php artisan ide-helper:models"
+        ],
+        "phpcs": [
+
+        ],
+        "phpmd": [
+
+        ],
+        "test": "./vendor/phpunit/phpunit/phpunit tests --debug  --colors=always",
+        "phpmetrics": [
+            "vendor/phpmetrics/phpmetrics/bin/phpmetrics app"
+        ],
+        "phpmetrics-report": [
+            "rm -rf ./storage/phpmetrics-report",
+            "vendor/bin/phpmetrics src --report-html=storage/phpmetrics-report"
+        ],
+        "phpcbf": [
+            "vendor/squizlabs/php_codesniffer/scripts/phpcbf -n --standard=vendor/fashionette/coding.guidelines/cs/ruleset.xml app"
+        ],
+        "coverage": [
+            "rm -rf ./storage/coverage",
+            "mkdir -p ./storage/coverage",
+            "vendor/bin/phpunit -c phpunit.coverage.xml",
+            "echo coverage results should be in ./storage/coverage folder."
+        ],
+        "tarcoverage": [
+            "tar caf covarage.tar.gz ./storage/coverage"
         ]
     }
 }

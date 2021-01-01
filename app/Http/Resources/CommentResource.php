@@ -74,7 +74,7 @@ class CommentResource extends JsonResource
             'childComments' => $childComments,
             'reaction_count' => $reaction_count,
            // 'reacter' => $this->reacter,
-           // 'reaction_count_ids' => $reactions->countBy('reaction_type_id'),
+            'reaction_count_ids' => $reactions->countBy('reaction_type_id'),
             //'reaction' => $reactions,
            // 'love_reactant' => $comments->where('id' , $this->id)->first()->loveReactant,
             'created_dates' => [

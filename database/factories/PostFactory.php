@@ -24,11 +24,11 @@ class PostFactory extends Factory
     {
         return [
             'caption' => $this->faker->word,
-            'user_id' =>User::factory(),
-        'imageUrl' => $this->faker->imageUrl(),
-        'location' => $this->faker->word,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s')
+            'user_id' => User::factory(),
+            'imageUrl' => "https://picsum.photos/id/{$this->faker->numberBetween(100, 1029)}/400/300",
+            'location' => $this->faker->word,
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
+            'updated_at' => $this->faker->date('Y-m-d H:i:s')
         ];
     }
 }

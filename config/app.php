@@ -52,8 +52,8 @@ return [
     |
     */
 
-    'url' => env('API_URL', 'http://atemkeng.com/api'),
-    'pixelate_url' => env('QUASAR_URL', 'http://atmkng.de/pixelate'),
+    'url' => env('API_URL', 'https://atemkeng.com/api'),
+    'pixelate_url' => env('QUASAR_URL', 'https://atmkng.de/pixelate'),
     'quasar_app_url' => env('QUASAR_URL', 'http://localhost:8080'),
 
     'asset_url' => env('ASSET_URL', null),

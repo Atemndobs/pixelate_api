@@ -39,6 +39,12 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
+
+
+
+/*        \Artisan::command('reset:table {table}', function ($table) {
+            $this->info("Cleaning the database table:  {$table}");
+        });*/
     }
 
 }

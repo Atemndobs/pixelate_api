@@ -247,13 +247,16 @@ class CommentController extends Controller
        $reactions = $reaction->where('id' , $this->request->comment_id)
            ->first()->loveReactant->reactionCounters;
 
-       $reaction_count = [];
+       $counts = [];
+       $reaction_type_ids = [];
        foreach ($reactions as $reaction ){
            $reaction_type_id = $reaction->reaction_type_id;
            $count = $reaction->count;
           // $reaction_count[] = [$reaction_type_id => $count];
-           $reaction_count[] = $count;
+           $counts[] = $count;
+           $reaction_type_ids[] = $reaction_type_id;
        }
+       $reaction_count = array_combine($reaction_type_ids, $counts);
 
         broadcast(new CommentReactionEvent((int)$this->request->comment_id, $post_id, $reaction_count));
         return Response([
@@ -261,7 +264,9 @@ class CommentController extends Controller
             'reaction_type' => $reactedComment->reaction_type,
             'comment_id' => (int)$this->request->comment_id,
             'user_id' => auth()->id(),
-            'reaction_count' =>$reaction_count
+            'counts' =>$counts,
+            'reaction_count_ids' => $reaction_type_ids,
+            'reaction_count' => $reaction_count
         ],
             200);
     }

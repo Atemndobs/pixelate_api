@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
+use Faker\Factory;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
@@ -63,13 +64,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
         return $this->userRepository->create([
             'name' => $data['name'],
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
     }
 
     /**
@@ -143,12 +144,16 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
 
         try {
-            event(new Registered($user = $this->create($request->all())));
+            $user = $this->create($request->all());
+            event(new Registered($user));
+            $faker = \Faker\Factory::create();
+            $user->uuid = $faker->uuid;
+            $user->save();
         }catch (\Exception $exception){
             return json_encode($exception->getMessage(), JSON_THROW_ON_ERROR);
         }
 
-       // $this->guard()->login($user);
+        $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {
             return $response;

@@ -25,7 +25,7 @@ class CommentFactory extends Factory
             //  'id' => $faker->randomNumber(2, true),
             // 'user_id' => factory(\App\Models\User::class)->create()?factory(\App\Models\User::class)->create():factory(\App\Models\User::class)->create(),
             'user_id' => $this->faker->numberBetween(1,10),
-            'body' => $this->faker->realText(50),
+            'comment' => $this->faker->realText(50),
             'commentable_type' => "App\Models\Design",
             'commentable_id' => $this->faker->numberBetween(1,10),
         ];

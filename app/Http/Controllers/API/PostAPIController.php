@@ -3,33 +3,24 @@
 namespace App\Http\Controllers\API;
 
 use App\Events\CommentCreatedEvent;
-use App\Events\Hallo;
 use App\Events\LikeCreatedEvent;
-use App\Events\NewCommentAddedEvent;
 use App\Events\PostCreatedEvent;
 use App\Http\Requests\API\CreatePostAPIRequest;
 use App\Http\Requests\API\UpdatePostAPIRequest;
 use App\Http\Resources\CommentResource;
-use App\Http\Resources\LikeResource;
 use App\Http\Resources\PostResource;
-use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
-use App\Repositories\Eloquent\Criteria\EagerLoad;
 use App\Repositories\PostRepository;
 use App\Services\CommentService;
 use App\Services\ReactionService;
-use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
-use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-//use Laravelista\Comments\Comment;
-use Laravelista\Comments\Commenter;
-use Laravelista\Comments\Events\CommentCreated;
 use Response;
+use Spatie\Image\Image;
 
 /**
  * Class PostController
@@ -109,7 +100,6 @@ class PostAPIController extends AppBaseController
 
         $user_id = (int)$this->request->user_id;
 
-       // return json_encode($this->request->all());
         if ($posts->count() === 0) {
             return Response([
                 'message' => 'No Posts Created Yet. Please create one',
@@ -143,12 +133,12 @@ class PostAPIController extends AppBaseController
      *    description="Pass Post data",
      *    @OA\JsonContent(
      *       @OA\Property(property="caption", type="string", example="Here"),
-     *       @OA\Property(property="imageUrl", type="string", example="https://lorempixel.com/640/480/?86115"),
+     *       @OA\Property(property="imageUrl", type="string", example="https://picsum.photos/400/300"),
      *       @OA\Property(property="location", type="string", example="Dusseldorf"),
      *    ),
      * ),
      * @OA\Response(
-     *    response=200,
+     *    response=201,
      *    description="Success",
      *    @OA\JsonContent(
      *    ),
@@ -177,12 +167,11 @@ class PostAPIController extends AppBaseController
 
         if ($request->hasFile('image')){
 
-            $post->update(
+ /*           $post->update(
                 ['imageUrl' =>$request->image->store('','public')]
-            );
-
-            $imageUrl = $post->imageUrl;
-
+            );*/
+            $imageUrl = $request->image->store('','public');
+            $this->processImage($imageUrl);
 
             $post->update(
                 ['imageUrl' =>asset('storage/'.$imageUrl)]
@@ -543,5 +532,17 @@ class PostAPIController extends AppBaseController
       //  \Notification::send(auth()->user(), $notification);
 
          return $postResource;
+    }
+
+    /**
+     * @param $imageUrl
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
+     */
+    public function processImage($imageUrl): void
+    {
+        Image::load('storage/'.$imageUrl)
+            ->width(400)
+
+            ->save();
     }
 }

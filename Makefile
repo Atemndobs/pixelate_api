@@ -14,9 +14,11 @@ push:
 	git status
 
 test:
-	php vendor/bin/phpunit --exclude-group skip-test -v --testdox
-cron:
-	crontab * * * * * /bin/zsh /home/ba/workdir/data/ticket-assistant/run.sh
+	php vendor/bin/phpunit tests --exclude-group skip-test --testdox --colors=always
+
+all-tests:
+	./vendor/phpunit/phpunit/phpunit tests --debug  --colors=always -v --testdox
+
 
 analyse:
 	php vendor/bin/phpstan.phar analyse --level=6 src
@@ -53,8 +55,8 @@ key:
 	php artisan key:generate
 cl:
 	php artisan config:clear && php artisan config:cache && php artisan cache:clear && php artisan optimize:clear && php artisan view:clear
-type:
-	php artisan love:reaction-type-add --default
+#like:
+#php artisan love:reaction-type-add --default
 reacter:
 	php artisan love:setup-reacterable --model="App\Models\User" --nullable
 reactant:
@@ -81,6 +83,12 @@ compose:
 seed:
 	make post && make user && make comment && make like && make design
 post:
+	php artisan reset:table posts
+	php artisan reset:table users
+	php artisan reset:table designs
+	php artisan reset:table comments
+	php artisan clear:assets public
+	php artisan db:seed --class=AtemTableSeeder
 	php artisan db:seed --class=PostsTableSeeder
 user:
 	php artisan db:seed --class=UsersTableSeeder
@@ -100,5 +108,23 @@ client:
 	cd ../deja-vue && pstorm .
 
 
-# php artisan love:reaction-type-add  --mass=1 --name=Smile
-# php artisan love:reaction-type-add  --mass=-1 --name=DisSmile
+types:
+	php artisan love:reaction-type-add --default
+	php artisan love:reaction-type-add  --mass=1 --name=Laugh
+	php artisan love:reaction-type-add  --mass=-1 --name=DisLaugh
+	php artisan love:reaction-type-add  --mass=1 --name=Happy
+	php artisan love:reaction-type-add  --mass=-1 --name=DisHappy
+	php artisan love:reaction-type-add  --mass=1 --name=Surprise
+	php artisan love:reaction-type-add  --mass=-1 --name=DisSurprise
+	php artisan love:reaction-type-add  --mass=1 --name=Smile
+	php artisan love:reaction-type-add  --mass=-1 --name=DisSmile
+
+res:
+	@read -p "Enter database table:  " TABLE; \
+	php artisan reset:table $$TABLE
+
+start:
+	php artisan serve &
+	make socket &
+	make vu &
+	make client
