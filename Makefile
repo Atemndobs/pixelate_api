@@ -128,3 +128,10 @@ start:
 	make socket &
 	make vu &
 	make client
+link:
+	php artisan storage:link
+
+pusher:
+	cp config/pusher.php config/broadcasting.php
+echo:
+	cp config/echo.php config/broadcasting.php
