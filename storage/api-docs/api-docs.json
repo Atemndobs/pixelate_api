@@ -1602,6 +1602,217 @@
                 ]
             }
         },
+        "/api/settings/clear/{model}": {
+            "post": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Clean Up Model",
+                "description": "clear data in model",
+                "operationId": "App\\Http\\Controllers\\DomainSettingsController::index",
+                "parameters": [
+                    {
+                        "name": "model",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "posts"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Delete all data from Model.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Model Cleared"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Delete all data from Model.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Unprocessable Entity"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Delete all data from Model.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Model not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/settings/models": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Clean Up Model",
+                "description": "clear data in model",
+                "operationId": "App\\Http\\Controllers\\DomainSettingsController::getModels",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Get all Modals in this App by Class name\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Array of models"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Get all Modals in this App by Class name\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Unprocessable Entity"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Get all Modals in this App by Class name\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Model not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/settings/model/populate/{model}": {
+            "post": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Populate Model",
+                "description": "Add  data for model",
+                "operationId": "App\\Http\\Controllers\\DomainSettingsController::populateData",
+                "parameters": [
+                    {
+                        "name": "model",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "posts"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Delete all data from Model.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Model Cleared"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Delete all data from Model.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Unprocessable Entity"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Delete all data from Model.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Model not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/me": {
             "get": {
                 "tags": [

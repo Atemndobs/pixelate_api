@@ -40,12 +40,10 @@ class clear extends Command
         $folder = $this->argument('folder');
 
         $files = \Storage::allFiles('public');
-
         foreach ($files as $file) {
             \Storage::delete($file);
         }
 
-       // dump($files);
         $this->info( "Emptied Folder  : {$folder}" );
         return 0;
     }
