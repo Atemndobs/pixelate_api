@@ -50,7 +50,7 @@ use Illuminate\Http\Request;
  *      @OA\Property(property="formatted_address", example="811 Sibyl Bypass Suite 783\n New Rita, AL 48220-0930" ),
  *      @OA\Property(property="available_to_hire", type="boolean", example=1 ),
  *      @OA\Property(property="about", type="string", example="VERY deeply with a soldier on each." ),
- *
+ * 
  *      @OA\Property(property="trade_id", type="number", example=null ),
  *      @OA\Property(property="current_team_id", type="number", example=null ),
  *      @OA\Property(property="profile_photo_path", type="number", example=null ),
@@ -144,6 +144,9 @@ use Illuminate\Http\Request;
  * @method static Builder|User whereLoveReacterId($value)
  * @property-read Collection|\Laravelista\Comments\Comment[] $approvedComments
  * @property-read int|null $approved_comments_count
+ * @property string $uuid
+ * @property-read mixed $follow
+ * @method static Builder|User whereUuid($value)
  */
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail, ReacterableInterface, Following, Blocking
 {
@@ -341,12 +344,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, React
 
     public function getFollowAttribute()
     {
-        return
-            [
+        return 0;
+/*            [
                 'is_user_following' => false,
                 'follower_count' => $this->followers()->count(),
                 'following_count' => $this->following()->count(),
-            ];
+            ];*/
     }
 
     public function getFollow($user_id)

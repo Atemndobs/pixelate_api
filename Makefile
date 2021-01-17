@@ -60,7 +60,7 @@ cl:
 reacter:
 	php artisan love:setup-reacterable --model="App\Models\User" --nullable
 reactant:
-	php artisan love:setup-reactable --model="App\Models\Comment" --nullable
+	php artisan love:setup-reactable --model="App\Models\Post" --nullable
 
 register-reacter:
 	php artisan love:register-reacters --model="App\Models\User"
@@ -73,8 +73,6 @@ echo-pub:
 	php artisan vendor:publish --provider="BeyondCode\LaravelWebSockets\WebSocketsServiceProvider" --tag="migrations"
 echo-config:
 	php artisan vendor:publish --provider="BeyondCode\LaravelWebSockets\WebSocketsServiceProvider" --tag="config"
-ss:
-	php artisan websocket:serve
 
 compose:
 	@read -p "Enter package name:  " MESSAGE; \
@@ -135,3 +133,24 @@ pusher:
 	cp config/pusher.php config/broadcasting.php
 echo:
 	cp config/echo.php config/broadcasting.php
+sail:
+	./vendor/bin/sail up
+sail-soc:
+	./vendor/bin/sail artisan websockets:serve
+
+
+types-sail:
+	sail artisan love:reaction-type-add --default
+	sail artisan love:reaction-type-add  --mass=1 --name=Laugh && sail artisan love:reaction-type-add  --mass=-1 --name=DisLaugh
+	sail artisan love:reaction-type-add  --mass=1 --name=Happy && sail artisan love:reaction-type-add  --mass=-1 --name=DisHappy
+	sail artisan love:reaction-type-add  --mass=1 --name=Surprise && sail artisan love:reaction-type-add  --mass=-1 --name=DisSurprise
+	sail artisan love:reaction-type-add  --mass=1 --name=Smile && sail artisan love:reaction-type-add  --mass=-1 --name=DisSmile
+
+sail-types:
+	./vendor/bin/sail artisan reset:table love_reaction_types
+	./vendor/bin/sail artisan reaction Like,Laugh,Happy,Surprise,Smile
+
+build:
+	./vendor/bin/sail build --no-cache && ./vendor/bin/sail up
+share:
+	./vendor/bin/sail share --subdomain=pixelate

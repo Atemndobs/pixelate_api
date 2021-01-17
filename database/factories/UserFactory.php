@@ -40,7 +40,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'available_to_hire' => true,
             'location' =>  DB::raw($location),
-            'uuid' => $faker->uuid
+            'uuid' => $faker->uuid,
         ];
 
         return $user;

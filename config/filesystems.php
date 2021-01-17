@@ -57,6 +57,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'models' => [
+            'driver' => 'local',
+            'root' => app_path('Models'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => 'AKIA2RSXVEBAEUFEDIEY',
@@ -94,7 +101,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-       // public_path('images') => storage_path('app/images'),
+      //  public_path('models') => storage_path('app/public'),
     ],
 
 ];

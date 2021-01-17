@@ -18,6 +18,20 @@ class PostApiTest extends TestCase
     use ApiTestTrait, WithoutMiddleware, RefreshDatabase, PostData;
 
     /**
+     * @var Post
+     */
+    public Post $post;
+    public function setUp() :void
+    {
+        parent::setUp();
+        $this->refreshDatabase();
+        $this->refreshTestDatabase();
+        $postData = $this->createPostData();
+        $this->post = Post::create($postData);
+    }
+
+
+    /**
      * @test
      */
     public function test_create_post()
@@ -45,9 +59,7 @@ class PostApiTest extends TestCase
      */
     public function test_read_post()
     {
-
-        $postData = $this->createPostData();
-        $post = Post::create($postData);
+        $post = $this->post;
 
         $post->created_at = Carbon::yesterday();
         $post->updated_at = Carbon::yesterday();

@@ -8,6 +8,14 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Reaction
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Reaction newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reaction newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reaction query()
+ * @mixin \Eloquent
+ */
 class Reaction extends Model implements \Cog\Contracts\Love\Reaction\Models\Reaction
 {
     use HasFactory;

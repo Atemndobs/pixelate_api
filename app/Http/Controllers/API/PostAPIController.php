@@ -87,7 +87,15 @@ class PostAPIController extends AppBaseController
 /*        $posts = $this->postRepository->withCriteria([
             new EagerLoad(['user', 'comments'])
         ])->all();*/
-        $posts = Post::with('comments')->get();
+        $posts = Post::with(
+            'comments',
+            'user',
+            'loveReactant.reactions.reacter.reacterable',
+            'loveReactant.reactions.type',
+            'loveReactant.reactionCounters',
+            'loveReactant.reactionTotal',
+          //  'loveReactant',
+        )->get();
 
 /*        $comments = Comment::query()
             ->with([
@@ -98,7 +106,7 @@ class PostAPIController extends AppBaseController
             ])
             ->get();*/
 
-        $user_id = (int)$this->request->user_id;
+      // $user_id = (int)$this->request->user_id;
 
         if ($posts->count() === 0) {
             return Response([
@@ -443,7 +451,14 @@ class PostAPIController extends AppBaseController
 
         $type = $this->request->type;
 
-        $post = $this->postRepository->find($this->request->post_id);
+        //$post = $this->postRepository->find($this->request->post_id);
+        $post = Post::with(
+            'comments',
+            'user',
+            'loveReactant',
+        )->find($this->request->post_id);
+
+       // return $post;
 
         try {
             $reaction = $reactionService->processReaction($type, $post);

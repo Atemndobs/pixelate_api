@@ -28,7 +28,19 @@ class UserResource extends JsonResource
             "tagline" => $this->tagline,
             "location" => $this->location,
             "about" => $this->about,
-            'follow' => $this->follow,
+          //  'follows' => $this->follow,
+           // 'followers' => $this->followers,
+            'follow'=>$this->followers->map(function ($man) {
+               return [
+                  // 'id' => $man->id,
+                  // 'name' => $man->name,
+                   'is_user_following'=> $this->isFollowing($man),
+                   'follower_count' => $this->followers->count(),
+                   'following_count'=> $this->following->count(),
+                   'follower_details' => $man->pivot,
+               ];
+            }),
+
            // 'designs'=>DesignResource::collection($this->whenLoaded('designs')),
            // "formatted_address" => $this->formatted_address,
            // "available_to_hire" => $this->available_to_hire,

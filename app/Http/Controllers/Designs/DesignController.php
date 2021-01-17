@@ -9,12 +9,9 @@ use App\Repositories\Eloquent\Criteria\EagerLoad;
 use App\Repositories\Eloquent\Criteria\ForUser;
 use App\Repositories\Eloquent\Criteria\IsLive;
 use App\Repositories\Eloquent\Criteria\LatestFirst;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use function Symfony\Component\String\s;
-
 
 class DesignController extends Controller
 {
@@ -125,14 +122,14 @@ class DesignController extends Controller
                 'team' => ['required_if:assign_to_team, true']
             ]);
 
-       $design =  $this->designRepository->update($id, [
+        $design =  $this->designRepository->update($id, [
            'team_id'=> $request->team,
             'title' => $request->title,
             'description' => $request->description,
             'slug' => Str::slug($request->title),
             'is_live' => !$design->upload_successful? false : $request->is_live
 
-     ]);
+        ]);
 
         // apply the tags
         $this->designRepository->applyTags($id, $request->tags);
@@ -148,9 +145,9 @@ class DesignController extends Controller
         $this->designRepository->delete();
 
         // delete files associated to this record
-        foreach(['thumbnail', 'large','original'] as $size) {
+        foreach (['thumbnail', 'large','original'] as $size) {
             //check if tge file exists in the database
-            if (Storage::disk($design->disk)->exists("uploads/designs/{$size}/".$design->image)){
+            if (Storage::disk($design->disk)->exists("uploads/designs/{$size}/".$design->image)) {
                 Storage::disk($design->disk)->delete("uploads/designs/{$size}/".$design->image);
             };
         }
@@ -196,7 +193,7 @@ class DesignController extends Controller
      */
     public function like(int $id)
     {
-      $this->designRepository->like($id);
+        $this->designRepository->like($id);
 
         return response()->json(['Like / Unlike' => 'Action successful'], 200);
     }
@@ -238,6 +235,4 @@ class DesignController extends Controller
             ->findWhere('user_id', $user_id);
         return DesignResource::collection($designs);
     }
-
-
 }

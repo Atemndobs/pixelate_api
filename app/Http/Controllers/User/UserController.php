@@ -66,9 +66,10 @@ class UserController extends Controller
 /*        $users = $this->userRepository->withCriteria([
 
         ])->all();*/
-       // $users = User::with('posts')->get();
-       $users = User::all();
+        $users = User::with('posts', 'followers')->get();
+
         return UserResource::collection($users);
+
     }
 
     /**

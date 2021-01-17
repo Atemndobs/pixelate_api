@@ -5,7 +5,7 @@ info:
   version: 1.0.2
 servers:
   -
-    url: 'http://localhost:8000'
+    url: 'https://pixelate.app'
     description: Server
 paths:
   /api/posts:
@@ -1198,6 +1198,212 @@ paths:
                 properties:
                   error:
                     description: "Delete all data from Model.\nPOST /posts"
+                    type: string
+                    example: 'Model not found'
+                type: object
+  /api/settings/types:
+    get:
+      tags:
+        - Settings
+      summary: 'Get All ExistingTpes'
+      description: 'Get all types'
+      operationId: 'App\Http\Controllers\DomainSettingsController::getTypes'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Get all ReactionTypes\nPOST /posts"
+                    type: string
+                    example: Like
+                type: object
+        419:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Get all ReactionTypes\nPOST /posts"
+                    type: string
+                    example: 'Unprocessable Entity'
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Get all ReactionTypes\nPOST /posts"
+                    type: string
+                    example: 'Model not found'
+                type: object
+    post:
+      tags:
+        - Settings
+      summary: 'Create / Reset Types'
+      description: 'Create / Reset Reaction Types'
+      operationId: 'App\Http\Controllers\DomainSettingsController::createLikeTypes'
+      requestBody:
+        description: 'The Types to be Created'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                types:
+                  description: "DCreate Reaction Types\nPOST /posts"
+                  type: string
+                  example: 'Like,Laugh,Happy,Surprise,Smile'
+                reset:
+                  description: "DCreate Reaction Types\nPOST /posts"
+                  type: boolean
+                  example: false
+              type: object
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "DCreate Reaction Types\nPOST /posts"
+                    type: string
+                    example: 'Model Cleared'
+                type: object
+        419:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "DCreate Reaction Types\nPOST /posts"
+                    type: string
+                    example: 'Unprocessable Entity'
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "DCreate Reaction Types\nPOST /posts"
+                    type: string
+                    example: 'Model not found'
+                type: object
+        422:
+          description: Error
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "DCreate Reaction Types\nPOST /posts"
+                    type: string
+                    example: Error
+                type: object
+  /api/settings/reset/db:
+    post:
+      tags:
+        - Settings
+      summary: 'Reset Databease'
+      description: 'Reses DB'
+      operationId: 'App\Http\Controllers\DomainSettingsController::resetDB'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Reset Database\nPOST /posts"
+                    type: string
+                    example: 'Database Reset'
+                type: object
+        419:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Reset Database\nPOST /posts"
+                    type: string
+                    example: 'Unprocessable Entity'
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Reset Database\nPOST /posts"
+                    type: string
+                    example: 'Model not found'
+                type: object
+  /api/settings/export:
+    post:
+      tags:
+        - Settings
+      summary: 'Export CSV or Excel or Pdf'
+      description: 'Export '
+      operationId: 'App\Http\Controllers\DomainSettingsController::export'
+      requestBody:
+        description: 'The Types to be Exported'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                type:
+                  description: "Create Csv and Export\nPOST /settings"
+                  type: string
+                  example: csv
+                model:
+                  description: "Create Csv and Export\nPOST /settings"
+                  type: string
+                  example: post
+              type: object
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Create Csv and Export\nPOST /settings"
+                    type: string
+                    example: Exported
+                type: object
+        419:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Create Csv and Export\nPOST /settings"
+                    type: string
+                    example: 'Unprocessable Entity'
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Create Csv and Export\nPOST /settings"
                     type: string
                     example: 'Model not found'
                 type: object

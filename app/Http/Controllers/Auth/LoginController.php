@@ -39,7 +39,9 @@ use mysql_xdevapi\Exception;
  *    response=422,
  *    description="Wrong credentials response",
  *    @OA\JsonContent(
- *       @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
+ *       @OA\Property(property="message",
+ *     type="string",
+ *     example="Sorry, wrong email address or password. Please try again")
  *        )
  *     )
  * )
@@ -71,26 +73,27 @@ class LoginController extends Controller
 
         $token = $this->guard()->attempt($this->credentials($request));
 
-        if (!$token){
+        if (!$token) {
             return false;
         }
 
         // get the authenticated user
         $user = $this->guard()->user();
 
-        if ($user instanceof MustVerifyEmail && !$user->hasVerifiedEmail())
-        {
+        if ($user instanceof MustVerifyEmail && !$user->hasVerifiedEmail()) {
             return false;
         }
 
         //set the Users token
 
-       $this->guard()->setToken($token);
+        $this->guard()->setToken($token);
+
         return true;
     }
 
     protected function sendLoginResponse(Request $request)
     {
+
         $this->clearLoginAttempts($request);
         //get the Token from registration guard (the JWT guard)
         $token = $this->guard()->getToken()->get('value');
@@ -109,7 +112,7 @@ class LoginController extends Controller
     protected function sendFailedLoginResponse(Request $request)
     {
         $user = $this->guard()->user();
-        if ($user instanceof MustVerifyEmail && !$user->hasVerifiedEmail()){
+        if ($user instanceof MustVerifyEmail && !$user->hasVerifiedEmail()) {
             return response()->json(["errors" => [
                 "message" => "You need to verify this email account"
             ]], 422);
@@ -141,7 +144,7 @@ class LoginController extends Controller
     {
         try {
             $this->guard()->logout();
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return response()->json(['message' => $exception->getMessage()]);
         }
         return response()->json(['message' => 'Logged out successfully']);

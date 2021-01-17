@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  *      @OA\Property(property="comment", type="string", readOnly="true", example="this is a great app"),
  *      @OA\Property(property="commenter_id", type="integer", readOnly="true", example=1),
  *      @OA\Property(property="commentable_id", type="integer", readOnly="true", example=2),
- *
+ * 
  *      @OA\Property(property="created_dates", type="object",
  *          @OA\Property(property="created_at_human", description="Date Created formatted", example="52 minutes ago"),
  *          @OA\Property(property="created_at", description="Raw unfarmatted Date ", example="2020-11-09T20:04:11.000000Z"),
