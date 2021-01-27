@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Events\FileExportedEvent;
 use App\Models\Post;
 use App\Models\User;
 use App\Services\SettingsService;
+use App\Services\Song\SpotifyService;
 use Illuminate\Http\Request;
 
 class DomainSettingsController extends Controller
@@ -69,19 +70,19 @@ class DomainSettingsController extends Controller
      */
     public function index()
     {
-        if ($this->request->model === 'null'){
+        if ($this->request->model === 'null') {
             return response([
                 'error' => 'No Model Selected'
             ], 404);
         }
 
         $tables = \DB::select('SHOW TABLES');
-        $tables = array_map('current',$tables);
+        $tables = array_map('current', $tables);
 
        // $models = $this->settings->getModels();
         $folder = $this->request->model;
 
-        if (!in_array($this->request->model , $tables)){
+        if (!in_array($this->request->model, $tables)) {
             return response([
                 'error' => "{$folder} Does not Exist in this Domain"
             ], 404);
@@ -93,7 +94,7 @@ class DomainSettingsController extends Controller
             return response([
                'message' => "{$folder} cleared"
             ], 200);
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return response([
                 'error' => $exception->getMessage()
             ], $exception->getCode());
@@ -102,12 +103,11 @@ class DomainSettingsController extends Controller
 
     public function clearImages()
     {
-
     }
 
     /**
-     * Get all Modals in this App by Class name
-     * POST /posts
+     * Clean Up models
+     * Get /settings
      *
      * @OA\Get(
      * path="/api/settings/models",
@@ -145,18 +145,17 @@ class DomainSettingsController extends Controller
             return response([
                 'message' => $models,
             ], 200);
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return response([
                 'error' => $exception->getMessage()
             ], 419);
         }
-
     }
 
 
     /**
-     * Delete all data from Model.
-     * POST /posts
+     * Populate given model.
+     * POST /settings
      *
      * @OA\Post(
      * path="/api/settings/model/populate/{model}",
@@ -211,19 +210,18 @@ class DomainSettingsController extends Controller
             return response([
                 'message' => "{$model} Populated'"
             ], 200);
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return response([
                 'error' => $exception->getMessage()
             ], 422);
         }
 
         // php artisan db:seed --class=PostsTableSeeder
-
     }
 
 
     /**
-     * DCreate Reaction Types
+     * Create Reaction Types
      * POST /posts
      *
      * @OA\Post(
@@ -284,7 +282,7 @@ class DomainSettingsController extends Controller
                     'types' => $created
                 ]
             ], 201);
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return response([
                 'error' => $exception->getMessage()
             ], 422);
@@ -375,7 +373,7 @@ class DomainSettingsController extends Controller
                     'reset' => $reset,
                 ]
             ], 201);
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return response([
                 'error' => $exception->getMessage()
             ], 422);
@@ -384,7 +382,7 @@ class DomainSettingsController extends Controller
 
 
     /**
-     * Create Csv and Export
+     * Create Csv | pdf and Export
      * POST /settings
      *
      * @OA\Post  (
@@ -428,7 +426,7 @@ class DomainSettingsController extends Controller
         $type = $this->request->type;
         $model = $this->request->model;
 
-
+        event(new FileExportedEvent($type));
         try {
             return $this->settings->export($type, $model);
 /*            return response([
@@ -436,12 +434,10 @@ class DomainSettingsController extends Controller
                     'reset' => $export,
                 ]
             ], 201);*/
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return response([
                 'error' => $exception->getMessage()
             ], 422);
         }
     }
-
-
 }

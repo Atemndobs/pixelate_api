@@ -2,15 +2,15 @@
 
 namespace App\Providers;
 
+use App\Events\FileExportedEvent;
 use App\Events\NewLikeHasBeenAddedEvent;
+use App\Listeners\CsvFileExportedListener;
 use App\Listeners\NotifyOwnerListener;
+use App\Listeners\PdfFileExportedListener;
 use App\Listeners\UpdateLikesCountListener;
-use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
-use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -29,6 +29,10 @@ class EventServiceProvider extends ServiceProvider
         NewLikeHasBeenAddedEvent::class =>[
             NotifyOwnerListener::class,
             UpdateLikesCountListener::class
+        ],
+        FileExportedEvent::class => [
+            CsvFileExportedListener::class,
+            PdfFileExportedListener::class,
         ],
 
 

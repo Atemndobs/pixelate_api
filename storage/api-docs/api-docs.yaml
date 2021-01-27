@@ -1126,7 +1126,7 @@ paths:
               schema:
                 properties:
                   message:
-                    description: "Get all Modals in this App by Class name\nPOST /posts"
+                    description: "Clean Up models\nGet /settings"
                     type: string
                     example: 'Array of models'
                 type: object
@@ -1137,7 +1137,7 @@ paths:
               schema:
                 properties:
                   error:
-                    description: "Get all Modals in this App by Class name\nPOST /posts"
+                    description: "Clean Up models\nGet /settings"
                     type: string
                     example: 'Unprocessable Entity'
                 type: object
@@ -1148,7 +1148,7 @@ paths:
               schema:
                 properties:
                   error:
-                    description: "Get all Modals in this App by Class name\nPOST /posts"
+                    description: "Clean Up models\nGet /settings"
                     type: string
                     example: 'Model not found'
                 type: object
@@ -1175,7 +1175,7 @@ paths:
               schema:
                 properties:
                   message:
-                    description: "Delete all data from Model.\nPOST /posts"
+                    description: "Populate given model.\nPOST /settings"
                     type: string
                     example: 'Model Cleared'
                 type: object
@@ -1186,7 +1186,7 @@ paths:
               schema:
                 properties:
                   error:
-                    description: "Delete all data from Model.\nPOST /posts"
+                    description: "Populate given model.\nPOST /settings"
                     type: string
                     example: 'Unprocessable Entity'
                 type: object
@@ -1197,7 +1197,7 @@ paths:
               schema:
                 properties:
                   error:
-                    description: "Delete all data from Model.\nPOST /posts"
+                    description: "Populate given model.\nPOST /settings"
                     type: string
                     example: 'Model not found'
                 type: object
@@ -1256,11 +1256,11 @@ paths:
             schema:
               properties:
                 types:
-                  description: "DCreate Reaction Types\nPOST /posts"
+                  description: "Create Reaction Types\nPOST /posts"
                   type: string
                   example: 'Like,Laugh,Happy,Surprise,Smile'
                 reset:
-                  description: "DCreate Reaction Types\nPOST /posts"
+                  description: "Create Reaction Types\nPOST /posts"
                   type: boolean
                   example: false
               type: object
@@ -1272,7 +1272,7 @@ paths:
               schema:
                 properties:
                   message:
-                    description: "DCreate Reaction Types\nPOST /posts"
+                    description: "Create Reaction Types\nPOST /posts"
                     type: string
                     example: 'Model Cleared'
                 type: object
@@ -1283,7 +1283,7 @@ paths:
               schema:
                 properties:
                   error:
-                    description: "DCreate Reaction Types\nPOST /posts"
+                    description: "Create Reaction Types\nPOST /posts"
                     type: string
                     example: 'Unprocessable Entity'
                 type: object
@@ -1294,7 +1294,7 @@ paths:
               schema:
                 properties:
                   error:
-                    description: "DCreate Reaction Types\nPOST /posts"
+                    description: "Create Reaction Types\nPOST /posts"
                     type: string
                     example: 'Model not found'
                 type: object
@@ -1305,7 +1305,7 @@ paths:
               schema:
                 properties:
                   error:
-                    description: "DCreate Reaction Types\nPOST /posts"
+                    description: "Create Reaction Types\nPOST /posts"
                     type: string
                     example: Error
                 type: object
@@ -1365,11 +1365,11 @@ paths:
             schema:
               properties:
                 type:
-                  description: "Create Csv and Export\nPOST /settings"
+                  description: "Create Csv | pdf and Export\nPOST /settings"
                   type: string
                   example: csv
                 model:
-                  description: "Create Csv and Export\nPOST /settings"
+                  description: "Create Csv | pdf and Export\nPOST /settings"
                   type: string
                   example: post
               type: object
@@ -1381,7 +1381,7 @@ paths:
               schema:
                 properties:
                   message:
-                    description: "Create Csv and Export\nPOST /settings"
+                    description: "Create Csv | pdf and Export\nPOST /settings"
                     type: string
                     example: Exported
                 type: object
@@ -1392,7 +1392,7 @@ paths:
               schema:
                 properties:
                   error:
-                    description: "Create Csv and Export\nPOST /settings"
+                    description: "Create Csv | pdf and Export\nPOST /settings"
                     type: string
                     example: 'Unprocessable Entity'
                 type: object
@@ -1403,7 +1403,7 @@ paths:
               schema:
                 properties:
                   error:
-                    description: "Create Csv and Export\nPOST /settings"
+                    description: "Create Csv | pdf and Export\nPOST /settings"
                     type: string
                     example: 'Model not found'
                 type: object

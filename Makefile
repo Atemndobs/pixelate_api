@@ -154,3 +154,14 @@ build:
 	./vendor/bin/sail build --no-cache && ./vendor/bin/sail up
 share:
 	./vendor/bin/sail share --subdomain=pixelate
+
+size:
+	export COMPOSER_MEMORY_LIMIT=-1
+com-up:
+	php -d memory_limit=-1 /usr/local/bin/composer update
+
+com-t:
+	composer info laravel/passport -t
+# soundstretch my_original_file.wav output_file.wav -tempo=+15 -pitch=-3
+comp:
+	php -d memory_limit=-1 /usr/local/bin/composer require
