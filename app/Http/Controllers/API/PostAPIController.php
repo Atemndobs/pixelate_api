@@ -174,7 +174,6 @@ class PostAPIController extends AppBaseController
         $post = $user->posts()->create($input);
 
         if ($request->hasFile('image')){
-
  /*           $post->update(
                 ['imageUrl' =>$request->image->store('','public')]
             );*/
@@ -189,7 +188,7 @@ class PostAPIController extends AppBaseController
         }
 
         $createdPost = new PostResource($post);
-        broadcast(new PostCreatedEvent($createdPost));
+     //   broadcast(new PostCreatedEvent($createdPost));
 
         return $createdPost;
     }

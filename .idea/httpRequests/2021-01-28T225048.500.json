@@ -1,0 +1,7 @@
+Array{
+  "message": "Uncaught ErrorException: Array to string conversion in /Users/b.atemkeng/sites/pixelate/app/Http/Controllers/API/PostAPIController.php:176\nStack trace:\n#0 /Users/b.atemkeng/sites/pixelate/app/Http/Controllers/API/PostAPIController.php(176): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Array to string...', '/Users/b.atemke...', 176, Array)\n#1 /Users/b.atemkeng/sites/pixelate/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\API\\PostAPIController->store(Object(App\\Http\\Requests\\API\\CreatePostAPIRequest), '2')\n#2 /Users/b.atemkeng/sites/pixelate/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('store', Array)\n#3 /Users/b.atemkeng/sites/pixelate/vendor/laravel/framework/src/Illuminate/Routing/Route.php(254): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\API\\PostAPIController), 'store')\n#4 /Users/b.atemkeng/sites/pixelat",
+  "exception": "Symfony\\Component\\ErrorHandler\\Error\\FatalError",
+  "file": "/Users/b.atemkeng/sites/pixelate/app/Http/Controllers/API/PostAPIController.php",
+  "line": 176,
+  "trace": []
+}

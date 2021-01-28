@@ -18,14 +18,14 @@ class PostResource extends JsonResource
      */
     public function toArray($request): array
     {
-      //  return json_encode($this->all());
+
         $likes = Reaction::all()
             ->where('reaction_type_id', 1)
             ->where('reactant_id', $this->id);
 
-        $user = new UserResource($this->whenLoaded('user'));
-
+       // $user = new UserResource($this->whenLoaded('user'));
         $user_id = (int)$request->user_id ;
+        $user = User::find($user_id);
 /*        if ($user_id === 0){
             $follow = $user->follow;
         }else {
