@@ -41,7 +41,7 @@ class PostResource extends JsonResource
                         'following_count'=> $author->following->count(),
                         //'follower_details' => $man->pivot,
                     ];
-                }),
+                })->first(),
             ],
             "caption" => $this->caption,
             "location" => $this->location,

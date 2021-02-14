@@ -7,7 +7,6 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-
 class CommentResource extends JsonResource
 {
     /**
@@ -44,7 +43,7 @@ class CommentResource extends JsonResource
                 "updated_at" => $this->updated_at,
             ],
         ];*/
-        $comments = Comment::where('commentable_id', $this->commentable_id )
+        $comments = Comment::where('commentable_id', $this->commentable_id)
             ->with([
                 //'loveReactant.reactions.reacter.reacterable',
                // 'loveReactant.reactions.type',
@@ -53,15 +52,15 @@ class CommentResource extends JsonResource
             ])
             ->get();
 
-        $childComments = Comment::where('commentable_id',$this->id)
+        $childComments = Comment::where('commentable_id', $this->id)
             ->where('commentable_type', 'like', '%Comment')->get();
 
 
-        $reactions = $comments->where('id' , $this->id)
+        $reactions = $comments->where('id', $this->id)
             ->first()->loveReactant->reactionCounters;
 
         $reaction_count = [];
-        foreach ($reactions as $reaction ){
+        foreach ($reactions as $reaction) {
             $reaction_type_id = $reaction->reaction_type_id;
             $count = $reaction->count;
             $reaction_count[] = $count;
@@ -70,7 +69,7 @@ class CommentResource extends JsonResource
         return [
           'id' =>  $this->id,
             'comment' => $this->comment,
-            'commenter' => $this->commenter->name,
+            'commenter' => $this->commenter,
             'childComments' => $childComments,
             'reaction_count' => $reaction_count,
            // 'reacter' => $this->reacter,
@@ -88,6 +87,3 @@ class CommentResource extends JsonResource
         ];
     }
 }
-
-
-
