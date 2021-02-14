@@ -25,7 +25,6 @@ class PostResource extends JsonResource
 
         $user_id = (int)$request->user_id ;
         $user = User::find($user_id);
-
         $author = User::find($this->user_id);
 
         return [
@@ -35,11 +34,11 @@ class PostResource extends JsonResource
                 'id' => $author->id,
                 'name' => $author->name,
                 'avatar'=> $author->photo_url,
-                'follow'=>$author->followers->map(function ($man) use ($user) {
+                'follow'=>$author->followers->map(function ($man) use ($author) {
                     return [
-                        'is_user_following'=> $user->isFollowing($man),
-                        'follower_count' => $user->followers->count(),
-                        'following_count'=> $user->following->count(),
+                        'is_user_following'=> $author->isFollowing($man),
+                        'follower_count' => $author->followers->count(),
+                        'following_count'=> $author->following->count(),
                         //'follower_details' => $man->pivot,
                     ];
                 }),
