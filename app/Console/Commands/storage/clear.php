@@ -44,7 +44,7 @@ class clear extends Command
             \Storage::delete($file);
         }
 
-        $this->info( "Emptied Folder  : {$folder}" );
+        $this->info("Emptied Folder  : {$folder}");
         return 0;
     }
 }

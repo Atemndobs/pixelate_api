@@ -79,14 +79,10 @@ class PostAPIController extends AppBaseController
      *      )
      * )
      *
-     * @param Request $request
      * @return Application|ResponseFactory|AnonymousResourceCollection|\Illuminate\Http\Response
      */
     public function index()
     {
-/*        $posts = $this->postRepository->withCriteria([
-            new EagerLoad(['user', 'comments'])
-        ])->all();*/
         $posts = Post::with(
             'comments',
             'user',
@@ -94,28 +90,16 @@ class PostAPIController extends AppBaseController
             'loveReactant.reactions.type',
             'loveReactant.reactionCounters',
             'loveReactant.reactionTotal',
-          //  'loveReactant',
+            //  'loveReactant',
         )->get();
-
-/*        $comments = Comment::query()
-            ->with([
-                'loveReactant.reactions.reacter.reacterable',
-                'loveReactant.reactions.type',
-                'loveReactant.reactionCounters',
-                'loveReactant.reactionTotal',
-            ])
-            ->get();*/
-
-      // $user_id = (int)$this->request->user_id;
 
         if ($posts->count() === 0) {
             return Response([
                 'message' => 'No Posts Created Yet. Please create one',
             ], 404);
         }
-        $postResource = PostResource::collection($posts);
 
-        return $postResource;
+        return PostResource::collection($posts);
     }
 
     /**
@@ -168,27 +152,20 @@ class PostAPIController extends AppBaseController
     public function store(CreatePostAPIRequest $request, $user_id)
     {
         $input = $request->all();
-
         $user = User::findOrFail($user_id);
-
         $post = $user->posts()->create($input);
 
-        if ($request->hasFile('image')){
- /*           $post->update(
-                ['imageUrl' =>$request->image->store('','public')]
-            );*/
-            $imageUrl = $request->image->store('','public');
+        if ($request->hasFile('image')) {
+            $imageUrl = $request->image->store('', 'public');
             $this->processImage($imageUrl);
 
             $post->update(
                 ['imageUrl' =>asset('storage/'.$imageUrl)]
             );
-
-
         }
 
         $createdPost = new PostResource($post);
-     //   broadcast(new PostCreatedEvent($createdPost));
+        broadcast(new PostCreatedEvent($createdPost));
 
         return $createdPost;
     }
@@ -242,7 +219,7 @@ class PostAPIController extends AppBaseController
      */
     public function show()
     {
-       $post = Post::with('comments')
+        $post = Post::with('comments')
             ->find($this->request->id);
 
 
@@ -250,7 +227,6 @@ class PostAPIController extends AppBaseController
             return Response([
                 'message' => 'No Posts found',
             ], 404);
-
         }
 
         return new PostResource($post);
@@ -441,10 +417,10 @@ class PostAPIController extends AppBaseController
     public function toggleLike(ReactionService $reactionService)
     {
 
-        if (!auth()->check()){
+        if (!auth()->check()) {
             return Response([
                 'error' => 'Not logged in',
-            ],401);
+            ], 401);
         }
 
 
@@ -457,14 +433,11 @@ class PostAPIController extends AppBaseController
             'loveReactant',
         )->find($this->request->post_id);
 
-       // return $post;
-
         try {
             $reaction = $reactionService->processReaction($type, $post);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return Response('REACTION NOT FOUND' . $type, 404);
         }
-
 
         $reaction->type = $type;
         $reactedPost = new PostResource($reaction);
@@ -542,10 +515,8 @@ class PostAPIController extends AppBaseController
         $postResource->new_comment = $newComment;
 
         broadcast(new CommentCreatedEvent($postResource, $newComment))->toOthers();
-     //   $notification = new \App\Notifications\CommentCreatedNotification();
-      //  \Notification::send(auth()->user(), $notification);
 
-         return $postResource;
+        return $postResource;
     }
 
     /**
@@ -556,7 +527,6 @@ class PostAPIController extends AppBaseController
     {
         Image::load('storage/'.$imageUrl)
             ->width(400)
-
             ->save();
     }
 }

@@ -43,9 +43,7 @@ class table extends Command
         $table = $this->argument('table');
 
         $full = \DB::table($table)->select('*')->count();
-        $this->info( "Actual records in {$table} : {$full}" );
-        // Schema::disableForeignKeyConstraints();
-
+        $this->info("Actual records in {$table} : {$full}");
         \Schema::disableForeignKeyConstraints();
 
         if ($full === 0) {
@@ -57,9 +55,8 @@ class table extends Command
         \Schema::enableForeignKeyConstraints();
 
         $empty = \DB::table($table)->select('*')->count();
-        $this->info( "Table Empty, records in {$table} : {$empty}" );
+        $this->info("Table Empty, records in {$table} : {$empty}");
 
         return 0;
-
     }
 }

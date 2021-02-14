@@ -42,11 +42,11 @@ class like extends Command
 
         $types = explode(',', $input);
 
-        foreach ($types as $type){
-            if ( ReactionType::where(['name' => $type])->count() > 0) {
+        foreach ($types as $type) {
+            if (ReactionType::where(['name' => $type])->count() > 0) {
                 $this->info("{$type} already Exists");
                 continue;
-            }else{
+            } else {
                 $this->info("Creating reaction type:  {$type}");
                 $createTypes = $this->createTypes($type);
                 ReactionType::insert($createTypes);
@@ -54,17 +54,17 @@ class like extends Command
         }
 
         $data = [];
-      $allTypes =  ReactionType::all()->toArray();
+        $allTypes =  ReactionType::all()->toArray();
 
-      foreach ($allTypes as $allType){
-          $data[] = [
+        foreach ($allTypes as $allType) {
+            $data[] = [
               'id' => $allType['id'],
               'name' => $allType['name']
-          ];
-      }
+            ];
+        }
 
-      $headers = ['id', 'name'];
-      $this->table($headers , $data);
+        $headers = ['id', 'name'];
+        $this->table($headers, $data);
 
         return 0;
     }

@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "https://pixelate.app",
+            "url": "http://localhost:8090",
             "description": "Server"
         }
     ],
@@ -624,6 +624,530 @@
                         "token": []
                     }
                 ]
+            }
+        },
+        "/api/settings/clear/{model}": {
+            "post": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Clean Up Model",
+                "description": "clear data in model",
+                "operationId": "App\\Http\\Controllers\\AppSettingsController::index",
+                "parameters": [
+                    {
+                        "name": "model",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "posts"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Delete all data from Model.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Model Cleared"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Delete all data from Model.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Unprocessable Entity"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Delete all data from Model.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Model not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/settings/models": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Clean Up Model",
+                "description": "clear data in model",
+                "operationId": "App\\Http\\Controllers\\AppSettingsController::getModels",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Clean Up models\nGet /settings",
+                                            "type": "string",
+                                            "example": "Array of models"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Clean Up models\nGet /settings",
+                                            "type": "string",
+                                            "example": "Unprocessable Entity"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Clean Up models\nGet /settings",
+                                            "type": "string",
+                                            "example": "Model not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/settings/model/populate/{model}": {
+            "post": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Populate Model",
+                "description": "Add  data for model",
+                "operationId": "App\\Http\\Controllers\\AppSettingsController::populateData",
+                "parameters": [
+                    {
+                        "name": "model",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "posts"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Populate given model.\nPOST /settings",
+                                            "type": "string",
+                                            "example": "Model Cleared"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Populate given model.\nPOST /settings",
+                                            "type": "string",
+                                            "example": "Unprocessable Entity"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Populate given model.\nPOST /settings",
+                                            "type": "string",
+                                            "example": "Model not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/settings/types": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Get All ExistingTpes",
+                "description": "Get all types",
+                "operationId": "App\\Http\\Controllers\\AppSettingsController::getTypes",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Get all ReactionTypes\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Like"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Get all ReactionTypes\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Unprocessable Entity"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Get all ReactionTypes\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Model not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Create / Reset Types",
+                "description": "Create / Reset Reaction Types",
+                "operationId": "App\\Http\\Controllers\\AppSettingsController::createLikeTypes",
+                "requestBody": {
+                    "description": "The Types to be Created",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "types": {
+                                        "description": "Create Reaction Types\nPOST /posts",
+                                        "type": "string",
+                                        "example": "Like,Laugh,Happy,Surprise,Smile"
+                                    },
+                                    "reset": {
+                                        "description": "Create Reaction Types\nPOST /posts",
+                                        "type": "boolean",
+                                        "example": false
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Create Reaction Types\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Model Cleared"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Create Reaction Types\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Unprocessable Entity"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Create Reaction Types\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Model not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Create Reaction Types\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/settings/reset/db": {
+            "post": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Reset Databease",
+                "description": "Reses DB",
+                "operationId": "App\\Http\\Controllers\\AppSettingsController::resetDB",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Reset Database\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Database Reset"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Reset Database\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Unprocessable Entity"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Reset Database\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Model not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/settings/export": {
+            "post": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Export CSV or Excel or Pdf",
+                "description": "Export ",
+                "operationId": "App\\Http\\Controllers\\AppSettingsController::export",
+                "requestBody": {
+                    "description": "The Types to be Exported",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "type": {
+                                        "description": "Create Csv | pdf and Export\nPOST /settings",
+                                        "type": "string",
+                                        "example": "csv"
+                                    },
+                                    "model": {
+                                        "description": "Create Csv | pdf and Export\nPOST /settings",
+                                        "type": "string",
+                                        "example": "post"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Create Csv | pdf and Export\nPOST /settings",
+                                            "type": "string",
+                                            "example": "Exported"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Create Csv | pdf and Export\nPOST /settings",
+                                            "type": "string",
+                                            "example": "Unprocessable Entity"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Create Csv | pdf and Export\nPOST /settings",
+                                            "type": "string",
+                                            "example": "Model not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/login": {
@@ -1600,530 +2124,6 @@
                         "token": []
                     }
                 ]
-            }
-        },
-        "/api/settings/clear/{model}": {
-            "post": {
-                "tags": [
-                    "Settings"
-                ],
-                "summary": "Clean Up Model",
-                "description": "clear data in model",
-                "operationId": "App\\Http\\Controllers\\DomainSettingsController::index",
-                "parameters": [
-                    {
-                        "name": "model",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "posts"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Delete all data from Model.\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Model Cleared"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "419": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Delete all data from Model.\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Unprocessable Entity"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Delete all data from Model.\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Model not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/settings/models": {
-            "get": {
-                "tags": [
-                    "Settings"
-                ],
-                "summary": "Clean Up Model",
-                "description": "clear data in model",
-                "operationId": "App\\Http\\Controllers\\DomainSettingsController::getModels",
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Clean Up models\nGet /settings",
-                                            "type": "string",
-                                            "example": "Array of models"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "419": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Clean Up models\nGet /settings",
-                                            "type": "string",
-                                            "example": "Unprocessable Entity"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Clean Up models\nGet /settings",
-                                            "type": "string",
-                                            "example": "Model not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/settings/model/populate/{model}": {
-            "post": {
-                "tags": [
-                    "Settings"
-                ],
-                "summary": "Populate Model",
-                "description": "Add  data for model",
-                "operationId": "App\\Http\\Controllers\\DomainSettingsController::populateData",
-                "parameters": [
-                    {
-                        "name": "model",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "posts"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Populate given model.\nPOST /settings",
-                                            "type": "string",
-                                            "example": "Model Cleared"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "419": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Populate given model.\nPOST /settings",
-                                            "type": "string",
-                                            "example": "Unprocessable Entity"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Populate given model.\nPOST /settings",
-                                            "type": "string",
-                                            "example": "Model not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/settings/types": {
-            "get": {
-                "tags": [
-                    "Settings"
-                ],
-                "summary": "Get All ExistingTpes",
-                "description": "Get all types",
-                "operationId": "App\\Http\\Controllers\\DomainSettingsController::getTypes",
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Get all ReactionTypes\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Like"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "419": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Get all ReactionTypes\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Unprocessable Entity"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Get all ReactionTypes\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Model not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Settings"
-                ],
-                "summary": "Create / Reset Types",
-                "description": "Create / Reset Reaction Types",
-                "operationId": "App\\Http\\Controllers\\DomainSettingsController::createLikeTypes",
-                "requestBody": {
-                    "description": "The Types to be Created",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "types": {
-                                        "description": "Create Reaction Types\nPOST /posts",
-                                        "type": "string",
-                                        "example": "Like,Laugh,Happy,Surprise,Smile"
-                                    },
-                                    "reset": {
-                                        "description": "Create Reaction Types\nPOST /posts",
-                                        "type": "boolean",
-                                        "example": false
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Create Reaction Types\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Model Cleared"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "419": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Create Reaction Types\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Unprocessable Entity"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Create Reaction Types\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Model not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Create Reaction Types\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Error"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/settings/reset/db": {
-            "post": {
-                "tags": [
-                    "Settings"
-                ],
-                "summary": "Reset Databease",
-                "description": "Reses DB",
-                "operationId": "App\\Http\\Controllers\\DomainSettingsController::resetDB",
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Reset Database\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Database Reset"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "419": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Reset Database\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Unprocessable Entity"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Reset Database\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Model not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/settings/export": {
-            "post": {
-                "tags": [
-                    "Settings"
-                ],
-                "summary": "Export CSV or Excel or Pdf",
-                "description": "Export ",
-                "operationId": "App\\Http\\Controllers\\DomainSettingsController::export",
-                "requestBody": {
-                    "description": "The Types to be Exported",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "type": {
-                                        "description": "Create Csv | pdf and Export\nPOST /settings",
-                                        "type": "string",
-                                        "example": "csv"
-                                    },
-                                    "model": {
-                                        "description": "Create Csv | pdf and Export\nPOST /settings",
-                                        "type": "string",
-                                        "example": "post"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Create Csv | pdf and Export\nPOST /settings",
-                                            "type": "string",
-                                            "example": "Exported"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "419": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Create Csv | pdf and Export\nPOST /settings",
-                                            "type": "string",
-                                            "example": "Unprocessable Entity"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "Create Csv | pdf and Export\nPOST /settings",
-                                            "type": "string",
-                                            "example": "Model not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
             }
         },
         "/api/me": {

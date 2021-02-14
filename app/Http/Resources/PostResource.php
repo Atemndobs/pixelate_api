@@ -23,28 +23,19 @@ class PostResource extends JsonResource
             ->where('reaction_type_id', 1)
             ->where('reactant_id', $this->id);
 
-       // $user = new UserResource($this->whenLoaded('user'));
         $user_id = (int)$request->user_id ;
         $user = User::find($user_id);
-/*        if ($user_id === 0){
-            $follow = $user->follow;
-        }else {
-            $follow = $user->getFollow($user_id);
-        }*/
+
+        $author = User::find($this->user_id);
+
         return [
             "id" => $this->id,
             'user_id' =>$user_id,
-/*            'author' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'avatar'=> $user->photo_url,
-               'follow' => $follow,
-            ],*/
             'author' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'avatar'=> $user->photo_url,
-                'follow'=>$user->followers->map(function ($man) use ($user) {
+                'id' => $author->id,
+                'name' => $author->name,
+                'avatar'=> $author->photo_url,
+                'follow'=>$author->followers->map(function ($man) use ($user) {
                     return [
                         'is_user_following'=> $user->isFollowing($man),
                         'follower_count' => $user->followers->count(),

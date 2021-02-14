@@ -31,14 +31,14 @@ class UserResource extends JsonResource
           //  'follows' => $this->follow,
            // 'followers' => $this->followers,
             'follow'=>$this->followers->map(function ($man) {
-               return [
+                return [
                   // 'id' => $man->id,
                   // 'name' => $man->name,
                    'is_user_following'=> $this->isFollowing($man),
                    'follower_count' => $this->followers->count(),
                    'following_count'=> $this->following->count(),
                    'follower_details' => $man->pivot,
-               ];
+                ];
             }),
 
            // 'designs'=>DesignResource::collection($this->whenLoaded('designs')),

@@ -9,7 +9,7 @@ use App\Services\SettingsService;
 use App\Services\Song\SpotifyService;
 use Illuminate\Http\Request;
 
-class DomainSettingsController extends Controller
+class AppSettingsController extends Controller
 {
 
     public Request $request;
@@ -17,7 +17,7 @@ class DomainSettingsController extends Controller
     public SettingsService $settings;
 
     /**
-     * DomainSettingsController constructor.
+     * AppSettingsController constructor.
      * @param Request $request
      * @param SettingsService $settings
      */
@@ -82,7 +82,7 @@ class DomainSettingsController extends Controller
        // $models = $this->settings->getModels();
         $folder = $this->request->model;
 
-        if (!in_array($this->request->model, $tables)) {
+        if (!in_array($this->request->model, $tables, true)) {
             return response([
                 'error' => "{$folder} Does not Exist in this Domain"
             ], 404);
@@ -201,6 +201,8 @@ class DomainSettingsController extends Controller
             \Artisan::call("clear:assets $model");
             \Artisan::call("reset:table $model");
             \Artisan::call("reset:table users");
+            \Artisan::call("reset:table love_reactants");
+            \Artisan::call("reset:table love_reacters");
             $_model  =  ucwords($model);
 /*            if (User::where(['email' => 'bamarktfact@gmail.com'])->count() > 0) {
                 \Artisan::call("reset:table users");

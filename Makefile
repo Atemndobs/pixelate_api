@@ -39,8 +39,7 @@ env:
 	cp .env.prod .env
 pull:
 	git reset --hard && git pull && make env
-comp:
-	php vendor/bin/composer install
+
 up:
 	make pull && make cl && make key && make pusher && make qu
 help:
@@ -64,8 +63,10 @@ reactant:
 
 register-reacter:
 	php artisan love:register-reacters --model="App\Models\User"
-register-reactant:
+register-reactant-comment:
 	php artisan love:register-reactants --model="App\Models\Comment"
+register-reactant-post:
+	php artisan love:register-reactants --model="App\Models\Post"
 
 echo-socket:
 	php -d memory_limit=-1 composer.phar require beyondcode/laravel-websockets
@@ -83,7 +84,6 @@ seed:
 post:
 	php artisan reset:table posts
 	php artisan reset:table users
-	php artisan reset:table designs
 	php artisan reset:table comments
 	php artisan clear:assets public
 	php artisan db:seed --class=AtemTableSeeder
@@ -149,6 +149,13 @@ types-sail:
 sail-types:
 	./vendor/bin/sail artisan reset:table love_reaction_types
 	./vendor/bin/sail artisan reaction Like,Laugh,Happy,Surprise,Smile
+	./vendor/bin/sail artisan love:register-reactants --model="App\Models\Post"
+	./vendor/bin/sail artisan love:register-reactants --model="App\Models\Comment"
+	./vendor/bin/sail artisan love:register-reacters --model="App\Models\User"
+	./vendor/bin/sail artisan love:setup-reactable --model="App\Models\Post" --nullable
+	./vendor/bin/sail artisan love:setup-reacterable --model="App\Models\User" --nullable
+
+
 
 build:
 	./vendor/bin/sail build --no-cache && ./vendor/bin/sail up

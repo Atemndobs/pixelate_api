@@ -3,7 +3,7 @@
 use App\Http\Controllers\API\PostAPIController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Designs\DesignController;
-use App\Http\Controllers\DomainSettingsController;
+use App\Http\Controllers\AppSettingsController;
 use App\Http\Controllers\User\SettingsController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -124,10 +124,10 @@ Route::delete('settings/user/{email}', [SettingsController::class, 'deleteUser']
 Route::get('posts/{id}', [PostAPIController::class, 'show']);
 Route::get('comments/{comment_id}', [CommentController::class, 'index']);
 
-Route::post('settings/clear/{model}', [DomainSettingsController::class, 'index']);
-Route::get('settings/models', [DomainSettingsController::class, 'getModels']);
-Route::post('settings/model/populate/{model}', [DomainSettingsController::class, 'populateData']);
-Route::post('settings/types', [DomainSettingsController::class, 'createLikeTypes']);
-Route::get('settings/types', [DomainSettingsController::class, 'getTypes']);
-Route::post('settings/reset/db', [DomainSettingsController::class, 'resetDB']);
-Route::post('settings/export', [DomainSettingsController::class, 'export']);
+Route::post('settings/clear/{model}', [AppSettingsController::class, 'index']);
+Route::get('settings/models', [AppSettingsController::class, 'getModels']);
+Route::post('settings/model/populate/{model}', [AppSettingsController::class, 'populateData']);
+Route::post('settings/types', [AppSettingsController::class, 'createLikeTypes']);
+Route::get('settings/types', [AppSettingsController::class, 'getTypes']);
+Route::post('settings/reset/db', [AppSettingsController::class, 'resetDB']);
+Route::post('settings/export', [AppSettingsController::class, 'export']);
