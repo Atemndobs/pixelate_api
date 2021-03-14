@@ -25,7 +25,7 @@ class UpdatePostAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Post::$rules;
-        
+
         return $rules;
     }
 }

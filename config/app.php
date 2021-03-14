@@ -182,6 +182,8 @@ return [
         App\Providers\RepositoryServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
+        Flugg\Responder\ResponderServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class
 
 
     ],
@@ -239,6 +241,8 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Flash'     => Laracasts\Flash\Flash::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Responder' => Flugg\Responder\Facades\Responder::class,
+        'Transformation' => Flugg\Responder\Facades\Transformation::class,
 
     ],
 

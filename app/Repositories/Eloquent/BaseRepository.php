@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Eloquent;
 
-
 use App\Exceptions\ModelNotDefined;
 use App\Repositories\Contracts\BaseRepositoryInterface;
 use App\Repositories\Criteria\CriteriaInterface;
@@ -46,7 +45,6 @@ abstract class BaseRepository implements BaseRepositoryInterface, CriteriaInterf
     }
 
 
-
     public function paginate($perPage = 10)
     {
         return $this->model->paginate($perPage);
@@ -68,24 +66,23 @@ abstract class BaseRepository implements BaseRepositoryInterface, CriteriaInterf
     public function delete($id)
     {
         $record = $this->find($id);
-       return $record->delete();
+        return $record->delete();
     }
 
     public function getModelClass()
     {
-        if (!method_exists($this, 'model')){
+        if (!method_exists($this, 'model')) {
             throw new ModelNotDefined();
         }
 
         return app()->make($this->model());
     }
 
-    public function withCriteria(...$criteria){
-
-        die(json_encode($this->model));
+    public function withCriteria(...$criteria)
+    {
 
         $criteria = Arr::flatten($criteria);
-        foreach ($criteria as $criterion){
+        foreach ($criteria as $criterion) {
             $this->model = $criterion->apply($this->model);
         }
         return $this;

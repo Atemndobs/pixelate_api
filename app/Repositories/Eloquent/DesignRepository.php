@@ -3,11 +3,9 @@
 
 namespace App\Repositories\Eloquent;
 
-
 use App\Models\Design;
 use App\Repositories\Contracts\DesignRepositoryInterface;
 use Illuminate\Http\Request;
-
 
 class DesignRepository extends BaseRepository implements DesignRepositoryInterface
 {
@@ -19,7 +17,7 @@ class DesignRepository extends BaseRepository implements DesignRepositoryInterfa
     public function applyTags($id, array $data)
     {
         $design = $this->find($id);
-       return $design->retag($data);
+        return $design->retag($data);
     }
 
     public function addComment($design_id, array $data)
@@ -36,13 +34,11 @@ class DesignRepository extends BaseRepository implements DesignRepositoryInterfa
     {
         $design = $this->model->findOrFail($id);
 
-        if ($design->isLikedByUser(auth()->id())){
-         return   $design->unlike();
+        if ($design->isLikedByUser(auth()->id())) {
+            return   $design->unlike();
+        } else {
+            return    $design->like();
         }
-        else {
-        return    $design->like();
-        }
-
     }
 
     public function isLikedByUser($id)
@@ -68,22 +64,21 @@ class DesignRepository extends BaseRepository implements DesignRepositoryInterfa
 
         //search title and description for provided string
 
-        if ($request->q){
-            $query->where(function($q) use ($request){
+        if ($request->q) {
+            $query->where(function ($q) use ($request) {
                 $q->where('title', 'like', '%'.$request->q.'%')
                     ->orWhere('description', 'like', '%'.$request->q.'%');
             });
         }
 
         // order the query by  likes or latest first
-        if ($request->orderBy == 'likes'){
+        if ($request->orderBy == 'likes') {
             $query->withCount('likes')->orderByDesc('likes_count');
-        }else {
+        } else {
             $query->latest();
         }
 
         return $query->get();
-
     }
 
     public function image()

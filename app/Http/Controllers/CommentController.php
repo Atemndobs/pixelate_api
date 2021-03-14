@@ -6,13 +6,22 @@ use App\Events\ChildCommentCreatedEvent;
 use App\Events\CommentReactionEvent;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
+use App\Repositories\Eloquent\CommentRepository;
 use App\Services\CommentService;
 use App\Services\ReactionService;
+use App\Transformers\CommentTransformer;
 use DB;
+use Flugg\Responder\Http\Responses\SuccessResponseBuilder;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
@@ -24,18 +33,23 @@ class CommentController extends Controller
     /**
      * @var Comment
      */
-    Public Comment $comment;
+    public Comment $comment;
+
+    protected CommentRepository $commentRepository;
 
     /**
      * CommentController constructor.
      * @param Request $request
      * @param Comment $comment
+     * @param CommentRepository $commentRepository
      */
-    public function __construct(Request $request, Comment $comment)
+    public function __construct(Request $request, Comment $comment, CommentRepository $commentRepository)
     {
         $this->request = $request;
         $this->comment = $comment;
+        $this->commentRepository = $commentRepository;
     }
+
 
     /**
      * Display a listing of the Comments belonging to given comment.
@@ -70,12 +84,11 @@ class CommentController extends Controller
      *      )
      * )
      *
-     * @param Request $request
-     * @return Application|ResponseFactory|AnonymousResourceCollection|\Illuminate\Http\Response
+     * @return SuccessResponseBuilder
      */
-    public function index()
+    public function index(): SuccessResponseBuilder
     {
-        $comments = Comment::where('id', $this->request->comment_id )
+/*        $comments = Comment::where('id', $this->request->comment_id)
             ->where('commentable_type', 'like', '%Comment')
             ->with([
                 'loveReactant.reactions.reacter.reacterable',
@@ -83,12 +96,35 @@ class CommentController extends Controller
                 'loveReactant.reactionCounters',
                 'loveReactant.reactionTotal',
             ])
-            ->get();
-
-        return CommentResource::collection($comments);
+            ->get();*/
+        $comment = $this->commentRepository
+            ->with([
+                'loveReactant.reactions.reacter.reacterable',
+                'loveReactant.reactions.type',
+                'loveReactant.reactionCounters',
+                'loveReactant.reactionTotal',
+            ])
+            ->find($this->request->comment_id);
+        return responder()->success($comment, CommentTransformer::class);
     }
 
+
+/*    public function create(Request $request, CommentService $commentService)
+    {
+        $commentable = Comment::find($request->comment_id);
+
+        if ($commentable === null) {
+            responder()->error(404, 'No Comment Fround');
+        }
+        $comment = $commentService->createComment($commentable, $request->comment);
+        $createdComment = new CommentResource($comment);
+        $parentComment = new CommentResource($commentable);
+        $commenterId = $comment->commenter->id;
+        return responder()->success($comment, CommentTransformer::class);
+    }*/
+
     /**
+     * Creates a reply "comment" to a comment.
      * @OA\Post(
      * path="/api/comments/comment/{comment_id}",
      * summary="Comment a comment / reply a comment",
@@ -138,35 +174,20 @@ class CommentController extends Controller
      *     )
      *     )
      * )
-     * @param Request $request
      * @param CommentService $commentService
-     * @return \Illuminate\Http\Response
+     * @return SuccessResponseBuilder
      */
-    public function create(Request $request, CommentService $commentService)
+    public function reply(CommentService $commentService)
     {
-        $commentable = Comment::find($request->comment_id);
+        $commentable = $this->commentRepository->find($this->request->comment_id);
+        $reply = $commentService->replyComment($commentable, $this->request->comment);
 
-        if ($commentable === null){
-            return Response([
-                'message' => 'No Comment found',
-            ], 404);
-        }
-        $comment = $commentService->createComment($commentable, $request->comment);
-        $createdComment = new CommentResource($comment);
-        $parentComment = new CommentResource($commentable);
-        $commenterId = $comment->commenter->id;
-
-           // send notification to owner
+        // send notification to owner
         // $notification = new \App\Notifications\CommentCreatedNotification();
-       // \Notification::send(auth()->user(), $notification);
-
-        broadcast(new ChildCommentCreatedEvent($parentComment, $commenterId));
-        return Response([
-            'child' => $createdComment,
-            'parent' => $parentComment
-        ], 200);
+        // \Notification::send(auth()->user(), $notification);
+        //broadcast(new ChildCommentCreatedEvent($parentComment, $commenterId));
+        return responder()->success($reply, CommentTransformer::class);
     }
-
 
 
     /**
@@ -228,10 +249,10 @@ class CommentController extends Controller
     public function reactComment(ReactionService $reactionService)
     {
 
-        if (!auth()->check()){
+        if (!auth()->check()) {
             return Response([
                 'error' => 'Not logged in',
-            ],401);
+            ], 401);
         }
         $type = $this->request->type;
         $post_id = $this->request->post_id;
@@ -239,27 +260,29 @@ class CommentController extends Controller
         $reactable = Comment::find($this->request->comment_id);
 
 
+
         $reaction = $reactionService->processReaction($type, $reactable);
 
         $reaction->type = $type;
         $reactedComment = new CommentResource($reaction);
 
-       $reactions = $reaction->where('id' , $this->request->comment_id)
+        $reactions = $reaction->where('id', $this->request->comment_id)
            ->first()->loveReactant->reactionCounters;
 
-       $counts = [];
-       $reaction_type_ids = [];
-       foreach ($reactions as $reaction ){
-           $reaction_type_id = $reaction->reaction_type_id;
-           $count = $reaction->count;
-          // $reaction_count[] = [$reaction_type_id => $count];
-           $counts[] = $count;
-           $reaction_type_ids[] = $reaction_type_id;
-       }
-       $reaction_count = array_combine($reaction_type_ids, $counts);
+        $counts = [];
+        $reaction_type_ids = [];
+        foreach ($reactions as $reaction) {
+            $reaction_type_id = $reaction->reaction_type_id;
+            $count = $reaction->count;
+           // $reaction_count[] = [$reaction_type_id => $count];
+            $counts[] = $count;
+            $reaction_type_ids[] = $reaction_type_id;
+        }
+        $reaction_count = array_combine($reaction_type_ids, $counts);
 
         broadcast(new CommentReactionEvent((int)$this->request->comment_id, $post_id, $reaction_count));
-        return Response([
+        return Response(
+            [
             'post_id' => $post_id,
             'reaction_type' => $reactedComment->reaction_type,
             'comment_id' => (int)$this->request->comment_id,
@@ -267,7 +290,8 @@ class CommentController extends Controller
             'counts' =>$counts,
             'reaction_count_ids' => $reaction_type_ids,
             'reaction_count' => $reaction_count
-        ],
-            200);
+            ],
+            200
+        );
     }
 }

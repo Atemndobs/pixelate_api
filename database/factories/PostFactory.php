@@ -27,6 +27,7 @@ class PostFactory extends Factory
             'user_id' => User::factory(),
             'imageUrl' => "https://picsum.photos/id/{$this->faker->numberBetween(100, 1029)}/400/300",
             'location' => $this->faker->word,
+            'likers' => [],
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s')
         ];

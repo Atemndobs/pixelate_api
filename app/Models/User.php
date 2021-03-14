@@ -6,16 +6,12 @@ use App\Notifications\ResetPassword;
 use App\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\DatabaseNotification;
-use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Carbon;
 use Laravelista\Comments\Commentable;
 use Rennokki\Befriended\Contracts\Blocking;
 use Rennokki\Befriended\Contracts\Following;
@@ -25,7 +21,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
-use Illuminate\Http\Request;
 
 /**
  * App\Models\User
@@ -62,96 +57,103 @@ use Illuminate\Http\Request;
  * @property string $name
  * @property string $username
  * @property string $email
- * @property Carbon|null $email_verified_at
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
+ * @property string|null $two_factor_secret
+ * @property string|null $two_factor_recovery_codes
  * @property string|null $tagline
  * @property mixed|null $location
  * @property string|null $formatted_address
  * @property int $available_to_hire
  * @property string|null $about
- * @property string|null $remember_token
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read Collection|\App\Models\Design[] $designs
- * @property-read int|null $designs_count
- * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
- * @method static Builder|User comparison($geometryColumn, $geometry, $relationship)
- * @method static Builder|User contains($geometryColumn, $geometry)
- * @method static Builder|User crosses($geometryColumn, $geometry)
- * @method static Builder|User disjoint($geometryColumn, $geometry)
- * @method static Builder|User distance($geometryColumn, $geometry, $distance)
- * @method static Builder|User distanceExcludingSelf($geometryColumn, $geometry, $distance)
- * @method static Builder|User distanceSphere($geometryColumn, $geometry, $distance)
- * @method static Builder|User distanceSphereExcludingSelf($geometryColumn, $geometry, $distance)
- * @method static Builder|User distanceSphereValue($geometryColumn, $geometry)
- * @method static Builder|User distanceValue($geometryColumn, $geometry)
- * @method static Builder|User doesTouch($geometryColumn, $geometry)
- * @method static Builder|User equals($geometryColumn, $geometry)
- * @method static Builder|User intersects($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User newModelQuery()
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User newQuery()
- * @method static Builder|User orderByDistance($geometryColumn, $geometry, $direction = 'asc')
- * @method static Builder|User orderByDistanceSphere($geometryColumn, $geometry, $direction = 'asc')
- * @method static Builder|User orderBySpatial($geometryColumn, $geometry, $orderFunction, $direction = 'asc')
- * @method static Builder|User overlaps($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User query()
- * @method static Builder|User whereAbout($value)
- * @method static Builder|User whereAvailableToHire($value)
- * @method static Builder|User whereCreatedAt($value)
- * @method static Builder|User whereEmail($value)
- * @method static Builder|User whereEmailVerifiedAt($value)
- * @method static Builder|User whereFormattedAddress($value)
- * @method static Builder|User whereId($value)
- * @method static Builder|User whereLocation($value)
- * @method static Builder|User whereName($value)
- * @method static Builder|User wherePassword($value)
- * @method static Builder|User whereRememberToken($value)
- * @method static Builder|User whereTagline($value)
- * @method static Builder|User whereUpdatedAt($value)
- * @method static Builder|User whereUsername($value)
- * @method static Builder|User within($geometryColumn, $polygon)
- * @mixin \Eloquent
- * @property-read Collection|\App\Models\Comment[] $comments
- * @property-read int|null $comments_count
- * @property-read Collection|\App\Models\Team[] $teams
- * @property-read int|null $teams_count
- * @property string|null $two_factor_secret
- * @property string|null $two_factor_recovery_codes
  * @property int|null $trade_id
  * @property int|null $current_team_id
- * @property string|null $profile_photo_path
- * @property-read Collection|\App\Models\Chat[] $chats
- * @property-read int|null $chats_count
- * @property-read string $photo_url
- * @property-read Collection|\App\Models\Invitation[] $invitations
- * @property-read int|null $invitations_count
- * @property-read Collection|\App\Models\Message[] $messages
- * @property-read int|null $messages_count
- * @property-read Collection|\App\Models\Team[] $ownedTeams
- * @property-read int|null $owned_teams_count
- * @property-read Collection|\App\Models\Post[] $posts
- * @property-read int|null $posts_count
- * @property-read Collection|\App\Models\Trade[] $trade
- * @property-read int|null $trade_count
- * @method static Builder|User whereCurrentTeamId($value)
- * @method static Builder|User whereProfilePhotoPath($value)
- * @method static Builder|User whereTradeId($value)
- * @method static Builder|User whereTwoFactorRecoveryCodes($value)
- * @method static Builder|User whereTwoFactorSecret($value)
+ * @property string|null $avatar
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $love_reacter_id
- * @property-read \Cog\Laravel\Love\Reacter\Models\Reacter|null $loveReacter
- * @method static Builder|User whereLoveReacterId($value)
- * @property-read Collection|\Laravelista\Comments\Comment[] $approvedComments
- * @property-read int|null $approved_comments_count
  * @property string $uuid
- * @property-read mixed $follow
- * @method static Builder|User whereUuid($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $approvedComments
+ * @property-read int|null $approved_comments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Chat[] $chats
+ * @property-read int|null $chats_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Design[] $designs
+ * @property-read int|null $designs_count
+ * @property-read string $photo_url
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invitation[] $invitations
+ * @property-read int|null $invitations_count
+ * @property-read \Cog\Laravel\Love\Reacter\Models\Reacter|null $loveReacter
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
+ * @property-read int|null $messages_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Team[] $ownedTeams
+ * @property-read int|null $owned_teams_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
+ * @property-read int|null $posts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Team[] $teams
+ * @property-read int|null $teams_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Trade[] $trade
+ * @property-read int|null $trade_count
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User comparison($geometryColumn, $geometry, $relationship)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User contains($geometryColumn, $geometry)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User crosses($geometryColumn, $geometry)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User disjoint($geometryColumn, $geometry)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distance($geometryColumn, $geometry, $distance)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distanceExcludingSelf($geometryColumn, $geometry, $distance)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distanceSphere($geometryColumn, $geometry, $distance)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distanceSphereExcludingSelf($geometryColumn, $geometry, $distance)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distanceSphereValue($geometryColumn, $geometry)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distanceValue($geometryColumn, $geometry)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User doesTouch($geometryColumn, $geometry)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User equals($geometryColumn, $geometry)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User intersects($geometryColumn, $geometry)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User newModelQuery()
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User newQuery()
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User orderByDistance($geometryColumn, $geometry, $direction = 'asc')
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User orderByDistanceSphere($geometryColumn, $geometry, $direction = 'asc')
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User orderBySpatial($geometryColumn, $geometry, $orderFunction, $direction = 'asc')
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User overlaps($geometryColumn, $geometry)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User query()
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereAbout($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereAvailableToHire($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereAvatar($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereCurrentTeamId($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereEmail($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereEmailVerifiedAt($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereFormattedAddress($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereId($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLocation($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLoveReacterId($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereName($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User wherePassword($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereTagline($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereTradeId($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereTwoFactorRecoveryCodes($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereTwoFactorSecret($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereUsername($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereUuid($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User within($geometryColumn, $polygon)
+ * @mixin \Eloquent
  */
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail, ReacterableInterface, Following, Blocking
 {
     use Notifiable, SpatialTrait, HasFactory, Reacterable, Commentable, Follow, Block;
 
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -201,7 +203,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, React
      */
     protected $appends = [
         'photo_url',
-        'follow'
+       // 'follow'
     ];
 
     /**
@@ -272,7 +274,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, React
      */
     public function comments()
     {
-       return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     // teams that user belongs to
@@ -290,7 +292,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, React
      */
     public function ownedTeams()
     {
-        return $this->teams()->where('owner_id' , $this->id);
+        return $this->teams()->where('owner_id', $this->id);
     }
 
     /**
@@ -335,47 +337,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, React
      */
     public function getChatWithUser($user_id)
     {
-        $chat = $this->chats()->whereHas('participants', function ($query) use ($user_id){
+        $chat = $this->chats()->whereHas('participants', function ($query) use ($user_id) {
             $query->where('user_id', $user_id);
         })->first();
 
         return $chat;
     }
-
-    public function getFollowAttribute()
-    {
-        return 0;
-/*            [
-                'is_user_following' => false,
-                'follower_count' => $this->followers()->count(),
-                'following_count' => $this->following()->count(),
-            ];*/
-    }
-
-    public function getFollow($user_id)
-    {
-        $author = User::find($this->id);
-        $user = User::find($user_id)?:'';
-        $isFollowing = false;
-        $user_following_count = 0;
-        $user_follower_count = 0;
-        if ($user_id !== 0){
-            $isFollowing = $user->isFollowing($author);
-            $user_following_count = $user->following()->count();
-            $user_follower_count = $user->followers()->count();
-        }
-
-
-        return
-            [
-                'is_user_following' => $isFollowing,
-                'follower_count' => $this->followers()->count(),
-                'following_count' => $this->following()->count(),
-                'user_following_count' => $user_following_count,
-                'user_follower_count' => $user_follower_count,
-                'user_id' => $user_id,
-                'author_id' => $author->id
-            ];
-    }
-
 }

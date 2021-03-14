@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.17.0.
+ * Generated for Laravel 8.25.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -196,6 +196,18 @@
         {
                         /** @var \Illuminate\Foundation\Application $instance */
                         return $instance->langPath();
+        }
+                    /**
+         * Set the language file directory.
+         *
+         * @param string $path
+         * @return \Illuminate\Foundation\Application 
+         * @static 
+         */ 
+        public static function useLangPath($path)
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->useLangPath($path);
         }
                     /**
          * Get the path to the public / web directory.
@@ -2901,6 +2913,31 @@
                         $instance->assertNotDispatchedAfterResponse($command, $callback);
         }
                     /**
+         * Assert if a chain of jobs was dispatched.
+         *
+         * @param array $expectedChain
+         * @return void 
+         * @static 
+         */ 
+        public static function assertChained($expectedChain)
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
+                        $instance->assertChained($expectedChain);
+        }
+                    /**
+         * Assert if a job was dispatched with an empty chain based on a truth-test callback.
+         *
+         * @param string|\Closure $command
+         * @param callable|null $callback
+         * @return void 
+         * @static 
+         */ 
+        public static function assertDispatchedWithoutChain($command, $callback = null)
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
+                        $instance->assertDispatchedWithoutChain($command, $callback);
+        }
+                    /**
          * Assert if a batch was dispatched based on a truth-test callback.
          *
          * @param callable $callback
@@ -5004,6 +5041,7 @@
                     /**
          * Execute the callback after a transaction commits.
          *
+         * @param callable $callback
          * @return void 
          * @static 
          */ 
@@ -5268,6 +5306,17 @@
         {
                         /** @var \Illuminate\Support\Testing\Fakes\EventFake $instance */
                         $instance->assertNotDispatched($event, $callback);
+        }
+                    /**
+         * Assert that no events were dispatched.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function assertNothingDispatched()
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\EventFake $instance */
+                        $instance->assertNothingDispatched();
         }
                     /**
          * Get all of the events matching a truth-test callback.
@@ -6401,6 +6450,18 @@
                         $instance->assertSent($callback);
         }
                     /**
+         * Assert that the given request were sent in the given order.
+         *
+         * @param array $callbacks
+         * @return void 
+         * @static 
+         */ 
+        public static function assertSentInOrder($callbacks)
+        {
+                        /** @var \Illuminate\Http\Client\Factory $instance */
+                        $instance->assertSentInOrder($callbacks);
+        }
+                    /**
          * Assert that a request / response pair was not recorded matching a given truth test.
          *
          * @param callable $callback
@@ -7300,7 +7361,7 @@
                     /**
          * Queue a new e-mail message for sending.
          *
-         * @param string|array $view
+         * @param \Illuminate\Contracts\Mail\Mailable|string|array $view
          * @param string|null $queue
          * @return mixed 
          * @static 
@@ -8365,10 +8426,6 @@
             /**
      * 
      *
-     * @method static \Illuminate\Redis\Limiters\ConcurrencyLimiterBuilder funnel(string $name)
-     * @method static \Illuminate\Redis\Limiters\DurationLimiterBuilder throttle(string $name)
-     * @see \Illuminate\Redis\RedisManager
-     * @see \Illuminate\Contracts\Redis\Factory
      */ 
         class Redis {
                     /**
@@ -9075,7 +9132,6 @@
          *
          * @param array $proxies A list of trusted proxies, the string 'REMOTE_ADDR' will be replaced with $_SERVER['REMOTE_ADDR']
          * @param int $trustedHeaderSet A bit field of Request::HEADER_*, to set which headers to trust from your proxies
-         * @throws \InvalidArgumentException When $trustedHeaderSet is invalid
          * @static 
          */ 
         public static function setTrustedProxies($proxies, $trustedHeaderSet)
@@ -9745,7 +9801,6 @@
          *
          * @param bool $asResource If true, a resource will be returned
          * @return string|resource The request body content or a resource to read the body stream
-         * @throws \LogicException
          * @static 
          */ 
         public static function getContent($asResource = false)
@@ -9887,18 +9942,6 @@
                         return $instance->isFromTrustedProxy();
         }
                     /**
-         * Determine if the given content types match.
-         *
-         * @param string $actual
-         * @param string $type
-         * @return bool 
-         * @static 
-         */ 
-        public static function matchesType($actual, $type)
-        {
-                        return \Illuminate\Http\Request::matchesType($actual, $type);
-        }
-                    /**
          * Determine if the request is sending JSON.
          *
          * @return bool 
@@ -9987,6 +10030,18 @@
         {
                         /** @var \Illuminate\Http\Request $instance */
                         return $instance->acceptsHtml();
+        }
+                    /**
+         * Determine if the given content types match.
+         *
+         * @param string $actual
+         * @param string $type
+         * @return bool 
+         * @static 
+         */ 
+        public static function matchesType($actual, $type)
+        {
+                        return \Illuminate\Http\Request::matchesType($actual, $type);
         }
                     /**
          * Get the data format expected in the response.
@@ -10395,6 +10450,7 @@
                     /**
          * Dump the items.
          *
+         * @param array $keys
          * @return \Illuminate\Http\Request 
          * @static 
          */ 
@@ -10442,6 +10498,7 @@
                     /**
          * 
          *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
          * @param array $rules
          * @param mixed $params
          * @static 
@@ -10453,6 +10510,7 @@
                     /**
          * 
          *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
          * @param string $errorBag
          * @param array $rules
          * @param mixed $params
@@ -10465,6 +10523,7 @@
                     /**
          * 
          *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestSignatureValidation()
          * @param mixed $absolute
          * @static 
          */ 
@@ -10475,6 +10534,7 @@
                     /**
          * 
          *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestSignatureValidation()
          * @static 
          */ 
         public static function hasValidRelativeSignature()
@@ -11585,6 +11645,7 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::auth()
          * @param mixed $options
          * @static 
          */ 
@@ -11595,6 +11656,7 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::resetPassword()
          * @static 
          */ 
         public static function resetPassword()
@@ -11604,6 +11666,7 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::confirmPassword()
          * @static 
          */ 
         public static function confirmPassword()
@@ -11613,6 +11676,7 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::emailVerification()
          * @static 
          */ 
         public static function emailVerification()
@@ -11627,6 +11691,30 @@
      * @see \Illuminate\Database\Schema\Builder
      */ 
         class Schema {
+                    /**
+         * Create a database in the schema.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function createDatabase($name)
+        {            //Method inherited from \Illuminate\Database\Schema\MySqlBuilder         
+                        /** @var \Grimzy\LaravelMysqlSpatial\Schema\Builder $instance */
+                        return $instance->createDatabase($name);
+        }
+                    /**
+         * Drop a database from the schema if the database exists.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function dropDatabaseIfExists($name)
+        {            //Method inherited from \Illuminate\Database\Schema\MySqlBuilder         
+                        /** @var \Grimzy\LaravelMysqlSpatial\Schema\Builder $instance */
+                        return $instance->dropDatabaseIfExists($name);
+        }
                     /**
          * Determine if the given table exists.
          *
@@ -14645,6 +14733,17 @@
                     /**
          * 
          *
+         * @see \Barryvdh\Debugbar\ServiceProvider::register()
+         * @static 
+         */ 
+        public static function debug()
+        {
+                        return \Illuminate\Support\Collection::debug();
+        }
+                    /**
+         * 
+         *
+         * @see \Maatwebsite\Excel\Mixins\DownloadCollection::downloadExcel()
          * @param string $fileName
          * @param string|null $writerType
          * @param mixed $withHeadings
@@ -14657,6 +14756,7 @@
                     /**
          * 
          *
+         * @see \Maatwebsite\Excel\Mixins\StoreCollection::storeExcel()
          * @param string $filePath
          * @param string|null $disk
          * @param string|null $writerType
@@ -14666,6 +14766,17 @@
         public static function storeExcel($filePath, $disk = null, $writerType = null, $withHeadings = false)
         {
                         return \Illuminate\Support\Collection::storeExcel($filePath, $disk, $writerType, $withHeadings);
+        }
+                    /**
+         * 
+         *
+         * @see \Spatie\LaravelRay\RayServiceProvider::registerMacros()
+         * @param string $description
+         * @static 
+         */ 
+        public static function ray($description = '')
+        {
+                        return \Illuminate\Support\Collection::ray($description);
         }
          
     }
@@ -16464,6 +16575,1301 @@
      
 }
 
+    namespace Flugg\Responder\Facades { 
+            /**
+     * A facade class responsible for giving easy access to the responder service.
+     *
+     * @package flugger/laravel-responder
+     * @author Alexander Tømmerås <flugged@gmail.com>
+     * @license The MIT License
+     * @see \Flugg\Responder\Responder
+     */ 
+        class Responder {
+                    /**
+         * Build a successful response.
+         *
+         * @param mixed $data
+         * @param callable|string|\Flugg\Responder\Transformers\Transformer|null $transformer
+         * @param string|null $resourceKey
+         * @return \Flugg\Responder\Http\Responses\SuccessResponseBuilder 
+         * @static 
+         */ 
+        public static function success($data = null, $transformer = null, $resourceKey = null)
+        {
+                        /** @var \Flugg\Responder\Responder $instance */
+                        return $instance->success($data, $transformer, $resourceKey);
+        }
+                    /**
+         * Build an error response.
+         *
+         * @param mixed|null $errorCode
+         * @param string|null $message
+         * @return \Flugg\Responder\Http\Responses\ErrorResponseBuilder 
+         * @static 
+         */ 
+        public static function error($errorCode = null, $message = null)
+        {
+                        /** @var \Flugg\Responder\Responder $instance */
+                        return $instance->error($errorCode, $message);
+        }
+         
+    }
+            /**
+     * A facade class responsible for giving easy access to the transformer service.
+     *
+     * @package flugger/laravel-responder
+     * @author Alexander Tømmerås <flugged@gmail.com>
+     * @license The MIT License
+     * @see \Flugg\Responder\Transformer
+     */ 
+        class Transformation {
+                    /**
+         * Make a new transformation to transform data without serializing.
+         *
+         * @param mixed $data
+         * @param \Flugg\Responder\Transformers\Transformer|callable|string|null $transformer
+         * @param string|null $resourceKey
+         * @return \Flugg\Responder\TransformBuilder 
+         * @static 
+         */ 
+        public static function make($data = null, $transformer = null, $resourceKey = null)
+        {
+                        /** @var \Flugg\Responder\Transformation $instance */
+                        return $instance->make($data, $transformer, $resourceKey);
+        }
+         
+    }
+     
+}
+
+    namespace Aerni\Spotify\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class SpotifyClientFacade {
+                    /**
+         * Asynchronously send an HTTP request.
+         *
+         * @param array $options Request options to apply to the given
+         *                       request and to the transfer. See \GuzzleHttp\RequestOptions.
+         * @static 
+         */ 
+        public static function sendAsync($request, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->sendAsync($request, $options);
+        }
+                    /**
+         * Send an HTTP request.
+         *
+         * @param array $options Request options to apply to the given
+         *                       request and to the transfer. See \GuzzleHttp\RequestOptions.
+         * @throws GuzzleException
+         * @static 
+         */ 
+        public static function send($request, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->send($request, $options);
+        }
+                    /**
+         * The HttpClient PSR (PSR-18) specify this method.
+         *
+         * @inheritDoc 
+         * @static 
+         */ 
+        public static function sendRequest($request)
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->sendRequest($request);
+        }
+                    /**
+         * Create and send an asynchronous HTTP request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well. Use an array to provide a URL
+         * template and additional variables to use in the URL template expansion.
+         *
+         * @param string $method HTTP method
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply. See \GuzzleHttp\RequestOptions.
+         * @static 
+         */ 
+        public static function requestAsync($method, $uri = '', $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->requestAsync($method, $uri, $options);
+        }
+                    /**
+         * Create and send an HTTP request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well.
+         *
+         * @param string $method HTTP method.
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply. See \GuzzleHttp\RequestOptions.
+         * @throws GuzzleException
+         * @static 
+         */ 
+        public static function request($method, $uri = '', $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->request($method, $uri, $options);
+        }
+                    /**
+         * Get a client configuration option.
+         * 
+         * These options include default request options of the client, a "handler"
+         * (if utilized by the concrete client), and a "base_uri" if utilized by
+         * the concrete client.
+         *
+         * @param string|null $option The config option to retrieve.
+         * @return mixed 
+         * @deprecated Client::getConfig will be removed in guzzlehttp/guzzle:8.0.
+         * @static 
+         */ 
+        public static function getConfig($option = null)
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->getConfig($option);
+        }
+                    /**
+         * Create and send an HTTP GET request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @throws GuzzleException
+         * @static 
+         */ 
+        public static function get($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->get($uri, $options);
+        }
+                    /**
+         * Create and send an HTTP HEAD request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @throws GuzzleException
+         * @static 
+         */ 
+        public static function head($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->head($uri, $options);
+        }
+                    /**
+         * Create and send an HTTP PUT request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @throws GuzzleException
+         * @static 
+         */ 
+        public static function put($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->put($uri, $options);
+        }
+                    /**
+         * Create and send an HTTP POST request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @throws GuzzleException
+         * @static 
+         */ 
+        public static function post($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->post($uri, $options);
+        }
+                    /**
+         * Create and send an HTTP PATCH request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @throws GuzzleException
+         * @static 
+         */ 
+        public static function patch($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->patch($uri, $options);
+        }
+                    /**
+         * Create and send an HTTP DELETE request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @throws GuzzleException
+         * @static 
+         */ 
+        public static function delete($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->delete($uri, $options);
+        }
+                    /**
+         * Create and send an asynchronous HTTP GET request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well. Use an array to provide a URL
+         * template and additional variables to use in the URL template expansion.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @static 
+         */ 
+        public static function getAsync($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->getAsync($uri, $options);
+        }
+                    /**
+         * Create and send an asynchronous HTTP HEAD request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well. Use an array to provide a URL
+         * template and additional variables to use in the URL template expansion.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @static 
+         */ 
+        public static function headAsync($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->headAsync($uri, $options);
+        }
+                    /**
+         * Create and send an asynchronous HTTP PUT request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well. Use an array to provide a URL
+         * template and additional variables to use in the URL template expansion.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @static 
+         */ 
+        public static function putAsync($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->putAsync($uri, $options);
+        }
+                    /**
+         * Create and send an asynchronous HTTP POST request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well. Use an array to provide a URL
+         * template and additional variables to use in the URL template expansion.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @static 
+         */ 
+        public static function postAsync($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->postAsync($uri, $options);
+        }
+                    /**
+         * Create and send an asynchronous HTTP PATCH request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well. Use an array to provide a URL
+         * template and additional variables to use in the URL template expansion.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @static 
+         */ 
+        public static function patchAsync($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->patchAsync($uri, $options);
+        }
+                    /**
+         * Create and send an asynchronous HTTP DELETE request.
+         * 
+         * Use an absolute path to override the base path of the client, or a
+         * relative path to append to the base path of the client. The URL can
+         * contain the query string as well. Use an array to provide a URL
+         * template and additional variables to use in the URL template expansion.
+         *
+         * @param string|\GuzzleHttp\UriInterface $uri URI object or string.
+         * @param array $options Request options to apply.
+         * @static 
+         */ 
+        public static function deleteAsync($uri, $options = [])
+        {            //Method inherited from \GuzzleHttp\Client         
+                        /** @var \Aerni\Spotify\Clients\SpotifyClient $instance */
+                        return $instance->deleteAsync($uri, $options);
+        }
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class SpotifyFacade {
+                    /**
+         * Get Spotify catalog information for a single album.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function album($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->album($id);
+        }
+                    /**
+         * Get Spotify catalog information about an album’s tracks. Optional parameters can be used to limit the number of tracks returned.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function albumTracks($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->albumTracks($id);
+        }
+                    /**
+         * Get Spotify catalog information for multiple albums identified by their Spotify IDs.
+         *
+         * @param array|string $ids
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function albums($ids)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->albums($ids);
+        }
+                    /**
+         * Get Spotify catalog information for a single artist identified by their unique Spotify ID.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function artist($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->artist($id);
+        }
+                    /**
+         * Get Spotify catalog information about an artist’s albums. Optional parameters can be specified in the query string to filter and sort the response.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function artistAlbums($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->artistAlbums($id);
+        }
+                    /**
+         * Get Spotify catalog information about an artist’s top tracks by country.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function artistTopTracks($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->artistTopTracks($id);
+        }
+                    /**
+         * Get Spotify catalog information about artists similar to a given artist. Similarity is based on analysis of the Spotify community’s listening history.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function artistRelatedArtists($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->artistRelatedArtists($id);
+        }
+                    /**
+         * Get Spotify catalog information for several artists based on their Spotify IDs.
+         *
+         * @param array|string $ids
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function artists($ids)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->artists($ids);
+        }
+                    /**
+         * Get a single category used to tag items in Spotify (on, for example, the Spotify player’s “Browse” tab).
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function category($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->category($id);
+        }
+                    /**
+         * Get a list of Spotify playlists tagged with a particular category.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function categoryPlaylists($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->categoryPlaylists($id);
+        }
+                    /**
+         * Get a list of categories used to tag items in Spotify (on, for example, the Spotify player’s “Browse” tab).
+         *
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function categories()
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->categories();
+        }
+                    /**
+         * Get Spotify catalog information for a single episode identified by its unique Spotify ID.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function episode($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->episode($id);
+        }
+                    /**
+         * Get Spotify catalog information for several episodes based on their Spotify IDs.
+         *
+         * @param array|string $ids
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function episodes($ids)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->episodes($ids);
+        }
+                    /**
+         * Get a list of Spotify featured playlists (shown, for example, on a Spotify player’s ‘Browse’ tab).
+         *
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function featuredPlaylists()
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->featuredPlaylists();
+        }
+                    /**
+         * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
+         *
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function newReleases()
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->newReleases();
+        }
+                    /**
+         * Create a playlist-style listening experience based on seed artists, tracks and genres.
+         *
+         * @param \SpotifySeed $seed
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function recommendations($seed)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->recommendations($seed);
+        }
+                    /**
+         * Get available genre seeds.
+         *
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function availableGenreSeeds()
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->availableGenreSeeds();
+        }
+                    /**
+         * Get the current image associated with a specific playlist.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function playlistCoverImage($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->playlistCoverImage($id);
+        }
+                    /**
+         * Get a playlist owned by a Spotify user.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function playlist($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->playlist($id);
+        }
+                    /**
+         * Get full details of the tracks of a playlist owned by a Spotify user.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function playlistTracks($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->playlistTracks($id);
+        }
+                    /**
+         * Get Spotify Catalog information about artists, albums, tracks or playlists that match a keyword string.
+         *
+         * @param string $query
+         * @param array|string $type
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function searchItems($query, $type)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->searchItems($query, $type);
+        }
+                    /**
+         * Get Spotify Catalog information about albums that match a keyword string.
+         *
+         * @param string $query
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function searchAlbums($query)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->searchAlbums($query);
+        }
+                    /**
+         * Get Spotify Catalog information about artists that match a keyword string.
+         *
+         * @param string $query
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function searchArtists($query)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->searchArtists($query);
+        }
+                    /**
+         * Get Spotify Catalog information about episodes that match a keyword string.
+         *
+         * @param string $query
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function searchEpisodes($query)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->searchEpisodes($query);
+        }
+                    /**
+         * Get Spotify Catalog information about playlists that match a keyword string.
+         *
+         * @param string $query
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function searchPlaylists($query)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->searchPlaylists($query);
+        }
+                    /**
+         * Get Spotify Catalog information about shows that match a keyword string.
+         *
+         * @param string $query
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function searchShows($query)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->searchShows($query);
+        }
+                    /**
+         * Get Spotify Catalog information about tracks that match a keyword string.
+         *
+         * @param string $query
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function searchTracks($query)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->searchTracks($query);
+        }
+                    /**
+         * Get Spotify catalog information for a single show identified by its unique Spotify ID.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function show($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->show($id);
+        }
+                    /**
+         * Get Spotify catalog information for several shows based on their Spotify IDs.
+         *
+         * @param array|string $ids
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function shows($ids)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->shows($ids);
+        }
+                    /**
+         * Get Spotify catalog information about a show’s episodes.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function showEpisodes($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->showEpisodes($id);
+        }
+                    /**
+         * Get a detailed audio analysis for a single track identified by its unique Spotify ID.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function audioAnalysisForTrack($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->audioAnalysisForTrack($id);
+        }
+                    /**
+         * Get audio feature information for a single track identified by its unique Spotify ID.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function audioFeaturesForTrack($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->audioFeaturesForTrack($id);
+        }
+                    /**
+         * Get audio features for multiple tracks based on their Spotify IDs.
+         *
+         * @param array|string $ids
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function audioFeaturesForTracks($ids)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->audioFeaturesForTracks($ids);
+        }
+                    /**
+         * Get Spotify catalog information for multiple tracks based on their Spotify IDs.
+         *
+         * @param array|string $ids
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function tracks($ids)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->tracks($ids);
+        }
+                    /**
+         * Get Spotify catalog information for a single track identified by its unique Spotify ID.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function track($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->track($id);
+        }
+                    /**
+         * Get public profile information about a Spotify user.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function user($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->user($id);
+        }
+                    /**
+         * Get a list of the playlists owned or followed by a Spotify user.
+         *
+         * @param string $id
+         * @return \Aerni\Spotify\PendingRequest 
+         * @static 
+         */ 
+        public static function userPlaylists($id)
+        {
+                        /** @var \Aerni\Spotify\Spotify $instance */
+                        return $instance->userPlaylists($id);
+        }
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class SpotifySeedFacade {
+                    /**
+         * Add an artist to the artists seeds.
+         *
+         * @param string $id
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function addArtist($id)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->addArtist($id);
+        }
+                    /**
+         * Add artists to the artists seeds.
+         *
+         * @param array|string $ids
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function addArtists($ids)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->addArtists($ids);
+        }
+                    /**
+         * Set artists as seed.
+         *
+         * @param array|string $ids
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setArtists($ids)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setArtists($ids);
+        }
+                    /**
+         * Add genre to the genres seeds.
+         *
+         * @param string $id
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function addGenre($id)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->addGenre($id);
+        }
+                    /**
+         * Add genres to the genres seeds.
+         *
+         * @param array|string $ids
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function addGenres($ids)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->addGenres($ids);
+        }
+                    /**
+         * Set genres as seed.
+         *
+         * @param array|string $ids
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setGenres($ids)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setGenres($ids);
+        }
+                    /**
+         * Add track to the tracks seeds.
+         *
+         * @param string $id
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function addTrack($id)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->addTrack($id);
+        }
+                    /**
+         * Add tracks to the tracks seeds.
+         *
+         * @param array|string $ids
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function addTracks($ids)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->addTracks($ids);
+        }
+                    /**
+         * Set tracks as seed.
+         *
+         * @param array|string $ids
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTracks($ids)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTracks($ids);
+        }
+                    /**
+         * Set acousticness range.
+         *
+         * @param float $min
+         * @param float $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setAcousticness($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setAcousticness($min, $max);
+        }
+                    /**
+         * Set target acousticness.
+         *
+         * @param float $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetAcousticness($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetAcousticness($target);
+        }
+                    /**
+         * Set danceability range.
+         *
+         * @param float $min
+         * @param float $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setDanceability($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setDanceability($min, $max);
+        }
+                    /**
+         * Set target danceability.
+         *
+         * @param float $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetDanceability($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetDanceability($target);
+        }
+                    /**
+         * Set duration range.
+         *
+         * @param int $min
+         * @param int $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setDuration($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setDuration($min, $max);
+        }
+                    /**
+         * Set target duration.
+         *
+         * @param int $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetDuration($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetDuration($target);
+        }
+                    /**
+         * Set energy range.
+         *
+         * @param float $min
+         * @param float $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setEnergy($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setEnergy($min, $max);
+        }
+                    /**
+         * Set target energy.
+         *
+         * @param float $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetEnergy($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetEnergy($target);
+        }
+                    /**
+         * Set instrumentalness range.
+         *
+         * @param float $min
+         * @param float $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setInstrumentalness($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setInstrumentalness($min, $max);
+        }
+                    /**
+         * Set target instrumentalness.
+         *
+         * @param float $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetInstrumentalness($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetInstrumentalness($target);
+        }
+                    /**
+         * Set key range.
+         *
+         * @param int $min
+         * @param int $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setKey($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setKey($min, $max);
+        }
+                    /**
+         * Set target key.
+         *
+         * @param int $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetKey($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetKey($target);
+        }
+                    /**
+         * Set liveness range.
+         *
+         * @param float $min
+         * @param float $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setLiveness($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setLiveness($min, $max);
+        }
+                    /**
+         * Set target liveness.
+         *
+         * @param float $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetLiveness($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetLiveness($target);
+        }
+                    /**
+         * Set loudness range.
+         *
+         * @param float $min
+         * @param float $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setLoudness($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setLoudness($min, $max);
+        }
+                    /**
+         * Set target loudness.
+         *
+         * @param float $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetLoudness($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetLoudness($target);
+        }
+                    /**
+         * Set mode range.
+         *
+         * @param int $min
+         * @param int $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setMode($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setMode($min, $max);
+        }
+                    /**
+         * Set target mode.
+         *
+         * @param int $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetMode($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetMode($target);
+        }
+                    /**
+         * Set popularity range.
+         *
+         * @param float $min
+         * @param float $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setPopularity($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setPopularity($min, $max);
+        }
+                    /**
+         * Set target popularity.
+         *
+         * @param float $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetPopularity($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetPopularity($target);
+        }
+                    /**
+         * Set speechiness range.
+         *
+         * @param float $min
+         * @param float $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setSpeechiness($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setSpeechiness($min, $max);
+        }
+                    /**
+         * Set target speechiness.
+         *
+         * @param float $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetSpeechiness($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetSpeechiness($target);
+        }
+                    /**
+         * Set tempo range.
+         *
+         * @param int $min
+         * @param int $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTempo($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTempo($min, $max);
+        }
+                    /**
+         * Set target tempo.
+         *
+         * @param int $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetTempo($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetTempo($target);
+        }
+                    /**
+         * Set time signature range.
+         *
+         * @param int $min
+         * @param int $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTimeSignature($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTimeSignature($min, $max);
+        }
+                    /**
+         * Set target time signature.
+         *
+         * @param int $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetTimeSignature($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetTimeSignature($target);
+        }
+                    /**
+         * Set valence range.
+         *
+         * @param float $min
+         * @param float $max
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setValence($min, $max)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setValence($min, $max);
+        }
+                    /**
+         * Set target valence.
+         *
+         * @param float $target
+         * @return \SpotifySeed 
+         * @static 
+         */ 
+        public static function setTargetValence($target)
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->setTargetValence($target);
+        }
+                    /**
+         * Get the final array for the API request.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getArrayForApi()
+        {
+                        /** @var \Aerni\Spotify\SpotifySeed $instance */
+                        return $instance->getArrayForApi();
+        }
+         
+    }
+     
+}
+
     namespace L5Swagger { 
             /**
      * 
@@ -17537,6 +18943,7 @@
                     /**
          * 
          *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
          * @param array $rules
          * @param mixed $params
          * @static 
@@ -17548,6 +18955,7 @@
                     /**
          * 
          *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestValidation()
          * @param string $errorBag
          * @param array $rules
          * @param mixed $params
@@ -17560,6 +18968,7 @@
                     /**
          * 
          *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestSignatureValidation()
          * @param mixed $absolute
          * @static 
          */ 
@@ -17570,6 +18979,7 @@
                     /**
          * 
          *
+         * @see \Illuminate\Foundation\Providers\FoundationServiceProvider::registerRequestSignatureValidation()
          * @static 
          */ 
         public static function hasValidRelativeSignature()
@@ -17591,6 +19001,7 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::auth()
          * @param mixed $options
          * @static 
          */ 
@@ -17601,6 +19012,7 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::resetPassword()
          * @static 
          */ 
         public static function resetPassword()
@@ -17610,6 +19022,7 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::confirmPassword()
          * @static 
          */ 
         public static function confirmPassword()
@@ -17619,11 +19032,34 @@
                     /**
          * 
          *
+         * @see \Laravel\Ui\AuthRouteMethods::emailVerification()
          * @static 
          */ 
         public static function emailVerification()
         {
                         return \Illuminate\Routing\Router::emailVerification();
+        }
+         
+    }
+     
+}
+
+    namespace Illuminate\Testing { 
+            /**
+     * 
+     *
+     * @mixin \Illuminate\Http\Response
+     */ 
+        class TestResponse {
+                    /**
+         * 
+         *
+         * @see \Spatie\LaravelRay\RayServiceProvider::registerMacros()
+         * @static 
+         */ 
+        public static function ray()
+        {
+                        return \Illuminate\Testing\TestResponse::ray();
         }
          
     }
@@ -17961,6 +19397,21 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Eloquent\Builder $instance */
                                 return $instance->firstOr($columns, $callback);
+            }
+             
+                /**
+             * Execute the query and get the first result if it's the sole matching record.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Eloquent\Model 
+             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+             * @throws \Illuminate\Database\MultipleRecordsFoundException
+             * @static 
+             */ 
+            public static function sole($columns = [])
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->sole($columns);
             }
              
                 /**
@@ -18330,122 +19781,6 @@ namespace  {
             }
              
                 /**
-             * Chunk the results of the query.
-             *
-             * @param int $count
-             * @param callable $callback
-             * @return bool 
-             * @static 
-             */ 
-            public static function chunk($count, $callback)
-            {
-                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
-                                return $instance->chunk($count, $callback);
-            }
-             
-                /**
-             * Execute a callback over each item while chunking.
-             *
-             * @param callable $callback
-             * @param int $count
-             * @return bool 
-             * @static 
-             */ 
-            public static function each($callback, $count = 1000)
-            {
-                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
-                                return $instance->each($callback, $count);
-            }
-             
-                /**
-             * Chunk the results of a query by comparing IDs.
-             *
-             * @param int $count
-             * @param callable $callback
-             * @param string|null $column
-             * @param string|null $alias
-             * @return bool 
-             * @static 
-             */ 
-            public static function chunkById($count, $callback, $column = null, $alias = null)
-            {
-                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
-                                return $instance->chunkById($count, $callback, $column, $alias);
-            }
-             
-                /**
-             * Execute a callback over each item while chunking by ID.
-             *
-             * @param callable $callback
-             * @param int $count
-             * @param string|null $column
-             * @param string|null $alias
-             * @return bool 
-             * @static 
-             */ 
-            public static function eachById($callback, $count = 1000, $column = null, $alias = null)
-            {
-                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
-                                return $instance->eachById($callback, $count, $column, $alias);
-            }
-             
-                /**
-             * Execute the query and get the first result.
-             *
-             * @param array|string $columns
-             * @return \Illuminate\Database\Eloquent\Model|object|static|null 
-             * @static 
-             */ 
-            public static function first($columns = [])
-            {
-                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
-                                return $instance->first($columns);
-            }
-             
-                /**
-             * Apply the callback's query changes if the given "value" is true.
-             *
-             * @param mixed $value
-             * @param callable $callback
-             * @param callable|null $default
-             * @return mixed|$this 
-             * @static 
-             */ 
-            public static function when($value, $callback, $default = null)
-            {
-                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
-                                return $instance->when($value, $callback, $default);
-            }
-             
-                /**
-             * Pass the query to a given callback.
-             *
-             * @param callable $callback
-             * @return \Illuminate\Database\Eloquent\Builder|static 
-             * @static 
-             */ 
-            public static function tap($callback)
-            {
-                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
-                                return $instance->tap($callback);
-            }
-             
-                /**
-             * Apply the callback's query changes if the given "value" is false.
-             *
-             * @param mixed $value
-             * @param callable $callback
-             * @param callable|null $default
-             * @return mixed|$this 
-             * @static 
-             */ 
-            public static function unless($value, $callback, $default = null)
-            {
-                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
-                                return $instance->unless($value, $callback, $default);
-            }
-             
-                /**
              * Add a relationship count / exists condition to the query.
              *
              * @param \Illuminate\Database\Eloquent\Relations\Relation|string $relation
@@ -18804,6 +20139,137 @@ namespace  {
             }
              
                 /**
+             * Chunk the results of the query.
+             *
+             * @param int $count
+             * @param callable $callback
+             * @return bool 
+             * @static 
+             */ 
+            public static function chunk($count, $callback)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->chunk($count, $callback);
+            }
+             
+                /**
+             * Execute a callback over each item while chunking.
+             *
+             * @param callable $callback
+             * @param int $count
+             * @return bool 
+             * @static 
+             */ 
+            public static function each($callback, $count = 1000)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->each($callback, $count);
+            }
+             
+                /**
+             * Chunk the results of a query by comparing IDs.
+             *
+             * @param int $count
+             * @param callable $callback
+             * @param string|null $column
+             * @param string|null $alias
+             * @return bool 
+             * @static 
+             */ 
+            public static function chunkById($count, $callback, $column = null, $alias = null)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->chunkById($count, $callback, $column, $alias);
+            }
+             
+                /**
+             * Execute a callback over each item while chunking by ID.
+             *
+             * @param callable $callback
+             * @param int $count
+             * @param string|null $column
+             * @param string|null $alias
+             * @return bool 
+             * @static 
+             */ 
+            public static function eachById($callback, $count = 1000, $column = null, $alias = null)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->eachById($callback, $count, $column, $alias);
+            }
+             
+                /**
+             * Execute the query and get the first result.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Eloquent\Model|object|static|null 
+             * @static 
+             */ 
+            public static function first($columns = [])
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->first($columns);
+            }
+             
+                /**
+             * Execute the query and get the first result if it's the sole matching record.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Eloquent\Model|object|static|null 
+             * @throws \Illuminate\Database\RecordsNotFoundException
+             * @throws \Illuminate\Database\MultipleRecordsFoundException
+             * @static 
+             */ 
+            public static function baseSole($columns = [])
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->baseSole($columns);
+            }
+             
+                /**
+             * Apply the callback's query changes if the given "value" is true.
+             *
+             * @param mixed $value
+             * @param callable $callback
+             * @param callable|null $default
+             * @return mixed|$this 
+             * @static 
+             */ 
+            public static function when($value, $callback, $default = null)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->when($value, $callback, $default);
+            }
+             
+                /**
+             * Pass the query to a given callback.
+             *
+             * @param callable $callback
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */ 
+            public static function tap($callback)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->tap($callback);
+            }
+             
+                /**
+             * Apply the callback's query changes if the given "value" is false.
+             *
+             * @param mixed $value
+             * @param callable $callback
+             * @param callable|null $default
+             * @return mixed|$this 
+             * @static 
+             */ 
+            public static function unless($value, $callback, $default = null)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->unless($value, $callback, $default);
+            }
+             
+                /**
              * Set the columns to be selected.
              *
              * @param array|mixed $columns
@@ -18951,7 +20417,7 @@ namespace  {
                 /**
              * Add a subquery join clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|string $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
              * @param string $as
              * @param \Closure|string $first
              * @param string|null $operator
@@ -19003,7 +20469,7 @@ namespace  {
                 /**
              * Add a subquery left join to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|string $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
              * @param string $as
              * @param \Closure|string $first
              * @param string|null $operator
@@ -19052,7 +20518,7 @@ namespace  {
                 /**
              * Add a subquery right join to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|string $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
              * @param string $as
              * @param \Closure|string $first
              * @param string|null $operator
@@ -20746,6 +22212,11 @@ namespace  {
             class Html extends \Collective\Html\HtmlFacade {}
             class Flash extends \Laracasts\Flash\Flash {}
             class Debugbar extends \Barryvdh\Debugbar\Facade {}
+            class Responder extends \Flugg\Responder\Facades\Responder {}
+            class Transformation extends \Flugg\Responder\Facades\Transformation {}
+            class SpotifyClient extends \Aerni\Spotify\Facades\SpotifyClientFacade {}
+            class Spotify extends \Aerni\Spotify\Facades\SpotifyFacade {}
+            class SpotifySeed extends \Aerni\Spotify\Facades\SpotifySeedFacade {}
             class L5Swagger extends \L5Swagger\L5SwaggerFacade {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Image extends \Intervention\Image\Facades\Image {}

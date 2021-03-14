@@ -41,6 +41,7 @@ class UserFactory extends Factory
             'available_to_hire' => true,
             'location' =>  DB::raw($location),
             'uuid' => $faker->uuid,
+           // 'avatar' =>  'https://www.gravatar.com/avatar/'.md5(strtolower($faker->email)).'jpg?s=200&d=mm'
         ];
 
         return $user;

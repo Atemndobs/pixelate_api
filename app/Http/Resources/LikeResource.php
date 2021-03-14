@@ -15,13 +15,16 @@ class LikeResource extends JsonResource
      */
     public function toArray($request)
     {
+        $reactions = $this->getLoveReactant()->getReactions();
         return [
-            'reaction_type'=>$this->reaction_type?:'',
+            'reaction_type' =>  $reactions->map(function ($reaction) {
+                return $reaction->reaction_type_id;
+            })->first(),
             'icon_class' =>'eva-heart-outline',
             'color' => $this->color?:'black',
-            'likes_count' => $this->getLoveReactant()->getReactions()->where('reaction_type_id', 1)->count(),
-            'dislikes_count' => $this->getLoveReactant()->getReactions()->where('reaction_type_id', 2)->count(),
-            'reaction_count' => $this->reaction_count,
+            'likes_count' => $reactions->where('reaction_type_id', 1)->count(),
+            'dislikes_count' => $reactions->where('reaction_type_id', 2)->count(),
+            'reaction_count' => $reactions->count()
         ];
     }
 }

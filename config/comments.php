@@ -1,5 +1,7 @@
 <?php
 
+use Laravelista\Comments\CommentController;
+
 return [
 
     /**
@@ -7,7 +9,7 @@ return [
      * CustomComment model extending the Comment model shipped with the
      * package and change this configuration option to their extended model.
      */
-    'model' => \Laravelista\Comments\Comment::class,
+    'model' => \App\Models\Comment::class,
 
     /**
      * You can customize the behaviour of these permissions by
@@ -25,7 +27,7 @@ return [
      * Change this to your own implementation of the CommentController.
      * You can use the \Laravelista\Comments\CommentControllerInterface.
      */
-    'controller' => '\Laravelista\Comments\CommentController',
+    'controller' => CommentController::class,
 
     /**
      * Disable/enable the package routes.

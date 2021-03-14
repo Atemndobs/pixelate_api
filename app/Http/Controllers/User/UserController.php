@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Eloquent\Criteria\EagerLoad;
 use App\Repositories\Eloquent\Criteria\LatestFirst;
+use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -31,7 +32,6 @@ class UserController extends Controller
     {
         $this->userRepository = $userRepository;
         $this->request = $request;
-
     }
 
 
@@ -63,13 +63,12 @@ class UserController extends Controller
      */
     public function index()
     {
-/*        $users = $this->userRepository->withCriteria([
+       // $users = User::with('posts', 'followers')->get();
+       // return UserResource::collection($users);
 
-        ])->all();*/
-        $users = User::with('posts', 'followers')->get();
+        $users = $this->userRepository->with(['posts', 'followers'])->all();
 
-        return UserResource::collection($users);
-
+        return responder()->success($users, UserTransformer::class);
     }
 
     /**
@@ -119,10 +118,10 @@ class UserController extends Controller
         $designers = $this->userRepository->search($request);
 
         $all_results = [];
-        foreach ($designers as $designer){
+        foreach ($designers as $designer) {
             $all_results[] = $designer[0];
         }
-      return response()->json(['data' => $all_results], 200);
+        return response()->json(['data' => $all_results], 200);
     }
 
     /**
@@ -221,14 +220,14 @@ class UserController extends Controller
         $user = \Auth::user();
 
 
-        if ($user->id === (int)$author_id){
+        if ($user->id === (int)$author_id) {
             return \Response::json(['message' => 'You cannot follow yourself'], '422');
         }
 
-        if ($user->isFollowing($author)){
+        if ($user->isFollowing($author)) {
             $author->revokeFollower($user);
             $message = 'Unfollowed';
-        }else{
+        } else {
             $user->follow($author);
             $message = 'Following';
         }
@@ -241,23 +240,15 @@ class UserController extends Controller
 
         return \Response::json(
             [
-/*                'author_id' => $author->id,
-                'uer_id' => $user->id,
-                'status' => $message,
-                'author_follower_count' => $author_follower_count,
-                'author_following_count' => $author_following_count,
-                'user_following_count' => $user_following_count,
-                'user_follower_count' => $user_follower_count,
-*/
-
                 'is_user_following' => $isFollowing,
                 'follower_count' => $author_follower_count,
                 'following_count' => $author_following_count,
                 'user_following_count' => $user_following_count,
-                'user_follower_count' => $user_follower_count,
-                'user_id' => $user->id,
-                'author_id' => $author->id
+               'user_follower_count' => $user_follower_count,
+               // 'user_id' => $user->id,
+              //  'author_id' => $author->id
             ],
-            200);
+            200
+        );
     }
 }

@@ -3,16 +3,41 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Rules\CheckSamePassword;
 use App\Rules\MatchOldPassword;
+use App\Transformers\UserTransformer;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+use Spatie\Image\Exceptions\InvalidManipulation;
+use Spatie\Image\Image;
+use Spatie\Image\Manipulations;
 
 class SettingsController extends Controller
 {
+    /**
+     * @var Request
+     */
+    public Request $request;
+
+    public UserRepositoryInterface $userRepository;
+
+    /**
+     * SettingsController constructor.
+     * @param Request $request
+     * @param UserRepositoryInterface $userRepository
+     */
+    public function __construct(Request $request, UserRepositoryInterface $userRepository)
+    {
+        $this->request = $request;
+        $this->userRepository = $userRepository;
+    }
+
+
     /**
      * Update User Profile
      * PUT/PATCH /settings/profile
@@ -20,7 +45,7 @@ class SettingsController extends Controller
      *
      * @OA\Put(
      * path="/api/settings/profile",
-     * summary="Update Uder Profile",
+     * summary="Update User Profile",
      * description="Update User Detailed info",
      * tags={"User Profile"},
      * security={ {"token": {} }},
@@ -58,17 +83,16 @@ class SettingsController extends Controller
      *     )
      * )
      *
-     * @param Request $request
-     * @return UserResource
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    public function updateProfile(Request $request)
+    public function updateProfile()
     {
+        $request = $this->request;
         $user = auth()->user();
 
             $this->validate($request, [
                 'name' => ['required'],
-                'tagline' => ['required'],
+               // 'tagline' => ['required'],
                 'formatted_address' => ['required'],
                 'about' => ['required', 'string', 'min:20'],
                 'available_to_hire' => ['required'],
@@ -79,34 +103,38 @@ class SettingsController extends Controller
 
         $points = new Point($request->location['latitude'], $request->location['longitude']);
 
-
         $lat = $points->getLat();
         $long = $points->getLng();
-        $location = "ST_GeomFromText('POINT($lat $long)')";
+        $location = "ST_GeomFromText('POINT($long $lat)')";
 
         $user->update([
             'name' => $request->name,
             'tagline' => $request->tagline,
             'formatted_address' => $request->formatted_address,
+            'username' => $request->username,
             'about' => $request->about,
-            'available_to_hire' => $request->available_to_hire,
+            'available_to_hire' => $request->available_to_hire ==='Yes'? 1 : 0,
             'location' => DB::raw($location)
         ]);
-
-        $query = "SELECT ST_AsGeoJSON(location) as location FROM `users` where `users`.id = $user->id ";
-
+/*      $query = "SELECT ST_AsGeoJSON(location) as location FROM `users` where `users`.id = $user->id ";
         $updated_location = DB::select($query);
-
         $updated_user = new UserResource($user);
         $updated_user->location = json_decode($updated_location[0]->location);
+*/
 
-        return $updated_user;
+        $updated = $this->userRepository->find(auth()->id());
+        return responder()->success($updated, UserTransformer::class);
     }
 
-    public function updatePassword(Request $request)
+    /**
+     * @return JsonResponse
+     * @throws ValidationException
+     */
+    public function updatePassword(): JsonResponse
     {
         //get current password, new password and password confirmation
 
+        $request = $this->request;
         $this->validate($request, [
             'current_password' => ['required', new MatchOldPassword()],
             'password' =>['required', 'confirmed', 'min:6', new CheckSamePassword()]
@@ -118,6 +146,64 @@ class SettingsController extends Controller
 
         return response()->json(['message' => 'Password Updated'], 200);
     }
+
+
+    /**
+     * Update User Profile
+     * POST /settings/profile
+     * @OA\Post(
+     * path="/api/avatar",
+     * summary="Update User Profile Picture (Avatar)",
+     * description="Update User Avatar",
+     * tags={"User Profile"},
+     * security={ {"token": {} }},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass User data",
+     *    @OA\JsonContent(
+     *      @OA\Property(property="about", type="string", example="VERY deeply with a soldier on each." ),
+     *    ),
+     * ),
+     *      @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *      @OA\Property(property="about", type="string", example="VERY deeply with a soldier on each." ),
+     *             )
+     *          ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Upload failed",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Upload failed"),
+     *     )
+     *     )
+     * )
+     * @throws InvalidManipulation
+     */
+    public function updateAvatar()
+    {
+
+        $request = $this->request;
+        $imageUrl = $request->file('image')->store('/avatars', 'public');
+        $this->processImage($imageUrl);
+        $user = User::find(auth()->id());
+        $user->avatar = asset('storage/'.$imageUrl);
+        $user->save();
+
+
+        return response([
+            'avatar' => $user->avatar
+        ], 200);
+    }
+
+    public function deleteAvatar()
+    {
+        return responder()->success();
+    }
+
+
+
 
     /**
      * @OA\Delete (
@@ -164,7 +250,7 @@ class SettingsController extends Controller
 
    //     return $user;
 
-        if ($user === 0){
+        if ($user === 0) {
             return response(
                 [
                     'message' => 'User Already Deleted',
@@ -180,6 +266,18 @@ class SettingsController extends Controller
             ],
             200
         );
+    }
 
+    /**
+     * @param $imageUrl
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
+     */
+    public function processImage($imageUrl): void
+    {
+        Image::load('storage/'.$imageUrl)
+            ->width(100)
+            ->height(100)
+            ->crop(Manipulations::CROP_TOP_RIGHT, 100, 100)
+            ->save();
     }
 }

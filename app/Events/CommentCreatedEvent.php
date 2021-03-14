@@ -4,6 +4,10 @@ namespace App\Events;
 
 use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
+use App\Models\Comment;
+use App\Models\Post;
+use App\Repositories\Contracts\CommentRepositoryInterface;
+use App\Repositories\Contracts\PostRepositoryInterface;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
@@ -17,23 +21,23 @@ class CommentCreatedEvent implements ShouldBroadcastNow
 
 
     /**
-     * @var PostResource
+     * @var Post
      */
-    public PostResource $postResource;
+    public Post $post;
 
     /**
-     * @var CommentResource
+     * @var Comment
      */
-    public CommentResource $comment;
+    public Comment $comment;
 
     /**
      * CommentCreatedEvent constructor.
-     * @param PostResource $postResource
-     * @param CommentResource $comment
+     * @param Post $post
+     * @param Comment $comment
      */
-    public function __construct(PostResource $postResource, CommentResource $comment)
+    public function __construct(Post $post, Comment $comment)
     {
-        $this->postResource = $postResource;
+        $this->post= $post;
         $this->comment = $comment;
     }
 
@@ -52,9 +56,9 @@ class CommentCreatedEvent implements ShouldBroadcastNow
     public function broadcastWith()
     {
         return [
-            'post_id' => $this->postResource->id,
-            'comments_count' => $this->postResource->comments->count(),
-            'new_comment' => $this->comment
+            'post_id' => $this->post->id,
+            'comments_count' => $this->post->comments_count,
+            'new_comment' => $this->comment,
 /*            'new_comment' => [
                 "id" => $this->comment->id,
                 "commenter_id" => $this->comment->commenter_id,

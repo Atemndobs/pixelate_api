@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5fe10adedcdc56e9de236d65654d74e",
+    "content-hash": "7d714b4aa7475aebcd728bbe4f11e37c",
     "packages": [
         {
             "name": "aerni/laravel-spotify",
@@ -2370,6 +2370,80 @@
             "time": "2020-10-22T13:48:01+00:00"
         },
         {
+            "name": "flugger/laravel-responder",
+            "version": "v3.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flugg/laravel-responder.git",
+                "reference": "a6f18e60168009f1ff192008017cac51ae3eef7f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/flugg/laravel-responder/zipball/a6f18e60168009f1ff192008017cac51ae3eef7f",
+                "reference": "a6f18e60168009f1ff192008017cac51ae3eef7f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^5.1|^6.0|^7.0|^8.0",
+                "illuminate/support": "^5.1|^6.0|^7.0|^8.0",
+                "league/fractal": "^0.17.0",
+                "php": "^7.0|^8.0"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^2.5",
+                "illuminate/database": "^5.1|^6.0|^7.0|^8.0",
+                "mockery/mockery": "^0.9.5|^1.0",
+                "orchestra/testbench": "^4.0|^5.0|^6.0",
+                "phpunit/phpunit": "^8.5|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Flugg\\Responder\\ResponderServiceProvider"
+                    ],
+                    "aliases": {
+                        "Responder": "Flugg\\Responder\\Facades\\Responder",
+                        "Transformer": "Flugg\\Responder\\Facades\\Transformer"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Flugg\\Responder\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Tømmerås",
+                    "email": "flugged@gmail.com"
+                }
+            ],
+            "description": "A Laravel Fractal package for building API responses, giving you the power of Fractal and the elegancy of Laravel.",
+            "homepage": "https://github.com/flugger/laravel-responder",
+            "keywords": [
+                "api",
+                "fractal",
+                "laravel",
+                "lumen",
+                "responder",
+                "response",
+                "transformer"
+            ],
+            "support": {
+                "issues": "https://github.com/flugg/laravel-responder/issues",
+                "source": "https://github.com/flugg/laravel-responder/tree/v3.1.3"
+            },
+            "time": "2020-12-09T14:52:27+00:00"
+        },
+        {
             "name": "fruitcake/laravel-cors",
             "version": "v2.0.3",
             "source": {
@@ -4170,6 +4244,74 @@
             "time": "2020-10-08T18:58:37+00:00"
         },
         {
+            "name": "league/fractal",
+            "version": "0.17.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/fractal.git",
+                "reference": "a0b350824f22fc2fdde2500ce9d6851a3f275b0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/fractal/zipball/a0b350824f22fc2fdde2500ce9d6851a3f275b0e",
+                "reference": "a0b350824f22fc2fdde2500ce9d6851a3f275b0e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.5",
+                "illuminate/contracts": "~5.0",
+                "mockery/mockery": "~0.9",
+                "pagerfanta/pagerfanta": "~1.0.0",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5",
+                "zendframework/zend-paginator": "~2.3"
+            },
+            "suggest": {
+                "illuminate/pagination": "The Illuminate Pagination component.",
+                "pagerfanta/pagerfanta": "Pagerfanta Paginator",
+                "zendframework/zend-paginator": "Zend Framework Paginator"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.13-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Fractal\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Phil Sturgeon",
+                    "email": "me@philsturgeon.uk",
+                    "homepage": "http://philsturgeon.uk/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Handle the output of complex data structures ready for API output.",
+            "homepage": "http://fractal.thephpleague.com/",
+            "keywords": [
+                "api",
+                "json",
+                "league",
+                "rest"
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/fractal/issues",
+                "source": "https://github.com/thephpleague/fractal/tree/master"
+            },
+            "time": "2017-06-12T11:04:56+00:00"
+        },
+        {
             "name": "league/glide",
             "version": "1.7.0",
             "source": {
@@ -5929,6 +6071,129 @@
             "time": "2020-09-11T19:18:05+00:00"
         },
         {
+            "name": "prettus/l5-repository",
+            "version": "2.7.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andersao/l5-repository.git",
+                "reference": "d4cd5afc91e5918d6dd1f2441be4a2b23d8f1507"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/d4cd5afc91e5918d6dd1f2441be4a2b23d8f1507",
+                "reference": "d4cd5afc91e5918d6dd1f2441be4a2b23d8f1507",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "~5.0|~6.0|~7.0|^8.0",
+                "illuminate/console": "~5.0|~6.0|~7.0|^8.0",
+                "illuminate/database": "~5.0|~6.0|~7.0|^8.0",
+                "illuminate/filesystem": "~5.0|~6.0|~7.0|^8.0",
+                "illuminate/http": "~5.0|~6.0|~7.0|^8.0",
+                "illuminate/pagination": "~5.0|~6.0|~7.0|^8.0",
+                "illuminate/support": "~5.0|~6.0|~7.0|^8.0",
+                "illuminate/validation": "~5.0|~6.0|~7.0|^8.0",
+                "prettus/laravel-validation": "~1.1|~1.2"
+            },
+            "suggest": {
+                "league/fractal": "Required to use the Fractal Presenter (0.12.*).",
+                "prettus/laravel-validation": "Required to provide easy validation with the repository (1.1.*)",
+                "robclancy/presenter": "Required to use the Presenter Model (1.3.*)"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Prettus\\Repository\\Providers\\RepositoryServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Prettus\\Repository\\": "src/Prettus/Repository/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anderson Andrade",
+                    "email": "contato@andersonandra.de",
+                    "homepage": "http://andersonandra.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel 5|6|7|8 - Repositories to  the database layer",
+            "homepage": "http://andersao.github.io/l5-repository",
+            "keywords": [
+                "cache",
+                "eloquent",
+                "laravel",
+                "model",
+                "repository"
+            ],
+            "support": {
+                "docs": "http://andersao.github.io/l5-repository",
+                "email": "contato@andersonandra.de",
+                "issues": "https://github.com/andersao/l5-repository/issues",
+                "source": "https://github.com/andersao/l5-repository",
+                "wiki": "https://github.com/andersao/l5-repository"
+            },
+            "time": "2021-01-08T01:01:35+00:00"
+        },
+        {
+            "name": "prettus/laravel-validation",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andersao/laravel-validator.git",
+                "reference": "cce3c273c9d44f77de031dc4dedd261ab936c497"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andersao/laravel-validator/zipball/cce3c273c9d44f77de031dc4dedd261ab936c497",
+                "reference": "cce3c273c9d44f77de031dc4dedd261ab936c497",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.4|^6.0|^7.0|^8.0",
+                "illuminate/validation": "~5.4|^6.0|^7.0|^8.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Prettus\\Validator\\": "src/Prettus/Validator/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Anderson Andrade",
+                    "email": "contato@andersonandra.de",
+                    "homepage": "http://andersonandra.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Validation Service",
+            "homepage": "http://andersao.github.io/laravel-validation",
+            "keywords": [
+                "laravel",
+                "service",
+                "validation"
+            ],
+            "support": {
+                "docs": "http://andersao.github.io/laravel-validation",
+                "email": "contato@andersonandra.de",
+                "issues": "https://github.com/andersao/laravel-validation/issues",
+                "source": "https://github.com/andersao/laravel-validation",
+                "wiki": "https://github.com/andersao/laravel-validation"
+            },
+            "time": "2020-09-21T20:20:45+00:00"
+        },
+        {
             "name": "psr/container",
             "version": "1.0.0",
             "source": {
@@ -7594,6 +7859,68 @@
             "time": "2020-07-07T18:42:57+00:00"
         },
         {
+            "name": "spatie/backtrace",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/backtrace.git",
+                "reference": "3440fe023a7d5b4497090fb6b2dcdc747daf7873"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/backtrace/zipball/3440fe023a7d5b4497090fb6b2dcdc747daf7873",
+                "reference": "3440fe023a7d5b4497090fb6b2dcdc747daf7873",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "phpunit/phpunit": "^9.3",
+                "symfony/var-dumper": "^5.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Backtrace\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van de Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A better backtrace",
+            "homepage": "https://github.com/spatie/backtrace",
+            "keywords": [
+                "Backtrace",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/backtrace/issues",
+                "source": "https://github.com/spatie/backtrace/tree/1.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/spatie",
+                    "type": "github"
+                },
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "other"
+                }
+            ],
+            "time": "2021-01-29T09:20:43+00:00"
+        },
+        {
             "name": "spatie/image",
             "version": "1.10.2",
             "source": {
@@ -7785,6 +8112,211 @@
                 }
             ],
             "time": "2020-11-03T12:56:39+00:00"
+        },
+        {
+            "name": "spatie/laravel-ray",
+            "version": "1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-ray.git",
+                "reference": "1c5bc1785a06dac98fdbdff0b067a126dd6a81d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/1c5bc1785a06dac98fdbdff0b067a126dd6a81d0",
+                "reference": "1c5bc1785a06dac98fdbdff0b067a126dd6a81d0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/contracts": "^7.20|^8.0",
+                "illuminate/database": "^7.20|^8.13",
+                "illuminate/queue": "^7.20|^8.13",
+                "illuminate/support": "^7.20|^8.13",
+                "php": "^7.3|^8.0",
+                "spatie/backtrace": "^1.0",
+                "spatie/ray": "^1.20",
+                "symfony/stopwatch": "4.2|^5.1",
+                "zbateson/mail-mime-parser": "^1.3.1"
+            },
+            "require-dev": {
+                "facade/ignition": "^2.5",
+                "laravel/framework": "^7.20|^8.19",
+                "orchestra/testbench-core": "^5.0|^6.0",
+                "phpunit/phpunit": "^9.3",
+                "spatie/phpunit-snapshot-assertions": "^4.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\LaravelRay\\RayServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelRay\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily debug Laravel apps",
+            "homepage": "https://github.com/spatie/laravel-ray",
+            "keywords": [
+                "laravel-ray",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-ray/issues",
+                "source": "https://github.com/spatie/laravel-ray/tree/1.13.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/spatie",
+                    "type": "github"
+                },
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "other"
+                }
+            ],
+            "time": "2021-02-22T12:05:12+00:00"
+        },
+        {
+            "name": "spatie/macroable",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/macroable.git",
+                "reference": "7a99549fc001c925714b329220dea680c04bfa48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/macroable/zipball/7a99549fc001c925714b329220dea680c04bfa48",
+                "reference": "7a99549fc001c925714b329220dea680c04bfa48",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0|^9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Macroable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A trait to dynamically add methods to a class",
+            "homepage": "https://github.com/spatie/macroable",
+            "keywords": [
+                "macroable",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/macroable/issues",
+                "source": "https://github.com/spatie/macroable/tree/1.0.1"
+            },
+            "time": "2020-11-03T10:15:05+00:00"
+        },
+        {
+            "name": "spatie/ray",
+            "version": "1.20.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/ray.git",
+                "reference": "f51ef21fe88c4d4628f1656a73db540fdbc28773"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/ray/zipball/f51ef21fe88c4d4628f1656a73db540fdbc28773",
+                "reference": "f51ef21fe88c4d4628f1656a73db540fdbc28773",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": "^7.3|^8.0",
+                "ramsey/uuid": "^3.0|^4.1",
+                "spatie/backtrace": "^1.1",
+                "spatie/macroable": "^1.0",
+                "symfony/stopwatch": "^4.0|^5.1",
+                "symfony/var-dumper": "^4.2|^5.1"
+            },
+            "require-dev": {
+                "illuminate/support": "6.x|^8.18",
+                "nesbot/carbon": "^2.43",
+                "phpunit/phpunit": "^9.5",
+                "rector/rector": "^0.9.16",
+                "spatie/phpunit-snapshot-assertions": "^4.2",
+                "spatie/test-time": "^1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Ray\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Debug with Ray to fix problems faster",
+            "homepage": "https://github.com/spatie/ray",
+            "keywords": [
+                "ray",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/ray/issues",
+                "source": "https://github.com/spatie/ray/tree/1.20.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/spatie",
+                    "type": "github"
+                },
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "other"
+                }
+            ],
+            "time": "2021-02-26T11:06:59+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -10071,6 +10603,68 @@
             "time": "2020-09-07T11:33:47+00:00"
         },
         {
+            "name": "symfony/stopwatch",
+            "version": "v5.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/stopwatch.git",
+                "reference": "b12274acfab9d9850c52583d136a24398cdf1a0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/b12274acfab9d9850c52583d136a24398cdf1a0c",
+                "reference": "b12274acfab9d9850c52583d136a24398cdf1a0c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/service-contracts": "^1.0|^2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Stopwatch\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides a way to profile code",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/stopwatch/tree/v5.2.3"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-01-27T10:15:41+00:00"
+        },
+        {
             "name": "symfony/string",
             "version": "v5.2.2",
             "source": {
@@ -10832,6 +11426,209 @@
             "time": "2020-07-08T17:02:28+00:00"
         },
         {
+            "name": "zbateson/mail-mime-parser",
+            "version": "1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zbateson/mail-mime-parser.git",
+                "reference": "706964d904798b8c22d63f62f0ec5f5bc84e30d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zbateson/mail-mime-parser/zipball/706964d904798b8c22d63f62f0ec5f5bc84e30d9",
+                "reference": "706964d904798b8c22d63f62f0ec5f5bc84e30d9",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/psr7": "^1.0",
+                "php": ">=5.4",
+                "zbateson/mb-wrapper": "^1.0.1",
+                "zbateson/stream-decorators": "^1.0.4"
+            },
+            "require-dev": {
+                "jms/serializer": "^1.1",
+                "mikey179/vfsstream": "^1.6.0",
+                "phing/phing": "^2.15.0",
+                "phpdocumentor/phpdocumentor": "^2.9.0",
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.5"
+            },
+            "suggest": {
+                "ext-iconv": "For best support/performance",
+                "ext-mbstring": "For best support/performance"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ZBateson\\MailMimeParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Zaahid Bateson"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/zbateson/mail-mime-parser/graphs/contributors"
+                }
+            ],
+            "description": "MIME email message parser",
+            "homepage": "https://mail-mime-parser.org",
+            "keywords": [
+                "MimeMailParser",
+                "email",
+                "mail",
+                "mailparse",
+                "mime",
+                "mimeparse",
+                "parser",
+                "php-imap"
+            ],
+            "support": {
+                "docs": "https://mail-mime-parser.org/#usage-guide",
+                "issues": "https://github.com/zbateson/mail-mime-parser/issues",
+                "source": "https://github.com/zbateson/mail-mime-parser"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/zbateson",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-12-02T21:55:45+00:00"
+        },
+        {
+            "name": "zbateson/mb-wrapper",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zbateson/mb-wrapper.git",
+                "reference": "721b3dfbf7ab75fee5ac60a542d7923ffe59ef6d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zbateson/mb-wrapper/zipball/721b3dfbf7ab75fee5ac60a542d7923ffe59ef6d",
+                "reference": "721b3dfbf7ab75fee5ac60a542d7923ffe59ef6d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "symfony/polyfill-iconv": "^1.9",
+                "symfony/polyfill-mbstring": "^1.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5"
+            },
+            "suggest": {
+                "ext-iconv": "For best support/performance",
+                "ext-mbstring": "For best support/performance"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ZBateson\\MbWrapper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Zaahid Bateson"
+                }
+            ],
+            "description": "Wrapper for mbstring with fallback to iconv for encoding conversion and string manipulation",
+            "keywords": [
+                "charset",
+                "encoding",
+                "http",
+                "iconv",
+                "mail",
+                "mb",
+                "mb_convert_encoding",
+                "mbstring",
+                "mime",
+                "multibyte",
+                "string"
+            ],
+            "support": {
+                "issues": "https://github.com/zbateson/mb-wrapper/issues",
+                "source": "https://github.com/zbateson/mb-wrapper/tree/1.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/zbateson",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-10-21T22:14:27+00:00"
+        },
+        {
+            "name": "zbateson/stream-decorators",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zbateson/stream-decorators.git",
+                "reference": "6f54738dfecc65e1d5bfb855035836748083a6dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zbateson/stream-decorators/zipball/6f54738dfecc65e1d5bfb855035836748083a6dd",
+                "reference": "6f54738dfecc65e1d5bfb855035836748083a6dd",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/psr7": "^1.0.0",
+                "php": ">=5.4",
+                "zbateson/mb-wrapper": "^1.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ZBateson\\StreamDecorators\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Zaahid Bateson"
+                }
+            ],
+            "description": "PHP psr7 stream decorators for mime message part streams",
+            "keywords": [
+                "base64",
+                "charset",
+                "decorators",
+                "mail",
+                "mime",
+                "psr7",
+                "quoted-printable",
+                "stream",
+                "uuencode"
+            ],
+            "support": {
+                "issues": "https://github.com/zbateson/stream-decorators/issues",
+                "source": "https://github.com/zbateson/stream-decorators/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/zbateson",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-10T18:59:43+00:00"
+        },
+        {
             "name": "zircote/swagger-php",
             "version": "3.1.0",
             "source": {
@@ -11125,21 +11922,21 @@
         },
         {
             "name": "beyondcode/laravel-query-detector",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beyondcode/laravel-query-detector.git",
-                "reference": "b60012a821a9e170910beb2383743d89d380a64d"
+                "reference": "4a3a0cfb5d5ddc5da59d530ef5c13e260adc6d07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beyondcode/laravel-query-detector/zipball/b60012a821a9e170910beb2383743d89d380a64d",
-                "reference": "b60012a821a9e170910beb2383743d89d380a64d",
+                "url": "https://api.github.com/repos/beyondcode/laravel-query-detector/zipball/4a3a0cfb5d5ddc5da59d530ef5c13e260adc6d07",
+                "reference": "4a3a0cfb5d5ddc5da59d530ef5c13e260adc6d07",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0",
-                "php": "^7.1"
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
                 "laravel/legacy-factories": "^1.0",
@@ -11179,9 +11976,9 @@
             ],
             "support": {
                 "issues": "https://github.com/beyondcode/laravel-query-detector/issues",
-                "source": "https://github.com/beyondcode/laravel-query-detector/tree/1.4.0"
+                "source": "https://github.com/beyondcode/laravel-query-detector/tree/1.5.0"
             },
-            "time": "2020-09-25T07:58:20+00:00"
+            "time": "2021-02-16T22:51:38+00:00"
         },
         {
             "name": "doctrine/instantiator",

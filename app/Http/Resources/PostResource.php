@@ -43,6 +43,7 @@ class PostResource extends JsonResource
                     ];
                 })->first(),
             ],
+         //   "tags"  => $this->tags,
             "caption" => $this->caption,
             "location" => $this->location,
             'imageUrl'=> $this->imageUrl,

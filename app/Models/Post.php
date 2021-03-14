@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use Cog\Contracts\Love\ReactionType\Models\ReactionType;
-use Cog\Laravel\Love\Reacter\Models\Reacter;
+use Cviebrock\EloquentTaggable\Taggable;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +10,9 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Notifications\Notifiable;
 use Laravelista\Comments\Commentable;
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\stringContains;
+use function RingCentral\Psr7\str;
 
 /**
  * Class Post
@@ -34,15 +36,35 @@ use Laravelista\Comments\Commentable;
  *      @OA\Property(property="user", ref="#/components/schemas/User"),
  *      @OA\Property(property="comment", ref="#/components/schemas/Comment"),
  * )
- * @property string $caption
- * @property sting $imageUrl
- * @property string $location
  * @property int $id
  * @property int $user_id
+ * @property string $caption
+ * @property string|null $imageUrl
+ * @property string $location
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property int|null $love_reactant_id
+ * @property array $likers
+ * @property string $likers_hash
+ * @property array|null $latest_comment
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $approvedComments
+ * @property-read int|null $approved_comments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
+ * @property-read mixed $reacter_id
+ * @property-read array $tag_array
+ * @property-read array $tag_array_normalized
+ * @property-read string $tag_list
+ * @property-read string $tag_list_normalized
+ * @property-read \Cog\Laravel\Love\Reactant\Models\Reactant|null $loveReactant
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Cviebrock\EloquentTaggable\Models\Tag[] $tags
+ * @property-read int|null $tags_count
  * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Post isNotTagged()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post isTagged()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post joinReactionCounterOfType(string $reactionTypeName, ?string $alias = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post joinReactionTotal(?string $alias = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
  * @method static \Illuminate\Database\Query\Builder|Post onlyTrashed()
@@ -52,28 +74,26 @@ use Laravelista\Comments\Commentable;
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereImageUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereLatestComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereLikers($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereLikersHash($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereLoveReactantId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereNotReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, ?string $reactionTypeName = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, ?string $reactionTypeName = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post withAllTags($tags)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post withAnyTags($tags)
  * @method static \Illuminate\Database\Query\Builder|Post withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post withoutAllTags($tags, bool $includeUntagged = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post withoutAnyTags($tags, bool $includeUntagged = false)
  * @method static \Illuminate\Database\Query\Builder|Post withoutTrashed()
  * @mixin Model
- * @property int $love_reactant_id
- * @property-read \Cog\Laravel\Love\Reactant\Models\Reactant $loveReactant
- * @method static \Illuminate\Database\Eloquent\Builder|Post joinReactionCounterOfType($reactionTypeName, $alias = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Post joinReactionTotal($alias = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereLoveReactantId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereNotReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, $reactionTypeName = null)
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravelista\Comments\Comment[] $approvedComments
- * @property-read int|null $approved_comments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravelista\Comments\Comment[] $comments
- * @property-read int|null $comments_count
- * @property-read mixed $reacter_id
  */
 class Post extends Model implements ReactableInterface
 {
-    use SoftDeletes, Reactable, HasFactory, Commentable;
+    use SoftDeletes, Reactable, HasFactory, Commentable, Taggable;
 
 
     public $table = 'posts';
@@ -90,7 +110,10 @@ class Post extends Model implements ReactableInterface
         'user_id',
         'caption',
         'imageUrl',
-        'location'
+        'location',
+        'likers',
+        'latest_comment',
+        'likers_hash'
     ];
 
     /**
@@ -101,7 +124,9 @@ class Post extends Model implements ReactableInterface
     protected $casts = [
         'id' => 'integer',
         'caption' => 'string',
-        'location' => 'string'
+        'location' => 'string',
+        'likers' => 'array',
+        'latest_comment'=> 'array'
     ];
 
     /**
@@ -122,4 +147,41 @@ class Post extends Model implements ReactableInterface
     {
         return  \Auth::id();
     }
+
+    public function addLiker()
+    {
+        $liker = auth()->id();
+
+        $likers = $this->likers;
+
+        if (!empty($likers) && !(in_array($liker, $likers))) {
+            $likers[] = $liker;
+            $this->likers =  $likers;
+            $this->save();
+        }
+        if (empty($likers)) {
+            $this->update([
+                'likers' => [$liker]
+            ]);
+        }
+    }
+
+    public function removeLiker()
+    {
+        $liker = auth()->id();
+        $likers = $this->likers;
+
+        if (empty($likers)) {
+            return;
+        }
+
+        if (in_array($liker, $likers)) {
+            $key = array_search($liker, $likers);
+            unset($likers[$key]);
+
+            $this->likers =  $likers;
+            $this->save();
+        }
+    }
+
 }

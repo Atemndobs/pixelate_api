@@ -29,15 +29,11 @@ class CreateUsersTable extends Migration
 
             $table->foreignId('trade_id')->nullable()->index();
             $table->foreignId('current_team_id')->nullable();
-            $table->text('profile_photo_path')->nullable();
+            $table->text('avatar')->nullable();
 
             $table->rememberToken();
             $table->timestamps();
         });
-
-
-
-
     }
 
     /**

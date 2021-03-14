@@ -8,29 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Team
  *
- * @method static \Illuminate\Database\Eloquent\Builder|Team newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Team newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Team query()
- * @mixin \Eloquent
- * @property-read \App\Models\User $owner
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Design[] $designs
- * @property-read int|null $designs_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $members
- * @property-read int|null $members_count
  * @property int $id
  * @property string $name
  * @property string $slug
  * @property int $owner_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Design[] $designs
+ * @property-read int|null $designs_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invitation[] $invitations
+ * @property-read int|null $invitations_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $members
+ * @property-read int|null $members_count
+ * @property-read \App\Models\User $owner
+ * @method static \Illuminate\Database\Eloquent\Builder|Team newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Team newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Team query()
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereOwnerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereUpdatedAt($value)
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invitation[] $invitations
- * @property-read int|null $invitations_count
+ * @mixin \Eloquent
  */
 class Team extends Model
 {

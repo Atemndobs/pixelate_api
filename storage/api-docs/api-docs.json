@@ -260,6 +260,13 @@
                                         "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
                                         "type": "string",
                                         "example": "Dusseldorf"
+                                    },
+                                    "tags": {
+                                        "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                        "example": [
+                                            "Sunny",
+                                            "Summer"
+                                        ]
                                     }
                                 },
                                 "type": "object"
@@ -1171,7 +1178,7 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "fanny256@email.com"
+                                        "example": "bamarktfact@gmail.com"
                                     },
                                     "password": {
                                         "type": "string",
@@ -2132,7 +2139,7 @@
                     "User Profile"
                 ],
                 "summary": "Retrieve profile information",
-                "description": "Get profile short information.  ** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above",
+                "description": "Get profile short information.** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -2179,7 +2186,7 @@
                 "tags": [
                     "User Profile"
                 ],
-                "summary": "Update Uder Profile",
+                "summary": "Update User Profile",
                 "description": "Update User Detailed info",
                 "operationId": "App\\Http\\Controllers\\User\\SettingsController::updateProfile",
                 "requestBody": {
@@ -2269,6 +2276,75 @@
                                             "description": "Update User Profile\nPUT/PATCH /settings/profile",
                                             "type": "string",
                                             "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/avatar": {
+            "post": {
+                "tags": [
+                    "User Profile"
+                ],
+                "summary": "Update User Profile Picture (Avatar)",
+                "description": "Update User Avatar",
+                "operationId": "App\\Http\\Controllers\\User\\SettingsController::updateAvatar",
+                "requestBody": {
+                    "description": "Pass User data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "about": {
+                                        "description": "Update User Profile\nPOST /settings/profile",
+                                        "type": "string",
+                                        "example": "VERY deeply with a soldier on each."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "about": {
+                                            "description": "Update User Profile\nPOST /settings/profile",
+                                            "type": "string",
+                                            "example": "VERY deeply with a soldier on each."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Upload failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Update User Profile\nPOST /settings/profile",
+                                            "type": "string",
+                                            "example": "Upload failed"
                                         }
                                     },
                                     "type": "object"

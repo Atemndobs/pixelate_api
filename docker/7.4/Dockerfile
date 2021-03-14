@@ -46,6 +46,10 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/7.4/cli/conf.d/99-sail.ini
 RUN chmod +x /usr/local/bin/start-container
 
+# CMD ["php artisan websockets:serve"]
+
 EXPOSE 8000
+EXPOSE 6001/tcp
+
 
 ENTRYPOINT ["start-container"]

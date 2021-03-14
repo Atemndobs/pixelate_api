@@ -50,12 +50,13 @@ class Message extends Model
 
     public function getBodyAttribute($value)
     {
-        if ($this->trashed()){
-            if (!auth()->check()) return null;
+        if ($this->trashed()) {
+            if (!auth()->check()) {
+                return null;
+            }
             return auth()->id() == $this->sender->id?
                 'You deleted this message' :
                 "{$this->sender->name} deleted this message";
-
         }
         return $value;
     }

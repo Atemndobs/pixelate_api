@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 
 /**
@@ -18,7 +19,7 @@ use Illuminate\Http\Request;
  * @OA\Get(
  *     path="/api/me",
  *     summary="Retrieve profile information",
- *     description="Get profile short information.  ** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above",
+ *     description="Get profile short information.** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above",
  *     tags={"User Profile"},
  *     security={ {"token": {} }},
  *
@@ -46,7 +47,10 @@ class MeController extends Controller
     {
 
         if (auth()->check()) {
-            return response()->json(["data" => auth()->user()], 200);
+         //  return response()->json(["data" => auth()->user()], 200);
+         //   $users = $this->userRepository->with(['posts', 'followers'])->all();
+
+            return responder()->success(auth()->user(), UserTransformer::class);
         }
         return response()->json(null, 401);
     }

@@ -11,16 +11,22 @@ use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\User;
-use App\Repositories\PostRepository;
+use App\Repositories\Contracts\CommentRepositoryInterface;
+use App\Repositories\Contracts\PostRepositoryInterface;
+use App\Repositories\Eloquent\PostRepository;
 use App\Services\CommentService;
 use App\Services\ReactionService;
+use App\Transformers\CommentTransformer;
+use App\Transformers\PostTransformer;
+use Flugg\Responder\Http\Responses\SuccessResponseBuilder;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Log;
 use Response;
 use Spatie\Image\Image;
+use Spatie\Image\Manipulations;
 
 /**
  * Class PostController
@@ -29,19 +35,29 @@ use Spatie\Image\Image;
 
 class PostAPIController extends AppBaseController
 {
-    /** @var  PostRepository */
-    private PostRepository $postRepository;
+    /** @var  PostRepositoryInterface */
+    private PostRepositoryInterface $postRepository;
+
+    /**
+     * @var CommentRepositoryInterface
+     */
+    private CommentRepositoryInterface $commentRepository;
 
     private Request $request;
 
     /**
      * PostAPIController constructor.
      * @param PostRepository $postRepository
+     * @param CommentRepositoryInterface $commentRepository
      * @param Request $request
      */
-    public function __construct(PostRepository $postRepository, Request $request)
-    {
+    public function __construct(
+        PostRepository $postRepository,
+        CommentRepositoryInterface $commentRepository,
+        Request $request
+    ) {
         $this->postRepository = $postRepository;
+        $this->commentRepository = $commentRepository;
         $this->request = $request;
     }
 
@@ -79,27 +95,37 @@ class PostAPIController extends AppBaseController
      *      )
      * )
      *
-     * @return Application|ResponseFactory|AnonymousResourceCollection|\Illuminate\Http\Response
+     * @return SuccessResponseBuilder
      */
     public function index()
     {
-        $posts = Post::with(
-            'comments',
-            'user',
-            'loveReactant.reactions.reacter.reacterable',
-            'loveReactant.reactions.type',
-            'loveReactant.reactionCounters',
-            'loveReactant.reactionTotal',
-            //  'loveReactant',
-        )->get();
-
-        if ($posts->count() === 0) {
+/*        if ($posts->count() === 0) {
             return Response([
                 'message' => 'No Posts Created Yet. Please create one',
             ], 404);
-        }
+         //   'user', 'comments', 'tags',
+           // 'comments',
+            //'comments.commenter',
+           // 'user',
+        //    'loveReactant.reactions.reacter.reacterable',
+           // 'loveReactant.reactions.type',
+           // 'loveReactant.reactionCounters',
+           // 'loveReactant.reactionTotal',
+            //  'loveReactant',
 
-        return PostResource::collection($posts);
+
+        }*/
+
+        $posts = $this->postRepository->with([
+            'user.followers',
+            'tags',
+           // 'user',
+            'loveReactant.reactions',
+            'loveReactant.reactions.reacter.reacterable'
+            ])->latest()->paginate($this->request->perPage, '*');
+        // return PostResource::collection($posts);
+
+        return responder()->success($posts, PostTransformer::class);
     }
 
     /**
@@ -149,18 +175,21 @@ class PostAPIController extends AppBaseController
      *
      * @return PostResource
      */
-    public function store(CreatePostAPIRequest $request, $user_id)
+    public function store(CreatePostAPIRequest $request)
     {
         $input = $request->all();
-        $user = User::findOrFail($user_id);
+        $user = User::findOrFail($this->request->user_id);
         $post = $user->posts()->create($input);
 
         if ($request->hasFile('image')) {
-            $imageUrl = $request->image->store('', 'public');
+            $imageUrl = $request->image->store('/posts', 'public');
             $this->processImage($imageUrl);
 
             $post->update(
-                ['imageUrl' =>asset('storage/'.$imageUrl)]
+                [
+                    'imageUrl' =>asset('storage/'.$imageUrl),
+                    'likers' => []
+                ]
             );
         }
 
@@ -215,21 +244,14 @@ class PostAPIController extends AppBaseController
      *
      * @param int $id
      *
-     * @return PostResource|Application|ResponseFactory|\Illuminate\Http\Response
+     * @return SuccessResponseBuilder
      */
     public function show()
     {
-        $post = Post::with('comments')
+        $post = $this->postRepository
+            ->with(['comments','tags'])
             ->find($this->request->id);
-
-
-        if ($post === null) {
-            return Response([
-                'message' => 'No Posts found',
-            ], 404);
-        }
-
-        return new PostResource($post);
+        return responder()->success($post, PostTransformer::class);
     }
 
     /**
@@ -256,6 +278,7 @@ class PostAPIController extends AppBaseController
      *    @OA\JsonContent(
      *       @OA\Property(property="caption", type="string", example="Here"),
      *       @OA\Property(property="location", type="string", example="Dusseldorf"),
+     *       @OA\Property(property="tags", example={"Sunny","Summer"}),
      *    ),
      * ),
      * @OA\Response(
@@ -279,24 +302,17 @@ class PostAPIController extends AppBaseController
      * @param int $id
      * @param UpdatePostAPIRequest $request
      *
-     * @return PostResource|Application|ResponseFactory|\Illuminate\Http\Response
+     * @return SuccessResponseBuilder
      */
     public function update(UpdatePostAPIRequest $request)
     {
-        $input = $request->all();
+        $this->postRepository->update($request->all(), $request->id);
 
-        /** @var Post $post */
-        $post = $this->postRepository->find($request->id);
-
-        if ($post === null) {
-            return Response([
-                'message' => 'No Posts found',
-            ], 404);
-        }
-
-        $post = $this->postRepository->update($request->id, $input);
-
-        return new PostResource($post);
+         return responder()->success(
+             $this->postRepository->with([
+                 'tags',
+             ])->find($request->id)
+         );
     }
 
     /**
@@ -426,25 +442,35 @@ class PostAPIController extends AppBaseController
 
         $type = $this->request->type;
 
-        //$post = $this->postRepository->find($this->request->post_id);
-        $post = Post::with(
-            'comments',
-            'user',
-            'loveReactant',
-        )->find($this->request->post_id);
+        $post = $this->postRepository
+            ->with([
+                //'user', 'comments', 'tags',
+                //'comments',
+                //'comments.commenter',
+               // 'user',
+              //  'loveReactant.reactions.reacter.reacterable',
+               //  'loveReactant.reactions.type',
+                // 'loveReactant.reactionCounters',
+                // 'loveReactant.reactionTotal',
+                 // 'loveReactant',
+            ])
+            ->find($this->request->post_id);
 
         try {
-            $reaction = $reactionService->processReaction($type, $post);
+             $reaction = $reactionService->processReaction($type, $post);
         } catch (\Exception $exception) {
-            return Response('REACTION NOT FOUND' . $type, 404);
+            Log::critical($exception->getMessage());
+            return Response([
+                'error' => 'REACTION NOT FOUND' . $type,
+                'message' => $exception->getMessage()
+            ], 404);
         }
 
         $reaction->type = $type;
         $reactedPost = new PostResource($reaction);
-
         broadcast(new LikeCreatedEvent($reactedPost))->toOthers();
 
-        return Response($reactedPost, 200);
+        return responder()->success((new PostTransformer())->transformLikes($post));
     }
 
     /**
@@ -503,20 +529,20 @@ class PostAPIController extends AppBaseController
      * @param Request $request
      * @param $post_id
      * @param CommentService $commentService
-     * @return PostResource
+     * @return SuccessResponseBuilder
      */
     public function addComment(CommentService $commentService)
     {
         $post = $this->postRepository->find($this->request->post_id);
-        $comment = $commentService->createComment($post, $this->request->comment);
+        $comment = $commentService->createComment($post, $this->postRepository);
+        $newComment = $this->commentRepository->find($comment->id);
 
-        $newComment = new CommentResource($comment);
-        $postResource = new PostResource($post);
-        $postResource->new_comment = $newComment;
-
-        broadcast(new CommentCreatedEvent($postResource, $newComment))->toOthers();
-
-        return $postResource;
+        // $newComment = new CommentResource($comment);
+        // $postResource = new PostResource($post);
+        // $postResource->new_comment = $newComment;
+        // broadcast(new CommentCreatedEvent($postResource, $newComment))->toOthers();
+        broadcast(new CommentCreatedEvent($post, $newComment))->toOthers();
+        return responder()->success((new PostTransformer())->transformComment($post));
     }
 
     /**
@@ -526,7 +552,8 @@ class PostAPIController extends AppBaseController
     public function processImage($imageUrl): void
     {
         Image::load('storage/'.$imageUrl)
-            ->width(400)
+            ->width(100)
+            ->height(100)
             ->save();
     }
 }

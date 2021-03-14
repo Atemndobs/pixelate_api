@@ -23,8 +23,11 @@ class DatabaseSeeder extends Seeder
       //  $this->call(CommentsTableSeeder::class);
         //$this->call(\InvitationsTableSeeder::class);
        // $this->call(TradeSeeder::class);
+
         $this->call(AtemTableSeeder::class);
         $this->call(PostsTableSeeder::class);
+
+        $this->call(DefaultUserTableSeeder::class);
 
     }
 }

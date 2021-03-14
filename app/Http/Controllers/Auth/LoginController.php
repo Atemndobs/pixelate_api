@@ -22,7 +22,7 @@ use mysql_xdevapi\Exception;
  *    description="Pass user credentials",
  *    @OA\JsonContent(
  *       required={"email","password"},
- *       @OA\Property(property="email", type="string", format="email", example="fanny256@email.com"),
+ *       @OA\Property(property="email", type="string", format="email", example="bamarktfact@gmail.com"),
  *       @OA\Property(property="password", type="string", format="password", example="pass1234"),
  *    ),
  * ),

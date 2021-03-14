@@ -46,6 +46,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::put('settings/password', 'User\SettingsController@updatePassword');
     Route::get('me', 'User\MeController@getMe');
 
+    Route::post('avatar', [SettingsController::class, 'updateAvatar']);
+    Route::delete('avatar', [SettingsController::class, 'deleteAvatar']);
+
     //upload Designs
 
     Route::put('designs/{id}', 'Designs\DesignController@update');
@@ -91,7 +94,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     // Comments using the Commentable Package
     Route::post('posts/comment/{post_id}', [PostAPIController::class, 'addComment']);
-    Route::post('comments/comment/{comment_id}', [CommentController::class, 'create']);
+    Route::post('comments/comment/{comment_id}', [CommentController::class, 'reply']);
     Route::post('comments/comment/react/{comment_id}', [CommentController::class, 'reactComment']);
 
     // FOLLOW USING FOLLOW PACKAGE

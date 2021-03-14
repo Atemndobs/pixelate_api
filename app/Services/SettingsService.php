@@ -17,9 +17,9 @@ class SettingsService
         $files =  \Storage::disk('models')->files();
 
         $fileNames = [];
-        if (!empty($files)){
-            foreach ($files as $file){
-                if ($file === 'BaseModel.php'){
+        if (!empty($files)) {
+            foreach ($files as $file) {
+                if ($file === 'BaseModel.php') {
                     continue;
                 }
                 $name = str_replace('.php', '', $file);
@@ -33,17 +33,25 @@ class SettingsService
 
     public function resetLikeTypes($reset, $types)
     {
-        if (is_array($types)){
+        if (is_array($types)) {
             $types = implode(',', $types);
         }
 
         if ($reset === true) {
-            \Artisan::call("reset:table love_reaction_types");
+            $types = 'Like,Laugh,Happy,Surprise,Smile';
+       //     shell_exec('cd  ../ && make types-all  2>&1');
+            shell_exec('cd  ../ && php artisan love:register-reactants --model="App\Models\Post"  2>&1');
+            shell_exec('cd  ../ && php artisan love:register-reactants --model="App\Models\Comment"  2>&1');
+            shell_exec('cd  ../ && php artisan love:register-reacters --model="App\Models\User"  2>&1');
+/*            \Artisan::call("reset:table love_reaction_types");
+            \Artisan::call('love:register-reacters --model="App\Models\User"');
+            \Artisan::call('love:register-reactants --model="App\Models\Post"');
+            \Artisan::call('love:register-reactants --model="App\Models\Comment"');*/
         }
 
         \Artisan::call("reaction {$types}");
 
-       return  $this->getTypes();
+        return  $this->getTypes();
     }
 
     public function getTypes()
@@ -52,37 +60,26 @@ class SettingsService
             $name = $type->name;
             return $name;
         });
-
     }
 
     public function resetDb()
     {
-        $types = [
-            "Like",
-            "Laugh",
-            "Happy",
-            "Surprise",
-            "Smile"
-        ];
-        $types = implode(',', $types);
-
-       // \Artisan::call('migrate:fresh');
-       // \Artisan::call("reaction {$types}");
-      // \Artisan::call('love:register-reacters --model="App\Models\User"');
-
-        return 'reset';
+        shell_exec('cd  ../ && php artisan migrate:fresh --seed 2>&1');
+        shell_exec('cd  ../ && php  artisan clear:assets avatars 2>&1');
+        shell_exec('cd  ../ && php  artisan clear:assets posts 2>&1');
+        return 'DB reset Successfully';
     }
 
     public function export(string $type, string $model)
     {
         $formats = ['csv','excel','pdf','word'];
-        if (!in_array($type, $formats)){
+        if (!in_array($type, $formats)) {
             return response("{$type} is not a valid file format", 419);
         }
 
         if ($model === 'post') {
-           return Excel::download(new PostExport, "{$model}s.{$type}");
-        }elseif ($model = 'user'){
+            return Excel::download(new PostExport, "{$model}s.{$type}");
+        } elseif ($model = 'user') {
             return Excel::download(new UserExport, "{$model}s.{$type}");
         }
     }
@@ -139,6 +136,4 @@ class SettingsService
         return \Response::stream($callback, 200, $headers);
 
     }*/
-
-
 }
