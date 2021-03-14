@@ -208,3 +208,7 @@ responder:
 # aliases 'Responder' => Flugg\Responder\Facades\Responder::class,
 #        'Transformation' => Flugg\Responder\Facades\Transformation::class,
 
+
+
+bc:
+	rm -f config/broadcasting.php && cp broadcasting.php config/broadcasting.php
