@@ -552,8 +552,9 @@ class PostAPIController extends AppBaseController
     public function processImage($imageUrl): void
     {
         Image::load('storage/'.$imageUrl)
-            ->width(100)
-            ->height(100)
+            ->width(400)
+            ->height(300)
+            ->crop(Manipulations::CROP_CENTER, 400, 300)
             ->save();
     }
 }
