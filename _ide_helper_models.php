@@ -15,8 +15,8 @@ namespace App\Models{
  * App\Models\Chat
  *
  * @property int $id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property-read mixed $latest_message
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
  * @property-read int|null $messages_count
@@ -28,6 +28,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Chat whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Chat whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Chat whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Chat extends \Eloquent {}
 }
@@ -94,6 +95,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereNotReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, ?string $reactionTypeName = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, ?string $reactionTypeName = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @property array $likers
+ * @property string $likers_hash
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereLikers($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereLikersHash($value)
  */
 	class Comment extends \Eloquent implements \Cog\Contracts\Love\Reactable\Models\Reactable {}
 }
@@ -180,6 +186,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Design withAnyTags($tags)
  * @method static \Illuminate\Database\Eloquent\Builder|Design withoutAllTags($tags, bool $includeUntagged = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Design withoutAnyTags($tags, bool $includeUntagged = false)
+ * @mixin \Eloquent
  */
 	class Design extends \Eloquent {}
 }
@@ -208,6 +215,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Invitation whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Invitation whereToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Invitation whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Invitation extends \Eloquent {}
 }
@@ -216,10 +224,11 @@ namespace App\Models{
 /**
  * App\Models\Like
  *
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $likeable
+ * @property-read Model|\Eloquent $likeable
  * @method static \Illuminate\Database\Eloquent\Builder|Like newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Like newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Like query()
+ * @mixin \Eloquent
  */
 	class Like extends \Eloquent {}
 }
@@ -252,6 +261,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Message withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Message withoutTrashed()
+ * @mixin \Eloquent
  */
 	class Message extends \Eloquent {}
 }
@@ -290,6 +300,7 @@ namespace App\Models{
  * @property int|null $love_reactant_id
  * @property array $likers
  * @property string $likers_hash
+ * @property array|null $latest_comment
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $approvedComments
  * @property-read int|null $approved_comments_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
@@ -316,6 +327,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereImageUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereLatestComment($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereLikers($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereLikersHash($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereLocation($value)
@@ -330,6 +342,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Post withoutAllTags($tags, bool $includeUntagged = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Post withoutAnyTags($tags, bool $includeUntagged = false)
  * @method static \Illuminate\Database\Query\Builder|Post withoutTrashed()
+ * @mixin Model
  */
 	class Post extends \Eloquent implements \Cog\Contracts\Love\Reactable\Models\Reactable {}
 }
@@ -341,6 +354,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction query()
+ * @mixin \Eloquent
  */
 	class Reaction extends \Eloquent implements \Cog\Contracts\Love\Reaction\Models\Reaction {}
 }
@@ -371,6 +385,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereOwnerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Team extends \Eloquent {}
 }
@@ -397,6 +412,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Trade whereMarket($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Trade whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Trade whereUserId($value)
+ * @mixin \Eloquent
  */
 	class Trade extends \Eloquent {}
 }
@@ -448,7 +464,7 @@ namespace App\Models{
  * @property string|null $about
  * @property int|null $trade_id
  * @property int|null $current_team_id
- * @property string|null $profile_photo_path
+ * @property string|null $avatar
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -500,6 +516,7 @@ namespace App\Models{
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User query()
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereAbout($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereAvailableToHire($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereAvatar($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereCreatedAt($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereCurrentTeamId($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereEmail($value)
@@ -510,7 +527,6 @@ namespace App\Models{
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLoveReacterId($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereName($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User wherePassword($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereProfilePhotoPath($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereTagline($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereTradeId($value)
@@ -520,6 +536,11 @@ namespace App\Models{
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereUsername($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereUuid($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User within($geometryColumn, $polygon)
+ * @mixin \Eloquent
+ * @property string|null $last_login_at
+ * @property string|null $last_login_ip
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLastLoginAt($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLastLoginIp($value)
  */
 	class User extends \Eloquent implements \Tymon\JWTAuth\Contracts\JWTSubject, \Illuminate\Contracts\Auth\MustVerifyEmail, \Cog\Contracts\Love\Reacterable\Models\Reacterable, \Rennokki\Befriended\Contracts\Following, \Rennokki\Befriended\Contracts\Blocking, \Rennokki\Befriended\Contracts\Follower, \Rennokki\Befriended\Contracts\Followable, \Rennokki\Befriended\Contracts\Blocker, \Rennokki\Befriended\Contracts\Blockable {}
 }

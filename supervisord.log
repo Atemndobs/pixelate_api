@@ -6490,3 +6490,11 @@
 2021-03-09 16:17:16,581 INFO supervisord started with pid 17
 2021-03-09 16:17:17,586 INFO spawned: 'php' with pid 19
 2021-03-09 16:17:18,590 INFO success: php entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-03-15 23:01:38,730 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2021-03-15 23:01:38,743 INFO supervisord started with pid 17
+2021-03-15 23:01:39,748 INFO spawned: 'php' with pid 19
+2021-03-15 23:01:40,757 INFO success: php entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-03-18 14:06:44,302 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2021-03-18 14:06:44,344 INFO supervisord started with pid 17
+2021-03-18 14:06:45,357 INFO spawned: 'php' with pid 19
+2021-03-18 14:06:46,360 INFO success: php entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

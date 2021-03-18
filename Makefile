@@ -88,6 +88,7 @@ post:
 	php artisan clear:assets public
 	php artisan db:seed --class=AtemTableSeeder
 	php artisan db:seed --class=DefaultUserTableSeeder
+	php artisan db:seed --class=PostTableSeeder
 	php artisan db:seed --class=PostsTableSeeder
 user:
 	php artisan db:seed --class=UsersTableSeeder
