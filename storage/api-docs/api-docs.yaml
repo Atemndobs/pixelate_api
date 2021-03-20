@@ -1042,7 +1042,7 @@ paths:
         - Comment
       summary: 'Comment a comment / reply a comment'
       description: 'Comment a comment / reply a comment'
-      operationId: 'App\Http\Controllers\CommentController::create'
+      operationId: 'App\Http\Controllers\CommentController::reply'
       parameters:
         -
           name: comment_id
@@ -1058,6 +1058,7 @@ paths:
             schema:
               properties:
                 comment:
+                  description: 'Creates a reply "comment" to a comment.'
                   type: string
                   example: 'Here is the mommemt of comment'
               type: object
@@ -1069,6 +1070,7 @@ paths:
               schema:
                 properties:
                   message:
+                    description: 'Creates a reply "comment" to a comment.'
                     type: string
                     example: 'Comment Added'
                 type: object
@@ -1079,6 +1081,7 @@ paths:
               schema:
                 properties:
                   message:
+                    description: 'Creates a reply "comment" to a comment.'
                     type: string
                     example: 'Post not found'
                 type: object
@@ -1089,6 +1092,7 @@ paths:
               schema:
                 properties:
                   error:
+                    description: 'Creates a reply "comment" to a comment.'
                     type: string
                     example: 'Not Logged In'
                 type: object
@@ -1099,6 +1103,7 @@ paths:
               schema:
                 properties:
                   eror:
+                    description: 'Creates a reply "comment" to a comment.'
                     type: string
                     example: 'Comment error'
                 type: object
