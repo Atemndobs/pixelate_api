@@ -15,6 +15,7 @@ class UserTransformer extends Transformer
      */
     protected $relations = [
         'followers' => FollowerTransformer::class,
+        'roles'=> RoleTransformer::class
     ];
 
     /**
@@ -39,6 +40,7 @@ class UserTransformer extends Transformer
             'id' => (int) $user->id,
             'name' => $user->name,
             'username' => $user->username,
+            'role' => $user->roles()->first()->id ?? 2,
             'email'  => $user->email,
             'photo_url' => $user->avatar ?? $user->photo_url,
             'formatted_address'=> $user->formatted_address,

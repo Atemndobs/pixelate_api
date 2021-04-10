@@ -53,94 +53,6 @@ use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
  *      @OA\Property(property="updated_at", ref="#/components/schemas/BaseModel/properties/updated_at"),
  *      @OA\Property(property="photo_url:", type="string", maxLength=32, example="https://www.gravatar.com/avatar/97bd1823e00f02eb71a0b709425152a7jpg?s=200&d=mm:"),
  * )
- * @property int $id
- * @property string $name
- * @property string $username
- * @property string $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
- * @property string $password
- * @property string|null $two_factor_secret
- * @property string|null $two_factor_recovery_codes
- * @property string|null $tagline
- * @property mixed|null $location
- * @property string|null $formatted_address
- * @property int $available_to_hire
- * @property string|null $about
- * @property int|null $trade_id
- * @property int|null $current_team_id
- * @property string|null $avatar
- * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int|null $love_reacter_id
- * @property string $uuid
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $approvedComments
- * @property-read int|null $approved_comments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Chat[] $chats
- * @property-read int|null $chats_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
- * @property-read int|null $comments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Design[] $designs
- * @property-read int|null $designs_count
- * @property-read string $photo_url
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invitation[] $invitations
- * @property-read int|null $invitations_count
- * @property-read \Cog\Laravel\Love\Reacter\Models\Reacter|null $loveReacter
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
- * @property-read int|null $messages_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Team[] $ownedTeams
- * @property-read int|null $owned_teams_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
- * @property-read int|null $posts_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Team[] $teams
- * @property-read int|null $teams_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Trade[] $trade
- * @property-read int|null $trade_count
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User comparison($geometryColumn, $geometry, $relationship)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User contains($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User crosses($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User disjoint($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distance($geometryColumn, $geometry, $distance)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distanceExcludingSelf($geometryColumn, $geometry, $distance)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distanceSphere($geometryColumn, $geometry, $distance)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distanceSphereExcludingSelf($geometryColumn, $geometry, $distance)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distanceSphereValue($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User distanceValue($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User doesTouch($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User equals($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User intersects($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User newModelQuery()
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User newQuery()
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User orderByDistance($geometryColumn, $geometry, $direction = 'asc')
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User orderByDistanceSphere($geometryColumn, $geometry, $direction = 'asc')
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User orderBySpatial($geometryColumn, $geometry, $orderFunction, $direction = 'asc')
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User overlaps($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User query()
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereAbout($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereAvailableToHire($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereAvatar($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereCreatedAt($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereCurrentTeamId($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereEmail($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereEmailVerifiedAt($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereFormattedAddress($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereId($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLocation($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLoveReacterId($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereName($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User wherePassword($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereRememberToken($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereTagline($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereTradeId($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereTwoFactorRecoveryCodes($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereTwoFactorSecret($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereUpdatedAt($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereUsername($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereUuid($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User within($geometryColumn, $polygon)
- * @mixin \Eloquent
  */
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail, ReacterableInterface, Following, Blocking
 {
@@ -154,6 +66,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, React
     public static $rules = [
 
     ];
+
+    protected $guard = 'admin';
 
     /**
      * The attributes that are mass assignable.
@@ -344,5 +258,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail, React
         })->first();
 
         return $chat;
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 }

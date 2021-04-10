@@ -210,6 +210,8 @@ responder:
 #        'Transformation' => Flugg\Responder\Facades\Transformation::class,
 
 
-
 bc:
 	rm -f config/broadcasting.php && cp broadcasting.php config/broadcasting.php
+
+wk:
+	 ./vendor/bin/sail artisan schedule:work

@@ -24,10 +24,16 @@ class DatabaseSeeder extends Seeder
         //$this->call(\InvitationsTableSeeder::class);
        // $this->call(TradeSeeder::class);
 
-        $this->call(AtemTableSeeder::class);
-        $this->call(PostsTableSeeder::class);
-
-        $this->call(DefaultUserTableSeeder::class);
+        $this->call([
+            AtemTableSeeder::class,
+            PostsTableSeeder::class,
+            DefaultUserTableSeeder::class,
+            PermissionsTableSeeder::class,
+            RolesTableSeeder::class,
+            PermissionRoleTableSeeder::class,
+          //  UsersTableSeeder::class,
+            RoleUserTableSeeder::class,
+        ]);
 
     }
 }

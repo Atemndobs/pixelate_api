@@ -15,8 +15,8 @@ namespace App\Models{
  * App\Models\Chat
  *
  * @property int $id
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $latest_message
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
  * @property-read int|null $messages_count
@@ -28,7 +28,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Chat whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Chat whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Chat whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 	class Chat extends \Eloquent {}
 }
@@ -61,12 +60,14 @@ namespace App\Models{
  * @property string $commentable_type
  * @property string $commentable_id
  * @property string $comment
- * @property bool $approved
+ * @property int $approved
  * @property int|null $child_id
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $love_reactant_id
+ * @property array $likers
+ * @property string $likers_hash
  * @property-read \Illuminate\Database\Eloquent\Collection|Comment[] $children
  * @property-read int|null $children_count
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $commentable
@@ -91,15 +92,12 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereGuestEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereGuestName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereLikers($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereLikersHash($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereLoveReactantId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereNotReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, ?string $reactionTypeName = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, ?string $reactionTypeName = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property array $likers
- * @property string $likers_hash
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereLikers($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereLikersHash($value)
  */
 	class Comment extends \Eloquent implements \Cog\Contracts\Love\Reactable\Models\Reactable {}
 }
@@ -186,9 +184,39 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Design withAnyTags($tags)
  * @method static \Illuminate\Database\Eloquent\Builder|Design withoutAllTags($tags, bool $includeUntagged = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Design withoutAnyTags($tags, bool $includeUntagged = false)
- * @mixin \Eloquent
  */
 	class Design extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * Class Forecast.
+ *
+ * @property int $id
+ * @property string|null $uuid
+ * @property float $lat
+ * @property float $lon
+ * @property string $timezone
+ * @property int $timezone_offset
+ * @property array $current
+ * @property array $hourly
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast whereCurrent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast whereHourly($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast whereLat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast whereLon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast whereTimezone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast whereTimezoneOffset($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Forecast whereUuid($value)
+ */
+	class Forecast extends \Eloquent implements \Prettus\Repository\Contracts\Transformable {}
 }
 
 namespace App\Models{
@@ -215,7 +243,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Invitation whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Invitation whereToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Invitation whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 	class Invitation extends \Eloquent {}
 }
@@ -224,11 +251,10 @@ namespace App\Models{
 /**
  * App\Models\Like
  *
- * @property-read Model|\Eloquent $likeable
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $likeable
  * @method static \Illuminate\Database\Eloquent\Builder|Like newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Like newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Like query()
- * @mixin \Eloquent
  */
 	class Like extends \Eloquent {}
 }
@@ -261,9 +287,32 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Message withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Message withoutTrashed()
- * @mixin \Eloquent
  */
 	class Message extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * Class Permission.
+ *
+ * @property int $id
+ * @property string|null $title
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Permission onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Permission withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Permission withoutTrashed()
+ */
+	class Permission extends \Eloquent implements \Prettus\Repository\Contracts\Transformable {}
 }
 
 namespace App\Models{
@@ -342,7 +391,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Post withoutAllTags($tags, bool $includeUntagged = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Post withoutAnyTags($tags, bool $includeUntagged = false)
  * @method static \Illuminate\Database\Query\Builder|Post withoutTrashed()
- * @mixin Model
  */
 	class Post extends \Eloquent implements \Cog\Contracts\Love\Reactable\Models\Reactable {}
 }
@@ -354,9 +402,34 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction query()
- * @mixin \Eloquent
  */
 	class Reaction extends \Eloquent implements \Cog\Contracts\Love\Reaction\Models\Reaction {}
+}
+
+namespace App\Models{
+/**
+ * Class Role.
+ *
+ * @property int $id
+ * @property string|null $title
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
+ * @property-read int|null $permissions_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Role onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Role withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Role withoutTrashed()
+ */
+	class Role extends \Eloquent implements \Prettus\Repository\Contracts\Transformable {}
 }
 
 namespace App\Models{
@@ -385,7 +458,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereOwnerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 	class Team extends \Eloquent {}
 }
@@ -412,7 +484,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Trade whereMarket($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Trade whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Trade whereUserId($value)
- * @mixin \Eloquent
  */
 	class Trade extends \Eloquent {}
 }
@@ -470,6 +541,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $love_reacter_id
  * @property string $uuid
+ * @property string|null $last_login_at
+ * @property string|null $last_login_ip
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $approvedComments
  * @property-read int|null $approved_comments_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Chat[] $chats
@@ -490,6 +563,8 @@ namespace App\Models{
  * @property-read int|null $owned_teams_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
  * @property-read int|null $posts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
+ * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Team[] $teams
  * @property-read int|null $teams_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Trade[] $trade
@@ -523,6 +598,8 @@ namespace App\Models{
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereEmailVerifiedAt($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereFormattedAddress($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereId($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLastLoginAt($value)
+ * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLastLoginIp($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLocation($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLoveReacterId($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereName($value)
@@ -536,12 +613,52 @@ namespace App\Models{
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereUsername($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereUuid($value)
  * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User within($geometryColumn, $polygon)
- * @mixin \Eloquent
- * @property string|null $last_login_at
- * @property string|null $last_login_ip
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLastLoginAt($value)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User whereLastLoginIp($value)
  */
 	class User extends \Eloquent implements \Tymon\JWTAuth\Contracts\JWTSubject, \Illuminate\Contracts\Auth\MustVerifyEmail, \Cog\Contracts\Love\Reacterable\Models\Reacterable, \Rennokki\Befriended\Contracts\Following, \Rennokki\Befriended\Contracts\Blocking, \Rennokki\Befriended\Contracts\Follower, \Rennokki\Befriended\Contracts\Followable, \Rennokki\Befriended\Contracts\Blocker, \Rennokki\Befriended\Contracts\Blockable {}
+}
+
+namespace App\Models{
+/**
+ * Class Weather.
+ *
+ * @property int $id
+ * @property string|null $uuid
+ * @property float $dt
+ * @property string $name
+ * @property string $base
+ * @property int $timezone
+ * @property int $cod
+ * @property int $visibility
+ * @property array $data
+ * @property array $weather
+ * @property array $coord
+ * @property array $main
+ * @property array $clouds
+ * @property array $sys
+ * @property array $wind
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereBase($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereClouds($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereCod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereCoord($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereDt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereMain($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereSys($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereTimezone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereVisibility($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereWeather($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Weather whereWind($value)
+ */
+	class Weather extends \Eloquent implements \Prettus\Repository\Contracts\Transformable {}
 }
 

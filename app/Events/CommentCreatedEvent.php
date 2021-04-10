@@ -2,12 +2,8 @@
 
 namespace App\Events;
 
-use App\Http\Resources\CommentResource;
-use App\Http\Resources\PostResource;
 use App\Models\Comment;
 use App\Models\Post;
-use App\Repositories\Contracts\CommentRepositoryInterface;
-use App\Repositories\Contracts\PostRepositoryInterface;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
@@ -57,7 +53,19 @@ class CommentCreatedEvent implements ShouldBroadcastNow
     {
         return [
             'post_id' => $this->post->id,
-            'comments_count' => $this->post->comments_count,
+            'author' => $this->post->user->id,
+            'comments_count' => $this->post->comments->count(),
+            'comment' => [
+                'id' => $this->comment->id,
+                'comment' => $this->comment->comment,
+                'commenter' => [
+                    'id' => $this->comment->commenter_id,
+                    'name' => $this->comment->commenter->name,
+                    'avatar' => $this->comment->commenter->avatar,
+                ],
+
+            ],
+            'position' => $this->post['position'],
             'new_comment' => $this->comment,
 /*            'new_comment' => [
                 "id" => $this->comment->id,
@@ -71,15 +79,16 @@ class CommentCreatedEvent implements ShouldBroadcastNow
                     'name' => $this->comment->commenter->name,
                     'photo_url' => $this->comment->commenter->photo_url,
                 ],
-                "created_dates" => [
-                    "created_at_human" => $this->comment->created_at->diffForHumans(),
-                    "created_at" => $this->comment->created_at,
                 ],
-                "updated_dates" => [
-                    "updated_at_human" => $this->comment->updated_at->diffForHumans(),
-                    "updated_at" => $this->comment->updated_at,
-                ],
-            ]*/
+*/
+            "created_dates" => [
+                "created_at_human" => $this->comment->created_at->diffForHumans(),
+                "created_at" => $this->comment->created_at,
+            ],
+            "updated_dates" => [
+                "updated_at_human" => $this->comment->updated_at->diffForHumans(),
+                "updated_at" => $this->comment->updated_at,
+            ],
         ];
     }
 }

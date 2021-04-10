@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
-
 class UploadImage implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -51,9 +50,9 @@ class UploadImage implements ShouldQueue
 
         try {
             // create large image and save to temp
-            $this->createImage( 'large', 800, 600);
+            $this->createImage('large', 800, 600);
             // create thumbnail image
-            $this->createImage( 'thumbnail',250, 200);
+            $this->createImage('thumbnail', 250, 200);
 
             // store images to permanent location
             //Original image
@@ -69,8 +68,7 @@ class UploadImage implements ShouldQueue
             $this->design->update([
                 'upload_successful' => true
             ]);
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             Log::error($exception->getMessage());
         }
     }
@@ -83,14 +81,14 @@ class UploadImage implements ShouldQueue
         $temp_file = storage_path('uploads/'.$size.'/'.$filename);
 
 
-       return Image::make($original_file)
-            ->fit($with, $height, function ($constraint){
+        return Image::make($original_file)
+            ->fit($with, $height, function ($constraint) {
                 $constraint->aspectRatio();
             })
             ->save($temp_file);
     }
 
-    protected function storeToPermanentLocation( string $size, string $disk, string $filename)
+    protected function storeToPermanentLocation(string $size, string $disk, string $filename)
     {
         $temp_file = storage_path('uploads/'.$size.'/'.$filename);
 
@@ -98,7 +96,7 @@ class UploadImage implements ShouldQueue
         $source = fopen($temp_file, 'r+');
         $storage = Storage::disk($disk);
 
-        if ($storage->put($path, $source)){
+        if ($storage->put($path, $source)) {
             File::delete($temp_file);
         }
     }

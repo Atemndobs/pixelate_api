@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Design;
 use App\Repositories\Contracts\DesignRepositoryInterface;
-use App\Repositories\Eloquent\DesignRepository;
-use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {

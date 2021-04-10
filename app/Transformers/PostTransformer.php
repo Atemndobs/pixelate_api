@@ -43,11 +43,12 @@ class PostTransformer extends Transformer
      */
     public function transform(Post $post)
     {
-        $authUser = User::find(request()->user_id);
+        $id = auth()->check() ? auth()->id() : request()->user_id;
+        $authUser = User::find($id);
 
         return [
             'id' => (int) $post->id,
-            'user_id' => request()->user_id,
+           // 'user_id' => $authUser,
             "caption" => $post->caption,
             "location" => $post->location,
             'imageUrl'=> $post->imageUrl,
@@ -58,7 +59,7 @@ class PostTransformer extends Transformer
             'likers' => $post->likers,
             'new_comment' =>$post->latest_comment,
             'comments_count' => $post->comments->count(),
-            'is_user_following' => $authUser->isFollowing($post->user),
+            'is_user_following' => (bool)$authUser->isFollowing($post->user),
             "created_dates" => [
                 "created_at_human" => $post->created_at->diffForHumans(),
                 "created_at" => $post->created_at,
@@ -70,15 +71,9 @@ class PostTransformer extends Transformer
         ];
     }
 
-    public function getUser($id)
-    {
-          return (User::find($id))->loveReacter;
-    }
-
     public function transformLikes(Post $post)
     {
         $reactions = $post->getLoveReactant()->getReactions();
-       // die(json_encode($post->likers));
         return [
             'id' => (int) $post->id,
             'likes_count' => $reactions->count(),
@@ -97,29 +92,37 @@ class PostTransformer extends Transformer
 
     public function transformComment(Post $post)
     {
+        $comment = $post->comments->last();
         return [
             'id' => (int) $post->id,
             'comment' => [
-                'id' => $post->comments->last()->id,
-                'comment' => $post->comments->last()->comment,
+                'id' => $comment->id,
+                'comment' => $comment->comment,
                 'commenter' => [
-                   'id' => $post->comments->last()->commenter->id,
-                   'name' => $post->comments->last()->commenter->name,
-                   'photo_url' => $post->comments->last()->commenter->photo_url,
-                   'username' => $post->comments->last()->commenter->username,
+                   'id' => $comment->commenter->id,
+                   'name' => $comment->commenter->name,
+                   'photo_url' => $comment->commenter->photo_url,
+                   'username' => $comment->commenter->username,
                 ]
-
             ],
-            //'new_comment' => $post->latest_comment,
             'comment_count' => $post->comments->count(),
             'created_dates' => [
-                "created_at_human" => $post->created_at->diffForHumans(),
-                "created_at" => $post->created_at,
+                "created_at_human" => $comment->created_at->diffForHumans(),
+                "created_at" => $comment->created_at,
             ],
             'updated_dates' => [
-                "updated_at_human" => $post->updated_at->diffForHumans(),
-                "updated_at" => $post->updated_at,
+                "updated_at_human" => $comment->updated_at->diffForHumans(),
+                "updated_at" => $comment->updated_at,
             ],
         ];
+    }
+
+    public function livePost(Post $post)
+    {
+        return [
+            $this->transform($post),
+            $this->load,
+        ];
+
     }
 }

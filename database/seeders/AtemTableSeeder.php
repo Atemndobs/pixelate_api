@@ -29,6 +29,7 @@ class AtemTableSeeder extends Seeder
             'formatted_address' => 'Moltkestraße 55, 40477, Düsseldorf',
             'about' => 'I am a software Engineer Based in Dusseldorf and I am having lots of fun coding ',
             'password' => '$2y$10$UZjGPBj7DIMdXIHhGz63UeMHchNWlIhDV7qqTgIw19GPcMuVDGKhi', // pass1234
+            'avatar' => 'https://www.gravatar.com/avatar/'.md5(strtolower('bamarktfact@gmail.com')).'jpg?s=200&d=mm',
             'remember_token' => Str::random(10),
             'available_to_hire' => true,
             'location' =>  DB::raw($atemLocation),

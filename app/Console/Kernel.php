@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Events\WeatherFetchEvent;
 use App\Http\Middleware\ProfileJsonResponse;
 use Cog\Laravel\Love\Console\Commands\Recount;
 use Illuminate\Console\Scheduling\Schedule;
@@ -26,7 +27,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+         $schedule->command('forecast:get')->everySixHours();
+         $schedule->command('reset:table weathers')->everySixHours();
+         $schedule->command('forecast:peak')->everyFifteenMinutes();
+         $schedule->command('price:check')->everyFifteenMinutes();
     }
 
     /**
@@ -39,12 +43,6 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
-
-
-
-/*        \Artisan::command('reset:table {table}', function ($table) {
-            $this->info("Cleaning the database table:  {$table}");
-        });*/
     }
 
 }

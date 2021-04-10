@@ -12,635 +12,14 @@
         }
     ],
     "paths": {
-        "/api/posts": {
-            "get": {
-                "tags": [
-                    "Post"
-                ],
-                "summary": "Get all Posts",
-                "description": "Get all Posts available online (set to live )",
-                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::index",
-                "parameters": [
-                    {
-                        "name": "user_id",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "number",
-                            "example": 2
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/Post"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Display a listing of the Post.\nGET|HEAD /posts",
-                                            "type": "string",
-                                            "example": "Not Found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/posts/{user_id}": {
-            "post": {
-                "tags": [
-                    "Post"
-                ],
-                "summary": "Create Post",
-                "description": "Create A Post",
-                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::store",
-                "parameters": [
-                    {
-                        "name": "user_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "number",
-                            "example": 1
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Pass Post data",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "caption": {
-                                        "description": "Store a newly created Post in storage.\nPOST /posts",
-                                        "type": "string",
-                                        "example": "Here"
-                                    },
-                                    "imageUrl": {
-                                        "description": "Store a newly created Post in storage.\nPOST /posts",
-                                        "type": "string",
-                                        "example": "https://picsum.photos/400/300"
-                                    },
-                                    "location": {
-                                        "description": "Store a newly created Post in storage.\nPOST /posts",
-                                        "type": "string",
-                                        "example": "Dusseldorf"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "description": "Store a newly created Post in storage.\nPOST /posts",
-                                            "type": "string",
-                                            "example": "false"
-                                        },
-                                        "message": {
-                                            "description": "Store a newly created Post in storage.\nPOST /posts",
-                                            "type": "string",
-                                            "example": "Post not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "token": []
-                    }
-                ]
-            }
-        },
-        "/api/posts/{id}": {
-            "get": {
-                "tags": [
-                    "Post"
-                ],
-                "summary": "Get Post by Id",
-                "description": "Get Single Post",
-                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::show",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "number",
-                            "example": 1
-                        }
-                    },
-                    {
-                        "name": "user_id",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "number",
-                            "example": 2
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/Post"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "description": "Display the specified Post.\nGET|HEAD /posts/{id}",
-                                            "type": "string",
-                                            "example": "false"
-                                        },
-                                        "message": {
-                                            "description": "Display the specified Post.\nGET|HEAD /posts/{id}",
-                                            "type": "string",
-                                            "example": "Post not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "token": []
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Post"
-                ],
-                "summary": "Update Post",
-                "description": "Update A Post by Id",
-                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::update",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "number",
-                            "example": 1
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Pass Post data",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "caption": {
-                                        "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
-                                        "type": "string",
-                                        "example": "Here"
-                                    },
-                                    "location": {
-                                        "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
-                                        "type": "string",
-                                        "example": "Dusseldorf"
-                                    },
-                                    "tags": {
-                                        "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
-                                        "example": [
-                                            "Sunny",
-                                            "Summer"
-                                        ]
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
-                                            "type": "string",
-                                            "example": "true"
-                                        },
-                                        "message": {
-                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
-                                            "type": "string",
-                                            "example": "Post deleted successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
-                                            "type": "string",
-                                            "example": "false"
-                                        },
-                                        "message": {
-                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
-                                            "type": "string",
-                                            "example": "Post not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "token": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Post"
-                ],
-                "summary": "Delete Post",
-                "description": "Delete A Post by Id",
-                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::destroy",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "number",
-                            "example": 1
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
-                                            "type": "string",
-                                            "example": "true"
-                                        },
-                                        "message": {
-                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
-                                            "type": "string",
-                                            "example": "Post deleted successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
-                                            "type": "string",
-                                            "example": "false"
-                                        },
-                                        "message": {
-                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
-                                            "type": "string",
-                                            "example": "Post not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "token": []
-                    }
-                ]
-            }
-        },
-        "/api/posts/like/{post_id}": {
-            "post": {
-                "tags": [
-                    "Post"
-                ],
-                "summary": "Like Post",
-                "description": "Like a Post",
-                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::toggleLike",
-                "parameters": [
-                    {
-                        "name": "post_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "number",
-                            "example": 11
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Pass user credentials",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "user_id": {
-                                        "description": "POST /posts",
-                                        "type": "number",
-                                        "example": 21
-                                    },
-                                    "type": {
-                                        "description": "POST /posts",
-                                        "type": "string",
-                                        "example": "Like"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "description": "POST /posts",
-                                            "type": "string",
-                                            "example": "liked"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "No Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "POST /posts",
-                                            "type": "string",
-                                            "example": "Post not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "POST /posts",
-                                            "type": "string",
-                                            "example": "Not Logged In"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "eror": {
-                                            "description": "POST /posts",
-                                            "type": "string",
-                                            "example": "Reaction of type `Like` already exists."
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "token": []
-                    }
-                ]
-            }
-        },
-        "/api/posts/comment/{post_id}": {
-            "post": {
-                "tags": [
-                    "Post"
-                ],
-                "summary": "Comment Post",
-                "description": "Comment a Post",
-                "operationId": "App\\Http\\Controllers\\API\\PostAPIController::addComment",
-                "parameters": [
-                    {
-                        "name": "post_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "number",
-                            "example": 11
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Pass user credentials",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "user_id": {
-                                        "description": "POST /posts",
-                                        "type": "number",
-                                        "example": 21
-                                    },
-                                    "comment": {
-                                        "description": "POST /posts",
-                                        "type": "string",
-                                        "example": "Here is the mommemt of comment"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "POST /posts",
-                                            "type": "string",
-                                            "example": "Comment Added"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "No Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "POST /posts",
-                                            "type": "string",
-                                            "example": "Post not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "description": "POST /posts",
-                                            "type": "string",
-                                            "example": "Not Logged In"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "eror": {
-                                            "description": "POST /posts",
-                                            "type": "string",
-                                            "example": "Comment error"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "token": []
-                    }
-                ]
-            }
-        },
-        "/api/settings/clear/{model}": {
+        "/api/admin/settings/clear/{model}": {
             "post": {
                 "tags": [
                     "Settings"
                 ],
                 "summary": "Clean Up Model",
                 "description": "clear data in model",
-                "operationId": "App\\Http\\Controllers\\AppSettingsController::index",
+                "operationId": "App\\Http\\Controllers\\Auth\\Admin\\AppSettingsController::index",
                 "parameters": [
                     {
                         "name": "model",
@@ -707,14 +86,14 @@
                 }
             }
         },
-        "/api/settings/models": {
+        "/api/admin/settings/models": {
             "get": {
                 "tags": [
                     "Settings"
                 ],
                 "summary": "Clean Up Model",
                 "description": "clear data in model",
-                "operationId": "App\\Http\\Controllers\\AppSettingsController::getModels",
+                "operationId": "App\\Http\\Controllers\\Auth\\Admin\\AppSettingsController::getModels",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -770,14 +149,14 @@
                 }
             }
         },
-        "/api/settings/model/populate/{model}": {
+        "/api/admin/settings/model/populate/{model}": {
             "post": {
                 "tags": [
                     "Settings"
                 ],
                 "summary": "Populate Model",
                 "description": "Add  data for model",
-                "operationId": "App\\Http\\Controllers\\AppSettingsController::populateData",
+                "operationId": "App\\Http\\Controllers\\Auth\\Admin\\AppSettingsController::populateData",
                 "parameters": [
                     {
                         "name": "model",
@@ -844,14 +223,14 @@
                 }
             }
         },
-        "/api/settings/types": {
+        "/api/admin/settings/types": {
             "get": {
                 "tags": [
                     "Settings"
                 ],
                 "summary": "Get All ExistingTpes",
                 "description": "Get all types",
-                "operationId": "App\\Http\\Controllers\\AppSettingsController::getTypes",
+                "operationId": "App\\Http\\Controllers\\Auth\\Admin\\AppSettingsController::getTypes",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -912,7 +291,7 @@
                 ],
                 "summary": "Create / Reset Types",
                 "description": "Create / Reset Reaction Types",
-                "operationId": "App\\Http\\Controllers\\AppSettingsController::createLikeTypes",
+                "operationId": "App\\Http\\Controllers\\Auth\\Admin\\AppSettingsController::createLikeTypes",
                 "requestBody": {
                     "description": "The Types to be Created",
                     "required": true,
@@ -1008,14 +387,14 @@
                 }
             }
         },
-        "/api/settings/reset/db": {
+        "/api/admin/settings/reset/db": {
             "post": {
                 "tags": [
                     "Settings"
                 ],
                 "summary": "Reset Databease",
                 "description": "Reses DB",
-                "operationId": "App\\Http\\Controllers\\AppSettingsController::resetDB",
+                "operationId": "App\\Http\\Controllers\\Auth\\Admin\\AppSettingsController::resetDB",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -1071,14 +450,14 @@
                 }
             }
         },
-        "/api/settings/export": {
+        "/api/admin/settings/export": {
             "post": {
                 "tags": [
                     "Settings"
                 ],
                 "summary": "Export CSV or Excel or Pdf",
                 "description": "Export ",
-                "operationId": "App\\Http\\Controllers\\AppSettingsController::export",
+                "operationId": "App\\Http\\Controllers\\Auth\\Admin\\AppSettingsController::export",
                 "requestBody": {
                     "description": "The Types to be Exported",
                     "required": true,
@@ -2123,6 +1502,627 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/posts": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get all Posts",
+                "description": "Get all Posts available online (set to live )",
+                "operationId": "App\\Http\\Controllers\\PostController::index",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": 2
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Post"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Display a listing of the Post.\nGET|HEAD /posts",
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/{user_id}": {
+            "post": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Create Post",
+                "description": "Create A Post",
+                "operationId": "App\\Http\\Controllers\\PostController::store",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass Post data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "caption": {
+                                        "description": "Store a newly created Post in storage.\nPOST /posts",
+                                        "type": "string",
+                                        "example": "Here"
+                                    },
+                                    "imageUrl": {
+                                        "description": "Store a newly created Post in storage.\nPOST /posts",
+                                        "type": "string",
+                                        "example": "https://picsum.photos/400/300"
+                                    },
+                                    "location": {
+                                        "description": "Store a newly created Post in storage.\nPOST /posts",
+                                        "type": "string",
+                                        "example": "Dusseldorf"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Store a newly created Post in storage.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "description": "Store a newly created Post in storage.\nPOST /posts",
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/posts/{id}": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get Post by Id",
+                "description": "Get Single Post",
+                "operationId": "App\\Http\\Controllers\\PostController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": 2
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Post"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Display the specified Post.\nGET|HEAD /posts/{id}",
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "description": "Display the specified Post.\nGET|HEAD /posts/{id}",
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Update Post",
+                "description": "Update A Post by Id",
+                "operationId": "App\\Http\\Controllers\\PostController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass Post data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "caption": {
+                                        "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                        "type": "string",
+                                        "example": "Here"
+                                    },
+                                    "location": {
+                                        "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                        "type": "string",
+                                        "example": "Dusseldorf"
+                                    },
+                                    "tags": {
+                                        "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                        "example": [
+                                            "Sunny",
+                                            "Summer"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                            "type": "string",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                            "type": "string",
+                                            "example": "Post deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "description": "Update the specified Post in storage.\nPUT/PATCH /posts/{id}",
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Delete Post",
+                "description": "Delete A Post by Id",
+                "operationId": "App\\Http\\Controllers\\PostController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
+                                            "type": "string",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
+                                            "type": "string",
+                                            "example": "Post deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "description": "Remove the specified Post from storage.\nDELETE /posts/{id}",
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/posts/like/{post_id}": {
+            "post": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Like Post",
+                "description": "Like a Post",
+                "operationId": "App\\Http\\Controllers\\PostController::toggleLike",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 11
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "description": "POST /posts",
+                                        "type": "number",
+                                        "example": 21
+                                    },
+                                    "type": {
+                                        "description": "POST /posts",
+                                        "type": "string",
+                                        "example": "Like"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "POST /posts",
+                                            "type": "string",
+                                            "example": "liked"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "POST /posts",
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "POST /posts",
+                                            "type": "string",
+                                            "example": "Not Logged In"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "eror": {
+                                            "description": "POST /posts",
+                                            "type": "string",
+                                            "example": "Reaction of type `Like` already exists."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "/api/posts/comment/{post_id}": {
+            "post": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Comment Post",
+                "description": "Comment a Post",
+                "operationId": "App\\Http\\Controllers\\PostController::addComment",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 11
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "description": "POST /posts",
+                                        "type": "number",
+                                        "example": 21
+                                    },
+                                    "comment": {
+                                        "description": "POST /posts",
+                                        "type": "string",
+                                        "example": "Here is the mommemt of comment"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "POST /posts",
+                                            "type": "string",
+                                            "example": "Comment Added"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "POST /posts",
+                                            "type": "string",
+                                            "example": "Post not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "POST /posts",
+                                            "type": "string",
+                                            "example": "Not Logged In"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "eror": {
+                                            "description": "POST /posts",
+                                            "type": "string",
+                                            "example": "Comment error"
                                         }
                                     },
                                     "type": "object"

@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Http\Resources\PostResource;
+use App\Models\Post;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -16,35 +17,35 @@ class PostCreatedEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * @var PostResource
-     */
-    public PostResource $postResource;
+    public $post;
+    public $user;
 
     /**
      * PostCreatedEvent constructor.
-     * @param PostResource $postResource
      */
-    public function __construct(PostResource $postResource)
+    public function __construct($post, $user)
     {
-        $this->postResource = $postResource;
+        $this->post = $post;
+        $this->user = $user;
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return Channel|array
      */
     public function broadcastOn()
     {
-        return new Channel('post-channel');
+        return new Channel("post-channel");
     }
 
     public function broadcastWith()
     {
-        return [
-            'post' => $this->postResource
-            ];
+        $this->post->user = $this->user;
+        $this->post->created_dates = ['created_at_human' => $this->post->created_at->diffForHumans()];
 
+        return [
+            'post' => $this->post
+            ];
     }
 }

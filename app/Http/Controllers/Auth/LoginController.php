@@ -152,7 +152,7 @@ class LoginController extends Controller
     {
         try {
             $this->guard()->logout();
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             return response()->json(['message' => $exception->getMessage()]);
         }
         return response()->json(['message' => 'Logged out successfully']);

@@ -3,7 +3,7 @@ version: '3'
 services:
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/7.4
+            context: ./docker/7.4
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
@@ -23,15 +23,24 @@ services:
         depends_on:
             - mysql
             - redis
+    cron:
+      build:
+        context: .
+        dockerfile: docker/cron.dockerfile
+      container_name: cron_user
+      volumes:
+        - '.:/var/www/html'
+      networks:
+        - sail
     mysql:
         image: 'mysql:5.7'
         ports:
             - 33089:3306
         environment:
             MYSQL_ROOT_PASSWORD: 'root'
-            MYSQL_DATABASE: 'pixel'
-            MYSQL_USER: 'atem'
-            MYSQL_PASSWORD: 'atem'
+            MYSQL_DATABASE: 'pixelate'
+            MYSQL_USER: 'pixelate'
+            MYSQL_PASSWORD: 'pixelate'
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         volumes:
             - 'sailmysql:/var/lib/mysql'

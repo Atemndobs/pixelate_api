@@ -36,60 +36,6 @@ use function RingCentral\Psr7\str;
  *      @OA\Property(property="user", ref="#/components/schemas/User"),
  *      @OA\Property(property="comment", ref="#/components/schemas/Comment"),
  * )
- * @property int $id
- * @property int $user_id
- * @property string $caption
- * @property string|null $imageUrl
- * @property string $location
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property int|null $love_reactant_id
- * @property array $likers
- * @property string $likers_hash
- * @property array|null $latest_comment
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $approvedComments
- * @property-read int|null $approved_comments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
- * @property-read int|null $comments_count
- * @property-read mixed $reacter_id
- * @property-read array $tag_array
- * @property-read array $tag_array_normalized
- * @property-read string $tag_list
- * @property-read string $tag_list_normalized
- * @property-read \Cog\Laravel\Love\Reactant\Models\Reactant|null $loveReactant
- * @property-read \Illuminate\Database\Eloquent\Collection|\Cviebrock\EloquentTaggable\Models\Tag[] $tags
- * @property-read int|null $tags_count
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|Post isNotTagged()
- * @method static \Illuminate\Database\Eloquent\Builder|Post isTagged()
- * @method static \Illuminate\Database\Eloquent\Builder|Post joinReactionCounterOfType(string $reactionTypeName, ?string $alias = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Post joinReactionTotal(?string $alias = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
- * @method static \Illuminate\Database\Query\Builder|Post onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Post query()
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereCaption($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereImageUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereLatestComment($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereLikers($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereLikersHash($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereLoveReactantId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereNotReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, ?string $reactionTypeName = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, ?string $reactionTypeName = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Post withAllTags($tags)
- * @method static \Illuminate\Database\Eloquent\Builder|Post withAnyTags($tags)
- * @method static \Illuminate\Database\Query\Builder|Post withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Post withoutAllTags($tags, bool $includeUntagged = false)
- * @method static \Illuminate\Database\Eloquent\Builder|Post withoutAnyTags($tags, bool $includeUntagged = false)
- * @method static \Illuminate\Database\Query\Builder|Post withoutTrashed()
- * @mixin Model
  */
 class Post extends Model implements ReactableInterface
 {

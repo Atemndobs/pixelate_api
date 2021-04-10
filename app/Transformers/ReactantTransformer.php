@@ -40,6 +40,7 @@ class ReactantTransformer extends Transformer
             'icon_class' => 'eva-heart-outline',
             'color' => 'black',
 
+
             // 'reaction_count' => $reactant->reactions->count(),
            // 'is_liked' => $reactant->isReactedBy($users->getLoveReacter())
         ];

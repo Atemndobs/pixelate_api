@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Events\FollowCreatedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -231,23 +232,34 @@ class UserController extends Controller
             $user->follow($author);
             $message = 'Following';
         }
-        $isFollowing = $user->isFollowing($author);
+        $isFollowing = (bool)$user->isFollowing($author);
         $user_following_count = $user->following()->count();
         $user_follower_count = $user->followers()->count();
         $author_follower_count = $author->followers()->count();
         $author_following_count = $author->following()->count();
 
+        $follower = [
+            'is_user_following' => $isFollowing,
+            'follower_count' => $author_follower_count,
+            'following_count' => $author_following_count,
+            'user_following_count' => $user_following_count,
+            'user_follower_count' => $user_follower_count,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'avatar' => $user->avatar
+            ],
+            'author' => [
+                'id' => $author->id,
+                'follower_count' => $author_follower_count
+            ],
+            'position' => \request()->position
+        ];
+        broadcast(new FollowCreatedEvent($follower))->toOthers();
+
 
         return \Response::json(
-            [
-                'is_user_following' => $isFollowing,
-                'follower_count' => $author_follower_count,
-                'following_count' => $author_following_count,
-                'user_following_count' => $user_following_count,
-               'user_follower_count' => $user_follower_count,
-               // 'user_id' => $user->id,
-              //  'author_id' => $author->id
-            ],
+            $follower,
             200
         );
     }

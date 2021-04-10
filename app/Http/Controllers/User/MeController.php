@@ -47,9 +47,6 @@ class MeController extends Controller
     {
 
         if (auth()->check()) {
-         //  return response()->json(["data" => auth()->user()], 200);
-         //   $users = $this->userRepository->with(['posts', 'followers'])->all();
-
             return responder()->success(auth()->user(), UserTransformer::class);
         }
         return response()->json(null, 401);

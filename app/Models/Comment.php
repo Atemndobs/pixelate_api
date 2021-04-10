@@ -25,49 +25,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          @OA\Property(property="updated_at", description="Raw unfarmatted update date ", example="2020-11-09T20:04:11.000000Z"),
  *      ),
  * )
- * @property int $id
- * @property string|null $commenter_id
- * @property string|null $commenter_type
- * @property string|null $guest_name
- * @property string|null $guest_email
- * @property string $commentable_type
- * @property string $commentable_id
- * @property string $comment
- * @property bool $approved
- * @property int|null $child_id
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int|null $love_reactant_id
- * @property-read \Illuminate\Database\Eloquent\Collection|Comment[] $children
- * @property-read int|null $children_count
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $commentable
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $commenter
- * @property-read mixed $reacter_id
- * @property-read \Cog\Laravel\Love\Reactant\Models\Reactant|null $loveReactant
- * @property-read Comment|null $parent
- * @method static \Illuminate\Database\Eloquent\Builder|Comment joinReactionCounterOfType(string $reactionTypeName, ?string $alias = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment joinReactionTotal(?string $alias = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Comment newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Comment query()
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereApproved($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereChildId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereComment($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommentableId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommentableType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommenterId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommenterType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereGuestEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereGuestName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereLoveReactantId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereNotReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, ?string $reactionTypeName = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereReactedBy(\Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable, ?string $reactionTypeName = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class Comment extends \Laravelista\Comments\Comment implements ReactableInterface
 {
