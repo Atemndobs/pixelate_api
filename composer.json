@@ -10,26 +10,56 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
-        "cviebrock/eloquent-taggable": "^7.0",
+        "aerni/laravel-spotify": "^1.6",
+        "beyondcode/laravel-websockets": "^1.9",
+        "cviebrock/eloquent-taggable": "^8.0",
+        "cybercog/laravel-love": "^8.7",
+        "darkaonline/l5-swagger": "^8.0",
+        "dompdf/dompdf": "^1.0",
+        "enlightn/enlightn": "^1.4",
+        "fabpot/goutte": "^4.0",
         "fideloper/proxy": "^4.2",
+        "flugger/laravel-responder": "^3.1",
         "fruitcake/laravel-cors": "^2.0",
-        "grimzy/laravel-mysql-spatial": "3.0.x-dev",
+        "grimzy/laravel-mysql-spatial": "^4.0",
         "guzzlehttp/guzzle": "^7.0",
         "intervention/image": "^2.5",
-        "laravel/framework": "^7.0",
+        "laravel/fortify": "^1.6",
+        "laravel/framework": "^8.0",
+        "laravel/horizon": "^5.2",
+        "laravel/scout": "^8.3",
+        "laravel/slack-notification-channel": "^2.3",
+        "laravel/telescope": "^4.4",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.2",
+        "laravel/ui": "^3.0",
+        "laravelista/comments": "^4.4",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "tymon/jwt-auth": "^1.0.0-rc.5"
+        "maatwebsite/excel": "^3.1",
+        "predis/predis": "^1.1",
+        "prettus/l5-repository": "^2.7",
+        "pusher/pusher-php-server": "^4.1",
+        "rennokki/befriended": "^3.7",
+        "spatie/image": "^1.10",
+        "spatie/laravel-ray": "^1.13",
+        "squizlabs/php_codesniffer": "*",
+        "tymon/jwt-auth": "^1.0.0-rc.5",
+        "zircote/swagger-php": "^3.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
-        "barryvdh/laravel-ide-helper": "^2.8",
+        "barryvdh/laravel-ide-helper": "^2.9",
+        "beyondcode/laravel-query-detector": "^1.5",
+        "doctrine/dbal": "~2.3",
         "facade/ignition": "^2.3",
         "fzaninotto/faker": "^1.9.1",
+        "infyomlabs/adminlte-templates": "8.0.x-dev",
+        "infyomlabs/laravel-generator": "8.0.x-dev",
+        "laravel/sail": "^1.0",
+        "laravelcollective/html": "^6.2",
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^8.5"
+        "phpmd/phpmd": "@stable",
+        "phpunit/phpunit": "^9.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -43,10 +73,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         },
         "classmap": [
-            "database/seeds",
+            "database/seeders",
             "database/factories"
         ]
     },
@@ -73,6 +105,32 @@
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:eloquent",
             "@php artisan ide-helper:models"
+        ],
+        "phpcs": [
+
+        ],
+        "phpmd": [
+
+        ],
+        "test": "./vendor/phpunit/phpunit/phpunit tests --debug  --colors=always",
+        "phpmetrics": [
+            "vendor/phpmetrics/phpmetrics/bin/phpmetrics app"
+        ],
+        "phpmetrics-report": [
+            "rm -rf ./storage/phpmetrics-report",
+            "vendor/bin/phpmetrics src --report-html=storage/phpmetrics-report"
+        ],
+        "phpcbf": [
+            "vendor/squizlabs/php_codesniffer/scripts/phpcbf -n --standard=vendor/fashionette/coding.guidelines/cs/ruleset.xml app"
+        ],
+        "coverage": [
+            "rm -rf ./storage/coverage",
+            "mkdir -p ./storage/coverage",
+            "vendor/bin/phpunit -c phpunit.coverage.xml",
+            "echo coverage results should be in ./storage/coverage folder."
+        ],
+        "tarcoverage": [
+            "tar caf covarage.tar.gz ./storage/coverage"
         ]
     }
 }

@@ -1,0 +1,7 @@
+preset: laravel
+
+namespace: App
+user-auth-provider: App\Models\User
+
+model:
+  namespace: App\Models

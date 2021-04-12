@@ -1,0 +1,2100 @@
+openapi: 3.0.0
+info:
+  title: Pixelate
+  description: 'Documentation for Pixelate app'
+  version: 1.0.2
+servers:
+  -
+    url: 'http://localhost:8090'
+    description: Server
+paths:
+  '/api/admin/settings/clear/{model}':
+    post:
+      tags:
+        - Settings
+      summary: 'Clean Up Model'
+      description: 'clear data in model'
+      operationId: 'App\Http\Controllers\Auth\Admin\AppSettingsController::index'
+      parameters:
+        -
+          name: model
+          in: path
+          required: true
+          schema:
+            type: string
+            example: posts
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Delete all data from Model.\nPOST /posts"
+                    type: string
+                    example: 'Model Cleared'
+                type: object
+        419:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Delete all data from Model.\nPOST /posts"
+                    type: string
+                    example: 'Unprocessable Entity'
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Delete all data from Model.\nPOST /posts"
+                    type: string
+                    example: 'Model not found'
+                type: object
+  /api/admin/settings/models:
+    get:
+      tags:
+        - Settings
+      summary: 'Clean Up Model'
+      description: 'clear data in model'
+      operationId: 'App\Http\Controllers\Auth\Admin\AppSettingsController::getModels'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Clean Up models\nGet /settings"
+                    type: string
+                    example: 'Array of models'
+                type: object
+        419:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Clean Up models\nGet /settings"
+                    type: string
+                    example: 'Unprocessable Entity'
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Clean Up models\nGet /settings"
+                    type: string
+                    example: 'Model not found'
+                type: object
+  '/api/admin/settings/model/populate/{model}':
+    post:
+      tags:
+        - Settings
+      summary: 'Populate Model'
+      description: 'Add  data for model'
+      operationId: 'App\Http\Controllers\Auth\Admin\AppSettingsController::populateData'
+      parameters:
+        -
+          name: model
+          in: path
+          required: true
+          schema:
+            type: string
+            example: posts
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Populate given model.\nPOST /settings"
+                    type: string
+                    example: 'Model Cleared'
+                type: object
+        419:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Populate given model.\nPOST /settings"
+                    type: string
+                    example: 'Unprocessable Entity'
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Populate given model.\nPOST /settings"
+                    type: string
+                    example: 'Model not found'
+                type: object
+  /api/admin/settings/types:
+    get:
+      tags:
+        - Settings
+      summary: 'Get All ExistingTpes'
+      description: 'Get all types'
+      operationId: 'App\Http\Controllers\Auth\Admin\AppSettingsController::getTypes'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Get all ReactionTypes\nPOST /posts"
+                    type: string
+                    example: Like
+                type: object
+        419:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Get all ReactionTypes\nPOST /posts"
+                    type: string
+                    example: 'Unprocessable Entity'
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Get all ReactionTypes\nPOST /posts"
+                    type: string
+                    example: 'Model not found'
+                type: object
+    post:
+      tags:
+        - Settings
+      summary: 'Create / Reset Types'
+      description: 'Create / Reset Reaction Types'
+      operationId: 'App\Http\Controllers\Auth\Admin\AppSettingsController::createLikeTypes'
+      requestBody:
+        description: 'The Types to be Created'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                types:
+                  description: "Create Reaction Types\nPOST /posts"
+                  type: string
+                  example: 'Like,Laugh,Happy,Surprise,Smile'
+                reset:
+                  description: "Create Reaction Types\nPOST /posts"
+                  type: boolean
+                  example: false
+              type: object
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Create Reaction Types\nPOST /posts"
+                    type: string
+                    example: 'Model Cleared'
+                type: object
+        419:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Create Reaction Types\nPOST /posts"
+                    type: string
+                    example: 'Unprocessable Entity'
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Create Reaction Types\nPOST /posts"
+                    type: string
+                    example: 'Model not found'
+                type: object
+        422:
+          description: Error
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Create Reaction Types\nPOST /posts"
+                    type: string
+                    example: Error
+                type: object
+  /api/admin/settings/reset/db:
+    post:
+      tags:
+        - Settings
+      summary: 'Reset Databease'
+      description: 'Reses DB'
+      operationId: 'App\Http\Controllers\Auth\Admin\AppSettingsController::resetDB'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Reset Database\nPOST /posts"
+                    type: string
+                    example: 'Database Reset'
+                type: object
+        419:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Reset Database\nPOST /posts"
+                    type: string
+                    example: 'Unprocessable Entity'
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Reset Database\nPOST /posts"
+                    type: string
+                    example: 'Model not found'
+                type: object
+  /api/admin/settings/export:
+    post:
+      tags:
+        - Settings
+      summary: 'Export CSV or Excel or Pdf'
+      description: 'Export '
+      operationId: 'App\Http\Controllers\Auth\Admin\AppSettingsController::export'
+      requestBody:
+        description: 'The Types to be Exported'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                type:
+                  description: "Create Csv | pdf and Export\nPOST /settings"
+                  type: string
+                  example: csv
+                model:
+                  description: "Create Csv | pdf and Export\nPOST /settings"
+                  type: string
+                  example: post
+              type: object
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Create Csv | pdf and Export\nPOST /settings"
+                    type: string
+                    example: Exported
+                type: object
+        419:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Create Csv | pdf and Export\nPOST /settings"
+                    type: string
+                    example: 'Unprocessable Entity'
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: "Create Csv | pdf and Export\nPOST /settings"
+                    type: string
+                    example: 'Model not found'
+                type: object
+  /api/login:
+    post:
+      tags:
+        - Auth
+      summary: 'Sign in'
+      description: 'Login by email, password'
+      requestBody:
+        description: 'Pass user credentials'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: bamarktfact@gmail.com
+                password:
+                  type: string
+                  format: password
+                  example: pass1234
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                    format: email
+                    example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYwNTM0Nzc0OSwiZXhwIjoxNjA1MzUxMzQ5LCJuYmYiOjE2MDUzNDc3NDksImp0aSI6IlJGUmJtRVdiN244WnlTaWsiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.VZq7nu9rkkHRXHcZB68v1vMpnRoMBJGmABElufaVrtk
+                  token_type:
+                    type: string
+                    example: bearer
+                  expires_in:
+                    type: number
+                    example: 1605351349
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Sorry, wrong email address or password. Please try again'
+                type: object
+      security:
+        -
+          token: []
+  /api/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout
+      description: 'Logout user and invalidate token'
+      operationId: 'App\Http\Controllers\Auth\LoginController::logout'
+      responses:
+        200:
+          description: 'Logs out logged in user'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Logged out successfully'
+                type: object
+      security:
+        -
+          token: []
+  /api/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      description: 'Register new user'
+      operationId: 'App\Http\Controllers\Auth\RegisterController::registered'
+      requestBody:
+        description: 'Pass user credentials'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+                - username
+                - name
+                - password_confirmation
+              properties:
+                username:
+                  type: string
+                  format: password
+                  example: Fanny
+                name:
+                  type: string
+                  format: password
+                  example: 'Fanny Besoz'
+                email:
+                  type: string
+                  format: email
+                  example: fanny256@email.com
+                password:
+                  type: string
+                  format: password
+                  example: pass1234
+                password_confirmation:
+                  type: string
+                  format: password
+                  example: pass1234
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                    example: 'Fanny Anna'
+                  username:
+                    type: string
+                    example: Fanny
+                  email:
+                    type: string
+                    example: fanny256@email.com
+                  id:
+                    type: number
+                    example: 25
+                  updated_at:
+                    type: string
+                    example: '2020-11-27T08:16:31.000000Z'
+                  created_at:
+                    type: string
+                    example: '2020-11-27T08:16:31.000000Z'
+                  photo_url:
+                    type: string
+                    example: 'https://www.gravatar.com/avatar/a9d770a5af9a113e77c887c0b772d98fjpg?s=200&d=mm'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'The given data was invalid.'
+                  errors:
+                    properties:
+                      username:
+                        example:
+                          - 'The username has already been taken.'
+                      email:
+                        example:
+                          - 'The email has already been taken.'
+                    type: object
+                type: object
+        409:
+          description: 'Already Registered'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Please confirm your email'
+                type: object
+  /api/verification/resend:
+    post:
+      tags:
+        - Auth
+      summary: 'Resend Verification link'
+      description: 'Resend verification link for given email'
+      operationId: 'App\Http\Controllers\Auth\VerificationController::resend'
+      requestBody:
+        description: 'Resend verification link for given email'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: bamarktfact@gmail.com
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    type: string
+                    example: 'verification link resent'
+                type: object
+        404:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Results was not found in Database'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Email address is not registered.'
+                type: object
+  '/api/comments/{comment_id}':
+    get:
+      tags:
+        - Comment
+      summary: 'Get all Replies for a comments'
+      description: 'Get all Replies for a comments'
+      operationId: 'App\Http\Controllers\CommentController::index'
+      parameters:
+        -
+          name: comment_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 10
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Comment'
+                type: object
+        404:
+          description: 'Not found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Display a listing of the Comments belonging to given comment.\nGET|HEAD comments/{comment_id}'"
+                    type: string
+                    example: 'Not Found'
+                type: object
+  '/api/comments/comment/{comment_id}':
+    post:
+      tags:
+        - Comment
+      summary: 'Comment a comment / reply a comment'
+      description: 'Comment a comment / reply a comment'
+      operationId: 'App\Http\Controllers\CommentController::reply'
+      parameters:
+        -
+          name: comment_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 11
+      requestBody:
+        description: 'Pass user credentials'
+        content:
+          application/json:
+            schema:
+              properties:
+                comment:
+                  description: 'Creates a reply "comment" to a comment.'
+                  type: string
+                  example: 'Here is the mommemt of comment'
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: 'Creates a reply "comment" to a comment.'
+                    type: string
+                    example: 'Comment Added'
+                type: object
+        404:
+          description: 'No Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: 'Creates a reply "comment" to a comment.'
+                    type: string
+                    example: 'Post not found'
+                type: object
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: 'Creates a reply "comment" to a comment.'
+                    type: string
+                    example: 'Not Logged In'
+                type: object
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                properties:
+                  eror:
+                    description: 'Creates a reply "comment" to a comment.'
+                    type: string
+                    example: 'Comment error'
+                type: object
+      security:
+        -
+          token: []
+  '/api/comments/comment/react/{comment_id}':
+    post:
+      tags:
+        - Comment
+      summary: 'React to Comment'
+      description: 'React to  a Comment'
+      operationId: 'App\Http\Controllers\CommentController::reactComment'
+      parameters:
+        -
+          name: comment_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      requestBody:
+        description: 'Pass user credentials'
+        content:
+          application/json:
+            schema:
+              properties:
+                post_id:
+                  description: 'POST /posts'
+                  type: number
+                  example: 2
+                type:
+                  description: 'POST /posts'
+                  type: string
+                  example: Like
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: 'POST /posts'
+                    type: string
+                    example: liked
+                type: object
+        404:
+          description: 'No Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Post not found'
+                type: object
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Not Logged In'
+                type: object
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                properties:
+                  eror:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Reaction of type `Like` already exists.'
+                type: object
+      security:
+        -
+          token: []
+  /api/designs:
+    get:
+      tags:
+        - Design
+      summary: 'Get designs that are Live'
+      description: 'Get all designs available online (set to live )'
+      operationId: 'App\Http\Controllers\Designs\DesignController::index'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Design'
+                type: object
+        404:
+          description: 'UDesign Not found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Not Found'
+                type: object
+    post:
+      tags:
+        - Design
+      summary: 'Upload Image'
+      description: 'Uploads Image Local or to S3 bucket'
+      operationId: 'App\Http\Controllers\Designs\UploadController::upload'
+      requestBody:
+        description: 'Upload images request body'
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Design'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'The given data was invalid.'
+                  errors:
+                    properties:
+                      image:
+                        example:
+                          - 'The image field is required.'
+                    type: object
+                type: object
+      security:
+        -
+          token: []
+  /api/designs/all:
+    get:
+      tags:
+        - Design
+      summary: 'Get all designs'
+      description: 'Get all designs available'
+      operationId: 'App\Http\Controllers\Designs\DesignController::allDesigns'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Design'
+                type: object
+        404:
+          description: 'UDesign Not found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Not Found'
+                type: object
+  '/api/designs/{design_id}/like':
+    post:
+      tags:
+        - Design
+      summary: 'Create Post'
+      description: 'Like a Deign'
+      operationId: 'App\Http\Controllers\Designs\DesignController::like'
+      parameters:
+        -
+          name: design_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  'Like / Unlike':
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Action successful'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'false'
+                  message:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Post not found'
+                type: object
+      security:
+        -
+          token: []
+  '/api/image/{id}':
+    get:
+      tags:
+        - Image
+      summary: 'Get Image'
+      description: 'Get image after upload'
+      operationId: 'App\Http\Controllers\Designs\UploadController::getImage'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  image:
+                    type: string
+                type: object
+        404:
+          description: 'UDesign Not found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Not Found'
+                type: object
+  '/api/image/{user_id}/{post_id}':
+    delete:
+      tags:
+        - Image
+      summary: 'Delete Image'
+      description: 'Delete A Post by Id'
+      operationId: 'App\Http\Controllers\Designs\UploadController::deleteImage'
+      parameters:
+        -
+          name: user_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+        -
+          name: post_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: string
+                    example: 'true'
+                  message:
+                    type: string
+                    example: 'Post deleted successfully'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: string
+                    example: 'false'
+                  message:
+                    type: string
+                    example: 'Post not found'
+                type: object
+      security:
+        -
+          token: []
+  /api/posts:
+    get:
+      tags:
+        - Post
+      summary: 'Get all Posts'
+      description: 'Get all Posts available online (set to live )'
+      operationId: 'App\Http\Controllers\PostController::index'
+      parameters:
+        -
+          name: user_id
+          in: query
+          required: false
+          schema:
+            type: number
+            example: 2
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Post'
+                type: object
+        404:
+          description: 'Not found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Display a listing of the Post.\nGET|HEAD /posts"
+                    type: string
+                    example: 'Not Found'
+                type: object
+  '/api/posts/{user_id}':
+    post:
+      tags:
+        - Post
+      summary: 'Create Post'
+      description: 'Create A Post'
+      operationId: 'App\Http\Controllers\PostController::store'
+      parameters:
+        -
+          name: user_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      requestBody:
+        description: 'Pass Post data'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                caption:
+                  description: "Store a newly created Post in storage.\nPOST /posts"
+                  type: string
+                  example: Here
+                imageUrl:
+                  description: "Store a newly created Post in storage.\nPOST /posts"
+                  type: string
+                  example: 'https://picsum.photos/400/300'
+                location:
+                  description: "Store a newly created Post in storage.\nPOST /posts"
+                  type: string
+                  example: Dusseldorf
+              type: object
+      responses:
+        201:
+          description: Success
+          content:
+            application/json:
+              schema: []
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: "Store a newly created Post in storage.\nPOST /posts"
+                    type: string
+                    example: 'false'
+                  message:
+                    description: "Store a newly created Post in storage.\nPOST /posts"
+                    type: string
+                    example: 'Post not found'
+                type: object
+      security:
+        -
+          token: []
+  '/api/posts/{id}':
+    get:
+      tags:
+        - Post
+      summary: 'Get Post by Id'
+      description: 'Get Single Post'
+      operationId: 'App\Http\Controllers\PostController::show'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+        -
+          name: user_id
+          in: query
+          required: false
+          schema:
+            type: number
+            example: 2
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Post'
+                type: object
+        404:
+          description: 'Not found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: "Display the specified Post.\nGET|HEAD /posts/{id}"
+                    type: string
+                    example: 'false'
+                  message:
+                    description: "Display the specified Post.\nGET|HEAD /posts/{id}"
+                    type: string
+                    example: 'Post not found'
+                type: object
+      security:
+        -
+          token: []
+    put:
+      tags:
+        - Post
+      summary: 'Update Post'
+      description: 'Update A Post by Id'
+      operationId: 'App\Http\Controllers\PostController::update'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      requestBody:
+        description: 'Pass Post data'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                caption:
+                  description: "Update the specified Post in storage.\nPUT/PATCH /posts/{id}"
+                  type: string
+                  example: Here
+                location:
+                  description: "Update the specified Post in storage.\nPUT/PATCH /posts/{id}"
+                  type: string
+                  example: Dusseldorf
+                tags:
+                  description: "Update the specified Post in storage.\nPUT/PATCH /posts/{id}"
+                  example:
+                    - Sunny
+                    - Summer
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: "Update the specified Post in storage.\nPUT/PATCH /posts/{id}"
+                    type: string
+                    example: 'true'
+                  message:
+                    description: "Update the specified Post in storage.\nPUT/PATCH /posts/{id}"
+                    type: string
+                    example: 'Post deleted successfully'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: "Update the specified Post in storage.\nPUT/PATCH /posts/{id}"
+                    type: string
+                    example: 'false'
+                  message:
+                    description: "Update the specified Post in storage.\nPUT/PATCH /posts/{id}"
+                    type: string
+                    example: 'Post not found'
+                type: object
+      security:
+        -
+          token: []
+    delete:
+      tags:
+        - Post
+      summary: 'Delete Post'
+      description: 'Delete A Post by Id'
+      operationId: 'App\Http\Controllers\PostController::destroy'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: "Remove the specified Post from storage.\nDELETE /posts/{id}"
+                    type: string
+                    example: 'true'
+                  message:
+                    description: "Remove the specified Post from storage.\nDELETE /posts/{id}"
+                    type: string
+                    example: 'Post deleted successfully'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: "Remove the specified Post from storage.\nDELETE /posts/{id}"
+                    type: string
+                    example: 'false'
+                  message:
+                    description: "Remove the specified Post from storage.\nDELETE /posts/{id}"
+                    type: string
+                    example: 'Post not found'
+                type: object
+      security:
+        -
+          token: []
+  '/api/posts/like/{post_id}':
+    post:
+      tags:
+        - Post
+      summary: 'Like Post'
+      description: 'Like a Post'
+      operationId: 'App\Http\Controllers\PostController::toggleLike'
+      parameters:
+        -
+          name: post_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 11
+      requestBody:
+        description: 'Pass user credentials'
+        content:
+          application/json:
+            schema:
+              properties:
+                user_id:
+                  description: 'POST /posts'
+                  type: number
+                  example: 21
+                type:
+                  description: 'POST /posts'
+                  type: string
+                  example: Like
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: 'POST /posts'
+                    type: string
+                    example: liked
+                type: object
+        404:
+          description: 'No Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Post not found'
+                type: object
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Not Logged In'
+                type: object
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                properties:
+                  eror:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Reaction of type `Like` already exists.'
+                type: object
+      security:
+        -
+          token: []
+  '/api/posts/comment/{post_id}':
+    post:
+      tags:
+        - Post
+      summary: 'Comment Post'
+      description: 'Comment a Post'
+      operationId: 'App\Http\Controllers\PostController::addComment'
+      parameters:
+        -
+          name: post_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 11
+      requestBody:
+        description: 'Pass user credentials'
+        content:
+          application/json:
+            schema:
+              properties:
+                user_id:
+                  description: 'POST /posts'
+                  type: number
+                  example: 21
+                comment:
+                  description: 'POST /posts'
+                  type: string
+                  example: 'Here is the mommemt of comment'
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Comment Added'
+                type: object
+        404:
+          description: 'No Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Post not found'
+                type: object
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Not Logged In'
+                type: object
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                properties:
+                  eror:
+                    description: 'POST /posts'
+                    type: string
+                    example: 'Comment error'
+                type: object
+      security:
+        -
+          token: []
+  /api/me:
+    get:
+      tags:
+        - 'User Profile'
+      summary: 'Retrieve profile information'
+      description: 'Get profile short information.** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserProfile'
+                type: object
+        401:
+          description: 'User should be authorized to get profile information'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: 'Class MeController'
+                    type: string
+                    example: 'Not authorized'
+                type: object
+      security:
+        -
+          token: []
+  /api/settings/profile:
+    put:
+      tags:
+        - 'User Profile'
+      summary: 'Update User Profile'
+      description: 'Update User Detailed info'
+      operationId: 'App\Http\Controllers\User\SettingsController::updateProfile'
+      requestBody:
+        description: 'Pass User data'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  description: "Update User Profile\nPUT/PATCH /settings/profile"
+                  type: string
+                  example: 'Atem Ndobs'
+                'tagline:':
+                  description: "Update User Profile\nPUT/PATCH /settings/profile"
+                  type: string
+                  maxLength: 32
+                  example: 'Producer:'
+                location:
+                  description: "Update User Profile\nPUT/PATCH /settings/profile"
+                  properties:
+                    type:
+                      description: "Update User Profile\nPUT/PATCH /settings/profile"
+                      type: string
+                      example: point
+                    coordinates:
+                      description: "Update User Profile\nPUT/PATCH /settings/profile"
+                      example:
+                        - 8.503972
+                        - 51.017243
+                  type: object
+                formatted_address:
+                  description: "Update User Profile\nPUT/PATCH /settings/profile"
+                  example: '811 Sibyl Bypass Suite 783\n New Rita, AL 48220-0930'
+                available_to_hire:
+                  description: "Update User Profile\nPUT/PATCH /settings/profile"
+                  type: boolean
+                  example: 1
+                about:
+                  description: "Update User Profile\nPUT/PATCH /settings/profile"
+                  type: string
+                  example: 'VERY deeply with a soldier on each.'
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserProfile'
+                type: object
+        422:
+          description: 'Wrong credentials response'
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    description: "Update User Profile\nPUT/PATCH /settings/profile"
+                    type: string
+                    example: 'false'
+                  message:
+                    description: "Update User Profile\nPUT/PATCH /settings/profile"
+                    type: string
+                    example: 'Post not found'
+                type: object
+      security:
+        -
+          token: []
+  /api/avatar:
+    post:
+      tags:
+        - 'User Profile'
+      summary: 'Update User Profile Picture (Avatar)'
+      description: 'Update User Avatar'
+      operationId: 'App\Http\Controllers\User\SettingsController::updateAvatar'
+      requestBody:
+        description: 'Pass User data'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                about:
+                  description: "Update User Profile\nPOST /settings/profile"
+                  type: string
+                  example: 'VERY deeply with a soldier on each.'
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  about:
+                    description: "Update User Profile\nPOST /settings/profile"
+                    type: string
+                    example: 'VERY deeply with a soldier on each.'
+                type: object
+        422:
+          description: 'Upload failed'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    description: "Update User Profile\nPOST /settings/profile"
+                    type: string
+                    example: 'Upload failed'
+                type: object
+      security:
+        -
+          token: []
+  '/api/settings/user/{email}':
+    delete:
+      tags:
+        - 'User Profile'
+      summary: 'Delete User'
+      description: 'Delete A User by email'
+      operationId: 'App\Http\Controllers\User\SettingsController::deleteUser'
+      parameters:
+        -
+          name: email
+          in: path
+          schema:
+            type: string
+            example: bamarktfact@gmail.com
+      requestBody:
+        description: 'Pass User data'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  type: string
+                  example: bamarktfact@gmail.com
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'User successfully deleted'
+                  user:
+                    type: string
+                    example: bamarktfact@gmail.com
+                type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'User Already Deleted'
+                type: object
+      security:
+        -
+          token: []
+  /api/users:
+    get:
+      tags:
+        - 'User Profile'
+      summary: 'Retrieve All Users information'
+      description: 'Gets alkl users from DB  ** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above'
+      operationId: 'App\Http\Controllers\User\UserController::index'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserProfile'
+                type: object
+        401:
+          description: 'User should be authorized to get profile information'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Not authorized'
+                type: object
+      security:
+        -
+          token: []
+  '/api/users/{id}':
+    get:
+      tags:
+        - 'User Profile'
+      summary: 'Retrieve All Users information'
+      description: 'Gets alkl users from DB  ** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above'
+      operationId: 'App\Http\Controllers\User\UserController::findUser'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserProfile'
+                type: object
+        401:
+          description: 'User should be authorized to get profile information'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Not authorized'
+                type: object
+      security:
+        -
+          token: []
+  '/api/user/{username}':
+    get:
+      tags:
+        - 'User Profile'
+      summary: 'Retrieve All Users information'
+      description: 'Gets alkl users from DB  ** Reqiures Authorisation: Add Auth heather by clicking the Lock icon above'
+      operationId: 'App\Http\Controllers\User\UserController::findByUserName'
+      parameters:
+        -
+          name: username
+          in: path
+          required: true
+          schema:
+            type: string
+            example: pierce
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserProfile'
+                type: object
+        401:
+          description: 'User should be authorized to get profile information'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Not authorized'
+                type: object
+      security:
+        -
+          token: []
+  '/api/user/follow/{author_id}':
+    post:
+      tags:
+        - User
+      summary: Follow
+      description: 'Follow a User'
+      operationId: 'App\Http\Controllers\User\UserController::follow'
+      parameters:
+        -
+          name: author_id
+          in: path
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: Following
+                type: object
+        404:
+          description: 'No Found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'User not found'
+                type: object
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    type: string
+                    example: 'Not Logged In'
+                type: object
+        422:
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                properties:
+                  eror:
+                    type: string
+                    example: 'You cannot follow yourself'
+                type: object
+      security:
+        -
+          token: []
+components:
+  schemas:
+    UserProfile:
+      allOf:
+        -
+          $ref: '#/components/schemas/User'
+    BaseModel:
+      properties:
+        created_at_human:
+          description: 'Initial creation, Human readable'
+          type: string
+          readOnly: 'true'
+          example: '2 days ago'
+        created_at:
+          description: 'Initial creation timestamp'
+          type: string
+          format: date-time
+          readOnly: 'true'
+        updated_at_human:
+          description: 'Human readable update time'
+          type: string
+          readOnly: 'true'
+          example: '2 days ago'
+        updated_at:
+          description: 'Last update timestamp'
+          type: string
+          format: date-time
+          readOnly: 'true'
+        deleted_at:
+          description: 'Soft delete timestamp'
+          type: string
+          format: date-time
+          readOnly: 'true'
+      type: object
+    Comment:
+      properties:
+        id:
+          description: App\Models\Comment
+          type: integer
+          readOnly: 'true'
+          example: 1
+        comment:
+          description: App\Models\Comment
+          type: string
+          readOnly: 'true'
+          example: 'this is a great app'
+        commenter_id:
+          description: App\Models\Comment
+          type: integer
+          readOnly: 'true'
+          example: 1
+        commentable_id:
+          description: App\Models\Comment
+          type: integer
+          readOnly: 'true'
+          example: 2
+        created_dates:
+          description: App\Models\Comment
+          properties:
+            created_at_human:
+              description: 'Date Created formatted'
+              example: '52 minutes ago'
+            created_at:
+              description: 'Raw unfarmatted Date '
+              example: '2020-11-09T20:04:11.000000Z'
+          type: object
+        updated_dates:
+          description: App\Models\Comment
+          properties:
+            updated_at_human:
+              description: 'Date Updated formatted'
+              example: '52 minutes ago'
+            updated_at:
+              description: 'Raw unfarmatted update date '
+              example: '2020-11-09T20:04:11.000000Z'
+          type: object
+      type: object
+      xml:
+        name: Comment
+    Design:
+      properties:
+        id:
+          description: App\Models\Design
+          type: integer
+          readOnly: 'true'
+          example: '1'
+        title:
+          description: App\Models\Design
+          type: string
+          example: 'the sea life'
+        slug:
+          description: App\Models\Design
+          type: string
+          example: the-sea-life
+        disk:
+          description: App\Models\Design
+          type: string
+          example: public
+        is_live:
+          description: App\Models\Design
+          type: boolean
+          example: 0
+        images:
+          description: App\Models\Design
+          properties:
+            thumbnail:
+              description: App\Models\Design
+              type: string
+              example: 'http://localhost:8000/storage/uploads/designs/thumbnail/'
+            large:
+              description: App\Models\Design
+              type: string
+              example: 'http://localhost:8000/storage/uploads/designs/large/'
+            original:
+              description: App\Models\Design
+              type: string
+              example: 'http://localhost:8000/storage/uploads/designs/original/'
+          type: object
+        likes_count:
+          description: App\Models\Design
+          type: integer
+          example: 0
+        uploaded_successful:
+          description: App\Models\Design
+          type: interger
+          example: null
+        tag_list:
+          description: App\Models\Design
+          properties:
+            tag:
+              description: 'List of Tags added to design, array of many tags'
+              example:
+                - Cool
+                - 'Bright Day'
+            normalized:
+              description: 'List of Tags normalized, lowercase and slugged'
+              example:
+                - cool
+                - bright-day
+          type: object
+        created_dates:
+          description: App\Models\Design
+          properties:
+            created_at_human:
+              description: 'Date Created formatted'
+              example: '52 minutes ago'
+            created_at:
+              description: 'Raw unfarmatted Date '
+              example: '2020-11-09T20:04:11.000000Z'
+          type: object
+        updated_dates:
+          description: App\Models\Design
+          properties:
+            updated_at_human:
+              description: 'Date Updated formatted'
+              example: '52 minutes ago'
+            updated_at:
+              description: 'Raw unfarmatted update date '
+              example: '2020-11-09T20:04:11.000000Z'
+          type: object
+        user:
+          $ref: '#/components/schemas/User'
+        comment:
+          $ref: '#/components/schemas/Comment'
+      type: object
+      xml:
+        name: Design
+    Post:
+      properties:
+        id:
+          description: 'Class Post'
+          type: integer
+          readOnly: 'true'
+          example: '1'
+        caption:
+          description: 'Class Post'
+          type: string
+          example: 'the sea life'
+        location:
+          description: 'Class Post'
+          type: string
+          example: Dusseldorf
+        imageUrl:
+          description: 'Class Post'
+          type: string
+          example: 'http://localhost:8000/storage/3B5wcGnEbnFaAYsjMxk5P1V1fAGKaVhviC3EO0Gd.png'
+        created_dates:
+          description: 'Class Post'
+          properties:
+            created_at_human:
+              description: 'Date Created formatted'
+              example: '52 minutes ago'
+            created_at:
+              description: 'Raw unfarmatted Date '
+              example: '2020-11-09T20:04:11.000000Z'
+          type: object
+        updated_dates:
+          description: 'Class Post'
+          properties:
+            updated_at_human:
+              description: 'Date Updated formatted'
+              example: '52 minutes ago'
+            updated_at:
+              description: 'Raw unfarmatted update date '
+              example: '2020-11-09T20:04:11.000000Z'
+          type: object
+        user:
+          $ref: '#/components/schemas/User'
+        comment:
+          $ref: '#/components/schemas/Comment'
+      type: object
+      xml:
+        name: Post
+    User:
+      required:
+        - password
+      properties:
+        id:
+          description: App\Models\User
+          type: integer
+          readOnly: 'true'
+          example: 1
+        name:
+          description: App\Models\User
+          type: string
+          maxLength: 32
+          example: 'Mittie Morissette'
+        username:
+          description: App\Models\User
+          type: string
+          maxLength: 32
+          example: pierce
+        email:
+          description: 'User unique email address'
+          type: string
+          format: email
+          readOnly: 'true'
+          example: fanny256@email.com
+        email_verified_at:
+          description: 'Datetime marker of verification status'
+          type: string
+          format: date-time
+          readOnly: 'true'
+          example: '2019-02-25 12:59:20'
+        two_factor_secret:
+          description: App\Models\User
+          type: number
+          example: null
+        two_factor_recovery_codes:
+          description: App\Models\User
+          type: number
+          example: null
+        'tagline:':
+          description: App\Models\User
+          type: string
+          maxLength: 32
+          example: 'Producer:'
+        location:
+          description: App\Models\User
+          properties:
+            type:
+              description: App\Models\User
+              type: string
+              example: point
+            coordinates:
+              description: App\Models\User
+              example:
+                - 8.503972
+                - 51.017243
+          type: object
+        formatted_address:
+          description: App\Models\User
+          example: '811 Sibyl Bypass Suite 783\n New Rita, AL 48220-0930'
+        available_to_hire:
+          description: App\Models\User
+          type: boolean
+          example: 1
+        about:
+          description: App\Models\User
+          type: string
+          example: 'VERY deeply with a soldier on each.'
+        trade_id:
+          description: App\Models\User
+          type: number
+          example: null
+        current_team_id:
+          description: App\Models\User
+          type: number
+          example: null
+        profile_photo_path:
+          description: App\Models\User
+          type: number
+          example: null
+        created_at:
+          $ref: '#/components/schemas/BaseModel/properties/created_at'
+        updated_at:
+          $ref: '#/components/schemas/BaseModel/properties/updated_at'
+        'photo_url:':
+          description: App\Models\User
+          type: string
+          maxLength: 32
+          example: 'https://www.gravatar.com/avatar/97bd1823e00f02eb71a0b709425152a7jpg?s=200&d=mm:'
+      type: object
+      xml:
+        name: User
+  securitySchemes:
+    token:
+      type: apiKey
+      description: "Example of Auth Header Token (Copy and paste below to authorize)=>\nBearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYwNTM0ODU1OSwiZXhwIjoxNjA1MzUyMTU5LCJuYmYiOjE2MDUzNDg1NTksImp0aSI6IjlqMDN0MVVISThoNjlhRUsiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.dn45EdZMatpW2zAQcZklDS2902mwVNx44TbkDiiGLXY"
+      name: Authorization
+      in: header
+security:
+  - []

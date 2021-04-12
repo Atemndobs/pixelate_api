@@ -47,11 +47,26 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'visibility' => 'public',
         ],
 
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'avatar' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/avatars'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'models' => [
+            'driver' => 'local',
+            'root' => app_path('Models'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
@@ -93,6 +108,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+      //  public_path('models') => storage_path('app/public'),
     ],
 
 ];

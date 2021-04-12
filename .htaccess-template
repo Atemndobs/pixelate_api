@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^(www.)?atemkeng.com$
+RewriteCond %{REQUEST_URI} !^/pixelate/public/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /subdir/$1
+RewriteCond %{HTTP_HOST} ^(www.)?atemkeng.com$
+RewriteRule ^(/)?$ pixelate/public/index.php [L]
+
+</IfModule>

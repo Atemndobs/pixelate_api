@@ -64,11 +64,12 @@
         </style>
     </head>
     <body>
+
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/dashboard') }}">Dashboard</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -84,11 +85,40 @@
                     pixelate
                 </div>
 
+{{--                <form action="{{route('look')}}" method="post" autocomplete="off">
+                    {!! csrf_field() !!}
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="term">
+
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" >
+                                    Search
+                                    <i class="fa fa-fw fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>--}}
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://localhost:8000/api/settings/profile">Profile</a>
+                    <a href="{{env('QUASAR_URL')}}" target="_blank">Pixelate</a>
+                    <a href="{{env('CLIENT_URL')}}/#/login" target="_blank">Deja-vu</a>
+                    <a href="{{env('HOME_URL')}}" target="_blank">Home</a>
+                    <a href="{{env('APP_URL')}}/api/docs" target="_blank">API DOCS</a>
+                    <a href="{{env('APP_URL')}}/laravel-websockets" target="_blank">WEB SOCKETS</a>
+                    <a href="{{env('APP_URL')}}/telescope" target="_blank">telescope</a>
                 </div>
             </div>
         </div>
     </body>
 </html>
+
+<script>
+
+/*    var channel = Echo.channel('comment-channel');
+    channel.listen('.CommentCreatedEvent', function(data) {
+        alert(JSON.stringify(data));
+    });*/
+
+</script>

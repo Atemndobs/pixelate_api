@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Models\Message
+ *
+ */
 class Message extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
     protected $touches = ['chat'];
 
@@ -20,12 +25,13 @@ class Message extends Model
 
     public function getBodyAttribute($value)
     {
-        if ($this->trashed()){
-            if (!auth()->check()) return null;
+        if ($this->trashed()) {
+            if (!auth()->check()) {
+                return null;
+            }
             return auth()->id() == $this->sender->id?
                 'You deleted this message' :
                 "{$this->sender->name} deleted this message";
-
         }
         return $value;
     }

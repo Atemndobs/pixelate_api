@@ -1,0 +1,7 @@
+{
+  "message": "Uncaught Error: Object of class App\\Http\\Resources\\PostResource could not be converted to string in /Users/b.atemkeng/sites/pixelate/app/Http/Resources/PostResource.php:21\nStack trace:\n#0 /Users/b.atemkeng/sites/pixelate/vendor/laravel/framework/src/Illuminate/Http/Resources/Json/JsonResource.php(95): App\\Http\\Resources\\PostResource->toArray(Object(Illuminate\\Http\\Request))\n#1 /Users/b.atemkeng/sites/pixelate/vendor/laravel/framework/src/Illuminate/Http/Resources/Json/ResourceResponse.php(39): Illuminate\\Http\\Resources\\Json\\JsonResource->resolve(Object(Illuminate\\Http\\Request))\n#2 /Users/b.atemkeng/sites/pixelate/vendor/laravel/framework/src/Illuminate/Http/Resources/Json/JsonResource.php(221): Illuminate\\Http\\Resources\\Json\\ResourceResponse->toResponse(Object(Illuminate\\Http\\Request))\n#3 /Users/b.atemkeng/sites/pixelate/vendor/laravel/framework/src/Illuminate/Routing/Router.php(765): Illuminate\\Http\\Resources\\Json\\JsonResource->toResponse(Object(Illuminate\\Http\\Request))\n#4 /Users/b.atemkeng/sites/pixelate/v",
+  "exception": "Symfony\\Component\\ErrorHandler\\Error\\FatalError",
+  "file": "/Users/b.atemkeng/sites/pixelate/app/Http/Resources/PostResource.php",
+  "line": 21,
+  "trace": []
+}

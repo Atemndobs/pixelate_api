@@ -22,7 +22,7 @@ class CreateInvitationsTable extends Migration
                 $table->string('token');
                 $table->timestamps();
 
-                $table->foreign('sender')->references('id')->on('users')->onDelete('cascade');
+                $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
                 $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
             });
         }

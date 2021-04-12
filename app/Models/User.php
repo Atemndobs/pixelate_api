@@ -5,78 +5,69 @@ namespace App\Models;
 use App\Notifications\ResetPassword;
 use App\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravelista\Comments\Commentable;
+use Rennokki\Befriended\Contracts\Blocking;
+use Rennokki\Befriended\Contracts\Following;
+use Rennokki\Befriended\Traits\Block;
+use Rennokki\Befriended\Traits\Follow;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
+use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 
 /**
  * App\Models\User
  *
- * @property int $id
- * @property string $name
- * @property string $username
- * @property string $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
- * @property string $password
- * @property string|null $tagline
- * @property mixed|null $location
- * @property string|null $formatted_address
- * @property int $available_to_hire
- * @property string|null $about
- * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Design[] $designs
- * @property-read int|null $designs_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
- * @method static \Illuminate\Database\Eloquent\Builder|User comparison($geometryColumn, $geometry, $relationship)
- * @method static \Illuminate\Database\Eloquent\Builder|User contains($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User crosses($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User disjoint($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User distance($geometryColumn, $geometry, $distance)
- * @method static \Illuminate\Database\Eloquent\Builder|User distanceExcludingSelf($geometryColumn, $geometry, $distance)
- * @method static \Illuminate\Database\Eloquent\Builder|User distanceSphere($geometryColumn, $geometry, $distance)
- * @method static \Illuminate\Database\Eloquent\Builder|User distanceSphereExcludingSelf($geometryColumn, $geometry, $distance)
- * @method static \Illuminate\Database\Eloquent\Builder|User distanceSphereValue($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User distanceValue($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User doesTouch($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User equals($geometryColumn, $geometry)
- * @method static \Illuminate\Database\Eloquent\Builder|User intersects($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User newModelQuery()
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|User orderByDistance($geometryColumn, $geometry, $direction = 'asc')
- * @method static \Illuminate\Database\Eloquent\Builder|User orderByDistanceSphere($geometryColumn, $geometry, $direction = 'asc')
- * @method static \Illuminate\Database\Eloquent\Builder|User orderBySpatial($geometryColumn, $geometry, $orderFunction, $direction = 'asc')
- * @method static \Illuminate\Database\Eloquent\Builder|User overlaps($geometryColumn, $geometry)
- * @method static \Grimzy\LaravelMysqlSpatial\Eloquent\Builder|User query()
- * @method static \Illuminate\Database\Eloquent\Builder|User whereAbout($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereAvailableToHire($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereFormattedAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereTagline($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User within($geometryColumn, $polygon)
- * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
- * @property-read int|null $comments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Team[] $teams
- * @property-read int|null $teams_count
+ * @OA\Schema (
+ *      required={"password"},
+ *      @OA\Xml(name="User"),
+ *      @OA\Property(property="id", type="integer", readOnly="true", example=1),
+ *      @OA\Property(property="name", type="string", maxLength=32, example="Mittie Morissette"),
+ *      @OA\Property(property="username", type="string", maxLength=32, example="pierce"),
+ *      @OA\Property(property="email", type="string", readOnly="true", format="email", description="User unique email address", example="fanny256@email.com"),
+ *      @OA\Property(property="email_verified_at", type="string", readOnly="true", format="date-time", description="Datetime marker of verification status", example="2019-02-25 12:59:20"),
+ *      @OA\Property(property="two_factor_secret", type="number", example=null ),
+ *      @OA\Property(property="two_factor_recovery_codes", type="number", example=null ),
+ *      @OA\Property(property="tagline:", type="string", maxLength=32, example="Producer:"),
+ *      @OA\Property(property="location", type="object",
+ *          @OA\Property(property="type",type="string",example="point"),
+ *          @OA\Property(property="coordinates",
+ *              example={8.503972,51.017243}
+ *          ),
+ *      ),
+ *      @OA\Property(property="formatted_address", example="811 Sibyl Bypass Suite 783\n New Rita, AL 48220-0930" ),
+ *      @OA\Property(property="available_to_hire", type="boolean", example=1 ),
+ *      @OA\Property(property="about", type="string", example="VERY deeply with a soldier on each." ),
+ *
+ *      @OA\Property(property="trade_id", type="number", example=null ),
+ *      @OA\Property(property="current_team_id", type="number", example=null ),
+ *      @OA\Property(property="profile_photo_path", type="number", example=null ),
+ *      @OA\Property(property="created_at", ref="#/components/schemas/BaseModel/properties/created_at"),
+ *      @OA\Property(property="updated_at", ref="#/components/schemas/BaseModel/properties/updated_at"),
+ *      @OA\Property(property="photo_url:", type="string", maxLength=32, example="https://www.gravatar.com/avatar/97bd1823e00f02eb71a0b709425152a7jpg?s=200&d=mm:"),
+ * )
  */
-class User extends Authenticatable implements JWTSubject, MustVerifyEmail
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail, ReacterableInterface, Following, Blocking
 {
-    use Notifiable, SpatialTrait;
+    use Notifiable, SpatialTrait, HasFactory, Reacterable, Commentable, Follow, Block;
+
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+
+    ];
+
+    protected $guard = 'admin';
 
     /**
      * The attributes that are mass assignable.
@@ -92,7 +83,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'username',
         'location',
         'available_to_hire',
-        'formatted_address'
+        'formatted_address',
+        'trade_id',
+        'last_login_at',
+        'last_login_ip'
     ];
 
     /**
@@ -120,10 +114,25 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $appends = [
-        'photo_url'
+        'photo_url',
+       // 'follow'
     ];
 
+    /**
+     * @return HasMany
+     */
+    public function trade()
+    {
+        return $this->hasMany(Trade::class);
+    }
+
+    /**
+     * @return string
+     */
     public function getPhotoUrlAttribute()
     {
         return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'jpg?s=200&d=mm';
@@ -138,16 +147,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->getKey();
     }
 
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
 
 
-    /**
-     *
-     */
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail());
@@ -176,13 +177,20 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasMany(Design::class);
     }
+    /**
+     * @return HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 
     /**
      * @return HasMany
      */
     public function comments()
     {
-       return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     // teams that user belongs to
@@ -200,7 +208,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
     public function ownedTeams()
     {
-        return $this->teams()->where('owner_id' , $this->id);
+        return $this->teams()->where('owner_id', $this->id);
     }
 
     /**
@@ -215,27 +223,45 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
             ->count();
     }
 
+    /**
+     * @return HasMany
+     */
     public function invitations()
     {
         return $this->hasMany(Invitation::class, 'recipient_email', 'email');
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function chats()
     {
         return $this->belongsToMany(Chat::class, 'participants');
     }
 
+    /**
+     * @return HasMany
+     */
     public function messages()
     {
         return $this->hasMany(Message::class);
     }
 
+    /**
+     * @param $user_id
+     * @return Builder|Model|BelongsToMany|mixed|object|null
+     */
     public function getChatWithUser($user_id)
     {
-        $chat = $this->chats()->whereHas('participants', function ($query) use ($user_id){
+        $chat = $this->chats()->whereHas('participants', function ($query) use ($user_id) {
             $query->where('user_id', $user_id);
         })->first();
 
         return $chat;
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 }

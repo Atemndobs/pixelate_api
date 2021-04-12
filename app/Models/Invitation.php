@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Invitation
+ *
+ */
 class Invitation extends Model
 {
+    use HasFactory;
     //
     protected $fillable = [
         'recipient_email',

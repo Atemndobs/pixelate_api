@@ -2,49 +2,84 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
+use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\Comment
  *
- * @property int $id
- * @property int $user_id
- * @property string $body
- * @property string $commentable_type
- * @property int $commentable_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Model|\Eloquent $commentable
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Comment newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Comment query()
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereBody($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommentableId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommentableType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUserId($value)
- * @mixin \Eloquent
+ * @OA\Schema (
+ *      @OA\Xml(name="Comment"),
+ *      @OA\Property(property="id", type="integer", readOnly="true", example=1),
+ *      @OA\Property(property="comment", type="string", readOnly="true", example="this is a great app"),
+ *      @OA\Property(property="commenter_id", type="integer", readOnly="true", example=1),
+ *      @OA\Property(property="commentable_id", type="integer", readOnly="true", example=2),
+ *
+ *      @OA\Property(property="created_dates", type="object",
+ *          @OA\Property(property="created_at_human", description="Date Created formatted", example="52 minutes ago"),
+ *          @OA\Property(property="created_at", description="Raw unfarmatted Date ", example="2020-11-09T20:04:11.000000Z"),
+ *      ),
+ *      @OA\Property(property="updated_dates", type="object",
+ *          @OA\Property(property="updated_at_human", description="Date Updated formatted", example="52 minutes ago"),
+ *          @OA\Property(property="updated_at", description="Raw unfarmatted update date ", example="2020-11-09T20:04:11.000000Z"),
+ *      ),
+ * )
  */
-class Comment extends Model
+class Comment extends \Laravelista\Comments\Comment implements ReactableInterface
 {
-    /**
-     * @var array
-     */
-    protected $fillable = [
-        'body',
-        'user_id'
+    use HasFactory, Reactable;
+
+    protected $appends = ['reacter_id'];
+
+    protected $casts = [
+        'likers' => 'array'
     ];
 
-    public function user()
+    public $fillable = [
+        'likers',
+        'likers_hash'
+    ];
+
+
+    public function getReacterIdAttribute()
     {
-       return $this->belongsTo(User::class);
+        return  \Auth::id();
     }
 
-    public function commentable()
+    public function addLiker()
     {
-        return $this->morphTo();
+        $liker = auth()->id();
+
+        $likers = $this->likers;
+
+        if (!empty($likers) && !(in_array($liker, $likers))) {
+            $likers[] = $liker;
+            $this->likers =  $likers;
+            $this->save();
+        }
+        if (empty($likers)) {
+            $this->update([
+                'likers' => [$liker]
+            ]);
+        }
+    }
+
+    public function removeLiker()
+    {
+        $liker = auth()->id();
+        $likers = $this->likers;
+
+        if (empty($likers)) {
+            return;
+        }
+
+        if (in_array($liker, $likers)) {
+            $key = array_search($liker, $likers);
+            unset($likers[$key]);
+
+            $this->likers =  $likers;
+            $this->save();
+        }
     }
 }

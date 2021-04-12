@@ -7,8 +7,11 @@ use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Auth\Events\Verified;
 // use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\ValidationException;
 
 class VerificationController extends Controller
 {
@@ -37,13 +40,20 @@ class VerificationController extends Controller
     }
 
 
-    public function verify(Request $request, User $user)
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse | RedirectResponse
+     */
+    public function verify(Request $request, User $user): JsonResponse
     {
-
         //check if URL is a valid signed url
+        URL::forceScheme('https');
         if (!URL::hasValidSignature($request)){
+
             return response()->json(["errors" => [
-                "message" => "Invalid verification link or signature"
+                "message" => "Invalid verification link or signature",
+                "url" => URL::full(),
             ]], 422);
         }
 
@@ -57,9 +67,54 @@ class VerificationController extends Controller
         $user->markEmailAsVerified();
         event(new Verified($user));
 
-        return response()->json(["message" => "email successfully verified"], 200);
+        $clientUrl = env('CLIENT_URL');
+        return response()->json([
+            "message" => "email successfully verified",
+            "return to app" => 'https://dejavu.atmkng.de/#/login'
+        ], 200);
     }
 
+    /**
+     * @OA\Post(
+     * path="/api/verification/resend",
+     * summary="Resend Verification link",
+     * description="Resend verification link for given email",
+     * tags={"Auth"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Resend verification link for given email",
+     *    @OA\JsonContent(
+     *       required={"email","password"},
+     *       @OA\Property(property="email", type="string", format="email", example="bamarktfact@gmail.com"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="status", type="string", example="verification link resent"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=404,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Results was not found in Database")
+     *        )
+     *     ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Email address is not registered.")
+     *        )
+     *     ),
+     * )
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws ValidationException
+     */
     public function resend(Request $request)
     {
         $this->validate($request, [
@@ -67,6 +122,7 @@ class VerificationController extends Controller
         ]);
 
         $user = $this->userRepository->findWhereFirst('email',$request->email);
+
         // $user = User::where('email', $request->email)->first();
         if (!$user){
             return response()->json(["errors" => [

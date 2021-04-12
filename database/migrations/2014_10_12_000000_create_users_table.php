@@ -13,7 +13,6 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -21,11 +20,17 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
             $table->string('tagline')->nullable();
             $table->point('location')->nullable();
             $table->string('formatted_address')->nullable();
             $table->boolean('available_to_hire')->default(false);
             $table->text('about')->nullable();
+
+            $table->foreignId('trade_id')->nullable()->index();
+            $table->foreignId('current_team_id')->nullable();
+            $table->text('avatar')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
