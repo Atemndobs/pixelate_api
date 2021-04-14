@@ -40,6 +40,7 @@ The installation is scripted in the make file and covers following steps:
             PUSHER_APP_SECRET=YOUR_PUSHER_SECRET
       
             PUSHER_APP_CLUSTER=YOUR_PUSHER_CLUSTER  e.g (eu)
+      
         Laravel Echo (default):
             PUSHER_APP_ID=local
       
