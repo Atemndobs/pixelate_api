@@ -35,6 +35,7 @@ The installation is scripted in the make file and covers following steps:
   
 
         - Pusher :
+
             PUSHER_APP_ID=YOUR_PUSHER_ID.
 
             PUSHER_APP_KEY=YOUR_PUSHER_KEY.
@@ -45,6 +46,7 @@ The installation is scripted in the make file and covers following steps:
 
       
         - Laravel Echo (default):
+
             PUSHER_APP_ID=local
 
             PUSHER_APP_KEY=local
