@@ -24,9 +24,9 @@ The installation is scripted in the make file and covers following steps:
 
    -  copy .env file
 - `make env`
-   -  edit .env file as follows
-    
-    - Database (change database settings if you wish, default settings below) :
+   
+    -  edit .env file as follows
+        - Database (change database settings if you wish, default settings below) :
 
   - `DB_PORT=3306`
   - `DB_DATABASE=pixelate`
