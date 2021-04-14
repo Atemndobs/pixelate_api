@@ -155,15 +155,16 @@ sail-types:
 
 
 
-types-all:
+types-setup:
+	php artisan love:setup-reacterable --model="App\Models\User" --nullable
+	php artisan love:setup-reactable --model="App\Models\Post" --nullable
+	php artisan love:setup-reactable --model="App\Models\Comment" --nullable
 	php artisan reset:table love_reaction_types
 	php artisan reaction Like,Laugh,Happy,Surprise,Smile
 	php artisan love:register-reactants --model="App\Models\Post"
 	php artisan love:register-reactants --model="App\Models\Comment"
 	php artisan love:register-reacters --model="App\Models\User"
-#	php artisan love:setup-reacterable --model="App\Models\User" --nullable
-#	php artisan love:setup-reactable --model="App\Models\Post" --nullable
-#	php artisan love:setup-reactable --model="App\Models\Comment" --nullable
+
 
 
 

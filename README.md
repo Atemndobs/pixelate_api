@@ -23,31 +23,44 @@ To try out this application, check the link below.
 - [Pixelate front end app: Deja-Vu](https://dejavu.atmkng.de/#/).
 - [Deja-Vu github repo](https://github.com/Atemndobs/deja-vue).
 
-## Installation :
+To install, clone this repository, cd into it and from root folder, run the following commands
+
+## Quick Installation Local:
     - `make install`
+
+## Quick Installation Docker:
+    - `make install-docker`
 
 
 The installation is scripted in the make file and covers following steps:
-## Detailed Installation
+## Detailed local Installation
     - Install app
 - `composer install`
     - run Migrations and seed fake data
 - `php artisan migrate:fresh --seed`
     - Setup Love Reacters and Reacterable (For Likes and Reactions)
-- `make reacter && make reactant`
+- `make types-setup`
     - run Migrations
-- `composer install`
+- ``
     - Lunch api (application) by default on port 8090
-- `php artisan serve`
-    - Lunch api (application) by default on port 8090
-- `php artisan serve`
+- `php artisan serve` 
+    - Lunch web sockets (default on port 6001)
+- `php artisan websockets:serve`
+  
     - Test Api endpoints using open api doc
 - [api docs](http://localhost:8090/api/docs).
     - Connect and Test websocket 
 - [web sockets](http://localhost:8090/laravel-websockets).
 
-## Installation using Docker
 
+## Installation using Docker
+Alternatively you can run the api as docker containers. This spins up the laravel sail docker containers and a cron container for the cronjobs
+
+
+    - Test Api endpoints using open api doc
+- [api docs](http://localhost:8090/api/docs).
+    - Connect and Test websocket
+- [web sockets](http://localhost:8090/laravel-websockets).
 
 ## Features : 
     - Api for Posts (picture upload and manipuilation)
