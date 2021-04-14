@@ -14,7 +14,7 @@ push:
 	git status
 
 test:
-	php vendor/bin/phpunit tests --exclude-group skip-test --testdox --colors=always
+	sail shell &&  vendor/bin/phpunit tests --exclude-group skip-test --testdox --colors=always
 
 all-tests:
 	./vendor/phpunit/phpunit/phpunit tests --debug  --colors=always -v --testdox

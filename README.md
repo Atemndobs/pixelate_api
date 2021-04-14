@@ -63,6 +63,10 @@ The installation is scripted in the make file and covers following steps:
 - `php artisan websockets:serve`
     - Link storage
 - `php artisan storage:link`
+    - Run tests
+- `vendor/bin/phpunit tests --exclude-group skip-test --testdox --colors=always`
+    - or simply run 
+- `make test`
   
     - Test Api endpoints using open api doc
 - [api docs](http://localhost:8090/api/docs).
@@ -92,6 +96,9 @@ Alternatively you can run the api as docker containers. This spins up the larave
 - `sail artisan websockets:serve`
     - Link storage
 - `sail artisan storage:link`
+    - Run tests
+- `sail shell`
+- `vendor/bin/phpunit tests --exclude-group skip-test --testdox --colors=always`
 
     - Test Api endpoints using open api doc
 - [api docs](http://localhost:8090/api/docs).
