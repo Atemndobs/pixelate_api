@@ -10,5 +10,15 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+/storage/debugbar/
 Posts.http
 .idea
+.env_use
+.gitattributes
+.htaccess-laravel-prod
+.htaccess-template
+.phpstorm.meta.php
+.git.sh
+ray.php
+supervisord.log
+composer.sh
