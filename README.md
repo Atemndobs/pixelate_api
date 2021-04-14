@@ -27,8 +27,6 @@ The installation is scripted in the make file and covers following steps:
 - `php artisan migrate:fresh --seed`
     - Setup Love Reacters and Reacterable (For Likes and Reactions)
 - `make types-setup`
-    - run Migrations
-- ``
     - Lunch api (application) by default on port 8090
 - `php artisan serve` 
     - Lunch web sockets (default on port 6001)
