@@ -19,6 +19,6 @@ Posts.http
 .htaccess-template
 .phpstorm.meta.php
 .git.sh
-ray.php
-supervisord.log
-composer.sh
+.ray.php
+.supervisord.log
+.composer.sh
