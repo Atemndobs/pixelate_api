@@ -84,25 +84,7 @@
                 <div class="title m-b-md">
                     pixelate
                 </div>
-
-{{--                <form action="{{route('look')}}" method="post" autocomplete="off">
-                    {!! csrf_field() !!}
-
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="term">
-
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" >
-                                    Search
-                                    <i class="fa fa-fw fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </form>--}}
                 <div class="links">
-                    <a href="{{env('QUASAR_URL')}}" target="_blank">Pixelate</a>
                     <a href="{{env('CLIENT_URL')}}/#/login" target="_blank">Deja-vu</a>
                     <a href="https://github.com/Atemndobs/pixelate/tree/master" target="_blank">Github</a>
                     <a href="{{env('APP_URL')}}/api/docs" target="_blank">API DOCS</a>
@@ -115,10 +97,4 @@
 </html>
 
 <script>
-
-/*    var channel = Echo.channel('comment-channel');
-    channel.listen('.CommentCreatedEvent', function(data) {
-        alert(JSON.stringify(data));
-    });*/
-
 </script>
