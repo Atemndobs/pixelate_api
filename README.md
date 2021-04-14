@@ -35,16 +35,24 @@ The installation is scripted in the make file and covers following steps:
   
 
         - Pusher :
-           ' PUSHER_APP_ID=YOUR_PUSHER_ID'.
-           ' PUSHER_APP_KEY=YOUR_PUSHER_KEY'.
-           ' PUSHER_APP_SECRET=YOUR_PUSHER_SECRET'.
-           ' PUSHER_APP_CLUSTER=YOUR_PUSHER_CLUSTER'.
+            PUSHER_APP_ID=YOUR_PUSHER_ID.
+
+            PUSHER_APP_KEY=YOUR_PUSHER_KEY.
+
+            PUSHER_APP_SECRET=YOUR_PUSHER_SECRET.
+
+            PUSHER_APP_CLUSTER=YOUR_PUSHER_CLUSTER.
+
       
         - Laravel Echo (default):
-           ' PUSHER_APP_ID=loca'l
-           ' PUSHER_APP_KEY=loca'l
-           ' PUSHER_APP_SECRET=loca'l
-           ' PUSHER_APP_CLUSTER=loca'l
+            PUSHER_APP_ID=local
+
+            PUSHER_APP_KEY=local
+
+            PUSHER_APP_SECRET=local
+
+            PUSHER_APP_CLUSTER=local
+
     
 - copy broadcasting config for pusher (** Please do this ONLY if you use pusher)
 - `cp config/pusher.php config/broadcasting.php`
