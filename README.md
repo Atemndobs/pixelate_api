@@ -20,7 +20,8 @@ Deja-Vu is the frontend build in vue.js
 
 This is my attempt to build a microservice  application based on laravel and vue js.
 To try out this application, check the link below.
-- [Pixelate front end app: Deja-Vu](https://dejavu.atmkng.de/#/).
+- [Pixelate backend api](https://atemkeng.com/).
+- [Pixelate frontend app: Deja-Vu](https://dejavu.atmkng.de/#/).
 - [Deja-Vu github repo](https://github.com/Atemndobs/deja-vue).
 
 To install, clone this repository, cd into it and from root folder, run the following commands
@@ -68,8 +69,8 @@ Alternatively you can run the api as docker containers. This spins up the larave
     - comments
     - Likes and reactions
     - Followers
-    - Wather and Forecast
     - Tagging
+    - Wather and Forecast
     - Api documentation (swagger)
     - Music Analysing (TBD)
     - Video call and Streaming (TBD)
@@ -110,7 +111,9 @@ Alternatively you can run the api as docker containers. This spins up the larave
 
 # dev - tools
 [Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar).
+
 [Laravel IDE Helper Generator](https://github.com/barryvdh/laravel-ide-helper).
+
 [Laravel Telescope](https://laravel.com/docs/8.x/telescope).
 
 
