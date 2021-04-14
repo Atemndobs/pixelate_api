@@ -27,10 +27,15 @@ The installation is scripted in the make file and covers following steps:
    -  edit .env file as follows
     
     - Database (change database settings if you wish, default settings below)
+      
       DB_PORT=3306
+      
       DB_DATABASE=pixelate
+      
       DB_USERNAME=root
+      
       DB_PASSWORD=root
+      
     - Websocket (By default Laravel echo is already set up. If you want to use pusher please change the following)
   
 
