@@ -71,17 +71,17 @@ Alternatively you can run the api as docker containers. This spins up the larave
     - copy broadcasting config for pusher (** Please do this ONLY if you use pusher)
 - `cp config/pusher.php config/broadcasting.php`
     -  run composer install
-- `composer install`
+- `sail composer install`
     - run Migrations and seed fake data
-- `php artisan migrate:fresh --seed`
+- `sail artisan migrate:fresh --seed`
     - Setup Love Reacters and Reacterable (For Likes and Reactions)
 - `make types-setup`
     - Lunch api (application) by default on port 8090
-- `php artisan serve`
+- `sail artisan serve`
     - Lunch web sockets (default on port 6001)
-- `php artisan websockets:serve`
+- `sail artisan websockets:serve`
     - Link storage
-- `php artisan storage:link`
+- `sail artisan storage:link`
     
 - [api docs](http://localhost:8090/api/docs).
     - Connect and Test websocket
