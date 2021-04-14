@@ -1,66 +1,101 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+## About Pixelate
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Pixelate (imaginary application name) is a real time app consisting if is a mix of an instagram clone with a commenting section.
+Pixelate is the back-end build on Laravel
+Deja-Vu is the frontend build in vue.js
 
-## Install
-`make install`
+This is my attempt to build a microservice  application based on laravel and vue js.
+To try out this application, check the link below.
+- [Pixelate backend api](https://atemkeng.com/).
+- [Pixelate frontend app: Deja-Vu](https://dejavu.atmkng.de/#/).
+- [Deja-Vu github repo](https://github.com/Atemndobs/deja-vue).
+
+To install, clone this repository, cd into it and from root folder, run the following commands
+
+## Quick Installation Local:
+    - `make install`
+
+## Quick Installation Docker:
+    - `make install-docker`
 
 
+The installation is scripted in the make file and covers following steps:
+## Detailed local Installation
+    - Install app
+- `composer install`
+    - run Migrations and seed fake data
+- `php artisan migrate:fresh --seed`
+    - Setup Love Reacters and Reacterable (For Likes and Reactions)
+- `make types-setup`
+    - run Migrations
+- ``
+    - Lunch api (application) by default on port 8090
+- `php artisan serve` 
+    - Lunch web sockets (default on port 6001)
+- `php artisan websockets:serve`
+  
+    - Test Api endpoints using open api doc
+- [api docs](http://localhost:8090/api/docs).
+    - Connect and Test websocket 
+- [web sockets](http://localhost:8090/laravel-websockets).
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Installation using Docker
+Alternatively you can run the api as docker containers. This spins up the laravel sail docker containers and a cron container for the cronjobs
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    - Test Api endpoints using open api doc
+- [api docs](http://localhost:8090/api/docs).
+    - Connect and Test websocket
+- [web sockets](http://localhost:8090/laravel-websockets).
 
-## Learning Laravel
+## Features : 
+    - Api for Posts (picture upload and manipuilation)
+    - User managements
+    - comments
+    - Likes and reactions
+    - Followers
+    - Tagging
+    - Wather and Forecast
+    - Api documentation (swagger)
+    - Music Analysing (TBD)
+    - Video call and Streaming (TBD)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Architecture : 
+    - Microservices
+    - Containerization : Docker using laravel sail
+    - Websockets using laravel websockets
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Dependencies / Packages :
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- [laravel websockets](https://github.com/beyondcode/laravel-websockets).
+- [laravel sail](https://laravel.com/docs/8.x/sail).
+- [Eloquent-Taggable](https://github.com/cviebrock/eloquent-taggable).
+- [Laravel Love](https://github.com/cybercog/laravel-love).
+- [L5 Swagger](https://github.com/DarkaOnLine/L5-Swagger).
+- [Laravel Responder](https://github.com/flugg/laravel-responder).
+- [Laravel MySQL Spatial extension](https://github.com/grimzy/laravel-mysql-spatial).
+- [Laravelista Comments](https://github.com/laravelista/comments).
+- [Laravel Excel](https://laravel-excel.com/).
+- [Laravel 5 Repositories](https://github.com/andersao/l5-repository).
+- [Spatie Image](https://spatie.be/docs/image/v1/introduction).
+- [Laravel Befriended](https://github.com/renoki-co/befriended).
+- [jwt-auth](https://github.com/tymondesigns/jwt-auth).
 
-### Premium Partners
+# dev - tools
+- [Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar).
+- [Laravel IDE Helper Generator](https://github.com/barryvdh/laravel-ide-helper).
+- [Laravel Telescope](https://laravel.com/docs/8.x/telescope).
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Todo :
+    - Create Design Diagram
+    - Break down features into apis:
+        user api
+        social api (comments, like and following),
+        weather forecast api ,
+        video call and streaming api
+    - Intergrate the Music Api (for analysing music and returning track info like BPM, mood, energy ...)
+    - implements OAuth2 and SSO in the User api
+    - Host on cloud server (This will give me root access and this way I can run websockets and replace pusher)
