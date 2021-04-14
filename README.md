@@ -1,5 +1,3 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
-
 ## About Pixelate
 
 Pixelate (imaginary application name) is a real time app consisting if is a mix of an instagram clone with a commenting section.
