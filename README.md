@@ -77,7 +77,8 @@ The installation is scripted in the make file and covers following steps:
 ## Installation using Docker
 Alternatively you can run the api as docker containers. This spins up the laravel sail docker containers and a cron container for the cronjobs
 
-    - copy .env file and edit if needed
+
+- copy .env file
 - `make env`
     - copy broadcasting config for pusher (** Please do this ONLY if you use pusher)
 - `cp config/pusher.php config/broadcasting.php`
