@@ -83,38 +83,24 @@ Alternatively you can run the api as docker containers. This spins up the larave
 
 ## Dependencies / Packages :
 
-[laravel websockets](https://github.com/beyondcode/laravel-websockets).
-
-[laravel sail](https://laravel.com/docs/8.x/sail).
-
-[Eloquent-Taggable](https://github.com/cviebrock/eloquent-taggable).
-
-[Laravel Love](https://github.com/cybercog/laravel-love).
-
-[L5 Swagger](https://github.com/DarkaOnLine/L5-Swagger).
-
-[Laravel Responder](https://github.com/flugg/laravel-responder).
-
-[Laravel MySQL Spatial extension](https://github.com/grimzy/laravel-mysql-spatial).
-
-[Laravelista Comments](https://github.com/laravelista/comments).
-
-[Laravel Excel](https://laravel-excel.com/).
-
-[Laravel 5 Repositories](https://github.com/andersao/l5-repository).
-
-[Spatie Image](https://spatie.be/docs/image/v1/introduction).
-
-[Laravel Befriended](https://github.com/renoki-co/befriended).
-
-[jwt-auth](https://github.com/tymondesigns/jwt-auth).
+- [laravel websockets](https://github.com/beyondcode/laravel-websockets).
+- [laravel sail](https://laravel.com/docs/8.x/sail).
+- [Eloquent-Taggable](https://github.com/cviebrock/eloquent-taggable).
+- [Laravel Love](https://github.com/cybercog/laravel-love).
+- [L5 Swagger](https://github.com/DarkaOnLine/L5-Swagger).
+- [Laravel Responder](https://github.com/flugg/laravel-responder).
+- [Laravel MySQL Spatial extension](https://github.com/grimzy/laravel-mysql-spatial).
+- [Laravelista Comments](https://github.com/laravelista/comments).
+- [Laravel Excel](https://laravel-excel.com/).
+- [Laravel 5 Repositories](https://github.com/andersao/l5-repository).
+- [Spatie Image](https://spatie.be/docs/image/v1/introduction).
+- [Laravel Befriended](https://github.com/renoki-co/befriended).
+- [jwt-auth](https://github.com/tymondesigns/jwt-auth).
 
 # dev - tools
-[Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar).
-
-[Laravel IDE Helper Generator](https://github.com/barryvdh/laravel-ide-helper).
-
-[Laravel Telescope](https://laravel.com/docs/8.x/telescope).
+- [Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar).
+- [Laravel IDE Helper Generator](https://github.com/barryvdh/laravel-ide-helper).
+- [Laravel Telescope](https://laravel.com/docs/8.x/telescope).
 
 
 ## Todo :
