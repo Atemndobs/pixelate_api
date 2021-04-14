@@ -27,24 +27,16 @@ return [
     | each available type of connection are provided inside this array.
     |
     */
-
+    // pusher
     'connections' => [
-
-        // pusher
         'pusher' => [
             'driver' => 'pusher',
             'key' => env('PUSHER_APP_KEY'),
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-                // coin-ticker
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'encrypted' => true,
-
-                // Pixelate
-                // 'cluster' => 'eu',
-                // 'useTLS' => true
-
             ],
         ],
 

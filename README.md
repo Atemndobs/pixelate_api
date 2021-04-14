@@ -50,9 +50,11 @@ The installation is scripted in the make file and covers following steps:
     - `PUSHER_APP_CLUSTER=local`
     
 - copy broadcasting config for pusher (** Please do this ONLY if you use pusher)
-- `cp config/pusher.php config/broadcasting.php`
+- `cp config/pusher.php config/broadcasting.php` or `make pusher`
    -  run composer install
 - `composer install`
+    -  generate key
+- `make key`
     - run Migrations and seed fake data
 - `php artisan migrate:fresh --seed`
     - Setup Love Reacters and Reacterable (For Likes and Reactions)
@@ -67,6 +69,9 @@ The installation is scripted in the make file and covers following steps:
 - `vendor/bin/phpunit tests --exclude-group skip-test --testdox --colors=always`
     - or simply run 
 - `make test`
+
+    - Useful commands : Clear al caches
+- `make clc`
   
     - Test Api endpoints using open api doc
 - [api docs](http://localhost:8090/api/docs).
@@ -81,11 +86,13 @@ Alternatively you can run the api as docker containers. This spins up the larave
 - copy .env file
 - `make env`
     - copy broadcasting config for pusher (** Please do this ONLY if you use pusher)
-- `cp config/pusher.php config/broadcasting.php`
+- `cp config/pusher.php config/broadcasting.php` or `make pusher`
     -  Install project
 - `composer install`
     -  start and run docker container
 - `make build`
+    -  generate key
+- `make sail-key`
     -  run composer install
 - `sail composer install`
     - run migrations and seed fake data
@@ -93,9 +100,9 @@ Alternatively you can run the api as docker containers. This spins up the larave
     - Setup Love Reacters and Reacterable (For Likes and Reactions)
 - `make types-setup`
     - Lunch api (application) by default on port 8090
-- `sail artisan serve`
+- `./vendor/bin/sail up`  or  `sail up`
     - Lunch web sockets (default on port 6001)
-- `sail artisan websockets:serve`
+- `./vendor/bin/sail artisan websockets:serve` or `sail artisan websockets:serve` or `make sail-soc`
     - Link storage
 - `sail artisan storage:link`
     - Run tests
