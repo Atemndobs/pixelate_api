@@ -21,7 +21,31 @@ To install, clone this repository, cd into it and from root folder, run the foll
 
 The installation is scripted in the make file and covers following steps:
 ## Detailed local Installation
-    - Install app
+
+   -  copy .env file
+- `make env`
+   -  edit .env file as follows
+    
+    - Database (change database settings if you wish, default settings below)
+      DB_PORT=3306
+      DB_DATABASE=pixelate
+      DB_USERNAME=root
+      DB_PASSWORD=root
+    - Websocket (By default Laravel echo is already set up. If you want to use pusher please change the following)
+        Pusher :
+            PUSHER_APP_ID=YOUR_PUSHER_ID
+            PUSHER_APP_KEY=YOUR_PUSHER_KEY
+            PUSHER_APP_SECRET=YOUR_PUSHER_SECRET
+            PUSHER_APP_CLUSTER=YOUR_PUSHER_CLUSTER  e.g (eu)
+        Laravel Echo (default):
+            PUSHER_APP_ID=local
+            PUSHER_APP_KEY=local
+            PUSHER_APP_SECRET=local
+            PUSHER_APP_CLUSTER=local
+      
+    - copy broadcasting config for pusher (** Please do this ONLY if you use pusher)
+- `cp config/pusher.php config/broadcasting.php`
+   -  run composer install
 - `composer install`
     - run Migrations and seed fake data
 - `php artisan migrate:fresh --seed`
@@ -31,6 +55,8 @@ The installation is scripted in the make file and covers following steps:
 - `php artisan serve` 
     - Lunch web sockets (default on port 6001)
 - `php artisan websockets:serve`
+    - Link storage
+- `php artisan storage:link`
   
     - Test Api endpoints using open api doc
 - [api docs](http://localhost:8090/api/docs).
@@ -40,9 +66,23 @@ The installation is scripted in the make file and covers following steps:
 
 ## Installation using Docker
 Alternatively you can run the api as docker containers. This spins up the laravel sail docker containers and a cron container for the cronjobs
-
-
-    - Test Api endpoints using open api doc
+    - copy .env file and edit if needed
+- `make env`
+    - copy broadcasting config for pusher (** Please do this ONLY if you use pusher)
+- `cp config/pusher.php config/broadcasting.php`
+    -  run composer install
+- `composer install`
+    - run Migrations and seed fake data
+- `php artisan migrate:fresh --seed`
+    - Setup Love Reacters and Reacterable (For Likes and Reactions)
+- `make types-setup`
+    - Lunch api (application) by default on port 8090
+- `php artisan serve`
+    - Lunch web sockets (default on port 6001)
+- `php artisan websockets:serve`
+    - Link storage
+- `php artisan storage:link`
+    
 - [api docs](http://localhost:8090/api/docs).
     - Connect and Test websocket
 - [web sockets](http://localhost:8090/laravel-websockets).
