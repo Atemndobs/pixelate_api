@@ -76,9 +76,13 @@ Alternatively you can run the api as docker containers. This spins up the larave
 - `make env`
     - copy broadcasting config for pusher (** Please do this ONLY if you use pusher)
 - `cp config/pusher.php config/broadcasting.php`
+    -  Install project
+- `composer install`
+    -  start and run docker container
+- `make build`
     -  run composer install
 - `sail composer install`
-    - run Migrations and seed fake data
+    - run migrations and seed fake data
 - `sail artisan migrate:fresh --seed`
     - Setup Love Reacters and Reacterable (For Likes and Reactions)
 - `make types-setup`
@@ -88,7 +92,8 @@ Alternatively you can run the api as docker containers. This spins up the larave
 - `sail artisan websockets:serve`
     - Link storage
 - `sail artisan storage:link`
-    
+
+    - Test Api endpoints using open api doc
 - [api docs](http://localhost:8090/api/docs).
     - Connect and Test websocket
 - [web sockets](http://localhost:8090/laravel-websockets).
