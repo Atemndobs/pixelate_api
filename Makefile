@@ -9,7 +9,8 @@ install:
 	make types-setup
 	php artisan storage:link > /dev/null &
 	php artisan serve --port=8090 > /dev/null &
-	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ chrome 'http://localhost:8090' || x-www-browser http://localhost:8090
+	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ chrome 'http://localhost:8090'  > /dev/null &
+	x-www-browser http://localhost:8090  > /dev/null &
 	php artisan websockets:serve
 
 ###### . Docker  install #########
