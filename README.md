@@ -21,18 +21,57 @@ To install, clone this repository, cd into it and from root folder, run the foll
 
 The installation is scripted in the make file and covers following steps:
 ## Detailed local Installation
-    - Install app
+
+   -  copy .env file
+- `make env`
+   
+    -  edit .env file as follows
+        - Database (change database settings if you wish, default settings below) :
+
+  - `DB_PORT=3306`
+  - `DB_DATABASE=pixelate`
+  - `DB_USERNAME=root`
+  - `DB_PASSWORD=root`
+     
+    - Websocket (By default Laravel echo is already set up. If you want to use pusher please change the following)
+    
+        - Pusher :
+
+    - `PUSHER_APP_ID=YOUR_PUSHER_ID`
+    - `PUSHER_APP_KEY=YOUR_PUSHER_KEY`
+    - `PUSHER_APP_SECRET=YOUR_PUSHER_SECRET`
+    - `PUSHER_APP_CLUSTER=YOUR_PUSHER_CLUSTER`
+      
+        - Laravel Echo (default):
+
+    - `PUSHER_APP_ID=local`
+    - `PUSHER_APP_KEY=local`
+    - `PUSHER_APP_SECRET=local`
+    - `PUSHER_APP_CLUSTER=local`
+    
+- copy broadcasting config for pusher (** Please do this ONLY if you use pusher)
+- `cp config/pusher.php config/broadcasting.php` or `make pusher`
+   -  run composer install
 - `composer install`
+    -  generate key
+- `make key`
     - run Migrations and seed fake data
 - `php artisan migrate:fresh --seed`
     - Setup Love Reacters and Reacterable (For Likes and Reactions)
 - `make types-setup`
-    - run Migrations
-- ``
     - Lunch api (application) by default on port 8090
 - `php artisan serve` 
     - Lunch web sockets (default on port 6001)
 - `php artisan websockets:serve`
+    - Link storage
+- `php artisan storage:link`
+    - Run tests
+- `vendor/bin/phpunit tests --exclude-group skip-test --testdox --colors=always`
+    - or simply run 
+- `make test`
+
+    - Useful commands : Clear al caches
+- `make clc`
   
     - Test Api endpoints using open api doc
 - [api docs](http://localhost:8090/api/docs).
@@ -43,6 +82,28 @@ The installation is scripted in the make file and covers following steps:
 ## Installation using Docker
 Alternatively you can run the api as docker containers. This spins up the laravel sail docker containers and a cron container for the cronjobs
 
+
+- copy .env file
+- `make env-docker`
+    - copy broadcasting config for pusher (** Please do this ONLY if you use pusher)
+- `cp config/pusher.php config/broadcasting.php` or `make pusher`
+    -  start and run docker container
+- `make build` or  `./vendor/bin/sail build && ./vendor/bin/sail up -d`
+    -  generate key
+- `make sail-key` or  `./vendor/bin/sail artisan key:generate`
+    - run migrations and seed fake data
+- `sail artisan migrate:fresh --seed` or  `./vendor/bin/sail artisan migrate:fresh --seed`
+    - Setup Love Reacters and Reacterable (For Likes and Reactions)
+- `make types-setup`
+    - Lunch api (application) by default on port 8090
+- `sail up`  or  `./vendor/bin/sail up` 
+    - Lunch web sockets (default on port 6001)
+- `./vendor/bin/sail artisan websockets:serve` or `sail artisan websockets:serve` or `make sail-soc`
+    - Link storage
+- `sail artisan storage:link`
+    - Run tests
+- `sail shell`
+- `vendor/bin/phpunit tests --exclude-group skip-test --testdox --colors=always`
 
     - Test Api endpoints using open api doc
 - [api docs](http://localhost:8090/api/docs).
