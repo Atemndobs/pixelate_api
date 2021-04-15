@@ -3,8 +3,8 @@ install:
 	make env
 	make echo
 	/bin/bash db.sh
-	make key
 	composer install
+	make key
 	php artisan migrate:fresh --seed
 	make types-setup
 	php artisan storage:link
