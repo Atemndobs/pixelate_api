@@ -22,8 +22,12 @@ install-docker:
 	./vendor/bin/sail artisan migrate:fresh --seed
 	make sail-types
 	./vendor/bin/sail artisan storage:link
+	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ chrome 'http://localhost:8090'  > /dev/null &
+	x-www-browser http://localhost:8090  > /dev/null &
 	./vendor/bin/sail artisan websockets:serve
 
+stop:
+	./vendor/bin/sail down
 
 ####### local Commands ##########
 key:
