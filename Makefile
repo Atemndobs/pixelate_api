@@ -150,6 +150,8 @@ env:
 	cp .env.example .env
 env-docker:
 	cp .env.docker .env
+env-prod:
+	cp .env.prod .env
 
 help:
 	make help-doc && make help-model && make help-meta
