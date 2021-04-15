@@ -2,7 +2,7 @@
 install-prod:
 	make env
 	make echo
-	/bin/bash db_prod.sh
+	# /bin/bash db_prod.sh
 	composer install
 	make key
 	php artisan migrate:fresh --seed
