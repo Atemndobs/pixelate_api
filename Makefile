@@ -1,9 +1,9 @@
 ###### . PROD install #########
 install-prod:
-	make env
+	make env.prod
 	make echo
-	# /bin/bash db_prod.sh
-	composer install
+	/bin/bash db_prod.sh
+	php composer.phar install --ignore-platform-reqs
 	make key
 	php artisan migrate:fresh --seed
 	make types-setup
@@ -12,6 +12,7 @@ install-prod:
 	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ chrome 'http://localhost:8090'  > /dev/null &
 	x-www-browser http://localhost:8090  > /dev/null &
 	php artisan websockets:serve
+
 
 ###### . local install #########
 install:
