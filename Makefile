@@ -8,7 +8,7 @@ install:
 	php artisan migrate:fresh --seed
 	make types-setup
 	php artisan storage:link
-	php artisan serve --port=8090
+	php artisan serve --port=8090 > /dev/null &
 	php artisan websockets:serve
 
 ###### . Docker  install #########
