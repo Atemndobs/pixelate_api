@@ -84,23 +84,19 @@ Alternatively you can run the api as docker containers. This spins up the larave
 
 
 - copy .env file
-- `make env`
+- `make env-docker`
     - copy broadcasting config for pusher (** Please do this ONLY if you use pusher)
 - `cp config/pusher.php config/broadcasting.php` or `make pusher`
-    -  Install project
-- `composer install`
     -  start and run docker container
-- `make build`
+- `make build` or  `./vendor/bin/sail build && ./vendor/bin/sail up -d`
     -  generate key
-- `make sail-key`
-    -  run composer install
-- `sail composer install`
+- `make sail-key` or  `./vendor/bin/sail artisan key:generate`
     - run migrations and seed fake data
-- `sail artisan migrate:fresh --seed`
+- `sail artisan migrate:fresh --seed` or  `./vendor/bin/sail artisan migrate:fresh --seed`
     - Setup Love Reacters and Reacterable (For Likes and Reactions)
 - `make types-setup`
     - Lunch api (application) by default on port 8090
-- `./vendor/bin/sail up`  or  `sail up`
+- `sail up`  or  `./vendor/bin/sail up` 
     - Lunch web sockets (default on port 6001)
 - `./vendor/bin/sail artisan websockets:serve` or `sail artisan websockets:serve` or `make sail-soc`
     - Link storage

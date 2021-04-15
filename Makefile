@@ -1,27 +1,26 @@
 ###### . local install #########
 install:
 	make env
-	make pusher
-	composer install
+	make echo
+	/bin/bash db.sh
 	make key
+	composer install
 	php artisan migrate:fresh --seed
 	make types-setup
 	php artisan storage:link
-	php artisan serve
+	php artisan serve --port=8090
 	php artisan websockets:serve
 
 ###### . Docker  install #########
-install:
-	make env
-	make pusher
-	composer install
-	./vendor/bin/sail up
+install-docker:
+	make env-docker
+	make echo
+	./vendor/bin/sail build && ./vendor/bin/sail up -d
 	./vendor/bin/sail artisan key:generate
 	./vendor/bin/sail artisan migrate:fresh --seed
 	make sail-types
 	./vendor/bin/sail artisan storage:link
 	./vendor/bin/sail artisan websockets:serve
-
 
 
 ####### local Commands ##########
@@ -61,9 +60,6 @@ migrate:
 	php artisan migrate
 
 types-setup:
-	php artisan love:setup-reacterable --model="App\Models\User" --nullable
-	php artisan love:setup-reactable --model="App\Models\Post" --nullable
-	php artisan love:setup-reactable --model="App\Models\Comment" --nullable
 	php artisan reset:table love_reaction_types
 	php artisan reaction Like,Laugh,Happy,Surprise,Smile
 	php artisan love:register-reactants --model="App\Models\Post"
@@ -80,7 +76,10 @@ types:
 	php artisan love:reaction-type-add  --mass=-1 --name=DisSurprise
 	php artisan love:reaction-type-add  --mass=1 --name=Smile
 	php artisan love:reaction-type-add  --mass=-1 --name=DisSmile
-
+types-migration:
+	php artisan love:setup-reacterable --model="App\Models\User" --nullable
+	php artisan love:setup-reactable --model="App\Models\Post" --nullable
+	php artisan love:setup-reactable --model="App\Models\Comment" --nullable
 
 ### Docker Commands #######
 
@@ -91,9 +90,6 @@ build:
 	./vendor/bin/sail build --no-cache && ./vendor/bin/sail up
 
 sail-types:
-	./vendor/bin/sail artisan love:setup-reacterable --model="App\Models\User" --nullable
-	./vendor/bin/sail artisan love:setup-reactable --model="App\Models\Post" --nullable
-	./vendor/bin/sail love:setup-reactable --model="App\Models\Comment" --nullable
 	./vendor/bin/sail artisan reset:table love_reaction_types
 	./vendor/bin/sail artisan reaction Like,Laugh,Happy,Surprise,Smile
 	./vendor/bin/sail artisan love:register-reactants --model="App\Models\Post"
@@ -130,6 +126,8 @@ echo:
 	cp config/echo.php config/broadcasting.php
 env:
 	cp .env.example .env
+env-docker:
+	cp .env.docker .env
 
 help:
 	make help-doc && make help-model && make help-meta
@@ -139,3 +137,8 @@ help-model:
 	php artisan ide-helper:models
 help-meta:
 	php artisan ide-helper:meta
+
+sail-types-migrations:
+	./vendor/bin/sail artisan love:setup-reacterable --model="App\Models\User" --nullable
+	./vendor/bin/sail artisan love:setup-reactable --model="App\Models\Post" --nullable
+	./vendor/bin/sail love:setup-reactable --model="App\Models\Comment" --nullable
