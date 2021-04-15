@@ -1,3 +1,18 @@
+###### . PROD install #########
+install-prod:
+	make env
+	make echo
+	/bin/bash db_prod.sh
+	composer install
+	make key
+	php artisan migrate:fresh --seed
+	make types-setup
+	php artisan storage:link > /dev/null &
+	php artisan serve --port=8090 > /dev/null &
+	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ chrome 'http://localhost:8090'  > /dev/null &
+	x-www-browser http://localhost:8090  > /dev/null &
+	php artisan websockets:serve
+
 ###### . local install #########
 install:
 	make env
