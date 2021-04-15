@@ -13,3 +13,6 @@ yarn-error.log
 /storage/debugbar/
 Posts.http
 .idea
+/storage/framework/
+/storage/logs/
+/storage/uploads/
