@@ -7,9 +7,9 @@ install:
 	make key
 	php artisan migrate:fresh --seed
 	make types-setup
-	php artisan storage:link
+	php artisan storage:link > /dev/null &
 	php artisan serve --port=8090 > /dev/null &
-	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ chrome 'http://localhost:8090'
+	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ chrome 'http://localhost:8090' || x-www-browser http://localhost:8090
 	php artisan websockets:serve
 
 ###### . Docker  install #########
