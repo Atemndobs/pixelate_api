@@ -1,7 +1,7 @@
 ###### . PROD install #########
 install-prod:
 	make env-prod
-	make echo
+	make pusher
 	/bin/bash db_prod.sh
 	php composer.phar install --ignore-platform-reqs
 	make key
