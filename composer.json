@@ -41,6 +41,7 @@
         "rennokki/befriended": "^3.7",
         "spatie/image": "^1.10",
         "spatie/laravel-ray": "^1.13",
+        "spatie/laravel-settings": "^2.1",
         "squizlabs/php_codesniffer": "*",
         "tymon/jwt-auth": "^1.0.0-rc.5",
         "zircote/swagger-php": "^3.1"

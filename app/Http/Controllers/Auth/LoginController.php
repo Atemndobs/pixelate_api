@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 use mysql_xdevapi\Exception;
 
@@ -95,8 +96,7 @@ class LoginController extends Controller
 
     protected function sendLoginResponse(Request $request)
     {
-
-        $this->clearLoginAttempts($request);
+       // $this->clearLoginAttempts($request);
         //get the Token from registration guard (the JWT guard)
         $token = $this->guard()->getToken()->get('value');
 
@@ -109,6 +109,10 @@ class LoginController extends Controller
             'last_login_ip' => $request->getClientIp()
         ]);
 
+
+        if ($request->url() === "http://localhost:8090/login") {
+            return Redirect::to('start');
+        }
         return response()->json([
             'token' => $token,
             'token_type' => 'bearer',
@@ -146,10 +150,13 @@ class LoginController extends Controller
      *    )
      * )
      * )
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
+
+        if ($request->url() === "http://localhost:8090/logout") {
+            return Redirect::to('/');
+        }
         try {
             $this->guard()->logout();
         } catch (\Exception $exception) {

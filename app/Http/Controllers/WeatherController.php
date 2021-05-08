@@ -16,6 +16,10 @@ class WeatherController extends Controller
      * @var Request
      */
     public Request $request;
+    /**
+     * @var mixed|string
+     */
+    private $city;
 
     /**
      * WeatherController constructor.
@@ -26,27 +30,23 @@ class WeatherController extends Controller
     {
         $this->weather = $weather;
         $this->request = $request;
+        $this->city = \request()->city ?? 'Dusseldorf';
     }
 
 
     public function index()
     {
+        return $this->city;
     }
 
     public function store()
     {
-        $city = \request()->city;
-        return $this->weather->fetchWeather($city);
+        return $this->weather->fetchWeather($this->city);
     }
 
     public function forecast()
     {
-        $city = $this->request->city ?? 'Dusseldorf';
-        return $this->weather->forecast($city);
-    }
-
-    public function update()
-    {
+        return $this->weather->forecast($this->city);
     }
 
     public function myLocation()

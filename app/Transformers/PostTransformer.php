@@ -116,13 +116,4 @@ class PostTransformer extends Transformer
             ],
         ];
     }
-
-    public function livePost(Post $post)
-    {
-        return [
-            $this->transform($post),
-            $this->load,
-        ];
-
-    }
 }

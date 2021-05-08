@@ -3,17 +3,16 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Post
+            Settings
         </h1>
     </section>
     <div class="content">
-        @include('adminlte-templates::common.errors')
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'posts.store']) !!}
+                    {!! Form::open(['route' => 'settings.create']) !!}
 
-                        @include('posts.fields')
+                        @include('settings.fields')
 
                     {!! Form::close() !!}
                 </div>

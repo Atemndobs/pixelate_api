@@ -10,6 +10,9 @@ use App\Events\WeatherFetchEvent;
 use App\Models\Forecast;
 use App\Repositories\Contracts\ForecastRepositoryInterface;
 use App\Repositories\Contracts\WeatherRepositoryInterface;
+use App\Settings\GeneralSettings;
+use App\Settings\PusherSettings;
+use App\Settings\WeatherSettings;
 use Flugg\Responder\Exceptions\Http\HttpException;
 use Flugg\Responder\Http\Responses\ErrorResponseBuilder;
 use Illuminate\Support\Carbon;
@@ -36,13 +39,15 @@ class WeatherService
     /**
      * @param WeatherRepositoryInterface $weatherRepository
      * @param ForecastRepositoryInterface $forecastRepository
+     * @param WeatherSettings $settings
      */
     public function __construct(
         WeatherRepositoryInterface $weatherRepository,
-        ForecastRepositoryInterface $forecastRepository
+        ForecastRepositoryInterface $forecastRepository,
+        WeatherSettings $settings
     ) {
-        $this->baseUrl = config('weather.api.base_url');
-        $this->apiKey = config('weather.api.key');
+        $this->baseUrl = $settings->api_base_url;
+        $this->apiKey = $settings->api_key;
         $this->weatherRepository = $weatherRepository;
         $this->forecastRepository = $forecastRepository;
     }
