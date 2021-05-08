@@ -161,3 +161,6 @@ sail-types-migrations:
 	./vendor/bin/sail artisan love:setup-reacterable --model="App\Models\User" --nullable
 	./vendor/bin/sail artisan love:setup-reactable --model="App\Models\Post" --nullable
 	./vendor/bin/sail love:setup-reactable --model="App\Models\Comment" --nullable
+
+settings:
+
