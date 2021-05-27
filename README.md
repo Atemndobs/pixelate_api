@@ -1,8 +1,8 @@
 ## About Pixelate
 
 Pixelate (imaginary application name) is a real time app consisting if is a mix of an instagram clone with a commenting section.
-Pixelate is the back-end build on Laravel
-Deja-Vu is the frontend build in vue.js
+Pixelate is the back-end built on Laravel </br>
+Deja-Vu is the frontend built in vue.js
 
 This is my attempt to build a microservice  application based on laravel and vue js.
 To try out this application, check the link below.
